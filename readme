@@ -1,2 +1,43 @@
-Final Project ITI
+Final Project ITI 
 
+        Users: 
+            Patient
+            Doctor 
+            Admin 
+            Guest 
+                            FRONT-end React 
+
+                            1- Theme
+                            2- Github repo 
+                            3- branch by task 
+
+        Guest: 
+            1- Home Page --> 
+            2- signin(Validation)
+            3- signup(Validation)( name, email, pass, .... Doctor or Patient)
+        
+        Patient: 
+            1- List of Doctors(pagination)
+
+            NEXT MEETING: 10 Feb  
+  __________________________________________________________          
+            2- search Doctor using name, region 
+            2- show Doctor
+            3- show reviews 
+            4- show rates 
+            5- Appointment 
+            6- inform Patient if his Appointment accepted or rejected (By email )
+            6- payment 
+            7- add reviews 
+            8- add rates
+            9- profile (image, his info)
+
+        Doctors: 
+            1- dashboard --> num of Appointment, rates 
+            2- list of Appointment
+            3- accpet or reject Appointment
+            4- profile (image, his info)
+__________________________________________________________
+            1- Patient can add his data of his body and the system calculate the BMI --> 30 cal 
+
+            MISSING --> 2- plan of exercice --> 
