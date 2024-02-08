@@ -4,11 +4,8 @@ import './Css/login.css'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react";
 const Register = ()=>{
-
-
+    // handel Show login And Resister if [showlogin] false show Form log in else show Form registerition
     const [showLogin, setShowLogin] = useState(false);
-
-
    const HandelChange=()=>{
         setShowLogin(!showLogin);
     }
@@ -16,8 +13,50 @@ const Register = ()=>{
        setShowLogin(false)
     }
 
-    return(
+// Handele Validition form Registerition 
+//<Register>______________________________________________________________________________
+const [User_Name, setUser_Name] = useState('');
+const [User_Email, setUser_Email] = useState('');
+const [User_Password, setUser_Password] = useState('');
+const [User_confirm_Password, setUser_confirm_Password] = useState('');
 
+const [isValidName, setIsValidName] = useState(true);
+const [isValidEmail, setIsValidEmail] = useState(true);
+const [isValidPassword, setIsValidPassword] = useState(true);
+const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
+
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const usernameRegex = /^[^\s]+$/;
+
+const handleNameChange = (event) => {
+  const inputName = event.target.value;
+  setUser_Name(inputName);
+  console.log(inputName)
+  setIsValidName(inputName !== ' ');
+};
+
+const handleEmailChange = (event) => {
+  const inputEmail = event.target.value;
+  setUser_Email(inputEmail);
+  setIsValidEmail(emailRegex.test(inputEmail) || inputEmail === '');
+};
+
+const handlePasswordChange = (event) => {
+  const inputPassword = event.target.value;
+  setUser_Password(inputPassword);
+  console.log(inputPassword)
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  setIsValidPassword(passwordRegex.test(inputPassword) || inputPassword === '');
+};
+
+const handleConfirmPasswordChange = (event) => {
+    const inputConfirmPassword = event.target.value;
+    setUser_confirm_Password(inputConfirmPassword);
+    setIsValidConfirmPassword(inputConfirmPassword === User_Password);
+  };
+//</Resister>______________________________________________________________________________________
+
+    return(
 <div className="container-fluid">
     <div className="row justify-content-center">
         <div className="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
@@ -32,33 +71,76 @@ const Register = ()=>{
                         </div>
                     </div>
                     <div className="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5">
-                        <div className="row">
+                        {/* <div className="row">
                             <nav className="nav font-weight-500 mb-1 mb-sm-2 mb-lg-5 px-sm-2 px-lg-5">
                             <a className="nav-link" href="#">Doctor</a> 
-                            <a className="nav-link" href="#">patient</a>                             </nav>
-                        </div>
+                            <a className="nav-link" href="#">patient</a>          
+                            </nav>
+                        </div> */}
                         {!showLogin ? (
                              <form name="myform" onsubmit="" className="px-5 pb-5">
                             <div className="d-flex">
-                                {/* <img src="https://i.imgur.com/oGcceAH.jpg" height="22px" width="22px" alt="" className="mr-3 mt-2"/>
-                                <h3 className="font-weight-bold">Log in</h3> */}
                             </div>
-                             <input type="text" name="userid" placeholder="Your Name"/>
-                             <input type="email" name="userid" placeholder="Your Email"/>
-                             <input type="password" name="passw" placeholder="Password"/> 
-                             <input type="password" name="passw" placeholder="Confirm Password"/> 
-                             {/* <span className="ac" id="forgot">Forgot?</span> */}
+                             <input 
+                             type="text" 
+                             name="userid" 
+                             placeholder="Your Name"
+                             value={User_Name}
+                             onChange={handleNameChange}
+                             required
+                             />
+                             <input 
+                             type="email" 
+                             name="userid" 
+                             placeholder="Your Email"
+                             value={User_Email}
+                             onChange={handleEmailChange}
+                             required
+                             />
+                             <input 
+                             type="password" 
+                             name="passw" 
+                             placeholder="Password"
+                             value={User_Password}
+                             onChange={handlePasswordChange} 
+                             /> 
+                             <input 
+                             type="password" 
+                             name="passw" 
+                             placeholder="Confirm Password"
+                             onChange={handleConfirmPasswordChange}
+                             value={User_confirm_Password}
+                             />  
+                            {!isValidName  && 
+                            <div class="alert alert-danger" role="alert">
+                                Please enter your Valid Name
+                            </div>}  
+                            {!isValidEmail &&   <div class="alert alert-danger" role="alert">
+                                Please enter Valid Email
+                            </div>}  
+                            {!isValidPassword &&   <div class="alert alert-danger" role="alert">
+                                Please enter  Valid Password
+                            </div>}  
+                            {!isValidConfirmPassword &&   <div class="alert alert-danger" role="alert">
+                                Confirm Password Didn't Match
+                            </div>}  
                              <button className="text-white text-weight-bold bt">Register</button>
                              <h5 className="ac" onClick={HandelChange} id="register">I Have Account</h5>
-                        </form>
-
+                             </form>
                         ):(
                             <form onsubmit="event.preventDefault()" name="myform"  class="px-5 pb-5">
                             <div class="d-flex">
-                                {/* <img src="https://i.imgur.com/oGcceAH.jpg" height="22px" width="22px" alt="" class="mr-3 mt-2"/>
-                                <h3 class="font-weight-bold">Log in</h3> */}
-                            </div> <input type="text" name="userid" placeholder="User"/>
-                            <input type="password" name="passw" placeholder="Password" />
+                            </div> 
+                            <input
+                             type="Email" 
+                             name="userid" 
+                             placeholder="Your Email"
+                             />
+                            <input
+                             type="password" 
+                             name="passw" 
+                             placeholder="Your Password" 
+                             />
                              <span class="ac" id="forgot">Forgot?</span>
                               <button class="text-white text-weight-bold bt">Log in</button>
                             <h5 class="ac" id="register" onClick={HandelChangelog}>Create Acount </h5>
@@ -66,9 +148,6 @@ const Register = ()=>{
 
                         )
                         }
-                       
-
-
                     </div>
                 </div>
             </div>
