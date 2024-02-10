@@ -1,0 +1,85 @@
+
+.nbar ul li a {
+    text-decoration: none;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.nbar li a:hover,
+.nbar li a.active {
+    color: rgb(5, 95, 151);
+}
+
+.nbar li a:hover::after,
+.nbar li a.active::after {
+    content: "";
+    width: 55px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: rgba(20, 20, 255, 0.7);
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+	color: blue;
+}
+
+.button1 {
+	height: 40px;
+	width: 150px;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.5s ease-in-out;
+  }
+  
+ 
+  
+
+
+  .type12::after {
+	content: "Now";
+	height: 45px;
+	width: 150px;
+	background-color: rgba(20, 20, 255, 0.7);
+	color: #fff;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	transform: translateY(50px);
+	font-size: 1.2rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.5s ease-in-out;
+  }
+  
+  .type12::before {
+	content: "Sign Up";
+	height: 45px;
+	width: 150px;
+	background-color: #fff;
+	color: rgba(20, 20, 255, 0.7);
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	transform: translateY(0px) scale(1.2);
+	font-size: 1.2rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.5s ease-in-out;
+  }
+  
+  .type12:hover::after {
+	transform: translateY(0) scale(1.2);
+  }
+  
+  .type12:hover::before {
+	transform: translateY(-50px) scale(0) rotate(120deg);
+  }
+
+  

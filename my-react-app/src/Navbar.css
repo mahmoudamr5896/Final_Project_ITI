@@ -1,0 +1,76 @@
+.header .top-link li a {
+	font-size: 13px;
+}
+.header .top-contact li a{
+	font-size:13px;
+}
+.header .top-contact li {
+	display: inline-block;
+	margin-right: 25px;
+	color: #2C2D3F;
+	font-size: 13px;
+}
+.header .header-inner .get-quote {
+	margin-top: 12px;
+	display: none;
+	margin: 0;
+}
+.header .nav li a {
+	font-size: 13px;
+	font-weight: 500;
+	padding: 20px 4px;
+}
+.header .nav li .dropdown {
+	width: 200px;
+	left: -20px;
+	top: 65px;
+}
+.header .nav li .dropdown li a {
+	padding: 10px 15px;
+	font-size: 13px;
+}
+.header .search-form {
+	top: 64px;
+}
+.header .search-form input {
+	width: 260px;
+	height: 45px;
+	line-height: 45px;
+}
+.header .search-form button {
+	height: 45px;
+	line-height: 45px;
+}
+.header.style2 .single-widget {
+	margin-right: 18px;
+	padding-left: 36px;
+}
+.header.style2 .get-quote .btn {
+	color: #fff;
+	padding: 10px 18px;
+	font-size: 12px;
+}
+.header.style2 .single-widget.button {
+	margin:0;
+	padding:0;
+}
+.header.style2 .single-widget h4 {
+	font-size: 13px;
+	font-weight: 500;
+}
+.header.style2 .single-widget p {
+	margin-bottom: 0;
+	text-transform: capitalize;
+	font-size: 13px;
+}
+.header.style2 .single-widget i {
+	top: 50%;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	font-size: 13px;
+	margin-top: -12.5px;
+}
+.header.style2 .right-bar {
+	padding-top: 15px;
+}
