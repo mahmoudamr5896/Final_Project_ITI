@@ -7,14 +7,17 @@ import Footer from './Component/Footer';
 import Offer from './Component/Offers';
 import HomePage from './Pages/Home';
 import Register from './Pages/Login';
+import About from './Pages/About';
 function App() {
   return (
     <div className="App">
         <BrowserRouter >
         <Navbar/>
         <Switch>
-          <Route exact path='/'
+        <Route exact path='/'
           component={HomePage}/>
+           <Route exact path='/About-us'
+          component={About}/>
           <Route exact path='/login'
           component={Register}/>
         </Switch>

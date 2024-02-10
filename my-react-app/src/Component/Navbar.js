@@ -4,9 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './CSS/Navbar.css';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function Navbar() {
+function Navbar(){
    
-      
   return (
     <>
 <nav className="navbar nbar navbar-expand-lg bg-body-tertiary fixed-top" style={{marginBottom:'50px' }} >
@@ -28,7 +27,7 @@ function Navbar() {
                 <a className="nav-link me-4" href="">Services</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link me-4" href="">Blogs</a>
+                <Link className="nav-link me-4" to="/About-us">About Us</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link me-4" href="">Contact Us</a>
