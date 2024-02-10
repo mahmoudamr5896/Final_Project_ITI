@@ -54,6 +54,7 @@ const handleConfirmPasswordChange = (event) => {
     setUser_confirm_Password(inputConfirmPassword);
     setIsValidConfirmPassword(inputConfirmPassword === User_Password);
   };
+  
 //</Resister>______________________________________________________________________________________
 
     return(

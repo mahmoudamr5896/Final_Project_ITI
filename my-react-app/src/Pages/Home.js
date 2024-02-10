@@ -1,11 +1,13 @@
 import React from "react";
+import HeroCarousel from "../Component/HeroSection";
 const HomePage = () => {
 
  
     
       return (
         <div>
-        <h1>Mahmoud AMr Hassan</h1>
+        <HeroCarousel></HeroCarousel>
+        
         </div>
       );
     };
