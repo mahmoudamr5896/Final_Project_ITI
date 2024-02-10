@@ -1,17 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './Component/Navbar';
-import { BrowserRouter, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Card } from 'react-bootstrap';
+import BasicExample from './Components/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TopDocs from './Pages/Top3Docs';
+
+
 function App() {
   return (
-    <div className="App">
-        <BrowserRouter >
-        <Navbar/>
-        <Switch>
-        </Switch>
-        </BrowserRouter>
-    </div>
+   <>
+   
+<TopDocs></TopDocs>
+   
+   
+   </>
   );
 }
 
