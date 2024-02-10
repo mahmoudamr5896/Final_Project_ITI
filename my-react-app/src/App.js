@@ -12,7 +12,7 @@ function App() {
         <Navbar/>
         <Switch>
         </Switch>
-        <Offer></Offer>
+       <Offer></Offer> 
         <Footer/>
         </BrowserRouter>
     </div>
