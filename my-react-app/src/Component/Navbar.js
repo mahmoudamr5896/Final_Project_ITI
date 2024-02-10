@@ -1,8 +1,8 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-
 import './CSS/Navbar.css';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Navbar() {
    
@@ -19,7 +19,7 @@ function Navbar() {
           <div className="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul className="navbar-nav ">
             <li className="nav-item">
-                <a className="nav-link me-4" href="">Home</a>
+                <Link className="nav-link me-4" to="/">Home</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link me-4" href="">Doctors</a>
@@ -34,8 +34,10 @@ function Navbar() {
                 <a className="nav-link me-4" href="">Contact Us</a>
               </li>
              
-              <li className="nav-item ">
-                <button className="button1 type12 ms-auto"></button>             
+              <li className="nav-item "><Link to='/login'>
+                <button className="button1 type12 ms-auto">
+                </button> 
+                </Link>            
               </li>
             </ul>
           </div>
