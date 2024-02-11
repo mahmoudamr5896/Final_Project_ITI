@@ -3,10 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './CSS/style.css';
 
 function HeroCarousel() {    
-//   useEffect(() => {
-//     const carousel = document.getElementById('carouselExampleControls');
-//     new window.bootstrap.Carousel(carousel);
-//   }, []);
 
   return (
 <section className="container-fluid slider carousel slide" id="carouselExampleControls" data-bs-ride="carousel">
@@ -59,7 +55,7 @@ function HeroCarousel() {
         </div>
       </div>
     </div>
-      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
     <span className="visually-hidden">Previous</span>
   </button>
@@ -69,8 +65,6 @@ function HeroCarousel() {
   </button>
   </div>
 </section>
-
-
   );
 }
 

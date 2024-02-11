@@ -24,7 +24,6 @@ function ScheduleSection() {
         };
     }, []);
     return (
-        
         <section className="schedule" style={{ marginTop: `${marginTop}px` }}>
             <div className="container">
                 <div className="schedule-inner">
