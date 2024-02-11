@@ -8,7 +8,7 @@ function Navbar(){
    
   return (
     <>
-<nav className="navbar nbar navbar-expand-lg bg-body-tertiary fixed-top" style={{marginBottom:'50px' }} >
+       <nav className="navbar nbar navbar-expand-lg bg-body-tertiary fixed-top" style={{marginBottom:'50px' }} >
         <div className="container">
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -21,7 +21,7 @@ function Navbar(){
                 <Link className="nav-link me-4" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link me-4" href="">Doctors</a>
+                <Link className="nav-link me-4" to="/doctors">Doctors</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link me-4" href="">Services</a>

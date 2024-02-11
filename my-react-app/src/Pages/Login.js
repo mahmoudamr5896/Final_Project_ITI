@@ -71,7 +71,7 @@ const handleConfirmPasswordChange = (event) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5">
+                                <div className="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5 ">
                                     <div className="row">
                                         <nav className="nav font-weight-500 mb-1 mb-sm-2 mb-lg-5 px-sm-2 px-lg-5">
                                         <a className="nav-link" href="#">Doctor</a> 
@@ -79,7 +79,7 @@ const handleConfirmPasswordChange = (event) => {
                                         </nav>
                                     </div> 
                                     {!showLogin ? (
-                                        <form name="myform" onsubmit="" className="px-5 pb-5">
+                                        <form name="myform"  className="px-5 pb-5">
                                     <div className="d-flex">
                                     </div>
                                         <input 
@@ -129,7 +129,7 @@ const handleConfirmPasswordChange = (event) => {
                                         <h5 className="ac" onClick={HandelChange} id="register">I Have Account</h5>
                                         </form>
                                 ):(
-                                    <form onsubmit="event.preventDefault()" name="myform"  class="px-5 pb-5">
+                                      <form  name="myform"  class="px-5 pb-5">
                                     <div class="d-flex">
                                     </div> 
                                     <input
@@ -145,11 +145,11 @@ const handleConfirmPasswordChange = (event) => {
                                         {/* <span class="ac" id="forgot">Forgot?</span> */}
                                         <button class="text-white text-weight-bold bt">Log in</button>
                                     <h5 class="ac" id="register" onClick={HandelChangelog}>Create Acount </h5>
-                                    </form>
+                                      </form>
 
                                 )
                                 }
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>

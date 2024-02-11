@@ -8,6 +8,7 @@ import Offer from './Component/Offers';
 import HomePage from './Pages/Home';
 import Register from './Pages/Login';
 import About from './Pages/About';
+import DoctorsPage from './Pages/Doctors'
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,8 @@ function App() {
         <Switch>
         <Route exact path='/'
           component={HomePage}/>
+          <Route exact path='/doctors'
+          component={DoctorsPage}/>
            <Route exact path='/About-us'
           component={About}/>
           <Route exact path='/login'

@@ -5,7 +5,7 @@ function Footer() {
   return (
     <>
       <div className="footer pt-5 pb-5 text-white-50 text-center text-md-start" style={{marginTop:'50px',background:'black'}}>
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-md-6 col-lg-4">
               <div className="info mb-5">
