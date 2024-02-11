@@ -12,7 +12,7 @@ function HeroCarousel() {
         <div className="row">
           <div className="col-lg-7 mx-auto"> {/* Use mx-auto to center the content */}
             <div className="text">
-              <h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+              <h1>The great  <span>Wealth</span> is your<span>Health!</span></h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam.</p>
               <div className="button">
                 <a href="#" className="btn">Get Appointment</a>
@@ -44,10 +44,11 @@ function HeroCarousel() {
         <div className="row">
           <div className="col-lg-7 mx-auto"> {/* Use mx-auto to center the content */}
             <div className="text">
-              <h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam.</p>
+            <h1>The great  <span>Wealth</span> is your<span>Health!</span></h1>
+              <p>“Take care of your body. It’s the only place you have to live.”
+</p>
               <div className="button">
-                <a href="#" className="btn">Get Appointment</a>
+                <a href="#" className="btn" style={{backgroundColor:'green'}}>Get started</a>
                 <a href="#" className="btn primary">Contact Now</a>
               </div>
             </div>
