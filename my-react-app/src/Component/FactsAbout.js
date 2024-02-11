@@ -26,7 +26,7 @@ function FunFactsSection() {
         <div id="fun-facts" className="fun-facts section overlay" style={{ marginTop: `${marginTop}px` }}>
             <div className="container text-dqrk">
                 <div className="row">
-                    <div className="col-lg-3 col-md-6 col-12">
+                    <div className="col-lg-3 col-md-6 col-12 mb-3">
                         <div className="single-fun">
                             {/* <i className="icofont icofont-home"></i> */}
                             <div className="content">
@@ -44,7 +44,7 @@ function FunFactsSection() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-3 col-md-6 col-12">
+                    <div className="col-lg-3 col-md-6 col-12 mt-3">
                         <div className="single-fun">
                             <i className="icofont-simple-smile"></i>
                             <div className="content">

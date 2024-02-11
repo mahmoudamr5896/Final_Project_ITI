@@ -23,12 +23,13 @@ function ScheduleSection() {
         };
     }, []);
     return (
+        
         <section className="schedule" style={{ marginTop: `${marginTop}px` }}>
             <div className="container">
                 <div className="schedule-inner">
                     <div className="row">
                         <div className="col-lg-4 col-md-4 col-12 " >
-                            <div className="single-schedule first">
+                            <div className="single-schedule first mb-3">
                                 <div className="inner">
                                     <div className="icon">
                                         <i className="fa fa-ambulance"></i>
@@ -43,7 +44,7 @@ function ScheduleSection() {
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-4 col-12" >
-                            <div className="single-schedule middle">
+                            <div className="single-schedule middle mb-3">
                                 <div className="inner">
                                     <div className="icon">
                                         <i className="icofont-prescription"></i>
