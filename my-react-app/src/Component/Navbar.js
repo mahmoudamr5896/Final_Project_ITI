@@ -32,12 +32,12 @@ function Navbar(){
               <li className="nav-item">
                 <a className="nav-link me-4" href="">Contact Us</a>
               </li>
-             
-              <li className="nav-item "><Link to='/login'>
+             <Link to='/login'>
+              <li className="nav-item ">
                 <button className="button1 type12 ms-auto">
-                </button> 
-                </Link>            
+                </button>          
               </li>
+              </Link>  
             </ul>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook ,faXTwitter,faInstagram,faPinterest} from "@fortawesome/free-brands-svg-icons";
 function Footer() {
   return (
-    <>
+    <div className="container-fluid">
       <div className="footer pt-5 pb-5 text-white-50 text-center text-md-start" style={{marginTop:'50px',background:'black'}}>
         <div className="container-fluid">
           <div className="row">
@@ -54,8 +54,8 @@ function Footer() {
                 <ul className="d-flex justify-content-center mt-5 list-unstyled gap-3">
                   <li>
                   <a className="d-block text-light " href="#">
-      <FontAwesomeIcon icon={faFacebook} size="xl" /> {/* Change "lg" to any other size you prefer */}
-    </a>
+                     <FontAwesomeIcon icon={faFacebook} size="xl" /> {/* Change "lg" to any other size you prefer */}
+                    </a>
                   </li>
                   <li>
                     <a className="d-block text-light" href="#">
@@ -79,7 +79,7 @@ function Footer() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -69,15 +69,18 @@ const handleConfirmPasswordChange = (event) => {
                                      </div> <img src={imageSrc} width="120vw" height="210vh" className="mx-auto d-flex" alt="Teacher"/>
                                     <div className="row justify-content-center">
                                         <div className="w-75 mx-md-5 mx-1 mx-sm-2 mb-5 mt-4 px-sm-5 px-md-2 px-xl-1 px-2">
-                                            <h1 className="wlcm">Welcome to your blackboard</h1> <span className="sp1"> <span className="px-3 bg-danger rounded-pill"></span> <span className="ml-2 px-1 rounded-circle"></span> <span className="ml-2 px-1 rounded-circle"></span> </span>
+                                            <h1 className="wlcm">Welcome to your blackboard</h1>
+                                             <span className="sp1"> <span className="px-3 bg-danger rounded-pill"></span> 
+                                             <span className="ml-2 px-1 rounded-circle"></span> 
+                                             <span className="ml-2 px-1 rounded-circle"></span> </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-7 col-sm-12 col-xs-12 c2 px-5 pt-5 ">
                                     <div className="row">
                                         <nav className="nav font-weight-500 mb-1 mb-sm-2 mb-lg-5 px-sm-2 px-lg-5">
-                                        <a className="nav-link" href="#">Doctor</a> 
-                                        <a className="nav-link" href="#">patient</a>          
+                                        {/* <a className="nav-link" href="#">Doctor</a> 
+                                        <a className="nav-link" href="#">patient</a>*/}
                                         </nav>
                                     </div> 
                                     {!showLogin ? (
