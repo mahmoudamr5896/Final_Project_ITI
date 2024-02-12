@@ -7,7 +7,12 @@ const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
+    const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
+    //const [search, setSearch] = useState('');
+=======
     const [itemsPerPage, setItemsPerPage] = useState(10); 
+>>>>>>> main
 
     useEffect(() => {
         fetchData();
@@ -23,6 +28,23 @@ const DoctorsPage = () => {
             setLoading(false);
         }
     };
+<<<<<<< HEAD
+
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get(`https://retoolapi.dev/ysPAGK/data?name=${search}`);
+            setDoctors(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+            setLoading(false);
+        }
+    };
+
+
+    // Calculate total pages based on number of items and items per page
+=======
+>>>>>>> main
     const totalPages = Math.ceil(doctors.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -35,6 +57,18 @@ const DoctorsPage = () => {
 
     return (
         <div className="container-xxl py-5 mt-5">
+            <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-3 d-flex align-items-center">
+                <input
+                    type="text"
+                    placeholder="Search for "
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="form-control mx-3 custom-input-dark"
+                />
+                <button type="button" className="btn btn-outline-primary" onClick={handleSearch}>
+                    <b>Search</b>
+                </button>
+            </div>
             <div className="container">
                 <div className="row g-4">
                     {currentDoctors.map((doctor, index) => (
@@ -75,6 +109,7 @@ export default DoctorsPage;
   </div>
 </div>
 </div> */}
+
 
 
 
