@@ -13,9 +13,7 @@ function FunFactsSection() {
                 setMarginTop(0);
             }
         };
-
         handleResize(); // Call once to set initial margin-top
-
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);

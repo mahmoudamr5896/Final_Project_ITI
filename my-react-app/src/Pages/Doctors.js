@@ -7,12 +7,16 @@ const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
     const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
     //const [search, setSearch] = useState('');
+=======
+    const [itemsPerPage, setItemsPerPage] = useState(10); 
+>>>>>>> main
 
     useEffect(() => {
         fetchData();
-    }, [currentPage]); // Fetch data when page changes
+    }, [currentPage]); 
 
     const fetchData = async () => {
         try {
@@ -24,6 +28,7 @@ const DoctorsPage = () => {
             setLoading(false);
         }
     };
+<<<<<<< HEAD
 
     const handleSearch = async () => {
         try {
@@ -38,9 +43,9 @@ const DoctorsPage = () => {
 
 
     // Calculate total pages based on number of items and items per page
+=======
+>>>>>>> main
     const totalPages = Math.ceil(doctors.length / itemsPerPage);
-
-    // Slice data for current page
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentDoctors = doctors.slice(indexOfFirstItem, indexOfLastItem);
@@ -90,10 +95,20 @@ const DoctorsPage = () => {
 export default DoctorsPage;
 
 
-
-
-
-
+{/* <div className="col-lg-7 col-md-6 px-0">
+<div className="map_container">
+  <div className="map-responsive">
+    <iframe
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Sandy+Springs+Georgia+UnitedStates"
+      width="600"
+      height="300"
+      frameborder="0"
+      style={{ border: '0;', width: '100%;', height: '100%' }}
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+</div> */}
 
 
 
