@@ -70,16 +70,27 @@ const DoctorsPage = () => {
         <div className="container-xxl py-5 mt-5 d-flex justify-content-center">
             <div className="container">
                 {/* Search Form */}
-                <form className="mb-3 d-flex justify-content-center">
-                    <input
+                <div className='row' style={{marginTop:'30px'}}>
+                   
+                <form className="mb-3 d-flex justify-content-end">
+                <div className='col-3'>
+                <input
                         type="text"
                         className="form-control me-2"
                         placeholder="Search by doctor's name"
                         value={search}
                         onChange={handleSearchInputChange}
                     />
-                    <button type="button" className="btn btn-primary btn-sm" onClick={handleSearch}>Search</button>
+                        
+                        </div>
+                        <div className='col-1'>
+                        <button type="button" className="btn btn-outline-primary btn-sm" onClick={handleSearch}>Search</button>
+
+                        </div>
+                    
                 </form>
+                </div>
+                
                 <div className="row g-4">
                     {currentDoctors.map((doctor, index) => (
                         <DoctorCard
