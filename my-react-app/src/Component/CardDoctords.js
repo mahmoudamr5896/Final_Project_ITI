@@ -4,9 +4,9 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 function DoctorCard({ delay, imageUrl, name, department ,dept}) {
     return (
         <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay={delay}>
-            <div className="team-item position-relative rounded overflow-hidden">
+            <div className="team-item position-relative rounded overflow-hidden" style={{width:'220px' , height:'300px'}}>
                 <div className="overflow-hidden">
-                    <img className="img-fluid" src={imageUrl} alt="Doctor" />
+                    <img className="img-fluid" src={imageUrl} alt="Doctor" style={{width:'150px' , height:'150px'}}/>
                 </div>
                 <div className="team-text bg-light text-center p-4">
                     <h5>{name}</h5>

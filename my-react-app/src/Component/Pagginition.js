@@ -27,17 +27,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     };
 
     return (
-        //     
-        //     <Link className='btn btn-primary'>Page {currentPage} of {totalPages}</Link>
-        //     <button className='btn' onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
-        // </div>        // 
         <div className="pagination d-flex justify-content-center mt-5">
-        <ul class="pagination">
-          <li class="page-item"><Link  className='btn page-link' onClick={prevPage} disabled={currentPage === 1}>Previous</Link></li>
-        {/* <button >Previous</button> */}
-         {renderPageNumbers()}
-          <li class="page-item">
-           <Link  className='btn page-link' onClick={nextPage} disabled={currentPage === totalPages}>Next</Link>
+        <ul className="pagination">
+          <li className="page-item">
+            <button  className='btn page-link' onClick={prevPage} disabled={currentPage === 1}>
+            <span aria-hidden="true">&laquo;</span>
+            </button>
+        </li>
+            {renderPageNumbers()}
+          <li className="page-item ">
+           <button  className='btn page-link' onClick={nextPage} disabled={currentPage === totalPages}>
+           <span aria-hidden="true" >&raquo;</span>
+           </button>
           </li>
         </ul>
         </div>
