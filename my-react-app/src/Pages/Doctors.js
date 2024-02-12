@@ -7,12 +7,8 @@ const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-<<<<<<< HEAD
     const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
     //const [search, setSearch] = useState('');
-=======
-    const [itemsPerPage, setItemsPerPage] = useState(10); 
->>>>>>> main
 
     useEffect(() => {
         fetchData();
@@ -28,7 +24,6 @@ const DoctorsPage = () => {
             setLoading(false);
         }
     };
-<<<<<<< HEAD
 
     const handleSearch = async () => {
         try {
@@ -43,8 +38,6 @@ const DoctorsPage = () => {
 
 
     // Calculate total pages based on number of items and items per page
-=======
->>>>>>> main
     const totalPages = Math.ceil(doctors.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
