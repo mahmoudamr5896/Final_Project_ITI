@@ -122,7 +122,8 @@ const Handel_Card =()=>{
                             Call
                             <button className="btn btn-danger m-2">{doctor.Phone}</button>
                             Find 
-                            <button className="btn btn-danger m-2">{doctor.Location}</button>
+                            <i class="fa-solid fa-location-dot" style={{color: '#fb2504;'}}></i>
+                            {/* <button className="btn btn-danger m-2">{doctor.Location}</button> */}
                         </div>
              </div>
 
