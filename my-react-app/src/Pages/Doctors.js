@@ -2,29 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DoctorCard from '../Component/CardDoctords';
 import Pagination from '../Component/Pagginition';
-<<<<<<< HEAD
-import './Css/Doctors.css';
-
-const DoctorsPage = () => {
-=======
 import StarRating from '../Component/Rate';
 import DoctorProfileCard from '../Component/List_Component'
 const DoctorsPage = () => { 
->>>>>>> main
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
-<<<<<<< HEAD
-    const [searchName, setSearchName] = useState('');
-    const [searchLocation, setSearchLocation] = useState('');
-
-=======
 // display data in currrent page 
->>>>>>> main
     useEffect(() => {
         fetchData();
-    }, [currentPage, searchName, searchLocation]); // Fetch data when page changes 
+    }, [currentPage]); 
 
     const fetchData = async () => {
         try {
@@ -37,115 +25,6 @@ const DoctorsPage = () => {
         }
     };
 
-<<<<<<< HEAD
-    const filterDoctorsByName = (doctor) => {
-        if (searchName === '') {
-            return true; 
-        } else {
-            return doctor.name.toLowerCase().includes(searchName.toLowerCase());
-        }
-    };
-
-    const filterDoctorsByLocation = (doctor) => {
-        if (searchLocation === '') {
-            return true; 
-        } else {
-            
-            return doctor && doctor.Location && doctor.Location.toLowerCase().includes(searchLocation.toLowerCase());
-        }
-    };
-
-    // Filter doctors 
-    const filteredDoctors = doctors.filter(filterDoctorsByName).filter(filterDoctorsByLocation);
-
-    // Paginate the filtered data
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentDoctors = filteredDoctors.slice(indexOfFirstItem, indexOfLastItem);
-
-    // Calculate total pages based on number of items after filtering
-    const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage);
-
-    // Handle page change
-    const onPageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    // Handle search name
-    const handleNameSearchInputChange = (event) => {
-        setSearchName(event.target.value);
-        setCurrentPage(1); 
-    };
-
-    // Handle search location
-    const handleLocationSearchInputChange = (event) => {
-        setSearchLocation(event.target.value);
-        setCurrentPage(1); 
-    };
-
-    return (
-        <div className="container-xxl py-5 mt-5 d-flex justify-content-center">
-            <div className="container">
-               
-                <div className='container '>
-                    <div className='row' style={{ marginTop: '30px', marginBottom: '50px' }}>
-                        <div className='col-lg-5 col-sm-12'>
-                            <div className='col-5 input-group'>
-                                <span className="input-group-text">Name</span>
-                                <input
-                                    type="text"
-                                    className="form-control me-2"
-                                    placeholder="Search by doctor's name"
-                                    value={searchName}
-                                    onChange={handleNameSearchInputChange}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-close clear-button "
-                                    aria-label="Close"
-                                    onClick={() => setSearchName('')}
-                                >
-                                    <i className="bi bi-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div className='col-lg-5 col-sm-12'>
-                            <div className='col-5 input-group'>
-                                <span className="input-group-text">Near</span>
-                                <input
-                                    type="text"
-                                    className="form-control me-2"
-                                    placeholder="Search by doctor's location"
-                                    value={searchLocation}
-                                    onChange={handleLocationSearchInputChange}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-close clear-button "
-                                    aria-label="Close"
-                                    onClick={() => setSearchLocation('')}
-                                >
-                                    <i className="bi bi-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row g-4">
-                    {currentDoctors.map((doctor, index) => (
-                        <DoctorCard
-                            key={index}
-                            delay="0.1s"
-                            imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
-                            name={doctor.name}
-                            department="View Profile"
-                            dept={doctor.Location}
-                        />
-                    ))}
-                </div>
-                <Pagination
-=======
 
 
     // Calculate total pages based on number of items and items per page
@@ -268,7 +147,6 @@ const Handel_Card =()=>{
         </div>
             <div>
             <Pagination
->>>>>>> main
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={onPageChange}
@@ -280,8 +158,6 @@ const Handel_Card =()=>{
                  }
 
 export default DoctorsPage;
-<<<<<<< HEAD
-=======
 
 
 {/* <div className="col-lg-7 col-md-6 px-0">
@@ -301,27 +177,7 @@ export default DoctorsPage;
 
 
 
-  //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
-                        //     <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg"  height="100" width="100" class="rounded-circle"/>
-                        //     <div class="d-flex flex-column ms-2">
-                        
-                        //         <h6 class="mt-1 text-primary">DR.{doctor.name}</h6>
-                        //         <h6 class="mb-1 text-primary">
-                        //         {/* <i class="fa-solid fa-location-dot" style={{color:'#f70202;'}}></i> */}
-                        //             {doctor.Location}
-                        //         </h6>
-                        //         <ul>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //         </ul>
-                        //     </div>
-                        //     <hr/>
-                        //         <div style={{float:'left'}}>
-                        //           <h6 className='btn d-flex justify-content-center'>View Profile</h6>
-                        //     </div>
-                        // </div>
+
 // import React from 'react';
 // import DoctorCard from '../Component/CardDoctords';
 // import { useState } from 'react';
@@ -371,4 +227,3 @@ export default DoctorsPage;
 // }
 
 // export default DoctorsPage;
->>>>>>> main
