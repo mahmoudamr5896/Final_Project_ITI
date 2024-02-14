@@ -9,8 +9,7 @@ const DoctorsPage = () => {
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10); // Adjust as needed
-    const [search, setSearch] = useState('');
-
+// display data in currrent page 
     useEffect(() => {
         fetchData();
     }, [currentPage]); 
@@ -26,16 +25,6 @@ const DoctorsPage = () => {
         }
     };
 
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`https://retoolapi.dev/ysPAGK/data?name=${search}`);
-            setDoctors(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-            setLoading(false);
-        }
-    };
 
 
     // Calculate total pages based on number of items and items per page
@@ -43,22 +32,77 @@ const DoctorsPage = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentDoctors = doctors.slice(indexOfFirstItem, indexOfLastItem);
-
     // Handle page change
     const onPageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
 
-
+// handel show list or cart 
 const[Islist,setIslist]= useState(true)
 const Handel_Card =()=>{
     setIslist(!Islist);
 }
 
+
+
+// handel seach
+    const [search, setSearch] = useState('');
+    const [SearchLoc, setSearchLoc] = useState('');
+
+    const handleSearch = async () => {
+        try {
+            let url = 'https://retoolapi.dev/ysPAGK/data?';
+            if (search) {
+                url += `name=${search}`;
+            }
+            if (SearchLoc) {
+                if (search) {
+                    url += '&';
+                }
+                url += `Location=${SearchLoc}`;
+            }
+    
+            const response = await axios.get(url);
+            setDoctors(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+            setLoading(false);
+        }
+    };
+    
     return (
         <div className="container-xxl py-5 mt-5 mt-5">
-            <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-3 d-flex align-content-center">
+      <div className="container-xxl py-5 mt-5 mt-5">
+    <div className="row">
+        <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-2 d-flex align-items-center border border-2" style={{width:'100%',height:'auto'}}>
+            <input
+                type="text"
+                placeholder="Search for doctor by name"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="form-control m-2"
+            />
+            <input
+                type="text"
+                placeholder="Search for doctor by location"
+                value={SearchLoc}
+                onChange={(e) => setSearchLoc(e.target.value)}
+                className="form-control m-2"
+            />
+            <button
+                type="button"
+                className="btn btn-outline-primary m-2"
+                onClick={handleSearch}
+            >
+                <b>Search</b>
+            </button>
+            <img onClick={Handel_Card} src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VisualEditor_-_Icon_-_Bullet-list-ltr.svg/768px-VisualEditor_-_Icon_-_Bullet-list-ltr.svg.png' style={{width:'60px'}}/>
+        </div>
+    </div>
+</div>
+            {/* <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-3 d-flex align-content-center">
                 <input
                     type="text"
                     placeholder="Search for "
@@ -70,10 +114,9 @@ const Handel_Card =()=>{
                 <button type="button" className="btn btn-outline-primary" onClick={handleSearch}>
                     <b>Search</b>
                 </button>
-            </div>
-            <div className='d-flex justify-content-end' style={{width:'100px' , float:'right'}}>  <button className='btn' onClick={Handel_Card}>
-                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VisualEditor_-_Icon_-_Bullet-list-ltr.svg/768px-VisualEditor_-_Icon_-_Bullet-list-ltr.svg.png' style={{width:'60px'}}/>
-                </button>
+            </div> */}
+            <div className='d-flex justify-content-end' style={{width:'100px' , float:'right'}}> 
+          
                
             </div>
              <div className="container">
