@@ -49,20 +49,18 @@ const Handel_Card =()=>{
 // handel seach
     const [search, setSearch] = useState('');
     const [SearchLoc, setSearchLoc] = useState('');
-
     const handleSearch = async () => {
         try {
             let url = 'https://retoolapi.dev/ysPAGK/data?';
             if (search) {
-                url += `name=${search}`;
+                url += `q=${search}`;
             }
             if (SearchLoc) {
                 if (search) {
                     url += '&';
                 }
-                url += `Location=${SearchLoc}`;
+                url += `q=${SearchLoc}`;
             }
-    
             const response = await axios.get(url);
             setDoctors(response.data);
             setLoading(false);
