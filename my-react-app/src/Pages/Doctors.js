@@ -55,10 +55,7 @@ const[Islist,setIslist]= useState(true)
 const Handel_Card =()=>{
     setIslist(!Islist);
 }
-const[Phone,setPhone]=useState(false)
-const Handel_phone=()=>{
-    setPhone(!Phone)
-}
+
     return (
         <div className="container-xxl py-5 mt-5 mt-5">
             <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-3 d-flex align-content-center">
@@ -83,48 +80,13 @@ const Handel_phone=()=>{
                             <div className="row g-4">
                            {Islist ? (
                 currentDoctors.map((doctor, index) => (
-            <div className="d-flex flex-row border mb-2 p-5 align-items-center" key={index}>
-                        <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
-                        <div className='' style={{width:'250px',position:''}}>
-                        <h5 >DR.{doctor.name}</h5> 
-                        <h6 >Medical Family</h6>  {doctor.Location}
-                        <h6 >Ex:7years</h6> <StarRating/>
-                        <span style={{position:'absolute'}}>Bio:
-                            Headings must have content and the content must be accessible by a screen reader 
-                        </span>
-                         </div>
-                      
-                        <div className="d-flex flex-column ms-2 flex-grow-1">
-                            <h6 className="ml-1 text-primary"></h6>
-                            <h6 className="mb-1">
-                               
-                            </h6>
-                            <ul>
-                                <p>
-                                   
-                                </p>
-                            </ul> 
-                             
-                        </div>{/* <p>Biography:</p>
-                        <p>Headings must have content and the content must be accessible by a screen reader</p>
-                        */}
-                        <div className="ml-auto" style={{width:'150px'}}>
-                            <button className="btn btn-primary"> View Profile </button>
-                            { !Phone ? (
-                            <button onClick={Handel_phone} className="btn btn-danger m-2">Call</button>
-
-                            ) : (
-                             <button onClick={Handel_phone}  className="btn btn-danger m-2">{doctor.Phone}</button>
-
-                            )
-
-                            }
-                            {/* Find 
-                            <i class="fa-solid fa-location-dot" style={{color: '#fb2504;'}}></i>
-                            {/* <button className="btn btn-danger m-2">{doctor.Location}</button> */}
-                      </div> 
-             </div>
-
+                    <DoctorProfileCard
+                    dname={doctor.name}
+                    dPhone={doctor.Phone}
+                    dLocation={doctor.Location}
+                    id={doctor.id}                    
+                    />
+       
                         ))
                            ) : (
                         currentDoctors.map((doctor, index) => (
