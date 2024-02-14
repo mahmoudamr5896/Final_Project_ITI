@@ -3,7 +3,8 @@ import axios from 'axios';
 import DoctorCard from '../Component/CardDoctords';
 import Pagination from '../Component/Pagginition';
 import StarRating from '../Component/Rate';
-const DoctorsPage = () => {
+import DoctorProfileCard from '../Component/List_Component'
+const DoctorsPage = () => { 
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +55,10 @@ const[Islist,setIslist]= useState(true)
 const Handel_Card =()=>{
     setIslist(!Islist);
 }
-
+const[Phone,setPhone]=useState(false)
+const Handel_phone=()=>{
+    setPhone(!Phone)
+}
     return (
         <div className="container-xxl py-5 mt-5 mt-5">
             <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4 mb-3 d-flex align-content-center">
@@ -70,61 +74,55 @@ const Handel_Card =()=>{
                     <b>Search</b>
                 </button>
             </div>
-            <div> 
-                <button onClick={Handel_Card}><i class="fa-solid fa-list"></i></button>
-                {/* <button onClick={Handel_List}>List</button> */}
+            <div className='d-flex justify-content-end' style={{width:'100px' , float:'right'}}>  <button className='btn' onClick={Handel_Card}>
+                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VisualEditor_-_Icon_-_Bullet-list-ltr.svg/768px-VisualEditor_-_Icon_-_Bullet-list-ltr.svg.png' style={{width:'60px'}}/>
+                </button>
+               
             </div>
              <div className="container">
                             <div className="row g-4">
-            {Islist ? (
-                        currentDoctors.map((doctor, index) => (
-                        //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
-                        //     <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg"  height="100" width="100" class="rounded-circle"/>
-                        //     <div class="d-flex flex-column ms-2">
-                        
-                        //         <h6 class="mt-1 text-primary">DR.{doctor.name}</h6>
-                        //         <h6 class="mb-1 text-primary">
-                        //         {/* <i class="fa-solid fa-location-dot" style={{color:'#f70202;'}}></i> */}
-                        //             {doctor.Location}
-                        //         </h6>
-                        //         <ul>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //         </ul>
-                        //     </div>
-                        //     <hr/>
-                        //         <div style={{float:'left'}}>
-                        //           <h6 className='btn d-flex justify-content-center'>View Profile</h6>
-                        //     </div>
-                        // </div>
-            <div className="d-flex flex-row border mb-2 p-5 align-items-center">
+                           {Islist ? (
+                currentDoctors.map((doctor, index) => (
+            <div className="d-flex flex-row border mb-2 p-5 align-items-center" key={index}>
                         <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
-                        <div>
-                        <h5 className='text-primary'>DR.{doctor.name}</h5> 
-                        <h5 className='text-primary'>{doctor.Spcialist}</h5> 
-                        <h5 className='text-primary'>Exprience:7y</h5> 
-                        </div>
+                        <div className='' style={{width:'250px',position:''}}>
+                        <h5 >DR.{doctor.name}</h5> 
+                        <h6 >Medical Family</h6>  {doctor.Location}
+                        <h6 >Ex:7years</h6> <StarRating/>
+                        <span style={{position:'absolute'}}>Bio:
+                            Headings must have content and the content must be accessible by a screen reader 
+                        </span>
+                         </div>
+                      
                         <div className="d-flex flex-column ms-2 flex-grow-1">
-                            <h6 className="ml-1 text-primary">DR. {doctor.name}</h6>
+                            <h6 className="ml-1 text-primary"></h6>
                             <h6 className="mb-1">
-                                {doctor.Location}
+                               
                             </h6>
                             <ul>
-                                <p>Rate :
-                                    <StarRating/>
+                                <p>
+                                   
                                 </p>
-                            </ul>
-                        </div>
+                            </ul> 
+                             
+                        </div>{/* <p>Biography:</p>
+                        <p>Headings must have content and the content must be accessible by a screen reader</p>
+                        */}
                         <div className="ml-auto" style={{width:'150px'}}>
                             <button className="btn btn-primary"> View Profile </button>
-                            Call
-                            <button className="btn btn-danger m-2">{doctor.Phone}</button>
-                            Find 
+                            { !Phone ? (
+                            <button onClick={Handel_phone} className="btn btn-danger m-2">Call</button>
+
+                            ) : (
+                             <button onClick={Handel_phone}  className="btn btn-danger m-2">{doctor.Phone}</button>
+
+                            )
+
+                            }
+                            {/* Find 
                             <i class="fa-solid fa-location-dot" style={{color: '#fb2504;'}}></i>
                             {/* <button className="btn btn-danger m-2">{doctor.Location}</button> */}
-                        </div>
+                      </div> 
              </div>
 
                         ))
@@ -144,105 +142,6 @@ const Handel_Card =()=>{
                     )}
               </div>
         </div>
-
-            {/* {!Islist   ? ( 
-               <div className="container">
-                <div className="row g-4">
-                    {currentDoctors.map((doctor, index) => (
-                        <DoctorCard
-                            key={index}
-                            delay="0.1s"
-                            imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
-                            name={doctor.name}
-                            department="View Profile"
-                            dept={doctor.Spcialist}
-                            id={doctor.id}
-                        />
-                    ))}
-                </div>
-               </div>
-                        ):(
-                    <div class="container py-5">
-                            <div class="row text-center text-white mb-5">
-                                <div class="col-lg-7 mx-auto">
-                                    <h1 class="display-4">Product List</h1>
-                                </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-lg-8 mx-auto">
-                                    <ul class="list-group shadow">
-                                        <li class="list-group-item">
-                                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                                                <div class="media-body order-2 order-lg-1">
-                                                    <h5 class="mt-0 font-weight-bold mb-2">Apple iPhone XR (Red, 128 GB)</h5>
-                                                    <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
-                                                    <div class="d-flex align-items-center justify-content-between mt-1">
-                                                        <h6 class="font-weight-bold my-2">₹64,999</h6>
-                                                        <ul class="list-inline small">
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2" />
-                                            </div> 
-                                    </li> 
-                                    </ul>
-                        </div>
-                        </div>
-                    </div>
-                        )}
-            {IsCard ? (
-        <div class="container py-5">
-                <div class="row text-center text-white mb-5">
-                    <div class="col-lg-7 mx-auto">
-                        <h1 class="display-4">Product List</h1>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-lg-8 mx-auto">
-                        <ul class="list-group shadow">
-                            <li class="list-group-item">
-                                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                                    <div class="media-body order-2 order-lg-1">
-                                        <h5 class="mt-0 font-weight-bold mb-2">Apple iPhone XR (Red, 128 GB)</h5>
-                                        <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
-                                        <div class="d-flex align-items-center justify-content-between mt-1">
-                                            <h6 class="font-weight-bold my-2">₹64,999</h6>
-                                            <ul class="list-inline small">
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                            </ul>
-                                        </div>
-                                    </div><img src="https://i.imgur.com/KFojDGa.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2" />
-                                </div> 
-                         </li> 
-                         </ul>
-               </div>
-            </div>
-        </div>
-                        ):(          
-                    <div className="container">
-                            <div className="row g-4">
-                                {currentDoctors.map((doctor, index) => (
-                                    <DoctorCard
-                                        key={index}
-                                        delay="0.1s"
-                                        imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
-                                        name={doctor.name}
-                                        department="View Profile"
-                                        dept={doctor.Spcialist}
-                                        id={doctor.id}
-                                    />
-                                ))}
-                            </div>
-                    </div> )
-                         } */}
             <div>
             <Pagination
                     currentPage={currentPage}
@@ -275,7 +174,27 @@ export default DoctorsPage;
 
 
 
-
+  //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
+                        //     <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg"  height="100" width="100" class="rounded-circle"/>
+                        //     <div class="d-flex flex-column ms-2">
+                        
+                        //         <h6 class="mt-1 text-primary">DR.{doctor.name}</h6>
+                        //         <h6 class="mb-1 text-primary">
+                        //         {/* <i class="fa-solid fa-location-dot" style={{color:'#f70202;'}}></i> */}
+                        //             {doctor.Location}
+                        //         </h6>
+                        //         <ul>
+                        //             <p>sss</p>
+                        //             <p>sss</p>
+                        //             <p>sss</p>
+                        //             <p>sss</p>
+                        //         </ul>
+                        //     </div>
+                        //     <hr/>
+                        //         <div style={{float:'left'}}>
+                        //           <h6 className='btn d-flex justify-content-center'>View Profile</h6>
+                        //     </div>
+                        // </div>
 // import React from 'react';
 // import DoctorCard from '../Component/CardDoctords';
 // import { useState } from 'react';
