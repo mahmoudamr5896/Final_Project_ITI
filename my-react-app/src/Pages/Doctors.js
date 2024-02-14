@@ -177,27 +177,7 @@ export default DoctorsPage;
 
 
 
-  //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
-                        //     <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg"  height="100" width="100" class="rounded-circle"/>
-                        //     <div class="d-flex flex-column ms-2">
-                        
-                        //         <h6 class="mt-1 text-primary">DR.{doctor.name}</h6>
-                        //         <h6 class="mb-1 text-primary">
-                        //         {/* <i class="fa-solid fa-location-dot" style={{color:'#f70202;'}}></i> */}
-                        //             {doctor.Location}
-                        //         </h6>
-                        //         <ul>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //             <p>sss</p>
-                        //         </ul>
-                        //     </div>
-                        //     <hr/>
-                        //         <div style={{float:'left'}}>
-                        //           <h6 className='btn d-flex justify-content-center'>View Profile</h6>
-                        //     </div>
-                        // </div>
+
 // import React from 'react';
 // import DoctorCard from '../Component/CardDoctords';
 // import { useState } from 'react';
