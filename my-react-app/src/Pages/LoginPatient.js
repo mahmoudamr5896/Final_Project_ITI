@@ -74,6 +74,7 @@ function LoginPatien() {
               <div className="form-group">
                 <input
                   type="text"
+                  className="text-input"
                   name="email"
                   placeholder="Email"
                   value={formData.email}
@@ -84,6 +85,7 @@ function LoginPatien() {
               <div className="form-group">
                 <input
                   type="password"
+                  className='password-input'
                   name="password"
                   placeholder="Password"
                   value={formData.password}

@@ -92,6 +92,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="text"
+                  className="text-input"
                   name="firstName"
                   placeholder="First Name"
                   value={formData.firstName}
@@ -102,6 +103,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="text"
+                  className="text-input"
                   name="lastName"
                   placeholder="Last Name"
                   value={formData.lastName}
@@ -112,6 +114,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="text"
+                  className="text-input"
                   name="userName"
                   placeholder="Username"
                   value={formData.userName}
@@ -122,6 +125,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="email"
+                  className='email-input'
                   name="email"
                   placeholder="Email"
                   value={formData.email}
@@ -132,6 +136,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="password"
+                  className='password-input'
                   name="password"
                   placeholder="Password"
                   value={formData.password}
@@ -142,6 +147,7 @@ function RegsNut() {
               <div className="form-group">
                 <input
                   type="password"
+                  className='password-input'
                   name="repeatPassword"
                   placeholder="Repeat Password"
                   value={formData.repeatPassword}
