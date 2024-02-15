@@ -1,22 +1,25 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook ,faXTwitter,faInstagram,faPinterest} from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import logo7 from "./img/logo7.png";
+
 function Footer() {
   return (
     <div className="container-fluid">
-      <div className="footer pt-5 pb-5 text-white-50 text-center text-md-start" style={{marginTop:'50px',background:'black'}}>
-        <div className="container-fluid">
+      <div className="footer pt-5 pb-5 text-white-50 text-center text-md-start " style={{marginTop:'50px',background:'black'}}>
+        <div className="container">
           <div className="row">
             <div className="col-md-6 col-lg-4">
               <div className="info mb-5">
-                <img src="imgs/logo.png" alt="" className="mb-4" />
+              <img src={logo7} alt="Logo" height="70" style={{ backgroundColor: "black", borderRadius: "50%" ,marginBottom:'10px'}} />
+              <span>MR.Health</span>
                 <p className="mb-5">
-                  Pellentesque in ipsum id orci porta dapibus. Vivamus magna justo, lacinia eget consectetur sed,
-                  convallis at tellus.
+                  Mr.Health is a websitte for you to find fun in healthy life  that helps to establish new healthy habits in a comfortable and pleasant way
                 </p>
                 <div className="copyright">
-                  Created By <span>Graphberry</span>
-                  <div>&copy; 2022 - <span>Bondi Inc</span></div>
+                  
+                  <div>&copy; 2023 - <span>MR.Health</span></div>
                 </div>
               </div>
             </div>
@@ -26,10 +29,9 @@ function Footer() {
                 <ul className="list-unstyled lh-lg">
                   <li>Home</li>
                   <li>Our Services</li>
-                  <li>Portfolio</li>
-                  <li>Testimonials</li>
-                  <li>Support</li>
-                  <li>Terms and Condition</li>
+                  <li>Contact Us</li>
+                  <li>About Us</li>
+                  
                 </ul>
               </div>
             </div>
@@ -47,30 +49,32 @@ function Footer() {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="contact">
-                <h5 className="text-light">Contact Us</h5>
-                <p className="lh-lg mt-3 mb-5">Get in touch with us via mail phone.We are waiting for your call or message</p>
-                <a className="btn rounded-pill main-btn btn-light w-100" href="#">graphberry@gmail.com</a>
                 
+                <h5 className="text-light">Start Wiht Us</h5>
+                <p className="lh-lg mt-3 mb-5">Start with MR.Health to have a wonderful healthy life</p>
+                <a className="btn rounded-pill main-btn btn-light w-100" href="#">Start now</a>
+                <hr></hr>
                 <ul className="d-flex justify-content-center mt-5 list-unstyled gap-3">
-                  <li>
-                  <a className="d-block text-light " href="#">
+                <li>
+                  <Link className="d-block text-light " to="#">
                      <FontAwesomeIcon icon={faFacebook} size="xl" /> {/* Change "lg" to any other size you prefer */}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="d-block text-light" href="#">
+                    <Link className="d-block text-light" to="#">
                     <FontAwesomeIcon icon={faXTwitter} size="xl"/>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="d-block text-light" href="#">
+                    
+                    <Link className="d-block text-light" to="#">
                     <FontAwesomeIcon icon={faInstagram} size="xl"/>
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="d-block text-light" href="#">
+                    <Link className="d-block text-light" to="#">
                     <FontAwesomeIcon icon={faPinterest} size="xl"/>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
                 
