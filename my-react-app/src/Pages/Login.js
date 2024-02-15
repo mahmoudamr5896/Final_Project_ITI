@@ -58,7 +58,7 @@ const handleConfirmPasswordChange = (event) => {
 //</Resister>______________________________________________________________________________________
 
     return(
-            <div className="container-fluid pt-5">
+            <div className="container-fluid pt-5 mt-5">
                 <div className="row justify-content-center">
                     <div className="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
                         <div className="card1 d-flex mx-auto my-5">
