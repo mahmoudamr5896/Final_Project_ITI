@@ -10,7 +10,7 @@ function About(){
 
  
     return(
-        <div className="container">
+        <div className="container  ">
             <div className="row my-5">
                 <div className="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center"> 
                     <div> 
@@ -48,13 +48,13 @@ function About(){
                 </div>
                 <div className="col-4"></div>
             </div>
-            <div className="row mb-5">
+            <div className="row ">
                 <div className="col-3"></div>
                 <Facts bgcolor="bg-danger-subtle" img="/users.png" head="30k" content="participating users" />
                 <Facts bgcolor="bg-success" img="/plan.png" head="150k" content="meal plan" />
                 <div className="col-3"></div>
             </div>
-            <div className="row mb-5">
+            <div className="row mb-5 ">
                 <div className="col-3"></div>
                 <Facts bgcolor="bg-warning" img="/weight.png" head="115t" content="lost by users" />
                 <Facts bgcolor="bg-primary-subtle" img="/calory.png" head="230M" content="calories tracked" />

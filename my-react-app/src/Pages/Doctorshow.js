@@ -56,7 +56,7 @@ const Select_Overview = ()=>{
                            <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
                             <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
                         </div> 
-                        <br/><p>Dr. {doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                        <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
                     </div>
                 </div> 
                 <div className="row docgradient">
@@ -87,7 +87,7 @@ const Select_Overview = ()=>{
 {!Islocation ?  
                 (
                  <div className="map_container mt-5" style={{width:'100%'}}>
-                                    <h2>Location</h2>
+                                <h2 className="text-start text-success ">Location <hr></hr></h2>
                                 <div className="map-responsive" style={{width:'100%',height:'600px'}}>
                                 <iframe
                                     src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=${doctorInfo.location}`}
@@ -113,7 +113,82 @@ const Select_Overview = ()=>{
                 )}
                 {!Israting ?
                  (
-                <>Rating</>
+                <>
+                <div className="row" style={{width:'80%'}}>
+                    <div className="col-6">
+                     <h3>Dr. Beecham Robinson's Reviews</h3>
+                     <>Likelihood to recommend Dr.{doctorInfo.name}</>
+                     <div>Based on {doctorInfo.Rating.length/2} ratings</div>
+                     <h2>{doctorInfo.Rating}</h2>
+                     <p>4.1 average based on 254 reviews.</p>
+<hr style={{border:"3px solid #f1f1f1"}}/>
+
+<div class="row">
+  <div class="side">
+    <div>5 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-5"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>150</div>
+  </div>
+  <div class="side">
+    <div>4 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-4"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>63</div>
+  </div>
+  <div class="side">
+    <div>3 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-3"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>15</div>
+  </div>
+  <div class="side">
+    <div>2 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-2"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>6</div>
+  </div>
+  <div class="side">
+    <div>1 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-1"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>20</div>
+  </div>
+</div>
+                    </div>
+                    <div className="col-6 border">
+                     <p>Leave Review</p>
+
+                    </div>
+                  
+
+                </div>
+                </>
                  ):(
                      <></>
                  )} 
