@@ -42,6 +42,14 @@ const Select_Overview = ()=>{
     setIslocation(true)
     setIsExprience(true)
 }
+const[About,setAbout]=useState(false)
+const Select_About = ()=>{
+  setAbout(!About)
+    setoverview(true)
+    setIsrating(true)
+    setIslocation(true)
+    setIsExprience(true)
+}
   return (
             <div className="container-fluid">
                 <div><br/><br/><br/><br/></div>
@@ -72,8 +80,7 @@ const Select_Overview = ()=>{
                                     <button className="nav-link" onClick={Select_Location}><h6>Location</h6></button>
                                     <button className="nav-link"  onClick={Select_Exprience}><h6>Experience</h6></button>
                                     <button className="nav-link" onClick={Select_Rating}><h6>Ratings</h6></button>
-                                    {/* <button className="nav-link" >Insurance</button> */}
-                                    <button className="nav-link"><h6>About_Me</h6></button>
+                                    <button className="nav-link" onClick={Select_About}><h6>About_Me</h6></button>
                                     <button className="nav-link"><h6>Hospitals</h6></button>
                                 </div>
                             </div>
@@ -83,8 +90,8 @@ const Select_Overview = ()=>{
                     <div className="col-4"></div>
                 </div> 
                 <div>
-        {!overview ? (<>OVER VIEW</>) : (<></>)}
-{!Islocation ?  
+              {!overview ? (<>OVER VIEW</>) : (<></>)}
+               {!Islocation ?  
                 (
                  <div className="map_container mt-5" style={{width:'100%'}}>
                                 <h2 className="text-start text-success ">Location <hr></hr></h2>
@@ -105,8 +112,23 @@ const Select_Overview = ()=>{
                 }
                 {!IsExprience ? 
                 (
-                    <h1>Exprince</h1>
+                  <>
+                  <h1 className="text-start">
+                    Experience and Background Checks
+                    <hr></hr>
+                  </h1>
+                  <div className="row border " style={{width:'600px',height:'100px'}}>
+                    <span className="col-6">
+                  <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
+                  <p className="">Exprience</p></span>
+                  <span className="col-6" style={{width:'100px'}}>
+                    <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
+                    <span><p className="">Background</p></span></span>
 
+                  </div>
+                  <p className="text-start">Experience Check<br></br>
+                    Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
+                  </>
                 ) : (
                     <h1></h1>
 
@@ -114,85 +136,43 @@ const Select_Overview = ()=>{
                 {!Israting ?
                  (
                 <>
-                <div className="row" style={{width:'80%'}}>
+                <div className="container row d-flex" style={{width:'80%'}}>
                     <div className="col-6">
-                     <h3>Dr. Beecham Robinson's Reviews</h3>
+                     <h3>Dr. {doctorInfo.name} Reviews</h3>
                      <>Likelihood to recommend Dr.{doctorInfo.name}</>
                      <div>Based on {doctorInfo.Rating.length/2} ratings</div>
                      <h2>{doctorInfo.Rating}</h2>
                      <p>4.1 average based on 254 reviews.</p>
-<hr style={{border:"3px solid #f1f1f1"}}/>
-
-<div class="row">
-  <div class="side">
-    <div>5 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-5"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>150</div>
-  </div>
-  <div class="side">
-    <div>4 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-4"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>63</div>
-  </div>
-  <div class="side">
-    <div>3 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-3"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>15</div>
-  </div>
-  <div class="side">
-    <div>2 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-2"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>6</div>
-  </div>
-  <div class="side">
-    <div>1 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-1"></div>
-    </div>
-  </div>
-  <div class="side right">
-    <div>20</div>
-  </div>
-</div>
+                    <hr style={{border:"3px solid #f1f1f1"}}/>
                     </div>
                     <div className="col-6 border">
                      <p>Leave Review</p>
-
+                     <hr></hr>
+                     <>How likely are you to recommend 
+                     <br></br>Dr.{doctorInfo.name}</><br></br>
+                     <div className="mt-4">
+                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>                  
+                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
+                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
+                     <span className="fa fa-star checked"></span>
+                     <span className="fa fa-star"></span> <br></br>
+                     </div>
+                      <div className='m-3'>Select Rating</div>
                     </div>
-                  
-
+                  <div className="col-12 border mt-4"  >
+                  <h5 className="text-start">Leave a review</h5>
+                  <p className="text-start">How was your experience with 
+                    Dr.{doctorInfo.name}</p>
+                  <form className="d-flex pb-4">
+                        <input className="form-control me-2" type="text" placeholder="Leave Review ..." />
+                        <button className="btn btn-success rounded-pill">Continue</button>
+                  </form>
+                    </div>
                 </div>
                 </>
                  ):(
                      <></>
                  )} 
-
                 </div>
 
             </div>
