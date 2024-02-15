@@ -10,7 +10,7 @@ function About(){
 
  
     return(
-        <div className="container  ">
+        <div className="container  "style={{marginTop:'100px'}}>
             <div className="row my-5">
                 <div className="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center"> 
                     <div> 

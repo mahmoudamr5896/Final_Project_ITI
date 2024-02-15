@@ -9,7 +9,7 @@ function Navbar() {
    
   return (
     <>
-      <nav className="navbar nbar navbar-expand-lg fixed-top" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+      <nav className="navbar nbar navbar-expand-lg fixed-top navbar-light" style={{ backgroundColor: "white", boxShadow: "0 4px 2px -2px gray" }}>
         <div className="container">
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -22,8 +22,10 @@ function Navbar() {
           </Link>        
           <span>MR.Health</span>
           
-          <div className="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul className="navbar-nav ">
+           
+
               <li className="nav-item">
                 <Link className="nav-link me-4" to="/" ><b>Home</b></Link>
               </li>

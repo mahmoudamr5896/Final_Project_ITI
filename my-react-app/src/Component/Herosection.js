@@ -5,7 +5,7 @@ import './CSS/style.css';
 function HeroCarousel() {    
 
   return (
-<section className="container-fluid slider carousel slide" id="carouselExampleControls" data-bs-ride="carousel">
+<section className="container-fluid slider carousel slide" id="carouselExampleControls" data-bs-ride="carousel" style={{marginTop:'100px'}}>
   <div className="carousel-inner">
      
     
