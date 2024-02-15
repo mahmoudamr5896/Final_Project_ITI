@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import StarRating from '../Component/Rate';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-
-const DoctorProfileCard = ({ dname, dLocation, dPhone ,id }) => {
+import './CSS/list.css'
+const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => {
     const [Phone, setPhone] = useState(false);
 
     const Handel_phone = () => {
@@ -10,17 +10,22 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id }) => {
     }
 
     return (
-        <div className="d-flex flex-row border mb-2 p-5 align-items-center">
+        <> 
+        <hr></hr>
+        <div className="d-flex flex-row border-start border-end  mb-2 p-5 align-items-center">
             <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
-            <div className='' style={{ width: '250px', position: '' }}>
+                 <div className='' style={{ width: '250px', position: '' }}>
                 <h5>DR.{dname}</h5>
                 <h6>Medical Family</h6>
-                <h6>{dLocation}</h6>
-                <h6>Ex: 7 years</h6>
-                <StarRating />
-                <span style={{ position: 'absolute' }}>Bio: Headings must have content and the content must be accessible by a screen reader</span>
-            </div>
-
+                <h6>Start Date :{date}</h6>
+                <p>{rate}</p>
+                <hr></hr>
+                <Link>
+                <i class="far fa-star"></i>
+                Leave review
+                </Link>
+            
+            </div>       
             <div className="d-flex flex-column ms-2 flex-grow-1">
                 <h6 className="ml-1 text-primary"></h6>
                 <h6 className="mb-1"></h6>
@@ -29,15 +34,60 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id }) => {
                 </ul>
             </div>
             <div className="ml-auto" style={{ width: '150px' }}>
-                <Link to={`/profile/${id}`} className="btn btn-primary"> View Profile </Link>
+            <Link
+                    to={`/profile/${id}`}
+                    className="btn btn-white border rounded-pill"
+                    style={{ textDecoration: 'none' }}
+                >
+                    View Profile
+                </Link>
                 {!Phone ? (
-                    <button onClick={Handel_phone} className="btn btn-danger m-2">Call</button>
+                    <button onClick={Handel_phone} className="btn btn-danger m-2 rounded-pill "><i class="fas fa-phone" style={{color: "#74C0FC;"}}></i></button>
                 ) : (
-                    <button onClick={Handel_phone} className="btn btn-danger m-2">{dPhone}</button>
+                    <button onClick={Handel_phone} className="btn btn-danger m-2 rounded-pill ">{dPhone}</button>
                 )}
+                <Link  to={`/profile/${id}`}>
+                <i class="fas fa-map-marker-alt fa-lg" style={{color: "#fa3e00;"}}></i>
+                </Link>
+                <h6>{dLocation}</h6>
             </div>
-        </div>
+        </div>    
+        <hr></hr>
+        </>
+        
     );
 }
 
 export default DoctorProfileCard;
+//         <div className="d-flex flex-row border mb-2 p-5 ">        
+//<img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
+
+//     <div className='' style={{ width: '250px', position: '' }}>
+//      <ul className='class="list-group"'>
+//         <li class="list-group-item">DR.{dname}</li>
+//         <li class="list-group-item">Medical Family</li>
+//         <li class="list-group-item">{dLocation}</li>
+//         <li class="list-group-item">Ex: 7 years</li>
+//         <li class="list-group-item">{rate}</li>
+//      </ul>
+    
+//     </div>
+//     <div className="d-flex flex-column ms-2 flex-grow-1">
+//         <span style={{ position: 'relative', width: '100%' }}>
+//             Bio: {Bio}
+//         </span>
+//         <h6 className="ml-1 text-primary"></h6>
+//         <h6 className="mb-1"></h6>
+//         <ul>
+//             <p></p>
+//         </ul>
+//     </div>
+//     <div className="ml-auto" style={{ width: '150px' }}>
+//         <Link to={`/profile/${id}`} className="btn btn-primary"> View Profile </Link>
+//         {!Phone ? (
+//             <button onClick={Handel_phone} className="btn btn-danger m-2">Call</button>
+//         ) : (
+//             <button onClick={Handel_phone} className="btn btn-danger m-2">{dPhone}</button>
+//         )}
+//     </div>
+// </div>
