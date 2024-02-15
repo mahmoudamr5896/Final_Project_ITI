@@ -20,5 +20,8 @@
     background: linear-gradient(to bottom, #03974D 50%, #ffffff 50%);
   }
   
+  .fa-star:hover {
+    color: #FFD43B; /* Change to desired hover color */
+}
 
 

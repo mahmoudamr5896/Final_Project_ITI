@@ -122,7 +122,7 @@ const Select_Appon = ()=>{
 </div>
 {/* Content Profile */}
 <div className="container mt-5 d-flex justify-content-center">
-              {!overview ? (<>OVER VIEW</>) : (<></>)}
+              {!overview ? (<></>) : (<></>)}
                {!Islocation ?  
                 (
                  <div className="map_container mt-5" style={{width:'100%'}}>
@@ -208,18 +208,19 @@ const Select_Appon = ()=>{
                      <>How likely are you to recommend 
                      <br></br>Dr.{doctorInfo.name}</><br></br>
                      <div className="mt-4">
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>                  
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
-                     <span className="fa fa-star checked"></span>
-                     <span className="fa fa-star"></span> <br></br>
-                     </div>
+                            <i className="fas fa-star" ></i>                  
+                            <i className="fas fa-star" ></i>
+                            <i className="fas fa-star" ></i>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star"></span> <br></br>
+                    </div>
                       <div className='m-3'>Select Rating</div>
                     </div>
                     <div className="mt-5">
                       <h3>Reviews</h3>
                       <hr></hr>
-                      <CommentSection></CommentSection>
+                      <CommentSection 
+                      ></CommentSection>
                       <CommentSection></CommentSection>
                       <CommentSection></CommentSection>
                     </div>
