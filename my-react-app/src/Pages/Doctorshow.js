@@ -6,6 +6,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 import { Button } from "bootstrap";
 import MinMaxText from "../Component/Minimaize";
+import CommentSection from '../Component/ReviewComponent'
+import AppointmentRequestCard from '../Component/RequastApp'
 function DoctorDetails() {
   const { id } = useParams();
   console.log("id:", id);
@@ -64,11 +66,21 @@ const Select_About = ()=>{
       setShowFullBio(!showFullBio); 
 
   };
+const[requset,setrequset]=useState(true)
+const Select_Appon = ()=>{
+  setAbout(true)
+  setoverview(true)
+  setIsrating(true)
+  setIslocation(true)
+  setIsExprience(true)
+  setrequset(!requset)
+}
 
-
-  return (
-            <div className="container-fluid">
-                <div><br/><br/><br/><br/></div>
+  return ( 
+    <>
+ <div className="container-fluid">
+         <div><br/><br/><br/><br/>
+         </div>
                 <div className="row" style={{background:"#03974D"}}>
                     <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                         <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
@@ -96,8 +108,8 @@ const Select_About = ()=>{
                                     <button className="nav-link" onClick={Select_Location}><h6>Location</h6></button>
                                     <button className="nav-link"  onClick={Select_Exprience}><h6>Experience</h6></button>
                                     <button className="nav-link" onClick={Select_Rating}><h6>Ratings</h6></button>
-                                    <button className="nav-link" onClick={Select_About}><h6>About_Me</h6></button>
-                                    <button className="nav-link"><h6>Hospitals</h6></button>
+                                    <button className="nav-link" onClick={Select_About}><h6>About Me</h6></button>
+                                    <button className="nav-link" onClick={Select_Appon}><h6>Appointment</h6></button>
                                 </div>
                             </div>
                         </nav>
@@ -105,7 +117,11 @@ const Select_About = ()=>{
 
                     <div className="col-4"></div>
                 </div> 
-                <div>
+         <div>
+</div>
+</div>
+{/* Content Profile */}
+<div className="container mt-5 d-flex justify-content-center">
               {!overview ? (<>OVER VIEW</>) : (<></>)}
                {!Islocation ?  
                 (
@@ -128,23 +144,48 @@ const Select_About = ()=>{
                 }
                 {!IsExprience ? 
                 (
-                  <>
-                  <h1 className="text-start">
-                    Experience and Background Checks
-                    <hr></hr>
-                  </h1>
-                  <div className="row border " style={{width:'600px',height:'100px'}}>
-                    <span className="col-6">
-                  <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
-                  <p className="">Exprience</p></span>
-                  <span className="col-6" style={{width:'100px'}}>
-                    <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
-                    <span><p className="">Background</p></span></span>
-
+                  // <>
+                  // <h1 className="text-start col-12">
+                  //   Experience and Background Checks
+                  //   <hr></hr>
+                  // </h1>
+                  
+                  // <br></br>
+                  // <div className="row border " style={{width:'100%',height:'100px'}}>
+                  //   <span className="">
+                  // <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
+                  // <p className="">Exprience</p></span>
+                  // <span className="col-6" style={{width:'100px'}}>
+                  //   <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
+                  //   <span><p className="">Background</p></span></span>
+                  // </div>
+                  // <p className="text-start">Experience Check<br></br>
+                  //   Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
+                  // </>
+                  <div className="container">
+                  <div className="container ">
+                        <h1 className="text-start ">
+                      Experience and Background Checks
+                      <hr />
+                    </h1>
                   </div>
-                  <p className="text-start">Experience Check<br></br>
-                    Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
-                  </>
+                  <div className="container mt-5">
+                        <div className="row border mb-5" style={{ width: '500px', height: 'auto' }}>
+                          <div className="col-6 d-flex align-items-center">
+                              <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{ width: '70px' }} />
+                              <p className="m-0 ms-2">Experience</p>
+                          </div>
+                          <div className="col-6 d-flex align-items-center">
+                              <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{ width: '70px' }} />
+                              <p className="m-0 ms-2">Background</p>
+                          </div>
+                      </div>
+                      <p className="text-start">Experience Check<br />
+                          Check Dr. {doctorInfo.name}'s experience treating your condition or procedure
+                      </p>
+                  </div>
+</div>
+
                 ) : (
                     <h1></h1>
 
@@ -175,8 +216,15 @@ const Select_About = ()=>{
                      </div>
                       <div className='m-3'>Select Rating</div>
                     </div>
+                    <div className="mt-5">
+                      <h3>Reviews</h3>
+                      <hr></hr>
+                      <CommentSection></CommentSection>
+                      <CommentSection></CommentSection>
+                      <CommentSection></CommentSection>
+                    </div>
                   <div className="col-12 border mt-4"  >
-                  <h5 className="text-start">Leave a review</h5>
+                  <h5 className="text-start pt-3">Leave a review</h5>
                   <p className="text-start">How was your experience with 
                     Dr.{doctorInfo.name}</p>
                   <form className="d-flex pb-4">
@@ -213,9 +261,15 @@ const Select_About = ()=>{
                   <>
                   </>
                 )}
-                </div>
+                {requset ? (
+                  <></>
+                ):(
+                 <></>
+                )}
 
-            </div>
+          
+</div>
+</>       
   );
 }
 
