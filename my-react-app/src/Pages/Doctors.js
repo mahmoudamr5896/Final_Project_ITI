@@ -184,7 +184,7 @@ export default DoctorsPage;
 
 
 
-
+  //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
 
 
 
