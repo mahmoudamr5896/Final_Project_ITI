@@ -5,6 +5,7 @@ import './Css/Doctors.css'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 import { Button } from "bootstrap";
+import MinMaxText from "../Component/Minimaize";
 function DoctorDetails() {
   const { id } = useParams();
   console.log("id:", id);
@@ -20,6 +21,8 @@ const Select_Location = ()=>{
     setIslocation(!Islocation)
     setIsExprience(true)
     setIsrating(true)
+    setAbout(false)
+
 }
 
 const [IsExprience,setIsExprience]=useState(true);
@@ -27,6 +30,8 @@ const Select_Exprience = ()=>{
     setIsExprience(!IsExprience)
     setIslocation(true)
     setIsrating(true)
+    setAbout(false)
+
 }
 
 const[Israting ,setIsrating]=useState(true)
@@ -34,6 +39,8 @@ const Select_Rating = ()=>{
     setIsrating(!Israting)
     setIslocation(true)
     setIsExprience(true)
+    setAbout(false)
+
 }
 const[overview,setoverview]=useState(false)
 const Select_Overview = ()=>{
@@ -41,15 +48,24 @@ const Select_Overview = ()=>{
     setIsrating(true)
     setIslocation(true)
     setIsExprience(true)
+    setAbout(false)
 }
 const[About,setAbout]=useState(false)
 const Select_About = ()=>{
-  setAbout(!About)
+    setAbout(!About)
     setoverview(true)
     setIsrating(true)
     setIslocation(true)
     setIsExprience(true)
 }
+
+  const [showFullBio, setShowFullBio] = useState(false);
+  const toggleShowFullBio = () => {
+      setShowFullBio(!showFullBio); 
+
+  };
+
+
   return (
             <div className="container-fluid">
                 <div><br/><br/><br/><br/></div>
@@ -173,6 +189,30 @@ const Select_About = ()=>{
                  ):(
                      <></>
                  )} 
+
+                {About ? (
+                  <div className="" style={{width:'700px'}}>
+                  <h4 className="text-start">About Me</h4>
+                  <hr className="color-primary"></hr>
+                 <MinMaxText 
+                 text={`Dr.${doctorInfo.name} is an established and highly skilled 
+                 physician with over 15 years of experience. She is a 
+                 graduate of the University of Miami School of Medicine.
+                  She completed her residency in family medicine at Montefiore
+                   Medical Center, Albert Einstein College of Medicine.
+                    She is a board-certified family physician who has been
+                     actively involved in medical school and residency training
+                     of future physicians. Over the past many years, Dr. Beecham
+                      has led the delivery of high-quality care within various healthcare organizations, she’s a patient advocate and proponent of health equity for all. Professionally, her interests include preventive medicine, women’s health, diabetes and cardiovascular disease. She enjoys getting to know her patients and developing relationships with them over time. When not at work Dr. Beecham is active in the community, she has volunteered with various organizations to improve health outcomes. She enjoys traveling, leisure sports and various outdoor activities.`}
+                 maxLength={100}
+                 >
+                 </MinMaxText>
+                  </div>
+
+                ):(
+                  <>
+                  </>
+                )}
                 </div>
 
             </div>
