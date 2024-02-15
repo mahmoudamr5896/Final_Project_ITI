@@ -10,6 +10,7 @@ import Register from './Pages/Login';
 import About from './Pages/About';
 import DoctorsPage from './Pages/Doctors'
 import DoctorProfile from './Pages/ProfileDoctor'
+import DoctorDetails from './Pages/Doctorshow';
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,8 @@ function App() {
           component={DoctorProfile}/>
           <Route exact path='/doctors'
           component={DoctorsPage}/>
+           <Route exact path='/profile/:id'
+          component={DoctorDetails}/>
            <Route exact path='/About-us'
           component={About}/>
           <Route exact path='/login'

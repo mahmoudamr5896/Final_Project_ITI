@@ -16,4 +16,9 @@
     border: none;
 }
 
+.docgradient {
+    background: linear-gradient(to bottom, #03974D 50%, #ffffff 50%);
+  }
+  
+
 

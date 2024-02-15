@@ -1,7 +1,7 @@
 function Bh1 (props){
 
     return(
-        <h1 className="text-primary text-center"> {props.name} </h1>
+        <h1 className="text-center" style={{color:"green"}}> {props.name} </h1>
     )
 } 
 
