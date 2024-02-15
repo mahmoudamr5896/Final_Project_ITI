@@ -1,0 +1,24 @@
+.input-group {
+    position: relative;
+}
+
+.input-group .btn {
+    position: absolute;
+    top: -5px;
+    
+    right: 15px;
+    height: 100%;
+    border: none;
+    
+}
+.clear-button:focus {
+    outline: none;
+    border: none;
+}
+
+.docgradient {
+    background: linear-gradient(to bottom, #03974D 50%, #ffffff 50%);
+  }
+  
+
+

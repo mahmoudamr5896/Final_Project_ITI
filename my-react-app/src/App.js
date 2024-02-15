@@ -13,7 +13,7 @@ import LoginNut from './Pages/LoginNut';
 import RegsNut from './Pages/RegNut';
 import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
-
+import DoctorDetails from './Pages/Doctorshow';
 function App() {
   return (
     <div className="App">
@@ -27,6 +27,8 @@ function App() {
           component={DoctorProfile}/>
           <Route exact path='/doctors'
           component={DoctorsPage}/>
+           <Route exact path='/profile/:id'
+          component={DoctorDetails}/>
            <Route exact path='/About-us'
           component={About}/>
           <Route exact path='/login'

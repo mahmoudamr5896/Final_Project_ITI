@@ -14,8 +14,8 @@ function About(){
             <div className="row my-5">
                 <div className="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center"> 
                     <div> 
-                        <Bh1 name="We are NutriWise" />
-                        <Myp name="NutriWise is a site that helps to establish new healthy habits in a comfortable and pleasant way" />
+                        <Bh1 name="We are MR.Health" />
+                        <Myp name="MR.Health is a site that helps to establish new healthy habits in a comfortable and pleasant way" />
                     </div>
                 </div>
                 <div className="col-lg-6 col-md-12 col-sm-12"> 
@@ -26,10 +26,10 @@ function About(){
                 <div className="col-lg-6 col-md-12 col-sm-12">
                     <Myimg img="/nutritionist.jpg" /> 
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center">
+                <div className="col-lg-5 col-md-12 col-sm-12 ms-5 d-flex align-items-center">
                     <div>
                         <Bh1 name="About us" />
-                        <Myp name="NutriWise is a site that explains how weight management works and helps to establish new healthy habits in a comfortable and pleasant way. Our team applies the experience of professional nutritionists and studies all users' feedback to improve the application features." />
+                        <Myp name="MR.Health is a site that explains how weight management works and helps to establish new healthy habits in a comfortable and pleasant way. Our team applies the experience of professional nutritionists and studies all users' feedback to improve the application features." />
                         <Myp name="We work worldwide in 150+ countries with about 30k user." />
                     </div>
                 </div>    
@@ -44,7 +44,7 @@ function About(){
             <div className="row my-5">
                 <div className="col-4"></div>
                 <div className="col-4">
-                    <Dh1 name="NutriWise Facts" />
+                    <Dh1 name="MR.Health Facts" />
                 </div>
                 <div className="col-4"></div>
             </div>
@@ -71,7 +71,7 @@ function About(){
                 <div className="col-2"></div>
                 <div className="col-8 bg-white my-5 border border-primary rounded-4">
                     <Bh1 name="Nutrition" />
-                    <Myp name="The Unimeal app is not a diet. You get a personalized meal plan that breaks barriers. It includes a tasty meal per day menu with simple step-by-step recipes, essential ingredients needed, preparation time, and a shopping list." />
+                    <Myp name="MR.Health site is not a diet. You get a personalized meal plan that breaks barriers. It includes a tasty meal per day menu with simple step-by-step recipes, essential ingredients needed, preparation time, and a shopping list." />
                 </div>
                 <div className="col-2"></div>
             </div> 
@@ -79,7 +79,7 @@ function About(){
                 <div className="col-2"></div>
                 <div className="col-8 bg-white my-5 border border-primary rounded-4">
                     <Bh1 name="Motivation" />
-                    <Myp name="The Unimeal app inspires you with fun & result. Set your goals, share your achievements with friends, explore the entertaining feed and get your personal interactive reports. Our 24/7 customer support line is ready to keep you motivated!" />
+                    <Myp name="MR.Health site inspires you with fun & result. Set your goals, share your achievements with friends, explore the entertaining feed and get your personal interactive reports. Our 24/7 customer support line is ready to keep you motivated!" />
                 </div>
                 <div className="col-2"></div>
             </div>
