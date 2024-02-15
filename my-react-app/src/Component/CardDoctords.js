@@ -13,7 +13,10 @@ function DoctorCard({ delay, imageUrl, name, department ,dept , id ,rating}) {
                     <h5>{name}</h5>
                     <h5>{dept}</h5>
                     <Link className="text-primary" to={`/profile/${id}`}>{department}</Link>
-                    <p>{rating}</p>
+                    <p>
+                    &#11088;
+                    {rating}
+                        </p>
                     <div className="team-social text-center">
                         <a className="btn btn-square" href="#"><i className="fab fa-facebook-f"></i></a>
                         <a className="btn btn-square" href="#"><i className="fab fa-twitter"></i></a>

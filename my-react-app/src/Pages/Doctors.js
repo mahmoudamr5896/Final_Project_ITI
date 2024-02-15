@@ -137,7 +137,7 @@ const Handel_Card =()=>{
                     dPhone={doctor.Phone}
                     dLocation={doctor.Location}
                     id={doctor.id}   
-                    rate={doctor.Rating}
+                    rate={doctor.Rating.length/2}
                     Bio={doctor.Bio}
                     date={doctor.Start_date}
                     />
@@ -153,7 +153,7 @@ const Handel_Card =()=>{
                                 name={doctor.name}
                                 department="View Profile"
                                 id={doctor.id}
-                                rating={doctor.Rating}
+                                rating={doctor.Rating.length/2}
                             />  
                         ))
                     )}

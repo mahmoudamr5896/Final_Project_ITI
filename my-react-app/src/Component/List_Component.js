@@ -18,7 +18,7 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
                 <h5>DR.{dname}</h5>
                 <h6>Medical Family</h6>
                 <h6>Start Date :{date}</h6>
-                <p>{rate}</p>
+                <p>Rate: {rate}&#11088;</p>
                 <hr></hr>
                 <Link>
                 <i class="far fa-star"></i>
@@ -44,7 +44,7 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
                 {!Phone ? (
                     <button onClick={Handel_phone} className="btn btn-danger m-2 rounded-pill "><i class="fas fa-phone" style={{color: "#74C0FC;"}}></i></button>
                 ) : (
-                    <button onClick={Handel_phone} className="btn btn-danger m-2 rounded-pill ">{dPhone}</button>
+                    <button onClick={Handel_phone} className="btn btn-white text-dark m-2 border rounded-pill ">{dPhone}</button>
                 )}
                 <Link  to={`/profile/${id}`}>
                 <i class="fas fa-map-marker-alt fa-lg" style={{color: "#fa3e00;"}}></i>
