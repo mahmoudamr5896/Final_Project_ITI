@@ -29,36 +29,6 @@ const MinMaxText = ({ text, maxLength }) => {
                 </div>
             )}
             <hr></hr>
-                <>
-                            <> 
-                            <h4 class="text-start" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Education</h4>
-                            <hr></hr>
-                            <div class="col-6">
-                                        <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                        <div class=" card-body " style={{width:'500px'}}> 
-                                        <h6 className='text-start'>A Einstein College M Yeshiva University</h6>
-                                        Residency Hospital
-                                        <h6 className='text-start'>University of Miami Miller School of Medicine</h6>
-                                        Medical School, 2001
-                                        </div>
-                                </div>
-                            </div>
-                            </>
-                            <>
-                            <div className='row '>
-                                    <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample2" >Language</h4>
-                            </div>
-                            <hr></hr>
-                            <div class="col-12">
-                                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                <div class=" card-body " style={{width:'500px'}}> 
-                                <h6 className='text-start'>English</h6>
-                                <h6 className='text-start'>Arabic</h6>
-                                </div>
-                                </div>
-                            </div>
-                            </>
-                </>
         </div>
     );
 };
