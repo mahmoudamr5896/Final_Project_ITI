@@ -4,18 +4,23 @@ import Navbar from './Component/Navbar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './Component/Footer';
-import Offer from './Component/Offers';
 import HomePage from './Pages/Home';
-import Register from './Pages/Login';
 import About from './Pages/About';
 import DoctorsPage from './Pages/Doctors'
 import DoctorProfile from './Pages/ProfileDoctor'
+import BeforeSignUpFor from './Pages/BeforeSignUp'
+import LoginNut from './Pages/LoginNut';
+import RegsNut from './Pages/RegNut';
+import LoginPatien from './Pages/LoginPatient';
+import Regspatien from './Pages/RegPatient';
+
 function App() {
   return (
     <div className="App">
         <BrowserRouter >
         <Navbar/>
         <Switch>
+        
         <Route exact path='/'
           component={HomePage}/>
           <Route exact path='/profile' 
@@ -25,13 +30,28 @@ function App() {
            <Route exact path='/About-us'
           component={About}/>
           <Route exact path='/login'
-          component={Register}/>
+          component={BeforeSignUpFor}/>
+          <Route exact path='/logNut'
+          component={LoginNut}/>
+          <Route exact path='/LogPat'
+          component={LoginPatien}/>
+          <Route exact path='/RegNut'
+          component={RegsNut}/>
+          <Route exact path='/RegPat'
+          component={Regspatien}/>
+          
+          
+          
+          
+          
+          
         </Switch>
         <Footer/>
         </BrowserRouter>
     </div>
   );
 }
+// import BeforeSignUpFor from './Pages/BeforeSignUp';
 
 
 export default App;

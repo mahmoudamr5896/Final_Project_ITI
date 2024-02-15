@@ -93,7 +93,7 @@ const handleConfirmPasswordChange = (event) => {
                                         placeholder="Your Name"
                                         value={User_Name}
                                         onChange={handleNameChange}
-                                        required
+                                        
                                         />
                                         <input 
                                         type="email" 
@@ -101,7 +101,7 @@ const handleConfirmPasswordChange = (event) => {
                                         placeholder="Your Email"
                                         value={User_Email}
                                         onChange={handleEmailChange}
-                                        required
+                                        
                                         />
                                         <input 
                                         type="password" 
