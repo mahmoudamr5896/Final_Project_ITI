@@ -26,12 +26,10 @@ function About(){
                 <div className="col-lg-6 col-md-12 col-sm-12">
                     <Myimg img="/nutritionist.jpg" /> 
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center">
-                    <div>
-                        <Bh1 name="About us" />
+                <div className="col-lg-6 col-md-12 col-sm-12 ">
+                        <Bh1 name="About dd4" />
                         <Myp name="NutriWise is a site that explains how weight management works and helps to establish new healthy habits in a comfortable and pleasant way. Our team applies the experience of professional nutritionists and studies all users' feedback to improve the application features." />
                         <Myp name="We work worldwide in 150+ countries with about 30k user." />
-                    </div>
                 </div>    
             </div>
             <div className="row my-5">
