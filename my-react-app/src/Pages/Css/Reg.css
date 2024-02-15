@@ -30,13 +30,15 @@
     transition: border-color 0.3s ease;
   }
   
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    border-color: #03974D;
-  }    
   
-  /* Style the form */
+  .text-input:focus,
+  .email-input:focus,
+  .password-input:focus {
+    border-color: #03974D;
+  }
+     
+  
+  
   .form {
     background-color: #ffffff;
     padding: 20px;
@@ -44,10 +46,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Style form inputs */
-  .form-control {
+  
+  /* .form-control {
     margin-bottom: 20px;
-  }
+  } */
   
   /* Style form labels */
   .form-label {

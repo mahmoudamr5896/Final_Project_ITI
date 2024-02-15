@@ -64,6 +64,7 @@ function LoginNut() {
               <div className="form-group">
                 <input
                   type="text"
+                  className="text-input"
                   name="emailOrUsername"
                   placeholder="Email or Username"
                   value={formData.emailOrUsername}
@@ -74,6 +75,7 @@ function LoginNut() {
               <div className="form-group">
                 <input
                   type="password"
+                  className='password-input'
                   name="password"
                   placeholder="Password"
                   value={formData.password}
