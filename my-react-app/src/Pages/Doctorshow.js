@@ -5,7 +5,6 @@ import './Css/Doctors.css'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 import { Button } from "bootstrap";
-
 function DoctorDetails() {
   const { id } = useParams();
   console.log("id:", id);
@@ -49,7 +48,7 @@ const Select_Overview = ()=>{
                 <div className="row" style={{background:"#03974D"}}>
                     <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                         <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                    <StarRating />
+                    {doctorInfo.Rating}
                     </div>
                     <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
                         <h1>Dr. {doctorInfo.name}</h1>
@@ -68,14 +67,14 @@ const Select_Overview = ()=>{
                             <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav bg-white">
-                                    <button className="nav-link" onClick={Select_Overview} >Overview</button>
-                                    <button className="nav-link" onClick={Select_Location}>Location</button>
-                                    <button className="nav-link"  onClick={Select_Exprience}>Experience</button>
-                                    <button className="nav-link" onClick={Select_Rating}>Ratings</button>
-                                    <button className="nav-link" >Insurance</button>
-                                    <Link className="nav-link" to="#">About</Link>
-                                    <Link className="nav-link" to="#">Hospitals</Link>
+                                <div class="navbar-nav bg-white d-flex justify-content-center">
+                                    <button className="nav-link" onClick={Select_Overview}><h6>Overview</h6></button>
+                                    <button className="nav-link" onClick={Select_Location}><h6>Location</h6></button>
+                                    <button className="nav-link"  onClick={Select_Exprience}><h6>Experience</h6></button>
+                                    <button className="nav-link" onClick={Select_Rating}><h6>Ratings</h6></button>
+                                    {/* <button className="nav-link" >Insurance</button> */}
+                                    <button className="nav-link"><h6>About_Me</h6></button>
+                                    <button className="nav-link"><h6>Hospitals</h6></button>
                                 </div>
                             </div>
                         </nav>
