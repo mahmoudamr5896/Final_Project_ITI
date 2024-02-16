@@ -14,35 +14,33 @@ function BeforeSignUpFor() {
   };
 
   return (
-    <div className="" style={{marginTop:'100px'}}>
-      <Container >
-      {currentPage === 'userTypeSelection' && (
-        <div className="d-flex justify-content-between">
-          <Card style={{ width: '45%', textAlign: 'center' }}>
-            <Card.Body>
-              <h1 style={{ color: "#03974D" }}>Sign Up as Patient</h1>
-              <p></p>
-              <Button variant="light" onClick={() => handleUserTypeChange('patient')}>
-                <img src="er2.png" alt="patient" style={{ width: '500px', height: '500px' }} />
-              </Button>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: '45%', textAlign: 'center' }}>
-            <Card.Body>
-              <h1 style={{ color: "#03974D" }}>Sign Up as Nutritionist</h1>
-              <Button variant="light" onClick={() => handleUserTypeChange('nutritionist')}>
-                <img src="z-removebg-preview.png" alt="nutritionist" style={{ width: '500px' }} />
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-      )}
-      {currentPage === 'signupForm' && (
-        userType === 'patient' ? <Regspatien /> : <RegsNut />
-      )}
-    </Container>
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      <Container>
+        {currentPage === 'userTypeSelection' && (
+          <div className="d-flex justify-content-between">
+            <Card style={{ width: '45%', textAlign: 'center' }}>
+              <Card.Body>
+                <h1 style={{ color: "#03974D" ,marginTop:"15%"}}>Sign Up as Patient</h1>
+                <Button variant="light" onClick={() => handleUserTypeChange('patient')}>
+                  <img src="er2.png" alt="patient" style={{ width: '100%', maxWidth: '500px', height: 'auto' }} />
+                </Button>
+              </Card.Body>
+            </Card>
+            <Card style={{ width: '45%', textAlign: 'center' }}>
+              <Card.Body>
+                <h1 style={{ color: "#03974D" ,marginTop:"15%"}}>Sign Up as Nutritionist</h1>
+                <Button variant="light" onClick={() => handleUserTypeChange('nutritionist')}>
+                  <img src="z-removebg-preview.png" alt="nutritionist" style={{ width: '100%', maxWidth: '500px', height: 'auto' }} />
+                </Button>
+              </Card.Body>
+            </Card>
+          </div>
+        )}
+        {currentPage === 'signupForm' && (
+          userType === 'patient' ? <Regspatien /> : <RegsNut />
+        )}
+      </Container>
     </div>
-    
   );
 }
 

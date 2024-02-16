@@ -21,7 +21,8 @@ function Navbar() {
           <Link className="navbar-brand" to="/">
             <img src={logo7} alt="Logo" height="70" style={{ backgroundColor: "white", borderRadius: "50%" }} />
           </Link>        
-          <span>MR.Health</span>
+          <span
+          style={{color:"#077A1B"}}>MR.Health</span>
           
           <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul className="navbar-nav ">

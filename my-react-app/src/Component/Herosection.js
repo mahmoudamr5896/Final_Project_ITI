@@ -14,10 +14,11 @@ function HeroCarousel() {
         <div className="row">
           <div className="col-lg-7 mx-auto"> {/* Use mx-auto to center the content */}
             <div className="text">
-            <h1>The great  <span>Wealth</span> is your<span>Health!</span></h1>
-              <p>“Take care of your body. It’s the only place you have to live.”
+            <h1
+            style={{marginRight:"20%",marginTop:"20%"}}>The great  <span>Wealth</span> is your<span>Health!</span></h1>
+              <p  style={{marginRight:"20%"}}>“Take care of your body. It’s the only place you have to live.”
 </p>
-              <div className="button">
+              <div className="button" style={{marginRight:"20%"}}>
                 <a href="#" className="btn" style={{backgroundColor:'green'}}>Get started</a>
                 <a href="#" className="btn primary">Contact Now</a>
               </div>
@@ -35,7 +36,7 @@ function HeroCarousel() {
     <span className="visually-hidden">Next</span>
   </button>
   </div>
-  <br></br>  <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+ <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/> 
 </section> 
   );
 }
