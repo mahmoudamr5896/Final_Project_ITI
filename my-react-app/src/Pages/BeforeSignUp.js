@@ -14,7 +14,8 @@ function BeforeSignUpFor() {
   };
 
   return (
-    <Container className="mt-5">
+    <div className="" style={{marginTop:'100px'}}>
+      <Container >
       {currentPage === 'userTypeSelection' && (
         <div className="d-flex justify-content-between">
           <Card style={{ width: '45%', textAlign: 'center' }}>
@@ -40,6 +41,8 @@ function BeforeSignUpFor() {
         userType === 'patient' ? <Regspatien /> : <RegsNut />
       )}
     </Container>
+    </div>
+    
   );
 }
 

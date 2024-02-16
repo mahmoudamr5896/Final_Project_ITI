@@ -78,7 +78,8 @@ function Regspatien() {
   };
 
   return (
-    <Container className="mt-5">
+    <div style={{marginTop:'100px'}}> 
+      <Container className="mt-5">
       <Row>
         <Col md={6} className="photo-column">
           
@@ -156,6 +157,7 @@ function Regspatien() {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 }
 

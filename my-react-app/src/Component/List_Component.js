@@ -4,27 +4,26 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './CSS/list.css'
 const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => {
     const [Phone, setPhone] = useState(false);
-
     const Handel_phone = () => {
         setPhone(!Phone);
     }
-
     return (
         <> 
         <hr></hr>
         <div className="d-flex flex-row border-start border-end  mb-2 p-5 align-items-center">
             <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
                  <div className='' style={{ width: '250px', position: '' }}>
-                <h5>DR.{dname}</h5>
-                <h6>Medical Family</h6>
-                <h6>Start Date :{date}</h6>
-                <p>Rate: {rate}&#11088;</p>
+                <h5 className='text-start m-2'>DR.{dname}</h5>
+                <h6 className='text-start m-2'>Medical Family</h6>
+                <h6 className='text-start m-2'>Start Date :{date}</h6>
+                <p className='text-start m-2'>Rate: {rate}&#11088;</p>
                 <hr></hr>
-                <Link>
+                <Link
+                    style={{ textDecoration: 'none' }}
+                >
                 <i class="far fa-star"></i>
                 Leave review
                 </Link>
-            
             </div>       
             <div className="d-flex flex-column ms-2 flex-grow-1">
                 <h6 className="ml-1 text-primary"></h6>
@@ -33,7 +32,7 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
                     <p></p>
                 </ul>
             </div>
-            <div className="ml-auto" style={{ width: '150px' }}>
+            <div className="ml-auto" style={{ width: '170px' }}>
             <Link
                     to={`/profile/${id}`}
                     className="btn btn-white border rounded-pill"
@@ -42,10 +41,15 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
                     View Profile
                 </Link>
                 {!Phone ? (
-                    <button onClick={Handel_phone} className="btn btn-danger m-2 rounded-pill "><i class="fas fa-phone" style={{color: "#74C0FC;"}}></i></button>
+                    <button onClick={Handel_phone} className="btn btn-success m-2 rounded-pill ">
+                        <i class="fas fa-phone" style={{color: "#74C0FC;"}}></i>
+                    </button>
                 ) : (
-                    <button onClick={Handel_phone} className="btn btn-white text-dark m-2 border rounded-pill ">{dPhone}</button>
+                    <button onClick={Handel_phone} className="btn btn-white text-dark m-2 border rounded-pill">
+                    {dPhone}
+                    </button>
                 )}
+                <br></br>
                 <Link  to={`/profile/${id}`}>
                 <i class="fas fa-map-marker-alt fa-lg" style={{color: "#fa3e00;"}}></i>
                 </Link>
@@ -59,6 +63,27 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
 }
 
 export default DoctorProfileCard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //         <div className="d-flex flex-row border mb-2 p-5 ">        
 //<img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
 

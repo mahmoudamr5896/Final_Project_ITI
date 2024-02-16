@@ -60,7 +60,8 @@ function LoginPatien() {
   };
 
   return (
-    <Container className="mt-5">
+    <div style={{marginTop:'100px'}}>
+         <Container >
       <br /><br />
       <Row>
         <Col md={6} className="photo-column">
@@ -100,6 +101,8 @@ function LoginPatien() {
         </Col>
       </Row>
     </Container>
+    </div>
+ 
   );
 }
 

@@ -79,7 +79,8 @@ function RegsNut() {
     }
   };
   return (
-    <Container className="mt-5">
+    <div style={{marginTop:'100px'}}> 
+      <Container >
       <Row>
         <Col md={6} className="photo-column">
           <img src="nutr3.jpg" alt="User" className="user-photo" style={{ marginBottom: "20%", height: "100%", marginTop: "20%" }} />
@@ -162,6 +163,9 @@ function RegsNut() {
         </Col>
       </Row>
     </Container>
+
+    </div>
+ 
   );
 }
 

@@ -122,7 +122,7 @@ const Select_Appon = ()=>{
 </div>
 {/* Content Profile */}
 <div className="container mt-5 d-flex justify-content-center">
-              {!overview ? (<>OVER VIEW</>) : (<></>)}
+              {!overview ? (<></>) : (<></>)}
                {!Islocation ?  
                 (
                  <div className="map_container mt-5" style={{width:'100%'}}>
@@ -184,7 +184,7 @@ const Select_Appon = ()=>{
                           Check Dr. {doctorInfo.name}'s experience treating your condition or procedure
                       </p>
                   </div>
-</div>
+                  </div>
 
                 ) : (
                     <h1></h1>
@@ -208,18 +208,19 @@ const Select_Appon = ()=>{
                      <>How likely are you to recommend 
                      <br></br>Dr.{doctorInfo.name}</><br></br>
                      <div className="mt-4">
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>                  
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
-                     <i className="fas fa-star" style={{color: "#FFD43B"}}></i>
-                     <span className="fa fa-star checked"></span>
-                     <span className="fa fa-star"></span> <br></br>
-                     </div>
+                            <i className="fas fa-star" ></i>                  
+                            <i className="fas fa-star" ></i>
+                            <i className="fas fa-star" ></i>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star"></span> <br></br>
+                    </div>
                       <div className='m-3'>Select Rating</div>
                     </div>
                     <div className="mt-5">
                       <h3>Reviews</h3>
                       <hr></hr>
-                      <CommentSection></CommentSection>
+                      <CommentSection 
+                      ></CommentSection>
                       <CommentSection></CommentSection>
                       <CommentSection></CommentSection>
                     </div>
@@ -251,12 +252,79 @@ const Select_Appon = ()=>{
                     She is a board-certified family physician who has been
                      actively involved in medical school and residency training
                      of future physicians. Over the past many years, Dr. Beecham
-                      has led the delivery of high-quality care within various healthcare organizations, she’s a patient advocate and proponent of health equity for all. Professionally, her interests include preventive medicine, women’s health, diabetes and cardiovascular disease. She enjoys getting to know her patients and developing relationships with them over time. When not at work Dr. Beecham is active in the community, she has volunteered with various organizations to improve health outcomes. She enjoys traveling, leisure sports and various outdoor activities.`}
+                      has led the delivery of high-quality care within various healthcare organizations,
+                       she’s a patient advocate and proponent of health equity for all. Professionally, 
+                       her interests include preventive medicine, women’s health, diabetes and cardiovascular disease.
+                        She enjoys getting to know her patients and developing relationships with them over time. When not at work Dr. Beecham is active in the community, she has volunteered with various organizations to improve health outcomes. She enjoys traveling, leisure sports and various outdoor activities.`}
                  maxLength={100}
                  >
                  </MinMaxText>
-                  </div>
+                 <>
+                            <> 
+                            <h4 class="text-start" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Education</h4>
+                            <hr></hr>
+                            <div class="col-6">
+                                        <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                        <div class=" card-body " style={{width:'500px'}}> 
+                                        <h6 className='text-start'>A Einstein College M Yeshiva University</h6>
+                                        Residency Hospital
+                                        <h6 className='text-start'>University of Miami Miller School of Medicine</h6>
+                                        Medical School, 2001
+                                        </div>
+                                        <hr></hr>
 
+                                </div>
+                            </div>
+                            </>
+                            <>
+                            <div className='row '>
+                                    <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample2" >Language</h4>
+                            </div>
+                            <hr></hr>
+                            <div class="col-12">
+                                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                <div class=" card-body " style={{width:'500px'}}> 
+                                <h6 className='text-start'>English</h6>
+                                <h6 className='text-start'>Arabic</h6>
+                                </div>
+                                </div>
+                            </div>
+                            </>
+                            <>
+                            <>
+                            <div className='row '>
+                                    <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2" >Frequantly Asked Quastion</h4>
+                            </div>
+                            <hr></hr>
+                            <div class="col-12">
+                                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                                <div class=" card-body " style={{width:'500px'}}> 
+                                <h5 className='text-start'>
+                                What is the best way to schedule an appointment with Dr.{doctorInfo.name}?<br></br>
+                                <p className="text-success">New patients may call {doctorInfo.Phone} to make an appointment.</p>
+                                </h5>
+                                <h5 className='text-start'>
+                                Can I use my insurance at Dr.{doctorInfo.name}?
+                                <p  className="text-success">Dr.{doctorInfo.name}, MD accepts various insurance plans. You can easily check if your insurance provider is accepted by using the Healthgrades insurance check. We recommend verifying your insurance coverage before scheduling an appointment to ensure a seamless experience.</p>
+                                </h5>
+                                <h5 className='text-start'>
+                                What is Dr.{doctorInfo.name}'s office address?
+                                <p  className="text-success">Dr. Beecham Robinson's office is located at {doctorInfo.Location} You can find other locations and directions on Healthgrades.</p>
+                                </h5>
+                                <h5 className='text-start '>
+                                What languages does Dr.{doctorInfo.name} speak?
+                                <p  className="text-success">Dr.{doctorInfo.name} is fluent in 2 languages: English and Arabic.</p>
+                                </h5>
+                                </div>
+                                <hr></hr>
+
+                                </div>
+                            </div>
+                            </>
+
+                            </>
+                </>
+                  </div>
                 ):(
                   <>
                   </>
