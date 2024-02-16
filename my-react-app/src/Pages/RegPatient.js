@@ -97,10 +97,10 @@ useEffect(() => {
       axios
       .post('https://retoolapi.dev/T6Ye0M/users', Nwew_user)
         .then(response => {
-          console.log('Review posted successfully:', response.data);
+          console.log('Patient posted successfully:', response.data);
         })
         .catch(error => {
-          console.error('Error posting review:', error);
+          console.error('Error posting Patient:', error);
         });
     }
   };

@@ -87,7 +87,6 @@ function RegsNut() {
 // handle posting a users
 const Nwew_user ={
   "id": id_ + 1,
-  "id": 1,
   "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "Img": "image.svg",
   "name": formData.firstName + formData.lastName,
@@ -102,10 +101,10 @@ const Nwew_user ={
 axios
 .post('https://retoolapi.dev/Pf4yJq/data', Nwew_user)
   .then(response => {
-    console.log('Review posted successfully:', response.data);
+    console.log('Doctor posted successfully:', response.data);
   })
   .catch(error => {
-    console.error('Error posting review:', error);
+    console.error('Error posting Doctor:', error);
   });
     }
   };
