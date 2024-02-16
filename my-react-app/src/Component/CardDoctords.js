@@ -2,25 +2,27 @@ import React from "react";
 import DoctorsSection from "./TopDoctors";
 import StarRating from '../Component/Rate'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-function DoctorCard({ delay, imageUrl, name, department ,dept , id ,rating}) {
+
+function DoctorCard({ delay, imageUrl, name, department, dept, id, rating }) {
     return (
-        <div className="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay={delay}>
-            <div className="team-item position-relative rounded overflow-hidden" style={{width:'220px' , height:'300px'}}>
-                <div className="overflow-hidden">
-                    <img className="img-fluid" src={imageUrl} alt="Doctor" style={{width:'150px' , height:'150px'}}/>
+        <div className="col-lg-3 col-md-6 col-sm-12 mb-4 wow fadeInUp" data-wow-delay={delay}>
+            <div className="card h-100 shadow-sm">
+                <div className="overflow-hidden position-relative">
+                    <img className="card-img-top" src={imageUrl} alt="Doctor" />
                 </div>
-                <div className="team-text bg-light text-center p-4">
-                    <h5>{name}</h5>
-                    <h5>{dept}</h5>
-                    <Link className="text-primary" to={`/profile/${id}`}>{department}</Link>
-                    <p>
-                    &#11088;
-                    {rating}
-                        </p>
-                    <div className="team-social text-center">
-                        <a className="btn btn-square" href="#"><i className="fab fa-facebook-f"></i></a>
-                        <a className="btn btn-square" href="#"><i className="fab fa-twitter"></i></a>
-                        <a className="btn btn-square" href="#"><i className="fab fa-instagram"></i></a>
+                <div className="card-body">
+                    <h5 className="card-title">{name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{dept}</h6>
+                    <p className="card-text">
+                        <StarRating rating={rating} />
+                    </p>
+                    <Link className="btn btn-sm ProfileButton" to={`/profile/${id}`} >View Profile</Link>
+                </div>
+                <div className="card-footer text-center bg-light">
+                    <div className="social-links">
+                        <a className="btn btn-sm btn-light me-2" href="#"><i className="fab fa-facebook-f"></i></a>
+                        <a className="btn btn-sm btn-light me-2" href="#"><i className="fab fa-twitter"></i></a>
+                        <a className="btn btn-sm btn-light" href="#"><i className="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

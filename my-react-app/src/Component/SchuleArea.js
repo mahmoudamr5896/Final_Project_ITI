@@ -24,16 +24,37 @@ function ScheduleSection() {
     }, []);
 
     return (
+        <>
+    
         <section className="schedule" style={{ marginTop: `${marginTop}px` }}>
+          
             <div className="container">
                 <div className="schedule-inner">
+                <h1 style={{
+                     backgroundColor: "whitesmoke",
+                     fontFamily: "Century Gothic",
+                     fontSize: "2.5rem",
+                     fontWeight: "bold",
+                     padding: "20px", 
+                     border: "2px solid #03974D", 
+                     borderRadius: "10px", 
+                     boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+                     textAlign: "center", 
+                    }}>
+  Our Services
+</h1>
+
+                    <br></br>
                     <div className="row">
+                        
                         <div className="col-lg-4 col-md-4 col-12 " >
                             <div className="single-schedule first mb-3" style={{height:'260px'}}>
+                            
                                 <div className="inner">
                                     <div className="icon">
                                         <i ></i>
                                     </div>
+                                    
                                     <div className="single-content" style={{height:'180px'}}>
                                         <span>our Services</span>
                                         <h4>Track your weight and calories</h4>
@@ -81,6 +102,7 @@ function ScheduleSection() {
                 </div>
             </div>
         </section>
+        </>
     );
 }
 

@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <div>
   <HeroCarousel></HeroCarousel>
-  <ScheduleSection></ScheduleSection><br></br> <br></br> <br></br><br></br>
+  <ScheduleSection></ScheduleSection>
 
   {/* <FunFactsSection></FunFactsSection> */}
   <DoctorsSection></DoctorsSection>
