@@ -87,7 +87,7 @@ const Select_Appon = ()=>{
                     {doctorInfo.Rating}
                     </div>
                     <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                        <h1>Dr. {doctorInfo.name}</h1>
+                        <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                            <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
                             <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
@@ -103,13 +103,13 @@ const Select_Appon = ()=>{
                             <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav bg-white d-flex justify-content-center">
-                                    <button className="nav-link" onClick={Select_Overview}><h6>Overview</h6></button>
-                                    <button className="nav-link" onClick={Select_Location}><h6>Location</h6></button>
-                                    <button className="nav-link"  onClick={Select_Exprience}><h6>Experience</h6></button>
-                                    <button className="nav-link" onClick={Select_Rating}><h6>Ratings</h6></button>
-                                    <button className="nav-link" onClick={Select_About}><h6>About Me</h6></button>
-                                    <button className="nav-link" onClick={Select_Appon}><h6>Appointment</h6></button>
+                                <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                    <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                    <button className="nav-link" onClick={Select_Location}><h6 style={{color:"green"}}>Location</h6></button>
+                                    <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                    <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                    <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                    <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
                                 </div>
                             </div>
                         </nav>

@@ -23,5 +23,23 @@
   .fa-star:hover {
     color: #FFD43B; /* Change to desired hover color */
 }
+/* CSS for DoctorProfileCard */
+.card-doctor-profile {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* CSS for DoctorCard */
+.card-doctor {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 
 
