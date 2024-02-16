@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
 import './Css/Reg.css';
 
 function RegsNut() {
   const history = useHistory();
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -59,9 +60,16 @@ function RegsNut() {
     setErrors(newErrors);
   };
 
+
+
+  const[id_,setid_]=useState()
+  useEffect(() => {
+    axios(`https://retoolapi.dev/Pf4yJq/data`)
+        .then((res) => setid_(res.data.id))
+        .catch((err) => console.log(err));
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = { ...errors };
     Object.keys(formData).forEach(key => {
       if (formData[key].trim() === '') {
@@ -76,6 +84,29 @@ function RegsNut() {
       console.log('Form submitted:', formData);
       // Navigate to login page
       history.push('/logNut');
+// handle posting a users
+const Nwew_user ={
+  "id": id_ + 1,
+  "id": 1,
+  "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "Img": "image.svg",
+  "name": formData.firstName + formData.lastName,
+  "Email": formData.email,
+  "Phone": "(555) 682-8004",
+  "Rating": "⭐️⭐️⭐️",
+  "Location": "Rogers, Arkansas, United States",
+  "Start_date": "Nov 25, 2024 10:13 PM",
+  "Payment_Appointment": "Debit"
+};
+
+axios
+.post('https://retoolapi.dev/Pf4yJq/data', Nwew_user)
+  .then(response => {
+    console.log('Review posted successfully:', response.data);
+  })
+  .catch(error => {
+    console.error('Error posting review:', error);
+  });
     }
   };
   return (

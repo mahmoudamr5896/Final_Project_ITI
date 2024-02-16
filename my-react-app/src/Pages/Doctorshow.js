@@ -27,6 +27,7 @@ const Select_Location = ()=>{
 
 }
 
+
 const [IsExprience,setIsExprience]=useState(true);
 const Select_Exprience = ()=>{
     setIsExprience(!IsExprience)
@@ -76,6 +77,42 @@ const Select_Appon = ()=>{
   setrequset(!requset)
 }
 
+
+// handel review _____________________________________________________________________________________________
+const [newReview, setNewReview] = useState();
+const handleNameChange = (event) => {
+  const inputName = event.target.value;
+  setNewReview(inputName);
+};
+// handell review 
+const[id_,setid_]=useState()
+useEffect(() => {
+  axios(`https://retoolapi.dev/MborCQ/Reviews`)
+      .then((res) => setid_(res.data.id))
+      .catch((err) => console.log(err));
+}, [id]);
+// handle posting a review
+const handleReview = (event) => {
+event.preventDefault();
+ const reviewData = {
+      "id": id_ + 1,
+      "Rate": "⭐️⭐️⭐️",
+      "Review": newReview,
+      "User_id": 1,
+      "Doctor_id": doctorInfo.id,
+      "User Name": "mahmoud",
+      "Doctor_Name": doctorInfo.name
+    };
+    axios
+    .post('https://retoolapi.dev/MborCQ/Reviews', reviewData)
+      .then(response => {
+        console.log('Review posted successfully:', response.data);
+        setNewReview('')
+      })
+      .catch(error => {
+        console.error('Error posting review:', error);
+      });
+  };
   return ( 
   <>
  <div className="container-fluid">
@@ -228,10 +265,16 @@ const Select_Appon = ()=>{
                   <h5 className="text-start pt-3">Leave a review</h5>
                   <p className="text-start">How was your experience with 
                     Dr.{doctorInfo.name}</p>
-                  <form className="d-flex pb-4">
-                        <input className="form-control me-2" type="text" placeholder="Leave Review ..." />
-                        <button className="btn btn-success rounded-pill">Continue</button>
-                  </form>
+                  <div className="d-flex pb-4">
+                        <input 
+                        className="form-control me-2" 
+                        type="text" 
+                        onChange={handleNameChange}
+                        placeholder="Leave Review ..." 
+                        value={newReview}/>
+                        <button className="btn btn-success rounded-pill"
+                        onClick={handleReview}>Continue</button>
+                  </div>
                     </div>
                 </div>
                 </>
@@ -244,7 +287,6 @@ const Select_Appon = ()=>{
                   <h4 className="text-start">About Me</h4>
                   <hr className="color-primary"></hr>
                  <MinMaxText 
-                 className='text-start'
                  text={`Dr.${doctorInfo.name} is an established and highly skilled 
                  physician with over 15 years of experience. She is a 
                  graduate of the University of Miami School of Medicine.

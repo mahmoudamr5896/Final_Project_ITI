@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 import './Css/Reg.css';
+import axios from 'axios';
+import { useEffect } from 'react';
 function Regspatien() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -58,6 +60,13 @@ function Regspatien() {
     setErrors(newErrors);
   };
 
+// handell api post 
+const[id_,setid_]=useState()
+useEffect(() => {
+  axios(`https://retoolapi.dev/T6Ye0M/users`)
+      .then((res) => setid_(res.data.id))
+      .catch((err) => console.log(err));
+}, []);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,6 +83,25 @@ function Regspatien() {
     } else {
       console.log('Form submitted:', formData);
       history.push('/LogPat');
+      const Nwew_user ={
+        "id": id_ + 1,
+        "Age": "30",
+        "Email": formData.email,
+        "Image": "audio.mp3",
+        "password": formData.password,
+        "Last Name": formData.lastName,
+        "User_name": formData.userName,
+        "First name": formData.firstName
+      };
+  
+      axios
+      .post('https://retoolapi.dev/T6Ye0M/users', Nwew_user)
+        .then(response => {
+          console.log('Review posted successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error posting review:', error);
+        });
     }
   };
 
