@@ -203,7 +203,7 @@ const Select_Appon = ()=>{
                     <hr style={{border:"3px solid #f1f1f1"}}/>
                     </div>
                     <div className="col-6 border">
-                     <p>Leave Review</p>
+                     <p className="pt-3">Leave Review</p>
                      <hr></hr>
                      <>How likely are you to recommend 
                      <br></br>Dr.{doctorInfo.name}</><br></br>
@@ -244,6 +244,7 @@ const Select_Appon = ()=>{
                   <h4 className="text-start">About Me</h4>
                   <hr className="color-primary"></hr>
                  <MinMaxText 
+                 className='text-start'
                  text={`Dr.${doctorInfo.name} is an established and highly skilled 
                  physician with over 15 years of experience. She is a 
                  graduate of the University of Miami School of Medicine.
