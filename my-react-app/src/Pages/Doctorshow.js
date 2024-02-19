@@ -8,7 +8,7 @@ import { Button } from "bootstrap";
 import MinMaxText from "../Component/Minimaize";
 import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
-import CheckoutForm from '../Component/CheekoutForm'
+
 function DoctorDetails() {
   const { id } = useParams();
   console.log("id:", id);
@@ -468,10 +468,6 @@ const Select_Appon = ()=>{
   setRatingData(null)
 }
 
-const Select_Overview = ()=>{
-
-}
-
 
   return ( 
   <>
@@ -507,6 +503,14 @@ const Select_Overview = ()=>{
                                     <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                     <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                     <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                    <DropdownButton
+                                        id="dropdown-basic-button"
+                                        title="Settings"
+                                        variant="success"
+                                        className="mx-2"
+                                    >
+                                        <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                    </DropdownButton>
                                 </div>
                             </div>
                         </nav>
@@ -518,13 +522,6 @@ const Select_Overview = ()=>{
 </div>
 </div>
 
-{/* Content Profile */}
-<div className="container mt-5 d-flex justify-content-center" id='Data'>
-{locationData}
-{ExperienceData}
-{RatingData}
-{AboutData}
-{Appointment}
 </div>
 </>       
   );
@@ -827,15 +824,3 @@ export default DoctorDetails;
 //              </div>
 //              </>
 
-//              </>
-//  </>
-//    </div>
-//  ):(
-//    <>
-//    </>
-//  )}
-//  {requset ? (
-//    <></>
-//  ):(
-//   <></>
-//  )}
