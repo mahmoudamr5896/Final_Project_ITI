@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 const MinMaxText = ({ text, maxLength }) => {
     const [isMinimized, setIsMinimized] = useState(true);
-
     const toggleMinimized = () => {
         setIsMinimized(!isMinimized);
     };
+
 
     return (
         <div className='container'>
@@ -13,8 +13,8 @@ const MinMaxText = ({ text, maxLength }) => {
                 <div>
                     {text.length > maxLength ? (
                         <p className='text-start'>{`${text.substring(0, maxLength)}...`}</p>
-                    ) : (
-                        <p>{text}</p>
+                    ) : (   
+                 <p  className='text-start'>{text}</p>
                     )}
                     <span className="" onClick={toggleMinimized}>
                         Show More
@@ -23,7 +23,8 @@ const MinMaxText = ({ text, maxLength }) => {
             ) : (
                 <div>
                     <p>{text}</p>
-                    <span className="" onClick={toggleMinimized}>
+                
+                    <span  className='text-start'onClick={toggleMinimized}>
                         Show Less
                     </span>
                 </div>

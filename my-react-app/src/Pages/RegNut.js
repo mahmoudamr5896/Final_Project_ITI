@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
 import './Css/Reg.css';
 
 function RegsNut() {
   const history = useHistory();
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -59,9 +60,17 @@ function RegsNut() {
     setErrors(newErrors);
   };
 
+
+
+  const[id_,setid_]=useState()
+  useEffect(() => {
+    axios(`https://retoolapi.dev/EBWb8G/Doctors`)
+        .then((res) => setid_(res.data))
+        .catch((err) => console.log(err));
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = { ...errors };
     Object.keys(formData).forEach(key => {
       if (formData[key].trim() === '') {
@@ -74,8 +83,34 @@ function RegsNut() {
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      // Navigate to login page
-      history.push('/logNut');
+      const user_n = id_.find((user) => user.Email === formData.email );
+      if(user_n){
+           console.log("This Email Is Exites")
+      }else{
+        // Navigate to login page
+        history.push('/logNut');
+        const Nwew_user ={
+            "id": id_.id + 1,
+            "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "Email": formData.email,
+            "Image": "audio.mp3",
+            "Phone": "(555) 820-9259",
+            "Gender": "Male ",
+            "Rating": "⭐️⭐️⭐️⭐️",
+            "Location": "Muncie, Indiana, United States",
+            "Password": formData.password,
+            "Doctor_Name": `${formData.firstName}+ ' ' + ${formData.lastName}`,
+            "Payment_Appointment": "Invoice" 
+        };
+      axios
+.post('https://retoolapi.dev/EBWb8G/Doctors', Nwew_user)
+  .then(response => {
+    console.log('Doctor posted successfully:', response.data);
+  })
+  .catch(error => {
+    console.error('Error posting Doctor:', error);
+  });  
+};
     }
   };
   return (

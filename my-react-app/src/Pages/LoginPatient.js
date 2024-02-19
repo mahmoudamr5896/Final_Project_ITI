@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 import './Css/Reg.css';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 function LoginPatien() {
   const [formData, setFormData] = useState({
     email: '',
@@ -28,6 +29,15 @@ function LoginPatien() {
     setErrors(newErrors);
   };
 
+
+// 
+// Handel Accept user
+const[AcceptUser,setAcceptUser]=useState()
+useEffect(() => {
+  axios(`https://retoolapi.dev/T6Ye0M/users`)
+      .then((res) => setAcceptUser(res.data))
+      .catch((err) => console.log(err));
+}, []);
   const handleSubmit = (e) => {
     e.preventDefault();
   
@@ -52,6 +62,13 @@ function LoginPatien() {
     // If there are no errors, submit the form
     if (Object.values(newErrors).every(error => error === '')) {
       console.log('Form submitted:', formData);
+      const user_n = AcceptUser.find((user) => user.Email === formData.email && user.password === formData.password);
+      if(user_n){
+              history.push('/home');
+              console.log("Successfully")
+      }else{
+          console.log("Does't Exits")
+      }
       // Redirect to the dashboard or wherever you want
       // history.push('/dashboard');
     } else {

@@ -19,6 +19,7 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
                 <p className='text-start m-2'>Rate: {rate}&#11088;</p>
                 <hr></hr>
                 <Link
+                   to={`/profile/${id}`}
                     style={{ textDecoration: 'none' }}
                 >
                 <i class="far fa-star"></i>
