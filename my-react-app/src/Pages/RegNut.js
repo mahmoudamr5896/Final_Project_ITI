@@ -64,10 +64,11 @@ function RegsNut() {
 
   const[id_,setid_]=useState()
   useEffect(() => {
-    axios(`https://retoolapi.dev/Pf4yJq/data`)
-        .then((res) => setid_(res.data.id))
+    axios(`https://retoolapi.dev/EBWb8G/Doctors`)
+        .then((res) => setid_(res.data))
         .catch((err) => console.log(err));
   }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
@@ -82,30 +83,34 @@ function RegsNut() {
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      // Navigate to login page
-      history.push('/logNut');
-// handle posting a users
-const Nwew_user ={
-  "id": id_ + 1,
-  "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  "Img": "image.svg",
-  "name": formData.firstName + formData.lastName,
-  "Email": formData.email,
-  "Phone": "(555) 682-8004",
-  "Rating": "⭐️⭐️⭐️",
-  "Location": "Rogers, Arkansas, United States",
-  "Start_date": "Nov 25, 2024 10:13 PM",
-  "Payment_Appointment": "Debit"
-};
-
-axios
-.post('https://retoolapi.dev/Pf4yJq/data', Nwew_user)
+      const user_n = id_.find((user) => user.Email === formData.email );
+      if(user_n){
+           console.log("This Email Is Exites")
+      }else{
+        // Navigate to login page
+        history.push('/logNut');
+        const Nwew_user ={
+            "id": id_.id + 1,
+            "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "Email": formData.email,
+            "Image": "audio.mp3",
+            "Phone": "(555) 820-9259",
+            "Gender": "Male ",
+            "Rating": "⭐️⭐️⭐️⭐️",
+            "Location": "Muncie, Indiana, United States",
+            "Password": formData.password,
+            "Doctor_Name": `${formData.firstName}+ ' ' + ${formData.lastName}`,
+            "Payment_Appointment": "Invoice" 
+        };
+      axios
+.post('https://retoolapi.dev/EBWb8G/Doctors', Nwew_user)
   .then(response => {
     console.log('Doctor posted successfully:', response.data);
   })
   .catch(error => {
     console.error('Error posting Doctor:', error);
-  });
+  });  
+};
     }
   };
   return (

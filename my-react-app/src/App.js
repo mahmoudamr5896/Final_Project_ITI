@@ -14,6 +14,7 @@ import RegsNut from './Pages/RegNut';
 import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
+import EditUserPage from './Pages/Form'
 function App() {
   return (
     <div className="App">
@@ -21,7 +22,9 @@ function App() {
         <Navbar/>
         <Switch>
         
-        <Route exact path='/'
+        <Route exact path='/form'
+          component={EditUserPage}/>
+          <Route exact path='/'
           component={HomePage}/>
           <Route exact path='/profile' 
           component={DoctorProfile}/>

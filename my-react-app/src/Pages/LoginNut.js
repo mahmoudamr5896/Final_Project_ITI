@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
 import { useHistory } from 'react-router-dom'; 
+import { useEffect } from 'react';
 import './Css/Reg.css';
-
+import axios from 'axios';
 function LoginNut() {
   const [formData, setFormData] = useState({
     emailOrUsername: '',
@@ -28,24 +29,33 @@ function LoginNut() {
     setErrors(newErrors);
   };
 
+// Handel Accept user
+const[AcceptUser,setAcceptUser]=useState()
+useEffect(() => {
+  axios(`https://retoolapi.dev/EBWb8G/Doctors`)
+      .then((res) => setAcceptUser(res.data))
+      .catch((err) => console.log(err));
+}, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = { ...errors };
     Object.keys(formData).forEach(key => {
       if (formData[key].trim() === '') {
         newErrors[key] = `Please enter your ${key === 'emailOrUsername' ? 'email or username' : 'password'}`;
       }
     });
-
     if (Object.values(newErrors).some(error => error !== '')) {
       setErrors(newErrors);
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      // Logic for handling login submission, e.g., send login request to server
-      // After successful login, you can redirect the user to the desired page
-      history.push('/dashboard');
+      const user_n = AcceptUser.find((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
+      if(user_n){
+              history.push('/dashboard');
+      }else{
+          console.log("Does't Exits")
+      }
+      
     }
   };
 
