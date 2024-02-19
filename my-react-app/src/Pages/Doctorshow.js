@@ -8,6 +8,8 @@ import { Button } from "bootstrap";
 import MinMaxText from "../Component/Minimaize";
 import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
+
 function DoctorDetails() {
   const { id } = useParams();
   console.log("id:", id);
@@ -76,6 +78,12 @@ const Select_Appon = ()=>{
   setrequset(!requset)
 }
 
+const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+
+const toggleEditProfile = () => {
+  setIsEditProfileOpen(!isEditProfileOpen);
+};
+
   return ( 
   <>
  <div className="container-fluid">
@@ -110,6 +118,14 @@ const Select_Appon = ()=>{
                                     <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                     <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                     <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                    <DropdownButton
+                                        id="dropdown-basic-button"
+                                        title="Settings"
+                                        variant="success"
+                                        className="mx-2"
+                                    >
+                                        <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                    </DropdownButton>
                                 </div>
                             </div>
                         </nav>
@@ -335,10 +351,45 @@ const Select_Appon = ()=>{
                  <></>
                 )}
 
+{isEditProfileOpen && (
+                <div className="container">
+                  <form>
+                    <div className="mb-3">
+                      <label className="form-label">Name</label>
+                      <input type="text" className="form-control" value={doctorInfo.name} />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Email</label>
+                      <input type="email" className="form-control" value={doctorInfo.email} />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Phone</label>
+                      <input type="text" className="form-control" value={doctorInfo.phone} />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Location</label>
+                      <input type="text" className="form-control" value={doctorInfo.location} />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Start Date</label>
+                      <input type="date" className="form-control" value={doctorInfo.startDate} />
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Payment Appointment</label>
+                      <select className="form-select" value={doctorInfo.paymentAppointment}>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
+                      </select>
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+                )}
+
           
 </div>
 </>       
   );
 }
 
-export default DoctorDetails;
+export default DoctorDetails; 
