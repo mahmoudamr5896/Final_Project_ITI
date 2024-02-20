@@ -20,7 +20,7 @@ const DoctorsPage = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://retoolapi.dev/Pf4yJq/data');
+            const response = await axios.get('https://retoolapi.dev/EBWb8G/Doctors');
             setDoctors(response.data);
             setLoading(false);
         } catch (error) {
@@ -133,11 +133,11 @@ const Handel_Card =()=>{
                 {Islist ? (
                 currentDoctors.map((doctor, index) => (
                     <DoctorProfileCard
-                    dname={doctor.name}
+                    dname={doctor.Doctor_Name}
                     dPhone={doctor.Phone}
                     dLocation={doctor.Location}
                     id={doctor.id}   
-                    rate={doctor.Rating.length/2}
+                    rate={doctor.Rating}
                     Bio={doctor.Bio}
                     date={doctor.Start_date}
                     />

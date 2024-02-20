@@ -52,6 +52,14 @@ useEffect(() => {
       const user_n = AcceptUser.find((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
       if(user_n){
               history.push('/dashboard');
+              const user = {
+                email: formData.emailOrUsername,
+                password: formData.password,
+                role: 'doctor' 
+              };
+              const userData = JSON.stringify(user);
+              sessionStorage.setItem('userData', userData);
+
       }else{
           console.log("Does't Exits")
       }
