@@ -97,31 +97,12 @@ const selectLocation = () => {
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
-  <>
-     <h1 className="text-start col-12">
+  <div className="container">     <h1 className="text-start col-12">
      Experience and Background Checks
      <hr></hr>
    </h1>
-   
    <br></br>
-   <div className="row border " style={{width:'100%',height:'100px'}}>
-     <span className="">
-   <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
-   <p className="">Exprience</p></span>
-   <span className="col-6" style={{width:'100px'}}>
-     <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
-     <span><p className="">Background</p></span></span>
-   </div>
-   <p className="text-start">Experience Check<br></br>
-     Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
-   <div className="container">
-   <div className="container ">
-         <h1 className="text-start ">
-       Experience and Background Checks
-       <hr />
-     </h1>
-   </div>
-   <div className="container mt-5">
+    <div className="container mt-5">
          <div className="row border mb-5" style={{ width: '500px', height: 'auto' }}>
            <div className="col-6 d-flex align-items-center">
                <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{ width: '70px' }} />
@@ -136,9 +117,27 @@ const data=(
            Check Dr. {doctorInfo.name}'s experience treating your condition or procedure
        </p>
    </div>
-   </div>
+  {/* <div className="row border " style={{width:'100%',height:'100px'}}>
+            <span className="">
+          <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
+          <p className="">Exprience</p></span>
+          <span className="col-6" style={{width:'100px'}}>
+            <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
+            <span><p className="">Background</p></span></span>
+  </div> */}
+          {/* <p className="text-start">Experience Check<br></br>
+            Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
+          <div className="container">
+          <div className="container ">
+                <h1 className="text-start ">
+              Experience and Background Checks
+              <hr />
+            </h1>
+          </div> </div> */}
+  
+            
 
-  </>
+  </div>
 
 )
 setIsEditProfileOpen(null);
@@ -324,7 +323,7 @@ const Select_Appon = ()=>{
     <div class="row g-5">
         <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
             <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
-            <h1 class="mb-4">Make An Appointment To Visit Our Doctor</h1>
+            <h1 class="mb-4">Make An Appointment To Visit DR./{doctorInfo.Doctor_Name}</h1>
             <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
             <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
                 <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{width: "55px;", height: "55px;"}}>
@@ -413,7 +412,7 @@ const Select_Appon = ()=>{
     </div>
                             {!payNow ?  (
                             <>
-                              <CheckoutForm></CheckoutForm>
+                              {/* <CheckoutForm></CheckoutForm> */}
                             </>
                         ):(<></>)}
 </div>
@@ -426,7 +425,6 @@ const Select_Appon = ()=>{
   setLocationData(null)
   setRatingData(null)
 }
-
 const Select_Overview = ()=>{
 
 }
@@ -451,7 +449,6 @@ useEffect(() => {
       console.error('Error fetching user data:', error);
     });
 }, [id]);
-
 const handleChange = (e) => {
   const { name, value } = e.target;
   setDoctorInfo(prevData => ({
@@ -459,7 +456,6 @@ const handleChange = (e) => {
     [name]: value
   }));
 };
-
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.patch(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`, doctorInfo)
@@ -470,7 +466,6 @@ const handleSubmit = (e) => {
       console.error('Error updating user data:', error);
     });
 };
-
 const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
@@ -520,7 +515,6 @@ const toggleEditProfile = () => {
   setLocationData(null)
   setRatingData(null)
 };
-
 //___________________________________________________________________
 
 //__________________________________________________________________________________________________________________
@@ -534,7 +528,6 @@ const[problemDescription,setproblemDescription]=useState('')
 const handlePayNowChange = (event) => {
     setPayNow(event.target.value === 'no');
 };
-
 const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
 };
@@ -583,9 +576,6 @@ axios
     console.error('Error posting Appointment:', error);
   }); 
 }
-
-
-
 //________________________________________________________________________________
 const [userData, setUserData] = useState(null);
 useEffect(() => {
@@ -595,69 +585,64 @@ useEffect(() => {
     setUserData(JSON.parse(storedUserData));
   }
 }, []);
+//_______________________________________________________________________________________________________
   return ( 
-  <>
- <div className="container-fluid">
-         <div><br/><br/><br/><br/>
-         </div>
-                <div className="row" style={{background:"#03974D"}}>
-                    <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-                        <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                    {doctorInfo.Rating}
-                    </div>
-                    <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                        <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                           <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                            <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
-                        </div> 
-                        <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
-                    </div>
-                </div> 
-                <div className="row docgradient">
-                    <div className="col-1"></div>
-                    <div className="col-7">
-                        <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                    <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
-                                    <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
-                                    <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
-                                    <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
-                                    <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
-                                    <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                    {userData && userData.role === 'doctor' && (
-                                    <DropdownButton
-                                      id="dropdown-basic-button"
-                                      title="Settings"
-                                      variant="success"
-                                      className="mx-2"
-                                    >
-                                      <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                      <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
-                                    </DropdownButton>
-                                          )}
-                                </div>
+      <>
+        <div className="container-fluid">
+                <div><br/><br/><br/><br/>
+                </div>
+                        <div className="row" style={{background:"#03974D"}}>
+                            <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
+                                <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
+                            {doctorInfo.Rating}
                             </div>
-                        </nav>
-                    </div>
+                            <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
+                                <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                  <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
+                                    <h5>&nbsp; Nutritionist &bull; {'{'}{doctorInfo.Gender}{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
+                                </div> 
+                                <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                            </div>
+                        </div> 
+                        <div className="row docgradient">
+                            <div className="col-1"></div>
+                            <div className="col-7">
+                                <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                        <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                            <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                            <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                            <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                            <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                            <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                            <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                            {userData && userData.role === 'doctor' && (
+                                            <DropdownButton
+                                              id="dropdown-basic-button"
+                                              title="Settings"
+                                              variant="success"
+                                              className="mx-2"
+                                            >
+                                              <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                              <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                            </DropdownButton>
+                                                  )}
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
 
                     <div className="col-4"></div>
                 </div> 
          <div>
 </div>
 </div>
-<div className="container mt-5 d-flex justify-content-center" id='Data'>
-{locationData}
-{ExperienceData}
-{RatingData}
-{AboutData}
-{Appointment}
-{isEditProfileOpen}
-</div>
+
+
 </>       
   );
 }

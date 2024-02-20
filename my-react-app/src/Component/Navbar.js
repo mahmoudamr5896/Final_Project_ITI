@@ -3,16 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo7 from "./img/logo7.png";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./CSS/Navbar.css"; 
 
 function CustomNavbar() {
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
-
+const history = useHistory()
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
+  history.push('/')
 } 
   return (
+
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={{ boxShadow: "0 4px 5px -2px gray" }}>
         <Container>
