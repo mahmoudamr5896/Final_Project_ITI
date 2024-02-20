@@ -103,8 +103,12 @@ const selectLocation = () => {
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
+<<<<<<< HEAD
   <div className="container">
       <h1 className="text-start col-12">
+=======
+  <div className="container">     <h1 className="text-start col-12">
+>>>>>>> 96908622a64077307cdf58ed4c0f23c145d5629d
      Experience and Background Checks
      <hr></hr>
    </h1>
@@ -431,7 +435,6 @@ const Select_Appon = ()=>{
   setLocationData(null)
   setRatingData(null)
 }
-
 const Select_Overview = ()=>{
 
 }
@@ -458,7 +461,6 @@ useEffect(() => {
       console.error('Error fetching user data:', error);
     });
 }, [id]);
-
 const handleChange = (e) => {
   const { name, value } = e.target;
   setDoctorInfo(prevData => ({
@@ -466,7 +468,6 @@ const handleChange = (e) => {
     [name]: value
   }));
 };
-
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.patch(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`, doctorInfo)
@@ -477,7 +478,6 @@ const handleSubmit = (e) => {
       console.error('Error updating user data:', error);
     });
 };
-
 const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
@@ -607,6 +607,7 @@ useEffect(() => {
                             <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                                 <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
                             {doctorInfo.Rating}
+<<<<<<< HEAD
                             </div>
                             <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
                                 <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
@@ -658,6 +659,57 @@ useEffect(() => {
                 </div>
        </div>
       </>       
+=======
+                            </div>
+                            <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
+                                <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                  <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
+                                    <h5>&nbsp; Nutritionist &bull; {'{'}{doctorInfo.Gender}{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
+                                </div> 
+                                <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                            </div>
+                        </div> 
+                        <div className="row docgradient">
+                            <div className="col-1"></div>
+                            <div className="col-7">
+                                <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                        <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                            <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                            <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                            <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                            <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                            <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                            <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                            {userData && userData.role === 'doctor' && (
+                                            <DropdownButton
+                                              id="dropdown-basic-button"
+                                              title="Settings"
+                                              variant="success"
+                                              className="mx-2"
+                                            >
+                                              <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                              <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                            </DropdownButton>
+                                                  )}
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+
+                    <div className="col-4"></div>
+                </div> 
+         <div>
+</div>
+</div>
+
+
+</>       
+>>>>>>> 96908622a64077307cdf58ed4c0f23c145d5629d
   );
 }
 export default DoctorDetails;
