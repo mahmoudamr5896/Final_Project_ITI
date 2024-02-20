@@ -636,20 +636,14 @@ useEffect(() => {
                                 </nav>
                             </div>
 
-                            <div className="col-4"></div>
-                        </div> 
-                <div>
-        </div>
-        </div>
-        <div className="container mt-5 d-flex justify-content-center" id='Data'>
-        {locationData}
-        {ExperienceData}
-        {RatingData}
-        {AboutData}
-        {Appointment}
-        {isEditProfileOpen}
-        </div>
-      </>       
+                    <div className="col-4"></div>
+                </div> 
+         <div>
+</div>
+</div>
+
+
+</>       
   );
 }
 export default DoctorDetails;
