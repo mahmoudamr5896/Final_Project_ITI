@@ -11,7 +11,9 @@ import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
 import EditUserPage from '../Component/CompnentFormEdit'
+
 function DoctorDetails() {
+
   const { id } = useParams();
   console.log("id:", id);
   const [doctorInfo, setDoctorInfo] = useState({
@@ -29,6 +31,7 @@ function DoctorDetails() {
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
   }, []);
+
 // handel review _____________________________________________________________________________________________
 const [newReview, setNewReview] = useState();
 const handleNameChange = (event) => {
@@ -41,7 +44,8 @@ useEffect(() => {
   axios(`https://retoolapi.dev/NJuvHL/Reviews`)
       .then((res) => setid_(res.data.id))
       .catch((err) => console.log(err));
-}, []);
+}, []); 
+
 // handle posting a review
 const handleReview = (event) => {
 event.preventDefault();
@@ -64,10 +68,12 @@ event.preventDefault();
         console.error('Error posting review:', error);
       });
   };
+
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
       setShowFullBio(!showFullBio); 
-  };
+};
+
 // handel Sections 
 const [locationData, setLocationData] = useState(null);
 const selectLocation = () => {
@@ -97,7 +103,8 @@ const selectLocation = () => {
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
-  <div className="container">     <h1 className="text-start col-12">
+  <div className="container">
+      <h1 className="text-start col-12">
      Experience and Background Checks
      <hr></hr>
    </h1>
@@ -150,7 +157,7 @@ setAppointment(null)
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 let data = (
- <div className="container row d-flex" style={{width:'80%'}}>
+ <div className="container row d-flex mt-5" style={{width:'80%'}}>
      <div className="col-6">
       <h3>Dr. {doctorInfo.name} Reviews</h3>
       <>Likelihood to recommend Dr.{doctorInfo.name}</>
@@ -178,7 +185,7 @@ let data = (
        <hr></hr>
        <div className="container"> 
          <CommentSection 
-         doctorId={id}  ></CommentSection>
+         doctorId={id}></CommentSection>
        <hr>
        </hr>
       </div>
@@ -210,12 +217,11 @@ setAboutData(null)
 setAppointment(null)
 
 }
-
 const[AboutData,setAboutData]=useState(null)
 const Select_About = ()=>{
 
   const data=(
-       <div className="" style={{width:'700px'}}>
+  <div className="container mt-5" style={{width:'700px'}}>
    <h4 className="text-start">About Me</h4>
    <hr className="color-primary"></hr>
   <MinMaxText 
@@ -428,6 +434,7 @@ const Select_Appon = ()=>{
 const Select_Overview = ()=>{
 
 }
+
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
   axios
@@ -439,6 +446,7 @@ const handleDeleteAccount = () => {
       console.error('Error deleting account:', error);
     });
 };
+
 //______________________________________________________________________________________
 useEffect(() => {
   axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`)
@@ -503,10 +511,6 @@ const toggleEditProfile = () => {
       <button type="submit" className="btn btn-primary">Save Changes</button>
     </form>
   </div>
-  // <EditUserPage
-  //  User_id={doctorInfo.id}>
-
-  // </EditUserPage>
   )
   setIsEditProfileOpen(data);
   setAppointment(null)
@@ -635,15 +639,17 @@ useEffect(() => {
                                     </div>
                                 </nav>
                             </div>
-
-                    <div className="col-4"></div>
+                 <div className="col-4"></div>
                 </div> 
-         <div>
-</div>
-</div>
-
-
-</>       
+                <div className="container">
+                  {AboutData}
+                  {Appointment}
+                  {RatingData}
+                  {ExperienceData}
+                  {locationData}
+                </div>
+       </div>
+      </>       
   );
 }
 export default DoctorDetails;
