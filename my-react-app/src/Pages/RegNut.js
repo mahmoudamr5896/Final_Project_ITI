@@ -99,7 +99,7 @@ function RegsNut() {
             "Rating": "⭐️⭐️⭐️⭐️",
             "Location": "Muncie, Indiana, United States",
             "Password": formData.password,
-            "Doctor_Name": `${formData.firstName}+ ' ' + ${formData.lastName}`,
+            "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
             "Payment_Appointment": "Invoice" 
         };
       axios
