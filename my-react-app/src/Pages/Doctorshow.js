@@ -360,9 +360,17 @@ const Select_Appon = ()=>{
                                 <option value="yes">Pay Now</option>
                             </select>
                         </div>
+                        <div class="col-12">
+                        <input type="text"
+                           // value={name_}
+                            onChange={Handelname}
+                            class="form-control border-0"
+                             placeholder="Doctor Name"
+                              style={{height: "55px;"}}/>
+                        </div>
                         <div class="col-12 col-sm-6">
                             <input type="text"
-                            value={name_}
+                           // value={name_}
                             onChange={Handelname}
                             class="form-control border-0"
                              placeholder="Your Name"
@@ -375,7 +383,7 @@ const Select_Appon = ()=>{
                               placeholder="Your Email"
                               style={{height: "55px;"}}
                               onChange={HandelEmail}
-                              value={email}
+                              //value={email}
                                />
                         </div>
                         <div class="col-12 col-sm-6">
@@ -384,7 +392,7 @@ const Select_Appon = ()=>{
                               placeholder="Your Mobile"
                               style={{height: "55px;"}}
                               onChange={HandelMobile}
-                              value={mobile}
+                              //value={mobile}
                                />
                         </div>
                         <div class="col-12 col-sm-6">
@@ -396,7 +404,8 @@ const Select_Appon = ()=>{
                                     data-toggle="datetimepicker"
                                     style={{height: "55px;"}}
                                     onChange={Handeldate}
-                                    value={date}/>
+                                    //value={date}
+                                    />
                             </div>
                         </div>
                         <div class="col-12">
@@ -404,7 +413,7 @@ const Select_Appon = ()=>{
                             class="form-control border-0"
                              rows="5" 
                              placeholder="Describe your problem"
-                             value={problemDescription}
+                             //value={problemDescription}
                              onChange={HandelProps}
                              ></textarea>
                         </div>
@@ -457,6 +466,7 @@ useEffect(() => {
       console.error('Error fetching user data:', error);
     });
 }, [id]);
+
 const handleChange = (e) => {
   const { name, value } = e.target;
   setDoctorInfo(prevData => ({
@@ -464,6 +474,7 @@ const handleChange = (e) => {
     [name]: value
   }));
 };
+
 const handleSubmit = (e) => {
   e.preventDefault();
   axios.patch(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`, doctorInfo)
@@ -474,42 +485,69 @@ const handleSubmit = (e) => {
       console.error('Error updating user data:', error);
     });
 };
+
 const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
+    
+    <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
     <h1>Edit User</h1>
-    <form onSubmit={handleSubmit}>
-      <div className="mb-3">
+  <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
+  
+    <form onSubmit={handleSubmit} className="row g-3 justify-content-center">
+      <div className="col-md-10 mb-3">
         <label htmlFor="bio" className="form-label">Bio:</label>
-        <textarea id="bio" name="Bio" className="form-control" value={doctorInfo.Bio} onChange={handleChange} />
+        <textarea id="bio" name="Bio" className="form-control" placeholder={doctorInfo.Bio} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
         <label htmlFor="img" className="form-label">Img:</label>
-        <input id="img" type="text" name="Img" className="form-control" value={doctorInfo.Image} onChange={handleChange} />
+        <input id="img" type="text" name="Img" className="form-control" placeholder={doctorInfo.Image} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="name" className="form-label">Name:</label>
-        <input id="name" type="text" name="name" className="form-control" value={doctorInfo.Doctor_Name} onChange={handleChange} />
+        <input id="name" type="text" name="name" className="form-control" placeholder={doctorInfo.Doctor_Name} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="email" className="form-label">Email:</label>
-        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email } onChange={handleChange} />
+        <input id="email" type="text" name="Email" className="form-control" placeholder={doctorInfo.Email} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
+        <label htmlFor="img" className="form-label">New password:</label>
+        <input id="img" type="password" name="Img" className="form-control" placeholder={doctorInfo.Password} onChange={handleChange} />
+      </div>
+      
+      <div className="col-md-5 mb-3">
         <label htmlFor="phone" className="form-label">Phone:</label>
-        <input id="phone" type="text" name="Phone" className="form-control" value={doctorInfo.Phone} onChange={handleChange} />
+        <input id="phone" type="text" name="Phone" className="form-control" placeholder={doctorInfo.Phone} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="location" className="form-label">Location:</label>
-        <input id="location" type="text" name="Location" className="form-control" value={doctorInfo.Location} onChange={handleChange} />
+        <input id="location" type="text" name="Location" className="form-control" placeholder={doctorInfo.Location} onChange={handleChange} />
       </div>
-      <div className="mb-3">
-        <label htmlFor="payment" className="form-label">Payment Appointment:</label>
-        <input id="payment" type="text" name="Payment_Appointment" className="form-control" value={doctorInfo.Payment_Appointment} onChange={handleChange} />
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Payment Appointment:</label>
+        <select className="form-select" value={doctorInfo.Payment_Appointment} onChange={handleChange}>
+          <option value="debit">Debit</option>
+          <option value="credit">Credit</option>
+        </select>
       </div>
-      <button type="submit" className="btn btn-primary">Save Changes</button>
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Gender:</label>
+        <select className="form-select" value={doctorInfo.Gender} onChange={handleChange}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div className="col-md-10 mb-3 text-center">
+        <button type="submit" className="btn btn-primary">Save Changes</button>
+      </div>
     </form>
+  </div>
+</div>
+
+
   </div>
   )
   setIsEditProfileOpen(data);
@@ -647,6 +685,7 @@ useEffect(() => {
                   {RatingData}
                   {ExperienceData}
                   {locationData}
+                  {isEditProfileOpen}
                 </div>
        </div>
       </>       
