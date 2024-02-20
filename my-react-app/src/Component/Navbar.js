@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo7 from "./img/logo7.png";
@@ -6,6 +6,12 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "./CSS/Navbar.css"; 
 
 function CustomNavbar() {
+  const userData = sessionStorage.getItem('userData');
+  const showJoinButton = !userData;
+
+ const Logout_handel = (e)=>{
+  sessionStorage.removeItem('userData');
+} 
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={{ boxShadow: "0 4px 5px -2px gray" }}>
@@ -29,9 +35,11 @@ function CustomNavbar() {
               <Nav.Link as={Link} to="">Contact Us</Nav.Link>
             </Nav>
             <Nav>
-              <Link to='/login'>
-                <button className="button1 type12 ms-auto">Join Us Now</button>
-              </Link>
+            {showJoinButton ? (
+            <Link to='/login'>
+              <button className="button1 type12 ms-auto">Join Us Now</button>
+            </Link>
+          ):(<button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>)}
             </Nav>
           </Navbar.Collapse>
         </Container>

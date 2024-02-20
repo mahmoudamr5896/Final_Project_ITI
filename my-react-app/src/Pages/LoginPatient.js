@@ -65,6 +65,13 @@ useEffect(() => {
       const user_n = AcceptUser.find((user) => user.Email === formData.email && user.password === formData.password);
       if(user_n){
               history.push('/home');
+              const user = {
+                email: formData.email,
+                password: formData.password,
+                role: 'Patient' 
+              };
+              const userData = JSON.stringify(user);
+              sessionStorage.setItem('userData', userData);
               console.log("Successfully")
       }else{
           console.log("Does't Exits")
@@ -119,7 +126,6 @@ useEffect(() => {
       </Row>
     </Container>
     </div>
- 
   );
 }
 
