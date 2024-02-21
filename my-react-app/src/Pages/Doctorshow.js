@@ -11,7 +11,9 @@ import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
 import EditUserPage from '../Component/CompnentFormEdit'
+
 function DoctorDetails() {
+
   const { id } = useParams();
   console.log("id:", id);
   const [doctorInfo, setDoctorInfo] = useState({
@@ -29,6 +31,7 @@ function DoctorDetails() {
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
   }, []);
+
 // handel review _____________________________________________________________________________________________
 const [newReview, setNewReview] = useState();
 const handleNameChange = (event) => {
@@ -41,7 +44,8 @@ useEffect(() => {
   axios(`https://retoolapi.dev/NJuvHL/Reviews`)
       .then((res) => setid_(res.data.id))
       .catch((err) => console.log(err));
-}, []);
+}, []); 
+
 // handle posting a review
 const handleReview = (event) => {
 event.preventDefault();
@@ -64,10 +68,12 @@ event.preventDefault();
         console.error('Error posting review:', error);
       });
   };
+
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
       setShowFullBio(!showFullBio); 
-  };
+};
+
 // handel Sections 
 const [locationData, setLocationData] = useState(null);
 const selectLocation = () => {
@@ -97,6 +103,8 @@ const selectLocation = () => {
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
+  <div className="container">
+      <h1 className="text-start col-12">
   <div className="container">     <h1 className="text-start col-12">
      Experience and Background Checks
      <hr></hr>
@@ -150,7 +158,7 @@ setAppointment(null)
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 let data = (
- <div className="container row d-flex" style={{width:'80%'}}>
+ <div className="container row d-flex mt-5" style={{width:'80%'}}>
      <div className="col-6">
       <h3>Dr. {doctorInfo.name} Reviews</h3>
       <>Likelihood to recommend Dr.{doctorInfo.name}</>
@@ -178,7 +186,7 @@ let data = (
        <hr></hr>
        <div className="container"> 
          <CommentSection 
-         doctorId={id}  ></CommentSection>
+         doctorId={id}></CommentSection>
        <hr>
        </hr>
       </div>
@@ -210,12 +218,11 @@ setAboutData(null)
 setAppointment(null)
 
 }
-
 const[AboutData,setAboutData]=useState(null)
 const Select_About = ()=>{
 
   const data=(
-       <div className="" style={{width:'700px'}}>
+  <div className="container mt-5" style={{width:'700px'}}>
    <h4 className="text-start">About Me</h4>
    <hr className="color-primary"></hr>
   <MinMaxText 
@@ -354,9 +361,17 @@ const Select_Appon = ()=>{
                                 <option value="yes">Pay Now</option>
                             </select>
                         </div>
+                        <div class="col-12">
+                        <input type="text"
+                           // value={name_}
+                            onChange={Handelname}
+                            class="form-control border-0"
+                             placeholder="Doctor Name"
+                              style={{height: "55px;"}}/>
+                        </div>
                         <div class="col-12 col-sm-6">
                             <input type="text"
-                            value={name_}
+                           // value={name_}
                             onChange={Handelname}
                             class="form-control border-0"
                              placeholder="Your Name"
@@ -369,7 +384,7 @@ const Select_Appon = ()=>{
                               placeholder="Your Email"
                               style={{height: "55px;"}}
                               onChange={HandelEmail}
-                              value={email}
+                              //value={email}
                                />
                         </div>
                         <div class="col-12 col-sm-6">
@@ -378,7 +393,7 @@ const Select_Appon = ()=>{
                               placeholder="Your Mobile"
                               style={{height: "55px;"}}
                               onChange={HandelMobile}
-                              value={mobile}
+                              //value={mobile}
                                />
                         </div>
                         <div class="col-12 col-sm-6">
@@ -390,7 +405,8 @@ const Select_Appon = ()=>{
                                     data-toggle="datetimepicker"
                                     style={{height: "55px;"}}
                                     onChange={Handeldate}
-                                    value={date}/>
+                                    //value={date}
+                                    />
                             </div>
                         </div>
                         <div class="col-12">
@@ -398,7 +414,7 @@ const Select_Appon = ()=>{
                             class="form-control border-0"
                              rows="5" 
                              placeholder="Describe your problem"
-                             value={problemDescription}
+                             //value={problemDescription}
                              onChange={HandelProps}
                              ></textarea>
                         </div>
@@ -428,6 +444,7 @@ const Select_Appon = ()=>{
 const Select_Overview = ()=>{
 
 }
+
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
   axios
@@ -439,6 +456,7 @@ const handleDeleteAccount = () => {
       console.error('Error deleting account:', error);
     });
 };
+
 //______________________________________________________________________________________
 useEffect(() => {
   axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`)
@@ -470,43 +488,65 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
+    
+    <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
     <h1>Edit User</h1>
-    <form onSubmit={handleSubmit}>
-      <div className="mb-3">
+  <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
+  
+    <form onSubmit={handleSubmit} className="row g-3 justify-content-center">
+      <div className="col-md-10 mb-3">
         <label htmlFor="bio" className="form-label">Bio:</label>
-        <textarea id="bio" name="Bio" className="form-control" value={doctorInfo.Bio} onChange={handleChange} />
+        <textarea id="bio" name="Bio" className="form-control" placeholder={doctorInfo.Bio} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
         <label htmlFor="img" className="form-label">Img:</label>
-        <input id="img" type="text" name="Img" className="form-control" value={doctorInfo.Image} onChange={handleChange} />
+        <input id="img" type="text" name="Img" className="form-control" placeholder={doctorInfo.Image} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="name" className="form-label">Name:</label>
-        <input id="name" type="text" name="name" className="form-control" value={doctorInfo.Doctor_Name} onChange={handleChange} />
+        <input id="name" type="text" name="name" className="form-control" placeholder={doctorInfo.Doctor_Name} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="email" className="form-label">Email:</label>
-        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email } onChange={handleChange} />
+        <input id="email" type="text" name="Email" className="form-control" placeholder={doctorInfo.Email} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
+        <label htmlFor="img" className="form-label">New password:</label>
+        <input id="img" type="password" name="Img" className="form-control" placeholder={doctorInfo.Password} onChange={handleChange} />
+      </div>
+      
+      <div className="col-md-5 mb-3">
         <label htmlFor="phone" className="form-label">Phone:</label>
-        <input id="phone" type="text" name="Phone" className="form-control" value={doctorInfo.Phone} onChange={handleChange} />
+        <input id="phone" type="text" name="Phone" className="form-control" placeholder={doctorInfo.Phone} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="location" className="form-label">Location:</label>
-        <input id="location" type="text" name="Location" className="form-control" value={doctorInfo.Location} onChange={handleChange} />
+        <input id="location" type="text" name="Location" className="form-control" placeholder={doctorInfo.Location} onChange={handleChange} />
       </div>
-      <div className="mb-3">
-        <label htmlFor="payment" className="form-label">Payment Appointment:</label>
-        <input id="payment" type="text" name="Payment_Appointment" className="form-control" value={doctorInfo.Payment_Appointment} onChange={handleChange} />
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Payment Appointment:</label>
+        <select className="form-select" value={doctorInfo.Payment_Appointment} onChange={handleChange}>
+          <option value="debit">Debit</option>
+          <option value="credit">Credit</option>
+        </select>
       </div>
-      <button type="submit" className="btn btn-primary">Save Changes</button>
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Gender:</label>
+        <select className="form-select" value={doctorInfo.Gender} onChange={handleChange}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div className="col-md-10 mb-3 text-center">
+        <button type="submit" className="btn btn-primary">Save Changes</button>
+      </div>
     </form>
   </div>
-  // <EditUserPage
-  //  User_id={doctorInfo.id}>
+</div>
 
-  // </EditUserPage>
+
+  </div>
   )
   setIsEditProfileOpen(data);
   setAppointment(null)
@@ -587,62 +627,68 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
   return ( 
-      <>
-        <div className="container-fluid">
-                <div><br/><br/><br/><br/>
-                </div>
-                        <div className="row" style={{background:"#03974D"}}>
-                            <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-                                <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                            {doctorInfo.Rating}
-                            </div>
-                            <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                                <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                  <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                                    <h5>&nbsp; Nutritionist &bull; {'{'}{doctorInfo.Gender}{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
-                                </div> 
-                                <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
-                            </div>
+  <>
+ <div className="container-fluid">
+         <div><br/><br/><br/><br/>
+         </div>
+                <div className="row" style={{background:"#03974D"}}>
+                    <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
+                        <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
+                    {doctorInfo.Rating}
+                    </div>
+                    <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
+                        <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                           <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
+                            <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
                         </div> 
-                        <div className="row docgradient">
-                            <div className="col-1"></div>
-                            <div className="col-7">
-                                <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                        <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                            <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
-                                            <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
-                                            <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
-                                            <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
-                                            <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
-                                            <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                            {userData && userData.role === 'doctor' && (
-                                            <DropdownButton
-                                              id="dropdown-basic-button"
-                                              title="Settings"
-                                              variant="success"
-                                              className="mx-2"
-                                            >
-                                              <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                              <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
-                                            </DropdownButton>
-                                                  )}
-                                        </div>
-                                    </div>
-                                </nav>
+                        <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                    </div>
+                </div> 
+                <div className="row docgradient">
+                    <div className="col-1"></div>
+                    <div className="col-7">
+                        <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                    <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                    <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                    <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                    <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                    <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                    <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                    {userData && userData.role === 'doctor' && (
+                                    <DropdownButton
+                                      id="dropdown-basic-button"
+                                      title="Settings"
+                                      variant="success"
+                                      className="mx-2"
+                                    >
+                                      <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                      <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                    </DropdownButton>
+                                          )}
+                                </div>
                             </div>
+                        </nav>
+                    </div>
 
                     <div className="col-4"></div>
                 </div> 
          <div>
 </div>
 </div>
-
-
+<div className="container mt-5 d-flex justify-content-center" id='Data'>
+{locationData}
+{ExperienceData}
+{RatingData}
+{AboutData}
+{Appointment}
+{isEditProfileOpen}
+</div>
 </>       
   );
 }

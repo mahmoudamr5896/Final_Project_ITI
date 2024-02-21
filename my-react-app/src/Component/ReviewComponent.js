@@ -41,11 +41,11 @@ function ReviewSection({ doctorId }) {
   }, []);
 
   return (
-    <div className="container border mt-5">
+    <div className="container  mt-5">
       {reviews.map(review => (
         <div className="d-flex justify-content-center row" key={review.id}>
-          <div className="col-md-8">
-            <div className="d-flex flex-column comment-section">
+          <div className="col-md-8 ">
+            <div className="d-flex  border flex-column comment-section m-2">
               <div className="bg-white p-2">
                 <h6>{review.Uswer_Name}</h6>
                 <div className="d-flex flex-row user-info">    
@@ -70,6 +70,26 @@ function ReviewSection({ doctorId }) {
 }
 
 export default ReviewSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React, { useEffect, useState } from 'react';
