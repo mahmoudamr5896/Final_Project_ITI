@@ -35,7 +35,7 @@ function AppointmentForm({ doctorInfo }) {
   };
 
   const validateForm = () => {
-    // Your validation logic goes here
+    // Your validation logic goes herehttps://retoolapi.dev/15YN0H/Appointment
     // Return true if form is valid, otherwise false
     return true;
   };
@@ -43,7 +43,7 @@ function AppointmentForm({ doctorInfo }) {
   const Save_Appointment = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      axios.post('https://retoolapi.dev/15YN0H/Appointment', DataAppointment)
+      axios.post('https://retoolapi.dev/ornM79/Appointment', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
         })
