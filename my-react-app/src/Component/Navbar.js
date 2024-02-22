@@ -5,15 +5,31 @@ import logo7 from "./img/logo7.png";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./CSS/Navbar.css"; 
-
+import axios from 'axios';
+import { useEffect } from 'react';
 function CustomNavbar() {
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
-const history = useHistory()
+  const history = useHistory()
+
+  const[userDataLoged,setuserDataLoged]=useState('')
+  useEffect(() => {
+    axios(`https://retoolapi.dev/T6Ye0M/users/${1}`)
+        .then((res) => setuserDataLoged(res.data))
+        .catch((err) => console.log(err));
+}, []);
+
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
   history.push('/')
 } 
+
+
+
+
+
+
+
   return (
 
     <>
@@ -36,6 +52,7 @@ const history = useHistory()
               <Nav.Link as={Link} to="">Services</Nav.Link>
               <Nav.Link as={Link} to="/About-us">About Us</Nav.Link>
               <Nav.Link as={Link} to="">Contact Us</Nav.Link>
+              <Nav.Link as={Link} to="/user">profile</Nav.Link>
             </Nav>
             <Nav>
             {showJoinButton ? (

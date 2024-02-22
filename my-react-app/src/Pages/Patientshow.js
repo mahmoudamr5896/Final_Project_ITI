@@ -5,20 +5,20 @@ import './Css/Doctors.css'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 
-function PatientDetails() {
+function PatientDetails(){
   const { id } = useParams();
   console.log("id:", id);
   const [patientInfo, setPatientInfo] = useState({});
   const [appointmenttInfo, setAppointmentInfo] = useState({});
 
   useEffect(() => {
-      axios(`https://retoolapi.dev/EBWb8G/Doctors/${2}`)
+      axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
           .then((res) => setPatientInfo(res.data))
           .catch((err) => console.log(err));
   }, [id]);
 
   useEffect(() => {
-    axios(`https://retoolapi.dev/15YN0H/Appointment/${1}`)
+    axios(`https://retoolapi.dev/15YN0H/Appointment?User_id=${1}`)
         .then((res) => setAppointmentInfo(res.data))
         .catch((err) => console.log(err));
 }, [id]);
@@ -34,7 +34,7 @@ function PatientDetails() {
                 <table>
                     <tr>
                         <th><h3>Name :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.name}</h5></th>
+                        <th><h5>&nbsp;{patientInfo.Name}</h5></th>
                     </tr>
                     <tr>
                         <th><h3>Email :</h3></th>
@@ -112,7 +112,6 @@ function PatientDetails() {
 
 )
 
-
 setInformationData(data)
 setAppointmentData(null)
 }
@@ -173,7 +172,7 @@ setAppointmentData(data)
                     <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                            <img src="/patientlogo.png" width={"50px"} className="rounded-circle"/> &nbsp;
-                           <h1>{patientInfo.name}</h1> 
+                           <h1>{patientInfo.Name}</h1> 
                         </div> 
                         
                     </div>

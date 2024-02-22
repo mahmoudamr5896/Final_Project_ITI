@@ -29,42 +29,49 @@ function LoginPatien() {
     setErrors(newErrors);
   };
 
-
 // 
 // Handel Accept user
 const[AcceptUser,setAcceptUser]=useState()
 useEffect(() => {
-  axios(`https://retoolapi.dev/T6Ye0M/users`)
+ const  Email=formData.email 
+  axios(`https://retoolapi.dev/zP9Zhd/patient?${Email}`)
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-  
     const newErrors = { ...errors };
-
     // Validate email
     if (formData.email.trim() === '') {
       newErrors.email = 'Please enter your email';
     } else {
       newErrors.email = '';
     }
-
     // Validate password
     if (formData.password.trim() === '') {
       newErrors.password = 'Please enter your password';
     } else {
       newErrors.password = '';
     }
-
     setErrors(newErrors);
-
     // If there are no errors, submit the form
     if (Object.values(newErrors).every(error => error === '')) {
       console.log('Form submitted:', formData);
+      var User_id;
       const user_n = AcceptUser.find((user) => user.Email === formData.email && user.password === formData.password);
+      console.log(user_n)
       if(user_n){
-              history.push('/home');
+              AcceptUser.find((user) => User_id=user.id);
+              history.push(`/user/${User_id}`);
+              axios
+              .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`, { "Active": true })
+              .then(response => {
+                console.log('Active status updated successfully:', response.data);
+              })
+              .catch(error => {
+                console.error('Error updating Active status:', error);
+              });
+
               const user = {
                 email: formData.email,
                 password: formData.password,
@@ -76,13 +83,13 @@ useEffect(() => {
       }else{
           console.log("Does't Exits")
       }
-      // Redirect to the dashboard or wherever you want
-      // history.push('/dashboard');
     } else {
       console.log('Validation failed');
     }
   };
 
+
+  
   return (
     <div style={{marginTop:'100px'}}>
          <Container >

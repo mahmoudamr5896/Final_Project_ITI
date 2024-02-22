@@ -16,13 +16,15 @@ import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
 import PatientDetails from './Pages/Patientshow';
+
 function App() {
   return (
     <div className="App">
         <BrowserRouter >
         <Navbar/>
         <Switch>
-        
+        <Route exact path={`/user/:id`}
+          component={PatientDetails}/>
         <Route exact path='/form'
           component={EditUserPage}/>
           <Route exact path='/'
@@ -45,15 +47,9 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-          
-          
-          
-          
-          
-          
         </Switch>
         <Footer/>
-        </BrowserRouter>
+        </BrowserRouter>        
     </div>
   );
 }
