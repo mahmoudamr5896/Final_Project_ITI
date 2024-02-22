@@ -15,6 +15,7 @@ import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
+import PatientDetails from './Pages/Patientshow';
 function App() {
   return (
     <div className="App">
