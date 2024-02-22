@@ -8,9 +8,9 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
         setPhone(!Phone);
     }
     return (
-        <> 
+        <div style={{width:'80%'}}> 
         <hr></hr>
-        <div className="d-flex flex-row border-start border-end  mb-2 p-5 align-items-center">
+        <div className="d-flex flex-row border-start border-end  mb-2 p-5 align-items-center" >
             <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
                  <div className='' style={{ width: '250px', position: '' }}>
                 <h5 className='text-start m-2'>DR.{dname}</h5>
@@ -28,10 +28,9 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
             </div>       
             <div className="d-flex flex-column ms-2 flex-grow-1">
                 <h6 className="ml-1 text-primary"></h6>
-                <h6 className="mb-1"></h6>
-                <ul>
-                    <p></p>
-                </ul>
+                <a className="btn btn-sm btn-light me-2" href="#"><i className="fab fa-facebook-f"></i></a>
+                <a className="btn btn-sm btn-light me-2" href="#"><i className="fab fa-twitter"></i></a>
+                <a className="btn btn-sm btn-light" href="#"><i className="fab fa-instagram"></i></a>
             </div>
             <div className="ml-auto" style={{ width: '170px' }}>
             <Link
@@ -58,7 +57,7 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
             </div>
         </div>    
         <hr></hr>
-        </>
+        </div>
         
     );
 }
