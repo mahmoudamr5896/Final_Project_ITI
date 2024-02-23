@@ -16,7 +16,7 @@ import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
 import PatientDetails from './Pages/Patientshow';
-
+import MyContext from '../src/Context/Context';
 function App() {
   return (
     <div className="App">
@@ -49,10 +49,12 @@ function App() {
           component={Regspatien}/>
         </Switch>
         <Footer/>
-        </BrowserRouter>        
+        </BrowserRouter>  
+          
     </div>
   );
 }
+
 // import BeforeSignUpFor from './Pages/BeforeSignUp';
 
 

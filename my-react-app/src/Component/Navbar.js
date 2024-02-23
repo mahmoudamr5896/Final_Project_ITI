@@ -11,7 +11,11 @@ function CustomNavbar() {
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
-
+  const storedId = sessionStorage.getItem('userData') ;
+  const userDatas = JSON.parse(storedId);
+  if(userDatas){
+      var User_id = userDatas.id;
+  }
   const[userDataLoged,setuserDataLoged]=useState('')
   useEffect(() => {
     axios(`https://retoolapi.dev/T6Ye0M/users/${1}`)
@@ -22,6 +26,14 @@ function CustomNavbar() {
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
   history.push('/')
+  axios
+  .patch(`https://retoolapi.dev/zP9Zhd/patient/${1}`, { "Active": false })
+  .then(response => {
+    console.log('Active status updated successfully for user with id:', User_id);
+  })
+  .catch(error => {
+    console.error('Error updating Active status for user with id:', User_id, error);
+  });
 } 
 
 
@@ -52,7 +64,9 @@ function CustomNavbar() {
               <Nav.Link as={Link} to="">Services</Nav.Link>
               <Nav.Link as={Link} to="/About-us">About Us</Nav.Link>
               <Nav.Link as={Link} to="">Contact Us</Nav.Link>
-              <Nav.Link as={Link} to="/user">profile</Nav.Link>
+              {userDatas && userDatas.role === 'Patient' && (
+              <Nav.Link as={Link} to={`/user/${User_id}`}>profile</Nav.Link>
+              )}
             </Nav>
             <Nav>
             {showJoinButton ? (

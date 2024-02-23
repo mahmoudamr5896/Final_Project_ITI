@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function AppointmentForm({ doctorInfo }) {
+function AppointmentForm({ doctorInfo , UserR_id }) {
   const [DataAppointment, setDataAppointment] = useState({
     NameUser: '',
     EmailUser: '',
@@ -10,7 +10,7 @@ function AppointmentForm({ doctorInfo }) {
     problemDescription: '',
     Doctot_name: doctorInfo.Doctor_Name,
     Data_Appointment: '',
-    User_id: 3,
+    User_id: UserR_id,
     Doctot_id: doctorInfo.id
   });
 

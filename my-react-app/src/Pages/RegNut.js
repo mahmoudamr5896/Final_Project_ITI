@@ -90,7 +90,6 @@ function RegsNut() {
         // Navigate to login page
         history.push('/logNut');
         const Nwew_user ={
-            "id": id_.id + 1,
             "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "Email": formData.email,
             "Image": "audio.mp3",

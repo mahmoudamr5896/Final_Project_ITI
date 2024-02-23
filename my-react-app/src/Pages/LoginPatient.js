@@ -3,7 +3,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
 import './Css/Reg.css';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect ,useContext} from 'react';
+
+import MyContext from '../Context/Context';
 function LoginPatien() {
   const [formData, setFormData] = useState({
     email: '',
@@ -33,11 +35,12 @@ function LoginPatien() {
 // Handel Accept user
 const[AcceptUser,setAcceptUser]=useState()
 useEffect(() => {
- const  Email=formData.email 
-  axios(`https://retoolapi.dev/zP9Zhd/patient?${Email}`)
+  axios(`https://retoolapi.dev/zP9Zhd/patient?`)
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
+
+const[MM,setMM]=useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
@@ -57,39 +60,40 @@ useEffect(() => {
     // If there are no errors, submit the form
     if (Object.values(newErrors).every(error => error === '')) {
       console.log('Form submitted:', formData);
-      var User_id;
-      const user_n = AcceptUser.find((user) => user.Email === formData.email && user.password === formData.password);
-      console.log(user_n)
-      if(user_n){
-              AcceptUser.find((user) => User_id=user.id);
-              history.push(`/user/${User_id}`);
-              axios
-              .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`, { "Active": true })
-              .then(response => {
-                console.log('Active status updated successfully:', response.data);
-              })
-              .catch(error => {
-                console.error('Error updating Active status:', error);
-              });
-
-              const user = {
-                email: formData.email,
-                password: formData.password,
-                role: 'Patient' 
-              };
-              const userData = JSON.stringify(user);
-              sessionStorage.setItem('userData', userData);
-              console.log("Successfully")
-      }else{
-          console.log("Does't Exits")
+      const usersFound = AcceptUser.filter((user) => user.Email === formData.email && user.password === formData.password);
+      console.log(usersFound);
+      if (usersFound.length > 0){
+        usersFound.forEach((user) =>
+         {
+         const  User_id = user.id;
+         setMM(User_id)
+          history.push(`/user/${User_id}`);
+          axios
+            .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`, { "Active": true })
+            .then(response => {
+              console.log('Active status updated successfully for user with id:', User_id);
+            })
+            .catch(error => {
+              console.error('Error updating Active status for user with id:', User_id, error);
+            });
+          const userData = {
+            email: formData.email,
+            password: formData.password,
+            role: 'Patient' ,
+            id:User_id
+          };
+          const userDataString = JSON.stringify(userData);
+          sessionStorage.setItem('userData', userDataString);
+          console.log("Successfully updated user data in session storage for user with id:", User_id);
+        });
+      } else {
+        console.log("User not found");
       }
     } else {
       console.log('Validation failed');
     }
   };
 
-
-  
   return (
     <div style={{marginTop:'100px'}}>
          <Container >

@@ -4,12 +4,17 @@ import { useParams } from "react-router-dom";
 import './Css/Doctors.css'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
-
+import { useContext } from "react";
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
+import CompnentFormEditUser from "../Component/CompnentFormEdit User";
+import MyContext from "../Context/Context";
+import EditUserPage from "../Component/CompnentFormEdit User";
 function PatientDetails(){
   const { id } = useParams();
-  console.log("id:", id);
+//   console.log("id:", id);
   const [patientInfo, setPatientInfo] = useState({});
   const [appointmenttInfo, setAppointmentInfo] = useState({});
+
 
   useEffect(() => {
       axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
@@ -17,15 +22,15 @@ function PatientDetails(){
           .catch((err) => console.log(err));
   }, [id]);
 
-  useEffect(() => {
-    axios(`https://retoolapi.dev/15YN0H/Appointment?User_id=${1}`)
+  useEffect(() =>{
+    axios(`https://retoolapi.dev/ornM79/Appointment?User_id=${id}`)
         .then((res) => setAppointmentInfo(res.data))
         .catch((err) => console.log(err));
-}, [id]);
+}, []);
 
-
-  const [InformationData, setInformationData] = useState(null);
-  const Select_Information = ()=>{
+//___________________________ Handell Sections ____________________________________
+const [InformationData, setInformationData] = useState(null);
+const Select_Information = ()=>{
   const data=(
     <div className="container">
         <div className="row">
@@ -110,14 +115,14 @@ function PatientDetails(){
         </div>
     </div>
 
-)
 
+)
+setIsEditProfileOpen(null)
 setInformationData(data)
 setAppointmentData(null)
 }
-
 const [AppointmentData, setAppointmentData] = useState(null);
-  const Select_Appointment = ()=>{
+const Select_Appointment = ()=>{
   const data=(
     <div className="container">
         <table>
@@ -154,16 +159,36 @@ const [AppointmentData, setAppointmentData] = useState(null);
 
 )
 
-
+setIsEditProfileOpen(null)
 setInformationData(null)
 setAppointmentData(data)
 }
-
-
-
-
-  return (<>
-            <div className="container-fluid">
+const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
+const toggleEditProfile = () => {
+    const data=(
+      <div className='container m-5'>
+        <EditUserPage userId={patientInfo.id}></EditUserPage>
+    </div>
+    )
+    setIsEditProfileOpen(data);
+    setAppointmentData(null)
+    setInformationData(null)
+  };
+//____________________________________________________________
+const handleDeleteAccount = () => {
+    axios
+    .delete(`https://retoolapi.dev/zP9Zhd/patient/${ patientInfo.id}`)
+      .then(response => {
+        console.log('Account deleted successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error deleting account:', error);
+      });
+  };
+  //___________________________________________________________________________
+  return (    
+    <>
+               <div className="container-fluid">
                 <div><br/><br/><br/><br/></div>
                 <div className="row" style={{background:"#03974D"}}>
                     <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
@@ -190,8 +215,15 @@ setAppointmentData(data)
                                             <button className="nav-link mx-2"><h6 style={{color:"green"}}>Meal Plan</h6></button>
                                             <button className="nav-link mx-2"><h6 style={{color:"green"}}>Exercise Plan</h6></button>
                                             <button className="nav-link mx-2" onClick={Select_Appointment}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                            <button className="nav-link mx-2"><h6 style={{color:"green"}}>Setting</h6></button>
-                                        </div>
+                                            <DropdownButton
+                                                  id="dropdown-basic-button"
+                                                  title="Settings"
+                                                  variant="success"
+                                                  className="mx-2"
+                                                >
+                                                  <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                                  <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                                </DropdownButton>                                        </div>
                                     </div>
                                 </nav>
                     </div>
@@ -202,8 +234,9 @@ setAppointmentData(data)
             <div className="container mt-5 d-flex justify-content-center" id='Data'>
                 {InformationData}
                 {AppointmentData}
+                {isEditProfileOpen}
             </div>
-            </> 
+    </>
   );
 }
 
