@@ -7,7 +7,11 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./CSS/Navbar.css"; 
 import axios from 'axios';
 import { useEffect } from 'react';
-function CustomNavbar() {
+const  CustomNavbar= ()=> {
+
+
+
+  const[login,setlogin]=useState(true)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
@@ -25,6 +29,7 @@ function CustomNavbar() {
 
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
+   setlogin(false)
   history.push('/')
   axios
   .patch(`https://retoolapi.dev/zP9Zhd/patient/${1}`, { "Active": false })
@@ -69,12 +74,13 @@ function CustomNavbar() {
               )}
             </Nav>
             <Nav>
-            {showJoinButton ? (
+            {login ? (
+                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
+              ):(
             <Link to='/login'>
-              <button className="button1 type12 ms-auto">Join Us Now</button>
-            </Link>
-          ):(<button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>)}
-            </Nav>
+            <button className="button1 type12 ms-auto" >Join Us Now</button>
+          </Link>)}
+          </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -42,7 +42,7 @@ useEffect(() => {
 
 const[MM,setMM]=useState('')
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const newErrors = { ...errors };
     // Validate email
     if (formData.email.trim() === '') {
