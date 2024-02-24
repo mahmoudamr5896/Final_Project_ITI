@@ -9,8 +9,6 @@ import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
 
-
-
   const[login,setlogin]=useState(true)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
@@ -29,7 +27,7 @@ const  CustomNavbar= ()=> {
 
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
-   setlogin(false)
+  setlogin(false)
   history.push('/')
   axios
   .patch(`https://retoolapi.dev/zP9Zhd/patient/${1}`, { "Active": false })
@@ -40,9 +38,6 @@ const  CustomNavbar= ()=> {
     console.error('Error updating Active status for user with id:', User_id, error);
   });
 } 
-
-
-
 
 
 
@@ -75,11 +70,13 @@ const  CustomNavbar= ()=> {
             </Nav>
             <Nav>
             {login ? (
-                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
+                <Link to='/login'>
+                <button className="button1 type12 ms-auto" >Join Us Now</button>
+              </Link>
               ):(
-            <Link to='/login'>
-            <button className="button1 type12 ms-auto" >Join Us Now</button>
-          </Link>)}
+                                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
+
+          )}
           </Nav>
           </Navbar.Collapse>
         </Container>
