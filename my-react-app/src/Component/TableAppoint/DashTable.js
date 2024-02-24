@@ -6,7 +6,6 @@ import axios from 'axios';
 function DoctorAppointmentsTable({id}) {
   const [appointments, setAppointments] = useState([]);
   const doctorId = sessionStorage.getItem('doctorId'); // Retrieve doctor ID from session storage
-  const doctorId = localStorage.getItem('doctorId');
   useEffect(() => {
     if (id) {
       // axios.get(`https://retoolapi.dev/ornM79/Appointment`)
