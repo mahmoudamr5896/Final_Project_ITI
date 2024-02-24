@@ -16,7 +16,7 @@ function ReviewSection({ doctorId }) {
         });
     }
   }, [doctorId]);
-
+//____Delete Review_____________________________________________________________________________________________
   const handleDeleteReview = (reviewId) => {
     axios
       .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
@@ -31,9 +31,7 @@ function ReviewSection({ doctorId }) {
 
   //_____________________________________
   const [userData, setUserData] = useState(null);
-
   useEffect(() => {
-    // Retrieve user data from session storage
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
@@ -57,7 +55,7 @@ function ReviewSection({ doctorId }) {
                 </div>
                 <div className="mt-2">
                   <p className="comment-text">{review.comment}</p>
-                  {userData && userData.role === 'doctor' && (
+                  {userData && userData.role === 'doctor' && userData.id === doctorId && (
                   <button className="btn btn-danger" onClick={() => handleDeleteReview(review.id)}>Delete</button>)}
                 </div>
               </div>

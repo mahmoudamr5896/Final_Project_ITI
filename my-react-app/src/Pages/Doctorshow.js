@@ -15,8 +15,11 @@ import EditUserPage from '../Component/CompnentFormEdit'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
 
-function DoctorDetails() {
+import { useContext } from "react";
+import MyContext from "../Context/Context";
 
+function DoctorDetails() {
+  
   const { id } = useParams();
   const [doctorInfo, setDoctorInfo] = useState({
       Bio: '',
@@ -32,6 +35,7 @@ function DoctorDetails() {
       axios(`https://retoolapi.dev/EBWb8G/Doctors/${id}`)
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
+
   }, [id]);
 
 
@@ -80,11 +84,16 @@ const [newReview, setNewReview] = useState('');
 
  
 
+  }, []);
+//_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
       setShowFullBio(!showFullBio); 
 };
+
+//______________________________________________________________________________________________
 // handel Sections 
+//_________________________________________________________________________________________________________
 const [locationData, setLocationData] = useState(null);
 const selectLocation = () => {
   const data = (
@@ -108,7 +117,8 @@ const selectLocation = () => {
   setAboutData(null)
   setIsEditProfileOpen(null);
 
-};
+}; 
+//___________________________________________________________________________________________
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
@@ -165,6 +175,41 @@ setRatingData(null)
 setAboutData(null)
 setAppointment(null)
 }
+//___________________________________________________________________________________
+const storedId = sessionStorage.getItem('userData') ;
+const userDatas = JSON.parse(storedId);
+if(userDatas){
+    var User_id = userDatas.id;
+    var User_name = userDatas.name;
+}
+// handel review _____________________________________________________________________________________________
+const [newReview, setNewReview] = useState();
+const handleNameChange = (event) => {
+  const inputName = event.target.value;
+  setNewReview(inputName);
+};
+// handle posting a review // handell review 
+const handleReview = (event) => {
+// event.preventDefault();
+ const reviewData = {
+      "Rate": "⭐️⭐️⭐️",
+      "Review": newReview,
+      "User_id": User_id,
+      "Doctor_id": doctorInfo.id,
+      "User_name": User_name,
+      "Doctor_Name": doctorInfo.Doctor_Name
+    };
+    axios
+    .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
+      .then(response => {
+        console.log('Review posted successfully:', response.data);
+        setNewReview('')
+      })
+      .catch(error => {
+        console.error('Error posting review:', error);
+      });
+  };
+//___________________________________________________________________________________
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 let data = (
@@ -204,6 +249,23 @@ let data = (
      </div>
    
     <DoctorReview />
+   <div className="col-12 border mt-4"  >
+   <h5 className="text-start pt-3">Leave a review</h5>
+   <p className="text-start">How was your experience with 
+     Dr.{doctorInfo.Doctor_Name}</p>
+   <div className="d-flex pb-4">
+         <input 
+         className="form-control me-2" 
+         type="text" 
+         placeholder="Leave Review ..." 
+         value={newReview} 
+         onChange={handleNameChange}/>
+         <button 
+         className="btn btn-success rounded-pill"
+         onClick={handleReview}
+         >Continue</button>
+   </div>
+     </div>
  </div>
  
   )
@@ -216,6 +278,7 @@ setAboutData(null)
 setAppointment(null)
 
 }
+//_________________________________________________________________________________________
 const[AboutData,setAboutData]=useState(null)
 const Select_About = ()=>{
 
@@ -317,19 +380,21 @@ const Select_About = ()=>{
 setAppointment(null)
 
 }
-
+//_____________________________________________________________________________________
 const Select_Overview = ()=>{
 
 }
-//_____________________________________________________________________________________
-
 //__________________________________________________________________________________
 const[Appointment,setAppointment]=useState(null)
 const Select_Appon = ()=>{
- 
+
+  const storedId = sessionStorage.getItem('userData');
+   const userDatas = JSON.parse(storedId);
+   var User_id = userDatas.id
   const data=(
     <AppointmentForm 
-    doctorInfo={doctorInfo}></AppointmentForm>
+    doctorInfo={doctorInfo}
+    UserR_id={User_id}></AppointmentForm>
  )
   setAppointment(data)
   setIsEditProfileOpen(null);
@@ -341,9 +406,6 @@ const Select_Appon = ()=>{
 
 
 //_______    Handell  Appoinment Save      _____________________________________________________________
-
-
-
 //_____________________________________________________________________________________________________
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
@@ -502,7 +564,7 @@ useEffect(() => {
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                                {userData && userData.role === 'doctor' && (
+                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"

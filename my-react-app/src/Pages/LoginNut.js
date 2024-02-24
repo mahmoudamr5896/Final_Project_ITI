@@ -49,17 +49,22 @@ useEffect(() => {
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      const user_n = AcceptUser.find((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
-      if(user_n){
-              history.push('/dashboard');
-              const user = {
-                email: formData.emailOrUsername,
-                password: formData.password,
-                role: 'doctor' 
-              };
-              const userData = JSON.stringify(user);
-              sessionStorage.setItem('userData', userData);
-
+      const user_n = AcceptUser.filter((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
+      if (user_n.length > 0){
+        user_n.forEach((user) =>
+        {
+        const  User_id = user.id;
+         history.push(`/dashboard/${User_id}`);
+         const userData = {
+           email: formData.emailOrUsername,
+           password: formData.password,
+           role: 'Doctor' ,
+           id:User_id
+         };
+         const userDataString = JSON.stringify(userData);
+         sessionStorage.setItem('userData', userDataString);
+         console.log("Successfully updated user data in session storage for user with id:", User_id);
+       });
       }else{
           console.log("Does't Exits")
       }
@@ -104,7 +109,7 @@ useEffect(() => {
               </div>
               <button type="submit">Login</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')}>Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} > Sign Up</button></p>
           </div>
         </Col>
       </Row>

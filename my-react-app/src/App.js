@@ -16,13 +16,17 @@ import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
 
+import PatientDetails from './Pages/Patientshow';
+import MyContext from '../src/Context/Context';
+import Dash from './Pages/Dash';
 function App() {
   return (
     <div className="App">
         <BrowserRouter >
         <Navbar/>
         <Switch>
-        
+        <Route exact path={`/user/:id`}
+          component={PatientDetails}/>
         <Route exact path='/form'
           component={EditUserPage}/>
           <Route exact path='/'
@@ -49,14 +53,16 @@ function App() {
          
           
           
-          
-          
+                   <Route exact path='/dashboard/:id'
+          component={Dash}/>
         </Switch>
         <Footer/>
-        </BrowserRouter>
+        </BrowserRouter>  
+          
     </div>
   );
 }
+
 // import BeforeSignUpFor from './Pages/BeforeSignUp';
 
 

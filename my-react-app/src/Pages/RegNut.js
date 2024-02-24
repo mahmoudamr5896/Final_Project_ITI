@@ -90,7 +90,6 @@ function RegsNut() {
         // Navigate to login page
         history.push('/logNut');
         const Nwew_user ={
-            "id": id_.id + 1,
             "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "Email": formData.email,
             "Image": "audio.mp3",
@@ -193,7 +192,7 @@ function RegsNut() {
               </div>
               <button type="submit">Sign Up</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/logNut')}>Login</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/logNut')}  className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
           </div>
         </Col>
       </Row>
