@@ -52,6 +52,7 @@ const Cards = () => {
           <h2 style={{ color: "white" }}>Ratings</h2>
           <h3 style={{color:"white"}}>{ reviewsCount}</h3>
           <p style={{ color: "white" }}> Number Of All Ratings</p>
+          
         </div>
         <div className="Dash_cards">
           <div className="icon">
