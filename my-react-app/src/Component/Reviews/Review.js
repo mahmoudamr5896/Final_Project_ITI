@@ -2,9 +2,12 @@ import React from "react";
 import "./Review.css"; // Import the CSS file for styling
 
 const Reviews = () => {
+<<<<<<< HEAD
 
 
   
+=======
+>>>>>>> 381053cf8a6582885aff893ef86c4fc05354ec04
   return (
     <div className="reviews-container">
       

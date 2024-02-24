@@ -7,6 +7,7 @@ function DoctorAppointmentsTable() {
   const [appointments, setAppointments] = useState([]);
   const doctorId = localStorage.getItem('doctorId');
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   if (doctorId) {
   //     axios.get(`https://retoolapi.dev/ornM79/Appointment`)
@@ -57,6 +58,21 @@ console.log(appointments)
 
 
 
+=======
+  useEffect(() => {
+    if (doctorId) {
+      axios.get(`https://retoolapi.dev/ornM79/Appointment`)
+        .then(response => {
+          // Filter appointments based on the doctor's ID
+          const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
+          setAppointments(doctorAppointments);
+        })
+        .catch(error => {
+          console.error('Error fetching appointments:', error);
+        });
+    }
+  }, [doctorId]); // Include doctorId in the dependency array to re-fetch appointments when it changes
+>>>>>>> 381053cf8a6582885aff893ef86c4fc05354ec04
 
   return (
     <div>
@@ -73,10 +89,17 @@ console.log(appointments)
           <tbody>
             {appointments.map(appointment => (
               <tr key={appointment.id}>
+<<<<<<< HEAD
                 <td>{appointment.Doctor_name}</td>
                 <td>{appointment.DateAppointment}</td>
                 <td>{appointment.DateAppointment}</td>
                 <td>{appointment.Problem}</td>
+=======
+                <td>{appointment.name}</td>
+                <td>{appointment.date}</td>
+                <td>{appointment.time}</td>
+                <td>{appointment.case}</td>
+>>>>>>> 381053cf8a6582885aff893ef86c4fc05354ec04
               </tr>
             ))}
           </tbody>
