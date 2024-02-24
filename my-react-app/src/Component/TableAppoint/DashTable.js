@@ -45,18 +45,6 @@ console.log(appointments)
 // "Data_Appointment": "Invalid date"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     if (doctorId) {
       axios.get(`https://retoolapi.dev/ornM79/Appointment`)
@@ -78,18 +66,18 @@ console.log(appointments)
           <thead>
             <tr>
               <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Name</th>
+              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Phone</th>
               <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Date</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Time</th>
               <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Case</th>
             </tr>
           </thead>
           <tbody>
             {appointments.map(appointment => (
               <tr key={appointment.id}>
-                <td>{appointment.Doctor_name}</td>
+                <td>{appointment.NameUser}</td>
+                <td>{appointment.User_Phone}</td>
                 <td>{appointment.DateAppointment}</td>
-                <td>{appointment.DateAppointment}</td>
-                <td>{appointment.Problem}</td>
+                <td>{appointment.problemDescription}</td>
               </tr>
             ))}
           </tbody>
