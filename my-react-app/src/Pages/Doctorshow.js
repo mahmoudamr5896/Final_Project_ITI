@@ -11,11 +11,11 @@ import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
 import EditUserPage from '../Component/CompnentFormEdit'
-
+import AppointmentForm from '../Component/AppiontmentDoctors'
+import { useContext } from "react";
+import MyContext from "../Context/Context";
 function DoctorDetails() {
-
   const { id } = useParams();
-  console.log("id:", id);
   const [doctorInfo, setDoctorInfo] = useState({
       Bio: '',
       Img: '',
@@ -31,50 +31,15 @@ function DoctorDetails() {
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
   }, []);
-
-// handel review _____________________________________________________________________________________________
-const [newReview, setNewReview] = useState();
-const handleNameChange = (event) => {
-  const inputName = event.target.value;
-  setNewReview(inputName);
-};
-// handell review 
-const[id_,setid_]=useState()
-useEffect(() => {
-  axios(`https://retoolapi.dev/NJuvHL/Reviews`)
-      .then((res) => setid_(res.data.id))
-      .catch((err) => console.log(err));
-}, []); 
-
-// handle posting a review
-const handleReview = (event) => {
-event.preventDefault();
- const reviewData = {
-      "id": id_ + 1,
-      "Rate": "⭐️⭐️⭐️",
-      "Review": newReview,
-      "User_id": 1,
-      "Doctor_id": doctorInfo.id,
-      "User_name": "mahmoud",
-      "Doctor_Name": doctorInfo.name
-    };
-    axios
-    .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
-      .then(response => {
-        console.log('Review posted successfully:', response.data);
-        setNewReview('')
-      })
-      .catch(error => {
-        console.error('Error posting review:', error);
-      });
-  };
-
+//_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
       setShowFullBio(!showFullBio); 
 };
 
+//______________________________________________________________________________________________
 // handel Sections 
+//_________________________________________________________________________________________________________
 const [locationData, setLocationData] = useState(null);
 const selectLocation = () => {
   const data = (
@@ -98,13 +63,14 @@ const selectLocation = () => {
   setAboutData(null)
   setIsEditProfileOpen(null);
 
-};
-
+}; 
+//___________________________________________________________________________________________
 const [ExperienceData, setExperienceData] = useState(null);
 const Select_Exprience = ()=>{
 const data=(
   <div className="container">
-      <h1 className="text-start col-12">
+      <h1 className="text-start col-12"/>
+  <div className="container">     <h1 className="text-start col-12">
      Experience and Background Checks
      <hr></hr>
    </h1>
@@ -145,6 +111,7 @@ const data=(
             
 
   </div>
+  </div>
 
 )
 setIsEditProfileOpen(null);
@@ -154,6 +121,41 @@ setRatingData(null)
 setAboutData(null)
 setAppointment(null)
 }
+//___________________________________________________________________________________
+const storedId = sessionStorage.getItem('userData') ;
+const userDatas = JSON.parse(storedId);
+if(userDatas){
+    var User_id = userDatas.id;
+    var User_name = userDatas.name;
+}
+// handel review _____________________________________________________________________________________________
+const [newReview, setNewReview] = useState();
+const handleNameChange = (event) => {
+  const inputName = event.target.value;
+  setNewReview(inputName);
+};
+// handle posting a review // handell review 
+const handleReview = (event) => {
+// event.preventDefault();
+ const reviewData = {
+      "Rate": "⭐️⭐️⭐️",
+      "Review": newReview,
+      "User_id": User_id,
+      "Doctor_id": doctorInfo.id,
+      "User_name": User_name,
+      "Doctor_Name": doctorInfo.Doctor_Name
+    };
+    axios
+    .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
+      .then(response => {
+        console.log('Review posted successfully:', response.data);
+        setNewReview('')
+      })
+      .catch(error => {
+        console.error('Error posting review:', error);
+      });
+  };
+//___________________________________________________________________________________
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 let data = (
@@ -194,16 +196,18 @@ let data = (
    <div className="col-12 border mt-4"  >
    <h5 className="text-start pt-3">Leave a review</h5>
    <p className="text-start">How was your experience with 
-     Dr.{doctorInfo.name}</p>
+     Dr.{doctorInfo.Doctor_Name}</p>
    <div className="d-flex pb-4">
          <input 
          className="form-control me-2" 
          type="text" 
-         onChange={handleNameChange}
          placeholder="Leave Review ..." 
-         value={newReview}/>
-         <button className="btn btn-success rounded-pill"
-         onClick={handleReview}>Continue</button>
+         value={newReview} 
+         onChange={handleNameChange}/>
+         <button 
+         className="btn btn-success rounded-pill"
+         onClick={handleReview}
+         >Continue</button>
    </div>
      </div>
  </div>
@@ -217,6 +221,7 @@ setAboutData(null)
 setAppointment(null)
 
 }
+//_________________________________________________________________________________________
 const[AboutData,setAboutData]=useState(null)
 const Select_About = ()=>{
 
@@ -318,112 +323,22 @@ const Select_About = ()=>{
 setAppointment(null)
 
 }
+//_____________________________________________________________________________________
+const Select_Overview = ()=>{
 
+}
+//__________________________________________________________________________________
 const[Appointment,setAppointment]=useState(null)
 const Select_Appon = ()=>{
- 
-  const data=(
 
-<div class="container-xxl py-5">
-<div class="container">
-    <div class="row g-5">
-        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-            <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
-            <h1 class="mb-4">Make An Appointment To Visit DR./{doctorInfo.Doctor_Name}</h1>
-            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-            <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
-                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{width: "55px;", height: "55px;"}}>
-                    <i class="fa fa-phone-alt text-primary"></i>
-                </div>
-                <div class="ms-4">
-                    <p class="mb-2">Call Us Now</p>
-                    <h5 class="mb-0">{doctorInfo.Phone}</h5>
-                </div>
-            </div>
-            <div class="bg-light rounded d-flex align-items-center p-5">
-                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{width: "55px;", height: "55px;"}}>
-                    <i class="fa fa-envelope-open text-primary"></i>
-                </div>
-                <div class="ms-4">
-                    <p class="mb-2">Mail Us Now</p>
-                    <h5 class="mb-0">{doctorInfo.Email}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                <form>
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <select class="form-select border-0" onChange={handlePayNowChange}>
-                                <option value="no">Pay Later</option>
-                                <option value="yes">Pay Now</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <input type="text"
-                            value={name_}
-                            onChange={Handelname}
-                            class="form-control border-0"
-                             placeholder="Your Name"
-                              style={{height: "55px;"}}/>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <input
-                             type="email"
-                              class="form-control border-0" 
-                              placeholder="Your Email"
-                              style={{height: "55px;"}}
-                              onChange={HandelEmail}
-                              value={email}
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <input type="text"
-                             class="form-control border-0"
-                              placeholder="Your Mobile"
-                              style={{height: "55px;"}}
-                              onChange={HandelMobile}
-                              value={mobile}
-                               />
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="date" id="date" data-target-input="nearest">
-                                <input type="date"
-                                    class="form-control border-0 datetimepicker-input"
-                                    placeholder="Choose Date"
-                                    data-target="#date"
-                                    data-toggle="datetimepicker"
-                                    style={{height: "55px;"}}
-                                    onChange={Handeldate}
-                                    value={date}/>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <textarea 
-                            class="form-control border-0"
-                             rows="5" 
-                             placeholder="Describe your problem"
-                             value={problemDescription}
-                             onChange={HandelProps}
-                             ></textarea>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" onClick={Save_Appointment} type="submit">Book Appointment</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-                            {!payNow ?  (
-                            <>
-                              {/* <CheckoutForm></CheckoutForm> */}
-                            </>
-                        ):(<></>)}
-</div>
-</div>
-  )
+  const storedId = sessionStorage.getItem('userData');
+   const userDatas = JSON.parse(storedId);
+   var User_id = userDatas.id
+  const data=(
+    <AppointmentForm 
+    doctorInfo={doctorInfo}
+    UserR_id={User_id}></AppointmentForm>
+ )
   setAppointment(data)
   setIsEditProfileOpen(null);
   setAboutData(null)
@@ -431,10 +346,10 @@ const Select_Appon = ()=>{
   setLocationData(null)
   setRatingData(null)
 }
-const Select_Overview = ()=>{
 
-}
 
+//_______    Handell  Appoinment Save      _____________________________________________________________
+//_____________________________________________________________________________________________________
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
   axios
@@ -446,7 +361,6 @@ const handleDeleteAccount = () => {
       console.error('Error deleting account:', error);
     });
 };
-
 //______________________________________________________________________________________
 useEffect(() => {
   axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`)
@@ -478,38 +392,64 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
+    
+    {/* <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
     <h1>Edit User</h1>
-    <form onSubmit={handleSubmit}>
-      <div className="mb-3">
+  <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
+  
+    <form onSubmit={handleSubmit} className="row g-3 justify-content-center">
+      <div className="col-md-10 mb-3">
         <label htmlFor="bio" className="form-label">Bio:</label>
         <textarea id="bio" name="Bio" className="form-control" value={doctorInfo.Bio} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
         <label htmlFor="img" className="form-label">Img:</label>
         <input id="img" type="text" name="Img" className="form-control" value={doctorInfo.Image} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="name" className="form-label">Name:</label>
         <input id="name" type="text" name="name" className="form-control" value={doctorInfo.Doctor_Name} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="email" className="form-label">Email:</label>
-        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email } onChange={handleChange} />
+        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-10 mb-3">
+        <label htmlFor="img" className="form-label">New password:</label>
+        <input id="img" type="password" name="Img" className="form-control" value={doctorInfo.Password} onChange={handleChange} />
+      </div>
+      
+      <div className="col-md-5 mb-3">
         <label htmlFor="phone" className="form-label">Phone:</label>
-        <input id="phone" type="text" name="Phone" className="form-control" value={doctorInfo.Phone} onChange={handleChange} />
+        <input id="phone" type="text" name="Phone" className="form-control" placeholder={doctorInfo.Phone} onChange={handleChange} />
       </div>
-      <div className="mb-3">
+      <div className="col-md-5 mb-3">
         <label htmlFor="location" className="form-label">Location:</label>
         <input id="location" type="text" name="Location" className="form-control" value={doctorInfo.Location} onChange={handleChange} />
       </div>
-      <div className="mb-3">
-        <label htmlFor="payment" className="form-label">Payment Appointment:</label>
-        <input id="payment" type="text" name="Payment_Appointment" className="form-control" value={doctorInfo.Payment_Appointment} onChange={handleChange} />
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Payment Appointment:</label>
+        <select className="form-select" value={doctorInfo.Payment_Appointment} onChange={handleChange}>
+          <option value="debit">Debit</option>
+          <option value="credit">Credit</option>
+        </select>
       </div>
-      <button type="submit" className="btn btn-primary">Save Changes</button>
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Gender:</label>
+        <select className="form-select" value={doctorInfo.Gender} onChange={handleChange}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div className="col-md-10 mb-3 text-center">
+        <button type="submit" className="btn btn-primary">Save Changes</button>
+      </div>
     </form>
+  </div>
+</div> */}
+
+<EditUserPage userId={doctorInfo.id}></EditUserPage>
   </div>
   )
   setIsEditProfileOpen(data);
@@ -522,64 +462,7 @@ const toggleEditProfile = () => {
 //___________________________________________________________________
 
 //__________________________________________________________________________________________________________________
-const [payNow, setPayNow] = useState(true);
-const [paymentMethod, setPaymentMethod] = useState(null);
-const[name_,setname_]=useState('')
-const[email,setemail]=useState('')
-const[mobile,setmobile]=useState('')
-const[date,setdate]=useState('')
-const[problemDescription,setproblemDescription]=useState('')
-const handlePayNowChange = (event) => {
-    setPayNow(event.target.value === 'no');
-};
-const handlePaymentMethodChange = (event) => {
-    setPaymentMethod(event.target.value);
-};
-const Handelname=(event)=>{
-  const input = event.target.value
-  setname_(input)
-}
-const HandelEmail=(event)=>{
-  setemail(event.target.value)
-}
-const HandelMobile=(event)=>{
-  setmobile(event.target.value)
-}
 
-const Handeldate=(event)=>{
-  setdate(event.target.value)
-} 
-
-const HandelProps=(event)=>{
-  setproblemDescription(event.target.value)
-}
-const[SS,setSS]=useState()
-useEffect(() => {
-  axios(`https://retoolapi.dev/15YN0H/Appointment`)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-}, []);
-const Save_Appointment =(event)=>{
-  event.preventDefault()
-  const Appointment= {
-    id:SS + 1,
-    Name:name_,
-    Paid:payNow,
-    Email:email,
-    Phone:mobile,
-    Doctot_name:doctorInfo.name,
-    Data_Appointment:date,
-    Problem:problemDescription,
-  }
-axios
-.post('https://retoolapi.dev/15YN0H/Appointment', Appointment)
-  .then(response => {
-    console.log('Appointment posted successfully:', response.data);
-  })
-  .catch(error => {
-    console.error('Error posting Appointment:', error);
-  }); 
-}
 //________________________________________________________________________________
 const [userData, setUserData] = useState(null);
 useEffect(() => {
@@ -591,65 +474,69 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
   return ( 
-      <>
-        <div className="container-fluid">
-                <div><br/><br/><br/><br/>
-                </div>
-                        <div className="row" style={{background:"#03974D"}}>
-                            <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-                                <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                            {doctorInfo.Rating}
-                            </div>
-                            <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                                <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                  <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                                    <h5>&nbsp; Nutritionist &bull; {'{'}{doctorInfo.Gender}{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
-                                </div> 
-                                <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
-                            </div>
-                        </div> 
-                        <div className="row docgradient">
-                            <div className="col-1"></div>
-                            <div className="col-7">
-                                <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                        <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                            <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
-                                            <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
-                                            <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
-                                            <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
-                                            <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
-                                            <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                            {userData && userData.role === 'doctor' && (
-                                            <DropdownButton
-                                              id="dropdown-basic-button"
-                                              title="Settings"
-                                              variant="success"
-                                              className="mx-2"
-                                            >
-                                              <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                              <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
-                                            </DropdownButton>
-                                                  )}
+              <>
+            <div className="container-fluid">
+                    <div><br/><br/><br/><br/>
+                    </div>
+                            <div className="row" style={{background:"#03974D"}}>
+                                <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
+                                    <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
+                                {doctorInfo.Rating}
+                                </div>
+                                <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
+                                    <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                      <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
+                                        <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
+                                    </div> 
+                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                                </div>
+                            </div> 
+                            <div className="row docgradient">
+                                <div className="col-1"></div>
+                                <div className="col-7">
+                                    <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                            <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                                <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                                <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                                <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                                <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                                <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                                <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
+                                                <DropdownButton
+                                                  id="dropdown-basic-button"
+                                                  title="Settings"
+                                                  variant="success"
+                                                  className="mx-2"
+                                                >
+                                                  <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                                  <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                                </DropdownButton>
+                                                      )}
+                                            </div>
                                         </div>
-                                    </div>
-                                </nav>
-                            </div>
-                 <div className="col-4"></div>
-                </div> 
-                <div className="container">
-                  {AboutData}
-                  {Appointment}
-                  {RatingData}
-                  {ExperienceData}
-                  {locationData}
-                </div>
-       </div>
-      </>       
+                                    </nav>
+                                </div>
+
+                                <div className="col-4"></div>
+                            </div> 
+                    <div>
+            </div>
+            </div>
+            <div className="container mt-5 d-flex justify-content-center" id='Data'>
+            {locationData}
+            {ExperienceData}
+            {RatingData}
+            {AboutData}
+            {Appointment}
+            {isEditProfileOpen}
+            </div>
+            </>       
   );
 }
 export default DoctorDetails;
@@ -981,3 +868,51 @@ export default DoctorDetails;
 //              </div>
 //              </>
 
+// const [name_, setName_] = useState('');
+// const [email, setEmail] = useState('');
+// const [mobile, setMobile] = useState('');
+// const [date, setDate] = useState('');
+// const [problemDescription, setProblemDescription] = useState('');
+// const [paymentMethod, setPaymentMethod] = useState('');
+
+// const handleNameChange = (event) => {
+//     const input = event.target.value;
+//     setName_(input);
+// };
+// const handleEmailChange = (event) => {
+//     const input = event.target.value;
+//     setEmail(input);
+// };
+// const handleMobileChange = (event) => {
+//     const input = event.target.value;
+//     setMobile(input);
+// };
+// const handleDateChange = (event) => {
+//     const input = event.target.value;
+//     setDate(input);
+// };
+// const handleProblemDescriptionChange = (event) => {
+//     const input = event.target.value;
+//     setProblemDescription(input);
+// };// const Save_Appointment =(event)=>{
+//   event.preventDefault()
+
+//   const Appointment= {
+//     // Name:name_,
+//     // Paid:'',
+//     // Email:email,
+//     // Phone:mobile,
+//     // Doctot_name:doctorInfo.name,
+//     // Data_Appointment:date,
+//     // Problem:problemDescription,
+//   }
+
+// axios
+// .post('https://retoolapi.dev/15YN0H/Appointment', Appointment)
+//   .then(response => {
+//     console.log('Appointment posted successfully:', response.data);
+//   })
+//   .catch(error => {
+//     console.error('Error posting Appointment:', error);
+//   }); 
+// }

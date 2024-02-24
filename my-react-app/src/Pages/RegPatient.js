@@ -63,13 +63,13 @@ function Regspatien() {
 // handell api post 
 const[id_,setid_]=useState()
 useEffect(() => {
-  axios(`https://retoolapi.dev/T6Ye0M/users`)
+  axios(`https://retoolapi.dev/zP9Zhd/patient`)
       .then((res) => setid_(res.data))
       .catch((err) => console.log(err));
 }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = { ...errors };
     Object.keys(formData).forEach(key => {
       if (formData[key].trim() === '') {
@@ -88,17 +88,15 @@ useEffect(() => {
       }else{
       history.push('/LogPat');
       const Nwew_user ={
-        "id": id_.id + 1,
-        "Age": "30",
+        "Age": "",
         "Email": formData.email,
-        "Image": "audio.mp3",
+        "Image": "",
         "password": formData.password,
-        "Last Name": formData.lastName,
-        "User_name": formData.userName,
-        "First name": formData.firstName
+        "Name": formData.userName,
+        "Active":	false
       };
       axios
-      .post('https://retoolapi.dev/T6Ye0M/users', Nwew_user)
+      .post('https://retoolapi.dev/zP9Zhd/patient', Nwew_user)
         .then(response => {
           console.log('Patient posted successfully:', response.data);
         })

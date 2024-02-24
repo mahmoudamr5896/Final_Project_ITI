@@ -5,15 +5,48 @@ import logo7 from "./img/logo7.png";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./CSS/Navbar.css"; 
+import axios from 'axios';
+import { useEffect } from 'react';
+const  CustomNavbar= ()=> {
 
-function CustomNavbar() {
+
+
+  const[login,setlogin]=useState(true)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
-const history = useHistory()
+  const history = useHistory()
+  const storedId = sessionStorage.getItem('userData') ;
+  const userDatas = JSON.parse(storedId);
+  if(userDatas){
+      var User_id = userDatas.id;
+  }
+  const[userDataLoged,setuserDataLoged]=useState('')
+  useEffect(() => {
+    axios(`https://retoolapi.dev/T6Ye0M/users/${1}`)
+        .then((res) => setuserDataLoged(res.data))
+        .catch((err) => console.log(err));
+}, []);
+
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
+   setlogin(false)
   history.push('/')
+  axios
+  .patch(`https://retoolapi.dev/zP9Zhd/patient/${1}`, { "Active": false })
+  .then(response => {
+    console.log('Active status updated successfully for user with id:', User_id);
+  })
+  .catch(error => {
+    console.error('Error updating Active status for user with id:', User_id, error);
+  });
 } 
+
+
+
+
+
+
+
   return (
 
     <>
@@ -36,14 +69,18 @@ const history = useHistory()
               <Nav.Link as={Link} to="">Services</Nav.Link>
               <Nav.Link as={Link} to="/About-us">About Us</Nav.Link>
               <Nav.Link as={Link} to="">Contact Us</Nav.Link>
+              {userDatas && userDatas.role === 'Patient' && (
+              <Nav.Link as={Link} to={`/user/${User_id}`}>profile</Nav.Link>
+              )}
             </Nav>
             <Nav>
-            {showJoinButton ? (
+            {login ? (
+                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
+              ):(
             <Link to='/login'>
-              <button className="button1 type12 ms-auto">Join Us Now</button>
-            </Link>
-          ):(<button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>)}
-            </Nav>
+            <button className="button1 type12 ms-auto" >Join Us Now</button>
+          </Link>)}
+          </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

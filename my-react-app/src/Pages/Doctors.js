@@ -129,7 +129,7 @@ const Handel_Card =()=>{
                             </div>
                 </div>
 
-                <div className="row g-4">
+                <div className="row g-4  d-flex justify-content-center">
                 {Islist ? (
                 currentDoctors.map((doctor, index) => (
                     <DoctorProfileCard
@@ -144,6 +144,7 @@ const Handel_Card =()=>{
        
                         ))
                            ) : (
+                            
                         currentDoctors.map((doctor, index) => (
                            
                             <DoctorCard
@@ -153,20 +154,11 @@ const Handel_Card =()=>{
                                 name={doctor.name}
                                 department="View Profile"
                                 id={doctor.id}
-                                rating={doctor.Rating.length/2}
+                                rating={doctor.Rating}
                             />  
                         ))
                     )}
-                    {/* {currentDoctors.map((doctor, index) => (
-                        <DoctorCard
-                            key={index}
-                            delay="0.1s"
-                            imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
-                            name={doctor.name}
-                            department="View Profile"
-                            // dept={doctor.Location}
-                        />
-                    ))} */}
+ 
                 </div>
                 <Pagination
                     currentPage={currentPage}
@@ -186,7 +178,16 @@ export default DoctorsPage;
 
   //     <div class="d-flex flex-row border mb-2 p-5 d-flex" style={{display:'block'}}>
 
-
+                   {/* {currentDoctors.map((doctor, index) => (
+                        <DoctorCard
+                            key={index}
+                            delay="0.1s"
+                            imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
+                            name={doctor.name}
+                            department="View Profile"
+                            // dept={doctor.Location}
+                        />
+                    ))} */}
 
 
 

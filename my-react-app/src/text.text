@@ -965,3 +965,149 @@ export default DoctorDetails;
 //   <></>
 //  )}
 >>>>>>> main
+const[DataAppointment,setDataAppointment]=useState({
+  NameUser:'',
+  EmailUser:'',
+  PhoneUser:'',
+  DateAppointment:'',
+  problemDescription:'',
+  Doctor_name:doctorInfo.Doctor_Name,
+  id_Doctor:doctorInfo.id,
+  id_User:'',
+
+})
+
+const HandelChangeAppontment=(e)=>{
+    const { name, value } = e.target;
+    setDataAppointment(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  }; 
+}
+
+const Save_Appointment =(event)=>{
+  event.preventDefault()
+axios
+.post('https://retoolapi.dev/15YN0H/Appointment', DataAppointment)
+  .then(response => {
+    console.log('Appointment posted successfully:', response.data);
+  })
+  .catch(error => {
+    console.error('Error posting Appointment:', error);
+  }); 
+}
+const Select_Appon = ()=>{
+  const data=(
+<div class="container-xxl py-5">
+<div class="container">
+    <div class="row g-5">
+        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
+            <h1 class="mb-4">Make An Appointment To Visit DR./{doctorInfo.Doctor_Name}</h1>
+            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+            <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
+                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{width: "55px;", height: "55px;"}}>
+                    <i class="fa fa-phone-alt text-primary"></i>
+                </div>
+                <div class="ms-4">
+                    <p class="mb-2">Call Us Now</p>
+                    <h5 class="mb-0">{doctorInfo.Phone}</h5>
+                </div>
+            </div>
+            <div class="bg-light rounded d-flex align-items-center p-5">
+                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{width: "55px;", height: "55px;"}}>
+                    <i class="fa fa-envelope-open text-primary"></i>
+                </div>
+                <div class="ms-4">
+                    <p class="mb-2">Mail Us Now</p>
+                    <h5 class="mb-0">{doctorInfo.Email}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+                <form onSubmit={Save_Appointment}>
+                    <div class="row g-3">
+                    {/* NameUser:'',
+  EmailUser:'',
+  PhoneUser:'',
+  DateAppointment:'',
+  problemDescription:'',
+  Doctor_name:doctorInfo.Doctor_Name,
+  id_Doctor:doctorInfo.id,
+  id_User:'',   */}               
+       <div class="col-12"> 
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input type="text"
+                            name='NameUser'
+                            value={NameUser}
+                            onChange={HandelChangeAppontment}
+                            class="form-control border-0"
+                             placeholder="Your Name"
+                              style={{height: "55px;"}}/>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input
+                             type="email"
+                             
+                              class="form-control border-0" 
+                              placeholder="Your Email"
+                              style={{height: "55px;"}}
+                              onChange={HandelChangeAppontment}
+                              value={EmailUser}
+                               name="EmailUser"/>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input type="text"
+                             class="form-control border-0"
+                              placeholder="Your Mobile"
+                              style={{height: "55px;"}}
+                              name="PhoneUser"
+                              onChange={HandelChangeAppontment}
+                              value={PhoneUser}
+                               />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="date" id="date" data-target-input="nearest">
+                                <input type="date"
+                                    class="form-control border-0 datetimepicker-input"
+                                    placeholder="Choose Date"
+                                    data-target="#date"
+                                    data-toggle="datetimepicker"
+                                    style={{height: "55px;"}}
+                                    name="DateAppointment"
+                                    onChange={HandelChangeAppontment}
+                                    value={DateAppointment}
+                                />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <textarea 
+                            class="form-control border-0"
+                             rows="5" 
+                             placeholder="Describe your problem"
+                             name="problemDescription"
+                             value={problemDescription}
+                             onChange={HandelChangeAppontment}
+                             ></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+  )
+  setAppointment(data)
+  setIsEditProfileOpen(null);
+  setAboutData(null)
+  setExperienceData(null)
+  setLocationData(null)
+  setRatingData(null)
+}

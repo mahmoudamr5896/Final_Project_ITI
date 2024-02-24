@@ -14,7 +14,6 @@ function EditUserPage({ userId }) {
   });
 
   useEffect(() => {
-    // Fetch user data from the API
     axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${1}`)
       .then(response => {
         setUserData(response.data);
