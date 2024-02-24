@@ -131,7 +131,7 @@ const[MM,setMM]=useState('')
               </div>
               <button type="submit">Login</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegPat')}>Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegPat')} className='btn btn-promary' style={{color:'blue'}}>Sign Up</button></p>
           </div>
         </Col>
       </Row>

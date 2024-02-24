@@ -3,27 +3,22 @@ import Table from 'react-bootstrap/Table';
 import './table.css';
 import axios from 'axios';
 
-function DoctorAppointmentsTable() {
+function DoctorAppointmentsTable({id}) {
   const [appointments, setAppointments] = useState([]);
   const doctorId = localStorage.getItem('doctorId');
+  useEffect(() => {
+    if (id) {
+      // axios.get(`https://retoolapi.dev/ornM79/Appointment`)
+      //   .then(response => {
+      //     // Filter appointments based on the doctor's ID
+      //     const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
+      //     setAppointments(doctorAppointments);
+      //   })
+      //   .catch(error => {
+      //     console.error('Error fetching appointments:', error);
+      //   });
 
-  // useEffect(() => {
-  //   if (doctorId) {
-  //     axios.get(`https://retoolapi.dev/ornM79/Appointment`)
-  //       .then(response => {
-  //         // Filter appointments based on the doctor's ID
-  //         const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
-  //         setAppointments(doctorAppointments);
-  //       })
-  //       .catch(error => {
-  //         console.error('Error fetching appointments:', error);
-  //       });
-  //   }
-  // }, [doctorId]); // Include doctorId in the dependency array to re-fetch appointments when it changes
-
-  // "Data_Appointment": "Invalid date"
-
-  axios.get('https://retoolapi.dev/2jV2W1/Appointment')
+  axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
   .then(response => {
     const numberOfAppointments = response.data.length;
      setAppointments(response.data)
@@ -31,7 +26,22 @@ function DoctorAppointmentsTable() {
   .catch(error => {
     console.error('Error fetching appointments:', error);
   });
-console.log(appointments)
+
+      axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
+        .then(response => {
+          // Filter appointments based on the doctor's ID
+          // const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
+          setAppointments(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching appointments:', error);
+        });
+    }
+  }, [id]); // Include doctorId in the dependency array to re-fetch appointments when it changes
+
+  // "Data_Appointment": "Invalid date"
+
+// console.log(appointments)
 // "id": 2,
 // "Name": "Stuart Bartel",
 // "Paid": true,
@@ -45,19 +55,11 @@ console.log(appointments)
 // "Data_Appointment": "Invalid date"
 
 
-  useEffect(() => {
-    if (doctorId) {
-      axios.get(`https://retoolapi.dev/ornM79/Appointment`)
-        .then(response => {
-          // Filter appointments based on the doctor's ID
-          const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
-          setAppointments(doctorAppointments);
-        })
-        .catch(error => {
-          console.error('Error fetching appointments:', error);
-        });
-    }
-  }, [doctorId]); // Include doctorId in the dependency array to re-fetch appointments when it changes
+  // useEffect(() => {
+  //   if (id) {
+
+  //   }
+  // }, [id]); // Include doctorId in the dependency array to re-fetch appointments when it changes
 
   return (
     <div>

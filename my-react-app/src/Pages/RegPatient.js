@@ -181,9 +181,9 @@ useEffect(() => {
                 />
                 <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
               </div>
-              <button type="submit">Sign Up</button>
+              <button type="submit" className='btn'>Sign Up</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/LogPat')}>Login</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/LogPat')} className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
           </div>
         </Col>
       </Row>

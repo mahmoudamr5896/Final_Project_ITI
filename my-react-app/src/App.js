@@ -48,7 +48,7 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-          <Route exact path='/dashboard'
+          <Route exact path='/dashboard/:id'
           component={Dash}/>
         </Switch>
         <Footer/>

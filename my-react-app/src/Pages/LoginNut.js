@@ -54,7 +54,7 @@ useEffect(() => {
         user_n.forEach((user) =>
         {
         const  User_id = user.id;
-         history.push(`/dashboard`);
+         history.push(`/dashboard/${User_id}`);
          const userData = {
            email: formData.emailOrUsername,
            password: formData.password,
@@ -109,7 +109,7 @@ useEffect(() => {
               </div>
               <button type="submit">Login</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')}>Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} className='btn btn-promary' style={{color:'blue'}}> Sign Up</button></p>
           </div>
         </Col>
       </Row>

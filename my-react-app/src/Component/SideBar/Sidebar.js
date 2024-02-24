@@ -6,31 +6,38 @@ import author1 from "../img/author1.jpg"; // Import the logo image
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
 
-const Sidebar = () => {
-  const [doctorInfo, setDoctorInfo] = useState(null);
+const Sidebar = ({id}) => {
+  const [doctorInfo, setDoctorInfo] = useState({});
   const history = useHistory(); // Initialize useHistory
 
-  useEffect(() => {
-    const fetchDoctorInfo = async () => {
-      try {
-        const doctorId = localStorage.getItem('doctorId');
-        if (doctorId) {
-          const response = await axios.get(`https://retoolapi.dev/EBWb8G/Doctors`);
-          const doctors = response.data;
-          const matchedDoctor = doctors.find(doctor => doctor.id === parseInt(doctorId));
-          if (matchedDoctor) {
-            setDoctorInfo(matchedDoctor);
-          } else {
-            console.error('Doctor not found with ID:', doctorId);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching doctor info:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchDoctorInfo = async () => {
+  //     try {
+  //       const doctorId = localStorage.getItem('doctorId');
+  //       if (doctorId) {
+  //         const response = await axios.get(`https://retoolapi.dev/EBWb8G/Doctors?id=${id}`);
+  //         const doctors =response.data ;
+  //         setDoctorInfo(response.data);
+  //         const matchedDoctor = doctors.find(doctor => doctor.id === parseInt(doctorId));
+  //         if (matchedDoctor) {
+            
+  //         } else {
+  //           console.error('Doctor not found with ID:', doctorId);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching doctor info:', error);
+  //     }
+  //   };
 
-    fetchDoctorInfo();
-  }, []);
+  //   fetchDoctorInfo();
+  // }, []);
+  useEffect(() => {
+
+  axios.get(`https://retoolapi.dev/EBWb8G/Doctors?id=${id}`)
+  .then((response)=> setDoctorInfo(response.data[0]))
+  .catch((err) => console.log(err))
+   }, [id]);
 
   // Logout function
   const logoutHandler = (e) => {
@@ -38,7 +45,7 @@ const Sidebar = () => {
     sessionStorage.removeItem('userData');
     history.push('/');
   };
-
+console.log(doctorInfo)
   return (
     <div>
       <div className="sidebar">

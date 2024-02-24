@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./card.css";
 import axios from "axios";
-const Cards = () => {
+const Cards = ({id}) => {
   const [appointmentsCount, setAppointmentsCount] = useState(0);
   const [reviewsCount, setReviewsCount] = useState(0);
   // useEffect(() => {
@@ -30,7 +30,7 @@ const Cards = () => {
   //   }
   // }, []);
 
-  axios.get('https://retoolapi.dev/v920kO/Appointment')
+  axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
   .then(response => {
     const numberOfAppointments = response.data.length;
      setAppointmentsCount(numberOfAppointments)
@@ -39,7 +39,7 @@ const Cards = () => {
     console.error('Error fetching appointments:', error);
   });
 
-  axios.get('https://retoolapi.dev/NJuvHL/Reviews')
+  axios.get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${id}`)
   .then(response => {
     const numberOfAppointments = response.data.length;
      setReviewsCount(numberOfAppointments)
