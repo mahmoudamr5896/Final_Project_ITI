@@ -3,15 +3,16 @@ import axios from 'axios';
 
 function AppointmentForm({ doctorInfo , UserR_id }) {
   const [DataAppointment, setDataAppointment] = useState({
-    NameUser: '',
-    EmailUser: '',
-    PhoneUser: '',
+    Name: '',
+    UserEmail: '',
+    User_Phone: '',
     DateAppointment: '',
     problemDescription: '',
-    Doctot_name: doctorInfo.Doctor_Name,
-    Data_Appointment: '',
+    Doctor_name: doctorInfo.Doctor_Name,
     User_id: UserR_id,
-    Doctot_id: doctorInfo.id
+    Doctor_Id: doctorInfo.id,
+    Price:100,
+    Paid:true
   });
 
   const HandelChangeAppontmentName = (e) => {
@@ -19,11 +20,11 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
   };
 
   const HandelChangeAppontmentEmail = (e) => {
-    setDataAppointment({ ...DataAppointment, EmailUser: e.target.value });
+    setDataAppointment({ ...DataAppointment, UserEmail: e.target.value });
   };
 
   const HandelChangeAppontmentPhone = (e) => {
-    setDataAppointment({ ...DataAppointment, PhoneUser: e.target.value });
+    setDataAppointment({ ...DataAppointment, User_Phone: e.target.value });
   };
 
   const HandelChangeAppontmentDate = (e) => {
@@ -43,7 +44,7 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
   const Save_Appointment = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      axios.post('https://retoolapi.dev/ornM79/Appointment', DataAppointment)
+      axios.post('https://retoolapi.dev/2jV2W1/Appointment', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
         })
@@ -103,17 +104,17 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
                            placeholder="Your Email"
                            style={{ height: "55px;" }}
                            onChange={HandelChangeAppontmentEmail}
-                           value={DataAppointment.EmailUser}
-                           name="EmailUser"
+                           value={DataAppointment.UserEmail}
+                           name="UserEmail"
                        />
                        <input
                            type="text"
                            class="form-control border-0"
                            placeholder="Your Mobile"
                            style={{ height: "55px;" }}
-                           name="PhoneUser"
+                           name="User_Phone"
                            onChange={HandelChangeAppontmentPhone}
-                           value={DataAppointment.PhoneUser}
+                           value={DataAppointment.User_Phone}
                        />
                        <input
                            type="date"
@@ -155,8 +156,8 @@ export default AppointmentForm;
 // function AppointmentForm({ doctorInfo }) {
 //  const [DataAppointment, setDataAppointment] = useState({})
 //  const[NameUser,setNameUser]=useState('')
-//  const[EmailUser,setEmailUser]=useState('')
-//  const[PhoneUser,setPhoneUser]=useState('')
+//  const[UserEmail,setUserEmail]=useState('')
+//  const[User_Phone,setUser_Phone]=useState('')
 //  const[DateAppointment,setDateAppointment]=useState('')
 //  const[problemDescription,setproblemDescription]=useState('')
       
@@ -166,11 +167,11 @@ export default AppointmentForm;
        
 //  }
 //  const HandelChangeAppontmentEmail=(e)=>{
-//    setEmailUser(e.target.value)
+//    setUserEmail(e.target.value)
       
 //  }
 //  const HandelChangeAppontmentPhone=(e)=>{
-//    setPhoneUser(e.target.value)
+//    setUser_Phone(e.target.value)
     
 //  }
 //  const HandelChangeAppontmentDate=(e)=>{
@@ -191,19 +192,19 @@ export default AppointmentForm;
 //        valid = false;
 //      }
       
-//      if (!formData.EmailUser.trim()) {
-//        newErrors.EmailUser = 'Email is required';
+//      if (!formData.UserEmail.trim()) {
+//        newErrors.UserEmail = 'Email is required';
 //        valid = false;
-//      } else if (!/^\S+@\S+\.\S+$/.test(formData.EmailUser)) {
-//        newErrors.EmailUser = 'Email is invalid';
+//      } else if (!/^\S+@\S+\.\S+$/.test(formData.UserEmail)) {
+//        newErrors.UserEmail = 'Email is invalid';
 //        valid = false;
 //      }
       
-//      if (!formData.PhoneUser.trim()) {
-//        newErrors.PhoneUser = 'Phone is required';
+//      if (!formData.User_Phone.trim()) {
+//        newErrors.User_Phone = 'Phone is required';
 //        valid = false;
-//      } else if (!/^\d{10}$/.test(formData.PhoneUser)) {
-//        newErrors.PhoneUser = 'Phone is invalid';
+//      } else if (!/^\d{10}$/.test(formData.User_Phone)) {
+//        newErrors.User_Phone = 'Phone is invalid';
 //        valid = false;
 //      }
       
@@ -225,13 +226,13 @@ export default AppointmentForm;
 //      event.preventDefault()
 //      setDataAppointment({
 //      Name: NameUser,
-//      Email: EmailUser,
-//      Phone: PhoneUser,
+//      Email: UserEmail,
+//      Phone: User_Phone,
 //      Problem: problemDescription,
-//      Doctot_name: doctorInfo.Doctor_Name,
+//      Doctor_name: doctorInfo.Doctor_Name,
 //      Data_Appointment: DateAppointment,
 //      User_id:3,
-//      Doctot_id:doctorInfo.id
+//      Doctor_Id:doctorInfo.id
 //        })
 //    axios
 //    .post('https://retoolapi.dev/15YN0H/Appointment', DataAppointment)
@@ -274,8 +275,8 @@ export default AppointmentForm;
 //                  <form onSubmit={Save_Appointment}>
 //                      <div class="row g-3">
 //                      {/* NameUser:'',
-//    EmailUser:'',
-//    PhoneUser:'',
+//    UserEmail:'',
+//    User_Phone:'',
 //    DateAppointment:'',
 //    problemDescription:'',
 //    Doctor_name:doctorInfo.Doctor_Name,
@@ -298,17 +299,17 @@ export default AppointmentForm;
 //                            placeholder="Your Email"
 //                            style={{ height: "55px;" }}
 //                            onChange={HandelChangeAppontmentEmail}
-//                            value={DataAppointment.EmailUser}
-//                            name="EmailUser"
+//                            value={DataAppointment.UserEmail}
+//                            name="UserEmail"
 //                        />
 //                        <input
 //                            type="text"
 //                            class="form-control border-0"
 //                            placeholder="Your Mobile"
 //                            style={{ height: "55px;" }}
-//                            name="PhoneUser"
+//                            name="User_Phone"
 //                            onChange={HandelChangeAppontmentPhone}
-//                            value={DataAppointment.PhoneUser}
+//                            value={DataAppointment.User_Phone}
 //                        />
 //                        <input
 //                            type="date"
