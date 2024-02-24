@@ -3,10 +3,10 @@ import axios from 'axios';
 
 function AppointmentForm({ doctorInfo , UserR_id }) {
   const [DataAppointment, setDataAppointment] = useState({
-    Name: '',
     UserEmail: '',
     User_Phone: '',
     DateAppointment: '',
+    TimeAppointment : '',
     problemDescription: '',
     Doctor_name: doctorInfo.Doctor_Name,
     User_id: UserR_id,
@@ -30,6 +30,10 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
   const HandelChangeAppontmentDate = (e) => {
     setDataAppointment({ ...DataAppointment, DateAppointment: e.target.value });
   };
+  const HandelChangeAppontmentTime = (e) => {
+    setDataAppointment({ ...DataAppointment, TimeAppointment: e.target.value });
+  };
+
 
   const HandelChangeAppontmentProps = (e) => {
     setDataAppointment({ ...DataAppointment, problemDescription: e.target.value });
@@ -125,6 +129,15 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
                            onChange={HandelChangeAppontmentDate}
                            value={DataAppointment.DateAppointment}
                        />
+                       <input
+                           type="time"
+                           class="form-control border-0 datetimepicker-input"
+                           placeholder="Choose Date"
+                           style={{ height: "55px;" }}
+                           name="TimeAppointment"
+                           onChange={HandelChangeAppontmentTime}
+                           value={DataAppointment.TimeAppointment}
+                       />
                        <textarea
                            class="form-control border-0"
                            rows="5"
@@ -145,7 +158,6 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
     </div>
   );
 }
-
 export default AppointmentForm;
 
 
