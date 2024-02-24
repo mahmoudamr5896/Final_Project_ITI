@@ -15,6 +15,7 @@ import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
+import Dash from './Pages/Dash';
 function App() {
   return (
     <div className="App">
@@ -44,9 +45,10 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
+         <Route exact path="/dashboard" 
+         component={Dash} />  
           
-          
-          
+        
           
           
           
