@@ -48,7 +48,7 @@ const Sidebar = ({id}) => {
 console.log(doctorInfo)
   return (
     <div>
-      <div className="sidebar">
+      <div className="sidebar" style={{height:"145vh"}}>
         <div>
           {doctorInfo && (
             <div className="doctor-info">

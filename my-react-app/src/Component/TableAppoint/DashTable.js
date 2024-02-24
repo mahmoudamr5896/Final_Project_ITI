@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function DoctorAppointmentsTable({id}) {
   const [appointments, setAppointments] = useState([]);
+  const doctorId = sessionStorage.getItem('doctorId'); // Retrieve doctor ID from session storage
   const doctorId = localStorage.getItem('doctorId');
   useEffect(() => {
     if (id) {
@@ -55,31 +56,39 @@ function DoctorAppointmentsTable({id}) {
 // "Data_Appointment": "Invalid date"
 
 
-  // useEffect(() => {
-  //   if (id) {
-
-  //   }
-  // }, [id]); // Include doctorId in the dependency array to re-fetch appointments when it changes
+  useEffect(() => {
+    if (doctorId) {
+      axios.get(`https://retoolapi.dev/ornM79/Appointment`)
+        .then(response => {
+          // Filter appointments based on the doctor's ID
+          const doctorAppointments = response.data.filter(appointment => appointment.Doctor_id === doctorId);
+          setAppointments(doctorAppointments);
+        })
+        .catch(error => {
+          console.error('Error fetching appointments:', error);
+        });
+    }
+  }, [doctorId]); // Include doctorId in the dependency array to re-fetch appointments when it changes
 
   return (
     <div>
       {appointments.length > 0 ? (
-        <Table striped bordered hover  >
+       <Table striped bordered hover className="tableContainer">
           <thead>
             <tr>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Name</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Phone</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Date</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Case</th>
+              <th className='Dash_th'>Name</th>
+              <th >Phone</th>
+              <th >Date</th>
+              <th >Case</th>
             </tr>
           </thead>
           <tbody>
             {appointments.map(appointment => (
               <tr key={appointment.id}>
-                <td>{appointment.NameUser}</td>
+                <td>{appointment.Name}</td> {/* Change to appointment.Name */}
                 <td>{appointment.User_Phone}</td>
-                <td>{appointment.DateAppointment}</td>
-                <td>{appointment.problemDescription}</td>
+                <td>{appointment.Data_Appointment}</td> {/* Change to appointment.Data_Appointment */}
+                <td>{appointment.Problem}</td> {/* Change to appointment.Problem */}
               </tr>
             ))}
           </tbody>
