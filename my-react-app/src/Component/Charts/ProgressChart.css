@@ -1,0 +1,38 @@
+.progress-chart-container {
+    width: 19%; 
+    height: 250px;
+    position: relative;
+    top: -22vh;
+    right: -80%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+        
+   
+  }
+  
+  .histogram-chart {
+
+  
+    display: flex;
+    position: relative;
+    bottom:  30%; 
+   
+  }
+  .Casese{
+    width: 5%;
+    height: 5%;
+    border: 2px black solid;
+    margin-left: 10%;
+    margin-bottom: 1%;
+
+    position: relative;
+    bottom:  10%;
+  }
+  .CaseDes{
+    position: relative;
+    margin-left: 120%;
+  }
+
+  
