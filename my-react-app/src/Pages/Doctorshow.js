@@ -14,6 +14,7 @@ import EditUserPage from '../Component/CompnentFormEdit'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import { useContext } from "react";
 import MyContext from "../Context/Context";
+import ReviewComponent from '../Component/ComponentRate'
 function DoctorDetails() {
   
   const { id } = useParams();
@@ -157,6 +158,10 @@ const handleReview = (event) => {
       });
   };
 //___________________________________________________________________________________
+const handleChange_rate=(e)=>{
+  console.log(e.target.name)
+}
+
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 let data = (
@@ -169,26 +174,30 @@ let data = (
       <p>4.1 average based on 254 reviews.</p>
      <hr style={{border:"3px solid #f1f1f1"}}/>
      </div>
-     <div className="col-6 border">
+     {/* <div className="col-6 border">
       <p className="pt-3">Leave Review</p>
       <hr></hr>
       <>How likely are you to recommend 
       <br></br>Dr.{doctorInfo.name}</><br></br>
-      <div className="mt-4">
-             <i className="fas fa-star" ></i>                  
-             <i className="fas fa-star" ></i>
-             <i className="fas fa-star" ></i>
-             <span className="fa fa-star checked"></span>
-             <span className="fa fa-star"></span> <br></br>
-     </div>
+      <div className="mt-4" >
+             <i className="fas fa-star" onClick={handleChange_rate} name='1' ></i>                  
+             <i className="fas fa-star" name='2' onClick={handleChange_rate}></i>
+             <i className="fas fa-star" name='3'  onClick={handleChange_rate}></i>
+             <span className="fa fa-star " name='4' onClick={handleChange_rate}></span>
+             <span className="fa fa-star" name='5' onClick={handleChange_rate}></span> <br></br>
+      </div>
        <div className='m-3'>Select Rating</div>
-     </div>
+     </div> */}
+     <ReviewComponent 
+     doctorInfo={doctorInfo}
+     />
      <div className="mt-5">
        <h3>Reviews</h3>
        <hr></hr>
        <div className="container"> 
          <CommentSection 
-         doctorId={id}></CommentSection>
+         doctorId={id}>
+         </CommentSection>
        <hr>
        </hr>
       </div>
@@ -213,8 +222,7 @@ let data = (
      </div>
  </div>
   )
-  setIsEditProfileOpen(null);
-
+setIsEditProfileOpen(null);
 setRatingData(data)
 setLocationData(null)
 setExperienceData(null)
