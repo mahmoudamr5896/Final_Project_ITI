@@ -15,6 +15,7 @@ import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
+
 import PatientDetails from './Pages/Patientshow';
 import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
@@ -48,7 +49,11 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-          <Route exact path='/dashboard/:id'
+          
+         
+          
+          
+                   <Route exact path='/dashboard/:id'
           component={Dash}/>
         </Switch>
         <Footer/>

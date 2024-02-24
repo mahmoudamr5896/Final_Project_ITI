@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,9 +13,15 @@ import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
 import EditUserPage from '../Component/CompnentFormEdit'
 import AppointmentForm from '../Component/AppiontmentDoctors'
+import DoctorReview from '../Component/DoctorReview';
+
 import { useContext } from "react";
 import MyContext from "../Context/Context";
+<<<<<<< HEAD
 import ReviewComponent from '../Component/ComponentRate'
+=======
+
+>>>>>>> 79f54422ba1dabe7f2bf1dad86b5f6e461f8bf90
 function DoctorDetails() {
   
   const { id } = useParams();
@@ -32,6 +39,55 @@ function DoctorDetails() {
       axios(`https://retoolapi.dev/EBWb8G/Doctors/${id}`)
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
+
+  }, [id]);
+
+
+const [newReview, setNewReview] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleNameChange = (event) => {
+    const inputReview = event.target.value;
+    setNewReview(inputReview);
+  };
+
+  const handleReview = async (event) => {
+    event.preventDefault();
+    const reviewData = {
+      Rate: '⭐️⭐️⭐️',
+      Review: newReview,
+      User_id: 1,
+      Doctor_id: null, // Assuming you don't have doctorInfo, set this to null
+      User_name: 'mahmoud',
+      Doctor_Name: 'Dr. Example', // Replace 'Dr. Example' with the actual name of the doctor
+    };
+    const apiKey = 'id';
+    console.log(reviewData);
+    try {
+      const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      });
+      console.log('Review posted successfully:', response.data);
+      setNewReview('');
+      setError(null);
+    } catch (error) {
+      console.error('Error posting review:', error);
+      setError('Error posting review');
+    }
+  };
+
+ 
+
+
+
+ 
+
+  
+
+ 
+
   }, []);
 //_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
@@ -203,6 +259,8 @@ let data = (
       </div>
     
      </div>
+   
+    <DoctorReview />
    <div className="col-12 border mt-4"  >
    <h5 className="text-start pt-3">Leave a review</h5>
    <p className="text-start">How was your experience with 
@@ -221,6 +279,7 @@ let data = (
    </div>
      </div>
  </div>
+ 
   )
 setIsEditProfileOpen(null);
 setRatingData(data)
