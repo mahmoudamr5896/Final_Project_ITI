@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,6 +13,8 @@ import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
 import EditUserPage from '../Component/CompnentFormEdit'
 import AppointmentForm from '../Component/AppiontmentDoctors'
+import DoctorReview from '../Component/DoctorReview';
+
 function DoctorDetails() {
 
   const { id } = useParams();
@@ -31,33 +34,92 @@ function DoctorDetails() {
           .catch((err) => console.log(err));
   }, [id]);
 // handel review _____________________________________________________________________________________________
-const [newReview, setNewReview] = useState();
-const handleNameChange = (event) => {
-  const inputName = event.target.value;
-  setNewReview(inputName);
-};
-// handell review 
-// handle posting a review
-const handleReview = (event) => {
-event.preventDefault();
- const reviewData = {
-      "Rate": "⭐️⭐️⭐️",
-      "Review": newReview,
-      "User_id": 1,
-      "Doctor_id": doctorInfo.id,
-      "User_name": "mahmoud",
-      "Doctor_Name": doctorInfo.name
-    };
-    axios
-    .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
-      .then(response => {
-        console.log('Review posted successfully:', response.data);
-        setNewReview('')
-      })
-      .catch(error => {
-        console.error('Error posting review:', error);
-      });
+// const [newReview, setNewReview] = useState();
+// const handleNameChange = (event) => {
+//   const inputName = event.target.value;
+//   setNewReview(inputName);
+// };
+// // const handleNameChange = (event) => {
+// //   if (event.target) {
+// //     const inputName = event.target.value;
+// //     setNewReview(inputName);
+// //   }
+// // };
+
+// // handell review 
+// // handle posting a review
+// const handleReview = (event) => {
+// event.preventDefault();
+//  const reviewData = {
+//       "Rate": "⭐️⭐️⭐️",
+//       "Review": newReview,
+//       "User_id": 1,
+//       "Doctor_id": doctorInfo.id,
+//       "User_name": "mahmoud",
+//       "Doctor_Name": doctorInfo.name
+//     };
+//     const apiKey = 'id';
+//     console.log(reviewData)
+// axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
+//   headers: {
+//     'Authorization': `Bearer ${apiKey}`
+//   }
+// })
+// .then(response => {
+//   console.log('Review posted successfully:', response.data);
+//   setNewReview('')
+// })
+// .catch(error => {
+//   console.error('Error posting review:', error);
+// });
+
+//   };
+
+const [newReview, setNewReview] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleNameChange = (event) => {
+    const inputReview = event.target.value;
+    setNewReview(inputReview);
   };
+
+  const handleReview = async (event) => {
+    event.preventDefault();
+    const reviewData = {
+      Rate: '⭐️⭐️⭐️',
+      Review: newReview,
+      User_id: 1,
+      Doctor_id: null, // Assuming you don't have doctorInfo, set this to null
+      User_name: 'mahmoud',
+      Doctor_Name: 'Dr. Example', // Replace 'Dr. Example' with the actual name of the doctor
+    };
+    const apiKey = 'id';
+    console.log(reviewData);
+    try {
+      const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      });
+      console.log('Review posted successfully:', response.data);
+      setNewReview('');
+      setError(null);
+    } catch (error) {
+      console.error('Error posting review:', error);
+      setError('Error posting review');
+    }
+  };
+
+ 
+
+
+
+ 
+
+  
+
+ 
+
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
       setShowFullBio(!showFullBio); 
@@ -180,7 +242,7 @@ let data = (
       </div>
     
      </div>
-   <div className="col-12 border mt-4"  >
+   {/* <div className="col-12 border mt-4"  >
    <h5 className="text-start pt-3">Leave a review</h5>
    <p className="text-start">How was your experience with 
      Dr.{doctorInfo.name}</p>
@@ -194,8 +256,33 @@ let data = (
          <button className="btn btn-success rounded-pill"
          onClick={handleReview}>Continue</button>
    </div>
-     </div>
+  
+  
+   
+  
+
+     </div> */}
+      {/* <div className="col-12 border mt-4">
+      <h5 className="text-start pt-3">Leave a review</h5>
+      <p className="text-start">How was your experience with Dr.{doctorInfo.name}</p>
+      <div className="d-flex pb-4">
+        <input
+          className="form-control me-2"
+          type="text"
+          onChange={handleNameChange}
+          placeholder="Leave Review ..."
+          defaultValue={newReview}
+        />
+        <button className="btn btn-success rounded-pill" onClick={handleReview}>
+          Continue
+        </button>
+      </div>
+    </div> */}
+    <div className="col-12 border mt-4">
+    <DoctorReview />
+    </div>
  </div>
+ 
   )
   setIsEditProfileOpen(null);
 

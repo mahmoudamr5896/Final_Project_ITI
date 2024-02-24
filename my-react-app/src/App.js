@@ -15,6 +15,7 @@ import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
 import EditUserPage from './Pages/Form'
+
 function App() {
   return (
     <div className="App">
@@ -45,7 +46,7 @@ function App() {
           <Route exact path='/RegPat'
           component={Regspatien}/>
           
-          
+         
           
           
           
