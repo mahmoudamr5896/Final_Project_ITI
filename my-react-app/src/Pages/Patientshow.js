@@ -12,64 +12,74 @@ import EditUserPage from "../Component/CompnentFormEdit User";
 function PatientDetails(){
   const { id } = useParams();
 //   console.log("id:", id);
-  const [patientInfo, setPatientInfo] = useState({});
-  const [appointmenttInfo, setAppointmentInfo] = useState({});
-
-
+const [patientInfo, setPatientInfo] = useState({});
   useEffect(() => {
       axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
           .then((res) => setPatientInfo(res.data))
           .catch((err) => console.log(err));
   }, [id]);
-
+const [appointmenttInfo, setAppointmentInfo] = useState({});
   useEffect(() =>{
-    axios(`https://retoolapi.dev/ornM79/Appointment?User_id=${id}`)
-        .then((res) => setAppointmentInfo(res.data))
+    axios(`https://retoolapi.dev/2jV2W1/Appointment?User_id=${id}`)
+        .then((res) => setAppointmentInfo(res.data[0]))
         .catch((err) => console.log(err));
-}, []);
-
+}, [id]);
+console.log(appointmenttInfo)
+// "id": 10,
+// "Name": "",
+// "Email": "",
+// "Phone": "",
+// "Problem": "",
+// "User_id": 3,
+// "Doctot_id": "13",
+// "Data_Appointment": ""
 //___________________________ Handell Sections ____________________________________
 const [InformationData, setInformationData] = useState(null);
-const Select_Information = ()=>{
+const Select_Information = (e)=>{
+    e.preventDefault()
   const data=(
     <div className="container">
         <div className="row">
             <div className="col-lg-4 col-md-12 border border-success rounded-4 p-2 text-start">
                 <h1 className="text-center text-success">Information</h1><hr/><br/>
-                <table>
+                <div className="table-responsive">
+                <table className="table table-striped">
+                    <tbody>
                     <tr>
-                        <th><h3>Name :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Name}</h5></th>
+                        <th scope="row">Name</th>
+                        <td>{patientInfo.Name}</td>
                     </tr>
                     <tr>
-                        <th><h3>Email :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Email}</h5></th>
+                        <th scope="row">Email</th>
+                        <td>{patientInfo.Email}</td>
                     </tr>
                     <tr>
-                        <th><h3>Phone :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Phone}</h5></th>
+                        <th scope="row">Phone</th>
+                        <td>{patientInfo.Phone}</td>
                     </tr>
                     <tr>
-                        <th><h3>Gender :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Gender}</h5></th>
+                        <th scope="row">Gender</th>
+                        <td>{patientInfo.Gender}</td>
                     </tr>
                     <tr>
-                        <th><h3>Age :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Age}</h5></th>
+                        <th scope="row">Age</th>
+                        <td>{patientInfo.Age}</td>
                     </tr>
                     <tr>
-                        <th><h3>Weight :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Weight}</h5></th>
+                        <th scope="row">Weight</th>
+                        <td>{patientInfo.Weight}</td>
                     </tr>
                     <tr>
-                        <th><h3>Height :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Height}</h5></th>
+                        <th scope="row">Height</th>
+                        <td>{patientInfo.Height}</td>
                     </tr>
                     <tr>
-                        <th><h3>BMI :</h3></th>
-                        <th><h5>&nbsp;{patientInfo.Bmi}</h5></th>
+                        <th scope="row">BMI</th>
+                        <td>{patientInfo.Bmi}</td>
                     </tr>
+                    </tbody>
                 </table>
+                </div>          
             </div>
             <div className="col-lg-8 col-md-12 col-sm-12 px-5">
                 <div className="row mb-5">
@@ -115,7 +125,6 @@ const Select_Information = ()=>{
         </div>
     </div>
 
-
 )
 setIsEditProfileOpen(null)
 setInformationData(data)
@@ -132,27 +141,27 @@ const Select_Appointment = ()=>{
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem",background:'#3ca55c'}}><h3>&nbsp;Doctor name</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Doctot_name}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Doctor_name}</h5></th>
             </tr>
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem"}}><h3>&nbsp;Doctor phone</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Phone}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.User_Phone}</h5></th>
             </tr>
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem"}}><h3>&nbsp;complaint</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Problem}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.problemDescription}</h5></th>
             </tr>
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem"}}><h3>&nbsp;Examination date</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Data_Appointment}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.DateAppointment}</h5></th>
             </tr>
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem"}}><h3>&nbsp;Booking status</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.status}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Paid}</h5></th>
             </tr>
         </table>
     </div>

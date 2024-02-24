@@ -15,6 +15,7 @@ import AppointmentForm from '../Component/AppiontmentDoctors'
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 function DoctorDetails() {
+  
   const { id } = useParams();
   const [doctorInfo, setDoctorInfo] = useState({
       Bio: '',
