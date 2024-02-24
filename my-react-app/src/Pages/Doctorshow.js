@@ -33,47 +33,7 @@ function DoctorDetails() {
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
   }, [id]);
-// handel review _____________________________________________________________________________________________
-// const [newReview, setNewReview] = useState();
-// const handleNameChange = (event) => {
-//   const inputName = event.target.value;
-//   setNewReview(inputName);
-// };
-// // const handleNameChange = (event) => {
-// //   if (event.target) {
-// //     const inputName = event.target.value;
-// //     setNewReview(inputName);
-// //   }
-// // };
 
-// // handell review 
-// // handle posting a review
-// const handleReview = (event) => {
-// event.preventDefault();
-//  const reviewData = {
-//       "Rate": "⭐️⭐️⭐️",
-//       "Review": newReview,
-//       "User_id": 1,
-//       "Doctor_id": doctorInfo.id,
-//       "User_name": "mahmoud",
-//       "Doctor_Name": doctorInfo.name
-//     };
-//     const apiKey = 'id';
-//     console.log(reviewData)
-// axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
-//   headers: {
-//     'Authorization': `Bearer ${apiKey}`
-//   }
-// })
-// .then(response => {
-//   console.log('Review posted successfully:', response.data);
-//   setNewReview('')
-// })
-// .catch(error => {
-//   console.error('Error posting review:', error);
-// });
-
-//   };
 
 const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -242,45 +202,8 @@ let data = (
       </div>
     
      </div>
-   {/* <div className="col-12 border mt-4"  >
-   <h5 className="text-start pt-3">Leave a review</h5>
-   <p className="text-start">How was your experience with 
-     Dr.{doctorInfo.name}</p>
-   <div className="d-flex pb-4">
-         <input 
-         className="form-control me-2" 
-         type="text" 
-         onChange={handleNameChange}
-         placeholder="Leave Review ..." 
-         value={newReview}/>
-         <button className="btn btn-success rounded-pill"
-         onClick={handleReview}>Continue</button>
-   </div>
-  
-  
    
-  
-
-     </div> */}
-      {/* <div className="col-12 border mt-4">
-      <h5 className="text-start pt-3">Leave a review</h5>
-      <p className="text-start">How was your experience with Dr.{doctorInfo.name}</p>
-      <div className="d-flex pb-4">
-        <input
-          className="form-control me-2"
-          type="text"
-          onChange={handleNameChange}
-          placeholder="Leave Review ..."
-          defaultValue={newReview}
-        />
-        <button className="btn btn-success rounded-pill" onClick={handleReview}>
-          Continue
-        </button>
-      </div>
-    </div> */}
-    <div className="col-12 border mt-4">
     <DoctorReview />
-    </div>
  </div>
  
   )
