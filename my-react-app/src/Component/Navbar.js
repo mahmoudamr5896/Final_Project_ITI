@@ -8,7 +8,6 @@ import "./CSS/Navbar.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
-
   const[login,setlogin]=useState(true)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
@@ -69,13 +68,12 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {login ? (
-                <Link to='/login'>
+            {!login ? (
+              <Link to='/login'>
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link>
               ):(
-                                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
-
+              <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
           )}
           </Nav>
           </Navbar.Collapse>

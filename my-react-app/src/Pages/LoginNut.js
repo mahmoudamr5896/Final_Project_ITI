@@ -29,6 +29,13 @@ function LoginNut() {
     setErrors(newErrors);
   };
 
+// Handel Accept user
+const[AcceptUser,setAcceptUser]=useState()
+useEffect(() => {
+  axios(`https://retoolapi.dev/EBWb8G/Doctors`)
+      .then((res) => setAcceptUser(res.data))
+      .catch((err) => console.log(err));
+}, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
@@ -42,27 +49,28 @@ function LoginNut() {
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      axios.get(`https://retoolapi.dev/EBWb8G/Doctors`, {
-        params: {
-          email: formData.emailOrUsername,
-          password: formData.password
-        }
-      })
-      .then((res) => {
-        const user = res.data[0]; 
-        if (user) {
-          const doctorId = user.id;
-          sessionStorage.setItem('doctorId', doctorId); 
-          history.push(`/dashboard?doctor_id=${doctorId}`); // Redirect to dashboard with doctor ID
-          console.log('Redirected to dashboard with doctor ID:', doctorId);
-        } else {
-          console.log("User doesn't exist");
-        }
-      })
-      .catch((err) => console.log(err));
+      const user_n = AcceptUser.filter((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
+      if (user_n.length > 0){
+        user_n.forEach((user) =>
+        {
+        const  User_id = user.id;
+         history.push(`/dashboard/${User_id}`);
+         const userData = {
+           email: formData.emailOrUsername,
+           password: formData.password,
+           role: 'Doctor' ,
+           id:User_id
+         };
+         const userDataString = JSON.stringify(userData);
+         sessionStorage.setItem('userData', userDataString);
+         console.log("Successfully updated user data in session storage for user with id:", User_id);
+       });
+      }else{
+          console.log("Does't Exits")
+      }
+      
     }
   };
-  
 
   return (
     <div style={{marginTop:'100px'}}>
@@ -101,7 +109,7 @@ function LoginNut() {
               </div>
               <button type="submit">Login</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} className='btn btn-promary' style={{color:'blue'}}> Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} > Sign Up</button></p>
           </div>
         </Col>
       </Row>

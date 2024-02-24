@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function AppointmentForm({ doctorInfo , UserR_id }) {
   const [DataAppointment, setDataAppointment] = useState({
@@ -44,6 +45,7 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
     // Return true if form is valid, otherwise false
     return true;
   };
+      const    history = useHistory()
 
   const Save_Appointment = (event) => {
     event.preventDefault();
@@ -51,6 +53,7 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
       axios.post('https://retoolapi.dev/2jV2W1/Appointment', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
+          history.push(`/profile/${doctorInfo.id}`)
         })
         .catch(error => {
           console.error('Error posting Appointment:', error);

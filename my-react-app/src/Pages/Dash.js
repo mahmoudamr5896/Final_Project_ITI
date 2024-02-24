@@ -27,7 +27,7 @@ function Dash() {
          id={id}
         ></DashTableCont>
         <ProgressChart
-
+        id={id}
         ></ProgressChart>
         <div>
           <Reviews

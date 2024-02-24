@@ -1,7 +1,7 @@
 import React from "react";
 import BasicExample from "./DashTable";
 
-function DashTableCont() {
+function DashTableCont({id}) {
   return (
     <>
       <br /><br />    <br /><br />    
@@ -17,7 +17,9 @@ function DashTableCont() {
           marginLeft: "19%"
         }}
       >
-        <BasicExample></BasicExample>
+        <BasicExample 
+        id={id}
+        ></BasicExample>
       </div>
     </>
   );
