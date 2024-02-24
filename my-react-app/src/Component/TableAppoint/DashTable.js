@@ -62,13 +62,13 @@ console.log(appointments)
   return (
     <div>
       {appointments.length > 0 ? (
-        <Table striped bordered hover  >
+       <Table striped bordered hover className="tableContainer">
           <thead>
             <tr>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Name</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Phone</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Date</th>
-              <th style={{ padding: "40px 40px 40px", fontWeight: "bold" }}>Case</th>
+              <th className='Dash_th'>Name</th>
+              <th >Phone</th>
+              <th >Date</th>
+              <th >Case</th>
             </tr>
           </thead>
           <tbody>

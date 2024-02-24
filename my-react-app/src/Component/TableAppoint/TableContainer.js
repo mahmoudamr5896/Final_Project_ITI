@@ -8,13 +8,13 @@ function DashTableCont() {
       <h3 style={{ marginLeft: "-45%" ,color:"var(--black)",fontFamily:"'Inter', sans-serif"}}>Current Appointments</h3><br></br>
       <div
         style={{
-          backgroundColor: "white",
-          padding: "50px",
+          backgroundColor: "lavenderblush",
+          padding: "15px 8px",
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          width: "55%",
+          width: "58%",
           marginBottom:"2%",
-          marginLeft: "22%"
+          marginLeft: "19%"
         }}
       >
         <BasicExample></BasicExample>
