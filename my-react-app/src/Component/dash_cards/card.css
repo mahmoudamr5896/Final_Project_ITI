@@ -1,0 +1,63 @@
+.DashCont {
+    background-image: linear-gradient(to right, #8ff087,rgb(129, 194, 161), #debddb);
+    height: 100%;
+
+    padding: 0; 
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    
+    padding: 20px;
+    
+}
+.ChartCont{
+    
+    background-color: rgba(251, 228, 238, 0.7); 
+    border-radius: 15px;
+    width: 98%;
+    margin: 0 auto; 
+}
+
+  
+  .Dash_cards {
+    width: 100%; 
+    max-width: 300px; 
+    margin-bottom: 20px; 
+    border-radius: 8px;
+    box-shadow: 10px 40px 12px rgba(0, 235, 110, 0.2);
+    background-color: #69c354;
+    text-align: center;
+    margin: 10px;
+    filter: drop-shadow(2px 4px 6px white);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  @media (min-width: 768px) {
+    .Dash_cards {
+      width: calc(50% - 20px); 
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .Dash_cards {
+      width: calc(33.33% - 20px); 
+    }
+  }
+  
+  .Dash_cards:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: white; 
+  }
+  .DashTiTlle{
+  color: var(--black);
+  font-family: 'Inter', sans-serif;
+  }
