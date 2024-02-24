@@ -1,8 +1,8 @@
 .progress-chart-container {
-    width: 19%; 
-    height: 250px;
+    width: 18%; 
+    height: 300px;
     position: relative;
-    top: -22vh;
+    top: -15vh;
     right: -80%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow-y: auto;

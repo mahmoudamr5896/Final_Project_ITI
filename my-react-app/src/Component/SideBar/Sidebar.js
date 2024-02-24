@@ -13,7 +13,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchDoctorInfo = async () => {
       try {
-        const doctorId = localStorage.getItem('doctorId');
+        const doctorId = new URLSearchParams(window.location.search).get('doctor_id'); // Get doctor ID from URL param
         if (doctorId) {
           const response = await axios.get(`https://retoolapi.dev/EBWb8G/Doctors`);
           const doctors = response.data;
@@ -28,9 +28,12 @@ const Sidebar = () => {
         console.error('Error fetching doctor info:', error);
       }
     };
-
+  
     fetchDoctorInfo();
   }, []);
+  
+
+
 
   // Logout function
   const logoutHandler = (e) => {
@@ -41,7 +44,7 @@ const Sidebar = () => {
 
   return (
     <div>
-      <div className="sidebar">
+      <div className="sidebar" style={{height:"145vh"}}>
         <div>
           {doctorInfo && (
             <div className="doctor-info">
