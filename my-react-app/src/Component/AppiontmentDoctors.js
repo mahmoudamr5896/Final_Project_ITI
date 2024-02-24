@@ -45,8 +45,7 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
     // Return true if form is valid, otherwise false
     return true;
   };
-      const    history = useHistory()
-
+  const    history = useHistory()
   const Save_Appointment = (event) => {
     event.preventDefault();
     if (validateForm()) {
@@ -162,6 +161,58 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
   );
 }
 export default AppointmentForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
