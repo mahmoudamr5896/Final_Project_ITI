@@ -3,36 +3,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./card.css";
 import axios from "axios";
-
 const Cards = () => {
   const [appointmentsCount, setAppointmentsCount] = useState(0);
   const [reviewsCount, setReviewsCount] = useState(0);
-
-  useEffect(() => {
-   
-    const doctorId = localStorage.getItem('doctorId');
-
-    if (doctorId) {
-      axios.get(`https://retoolapi.dev/ornM79/Appointment`)
-        .then(response => {
-          const doctorAppointments = response.data.filter(appointment => appointment.Doctot_id === doctorId);
-          setAppointmentsCount(doctorAppointments.length);
-        })
-        .catch(error => {
-          console.error('Error fetching appointments:', error);
-        });
+  // useEffect(() => {
+  //   const doctorId = localStorage.getItem('doctorId');
+  //   if (doctorId) {
+  //     axios.get(`https://retoolapi.dev/ornM79/Appointment`)
+  //       .then(response => {
+  //         const doctorAppointments = response.data.filter(appointment => appointment.Doctot_id === doctorId);
+  //         setAppointmentsCount(doctorAppointments.length);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching appointments:', error);
+  //       });
 
 
-      axios.get(`https://retoolapi.dev/NJuvHL/Reviews`)
-        .then(response => {
-          const doctorReviews = response.data.filter(review => review.Doctor_id === doctorId);
-          setReviewsCount(doctorReviews.length);
-        })
-        .catch(error => {
-          console.error('Error fetching reviews:', error);
-        });
-    }
-  }, []);
+  //     axios.get(`https://retoolapi.dev/NJuvHL/Reviews`)
+  //       .then(response => {
+  //         const doctorReviews = response.data.filter(review => review.Doctor_id === doctorId);
+  //         setReviewsCount(doctorReviews.length);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching reviews:', error);
+  //       });
+  //   }
+  // }, []);
+
+  axios.get('https://retoolapi.dev/v920kO/Appointment')
+  .then(response => {
+    const numberOfAppointments = response.data.length;
+     setAppointmentsCount(numberOfAppointments)
+  })
+  .catch(error => {
+    console.error('Error fetching appointments:', error);
+  });
+
+  axios.get('https://retoolapi.dev/NJuvHL/Reviews')
+  .then(response => {
+    const numberOfAppointments = response.data.length;
+     setReviewsCount(numberOfAppointments)
+  })
+  .catch(error => {
+    console.error('Error fetching appointments:', error);
+  });
 
   return (
     <div>

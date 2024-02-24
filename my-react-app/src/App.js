@@ -50,7 +50,6 @@ function App() {
           component={Regspatien}/>
           <Route exact path='/dashboard'
           component={Dash}/>
-          
         </Switch>
         <Footer/>
         </BrowserRouter>  
