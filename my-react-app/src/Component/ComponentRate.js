@@ -68,7 +68,7 @@ function ReviewComponent({ doctorInfo }) {
         <br />
       </div>
       <p>You rated {selectedRating} star{selectedRating !== 1 ? 's' : ''}</p>
-      <button onClick={handleReview}>Save</button>
+      {/* <button onClick={handleReview}>Save</button> */}
     </div>
 
   );

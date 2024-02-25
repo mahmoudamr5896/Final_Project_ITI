@@ -17,11 +17,8 @@ import DoctorReview from '../Component/DoctorReview';
 
 import { useContext } from "react";
 import MyContext from "../Context/Context";
-<<<<<<< HEAD
 import ReviewComponent from '../Component/ComponentRate'
-=======
 
->>>>>>> 79f54422ba1dabe7f2bf1dad86b5f6e461f8bf90
 function DoctorDetails() {
   
   const { id } = useParams();
@@ -88,7 +85,7 @@ const [newReview, setNewReview] = useState('');
 
  
 
-  }, []);
+  // }, []);
 //_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
@@ -187,36 +184,35 @@ if(userDatas){
     var User_name = userDatas.name;
 }
 // handel review _____________________________________________________________________________________________
-const [newReview, setNewReview] = useState();
-const handleNameChange = (event) => {
-  const inputName = event.target.value;
-  setNewReview(inputName);
-};
+// const handleNameChange = (event) => {
+//   const inputName = event.target.value;
+//   setNewReview(inputName);
+// };
 // handle posting a review // handell review 
-const handleReview = (event) => {
-// event.preventDefault();
- const reviewData = {
-      "Rate": "⭐️⭐️⭐️",
-      "Review": newReview,
-      "User_id": User_id,
-      "Doctor_id": doctorInfo.id,
-      "User_name": User_name,
-      "Doctor_Name": doctorInfo.Doctor_Name
-    };
-    axios
-    .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
-      .then(response => {
-        console.log('Review posted successfully:', response.data);
-        setNewReview('')
-      })
-      .catch(error => {
-        console.error('Error posting review:', error);
-      });
-  };
-//___________________________________________________________________________________
-const handleChange_rate=(e)=>{
-  console.log(e.target.name)
-}
+// const handleReview = (event) => {
+// // event.preventDefault();
+//  const reviewData = {
+//       "Rate": "⭐️⭐️⭐️",
+//       "Review": newReview,
+//       "User_id": User_id,
+//       "Doctor_id": doctorInfo.id,
+//       "User_name": User_name,
+//       "Doctor_Name": doctorInfo.Doctor_Name
+//     };
+//     axios
+//     .post('https://retoolapi.dev/NJuvHL/Reviews', reviewData)
+//       .then(response => {
+//         console.log('Review posted successfully:', response.data);
+//         setNewReview('')
+//       })
+//       .catch(error => {
+//         console.error('Error posting review:', error);
+//       });
+//   };
+// //___________________________________________________________________________________
+// const handleChange_rate=(e)=>{
+//   console.log(e.target.name)
+// // }
 
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
@@ -260,8 +256,11 @@ let data = (
     
      </div>
    
-    <DoctorReview />
-   <div className="col-12 border mt-4"  >
+    <DoctorReview
+     doctor={doctorInfo}
+     User={userDatas}
+     />
+    {/* <div className="col-12 border mt-4"  >
    <h5 className="text-start pt-3">Leave a review</h5>
    <p className="text-start">How was your experience with 
      Dr.{doctorInfo.Doctor_Name}</p>
@@ -277,7 +276,7 @@ let data = (
          onClick={handleReview}
          >Continue</button>
    </div>
-     </div>
+     </div> */}
  </div>
  
   )

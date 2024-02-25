@@ -1,23 +1,24 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
 
-function DoctorReview() {
+function DoctorReview({ doctor , User }) {
+console.log(User)
+
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
-  const [doctorInfo, setDoctorInfo] = useState(''
-  
-);
-
-
-useEffect(() => {
-    axios(`https://retoolapi.dev/EBWb8G/Doctors/`)
-        .then((res) => {
-          const doctorInfo = res.data[0] 
-          setDoctorInfo(doctorInfo);
-        })
-        .catch((err) => console.log(err));
-  }, []);
-  
+  // const [doctorInfo, setDoctorInfo] = useState('');
+// useEffect(() => {
+//     axios(`https://retoolapi.dev/EBWb8G/Doctors/`)
+//         .then((res) => {
+//           const doctorInfo = res.data[0] 
+//           setDoctorInfo(doctorInfo);
+//         })
+//         .catch((err) => console.log(err));
+//   }, []);
+   
+ if(User & doctor){
+  setError('Please Log in First')
+ }
 
   const handleNameChange = (event) => {
     const inputReview = event.target.value;
@@ -25,15 +26,18 @@ useEffect(() => {
   };
 
   const handleReview = async (event) => {
+
     event.preventDefault();
+    const stars = '⭐️'.repeat(selectedRating);
     const reviewData = {
-      Rate: '⭐️⭐️⭐️',
+      Rate: stars,
       Review: newReview,
-      User_id: 1,
-      Doctor_id: doctorInfo.id,
-      User_name: 'mahmoud',
-      Doctor_Name: doctorInfo.name, // Assuming the name is stored in the 'name' field
+      User_id: User.id,
+      Doctor_id: doctor.id,
+      User_name: User.name,
+      Doctor_Name: doctor.name, // Assuming the name is stored in the 'name' field
     };
+
     const apiKey = 'id';
     console.log(reviewData);
     try {
@@ -44,6 +48,7 @@ useEffect(() => {
       });
       console.log('Review posted successfully:', response.data);
       setNewReview('');
+      setSelectedRating(0);
       setError(null);
     } catch (error) {
       console.error('Error posting review:', error);
@@ -51,11 +56,26 @@ useEffect(() => {
     }
   };
   
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.......
+  const [selectedRating, setSelectedRating] = useState(0);
+  const handleChange_rate = (event) => {
+    const rating = parseInt(event.target.getAttribute('name'));
+    setSelectedRating(rating);
+  };
 
   return (
     <div className="col-12 border mt-4">
       <h5 className="text-start pt-3">Leave a review</h5>
-      <p className="text-start">How was your experience with Dr. </p> 
+      <div className="mt-4">
+        <i className={`fas fa-star ${selectedRating >= 1 ? 'checked' : ''}`} name='1' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 2 ? 'checked' : ''}`} name='2' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 3 ? 'checked' : ''}`} name='3' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 4 ? 'checked' : ''}`} name='4' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 5 ? 'checked' : ''}`} name='5' onClick={handleChange_rate}></i>
+        <br/>
+        <p>You rated {selectedRating} star{selectedRating !== 1 ? 's' : ''}</p>
+      </div>
+      <p className="text-start">How was your experience with Dr.{doctor.name} </p> 
       <div className="d-flex pb-4">
         <input
           className="form-control me-2"
