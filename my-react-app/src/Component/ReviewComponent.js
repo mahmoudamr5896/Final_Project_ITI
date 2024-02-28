@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from './Modal';
-
+// import Pagination from '../Component/Pagginition'
+import Pagination from './Pagination';
 function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
-  
+  const [currentPage, setCurrentPage] = useState(1); // Changed initial currentPage to 1
+  const [reviewsPerPage] = useState(3); // Number of reviews per page
+
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   useEffect(() => {
     if (doctorId) {
       axios
-        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
+        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}&_page=${currentPage}&_limit=${reviewsPerPage}`)
         .then(response => {
           setReviews(response.data);
+
         })
         .catch(error => {
           console.error('Error fetching reviews:', error);
         }); 
     }
-  }, [doctorId]);
+  }, [doctorId, currentPage, reviewsPerPage]);
+  const Total = Math.ceil(reviews.length / reviewsPerPage)
 //____Delete Review_____________________________________________________________________________________________
   const handleDeleteReview = (reviewId) => {
     axios
@@ -60,8 +68,8 @@ console.log(Id)
 }
 //______________________________________________________________________________________________________________
 const [newReviewText, setNewReviewText] = useState('');
-  const [selectedReview, setSelectedReview] = useState(null);
-  const [newRating, setNewRating] = useState(0);
+const [selectedReview, setSelectedReview] = useState(null);
+const [newRating, setNewRating] = useState(0);
   useEffect(() => {
     if (doctorId) {
       axios
@@ -96,7 +104,6 @@ const [newReviewText, setNewReviewText] = useState('');
       })
       .then(response => {
         console.log('Review updated successfully:', response.data);
-        // Refresh reviews after update
         axios
           .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
           .then(response => {
@@ -109,11 +116,12 @@ const [newReviewText, setNewReviewText] = useState('');
       .catch(error => {
         console.error('Error updating review:', error);
       });
-    // Close the modal
     setSelectedReview(null);
     setNewReviewText('');
     setNewRating(0);
   };
+//___________________________________________________________________
+
 
   return (
     <div className="container  mt-5">
@@ -135,16 +143,64 @@ const [newReviewText, setNewReviewText] = useState('');
                   {userData && userData.role === 'Patient' && Id === review.User_id &&  (
                     <>
                     <button className="btn btn-danger m-3" onClick={() => handleDeleteReview(review.id)}>Delete</button>
-                    {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"  data-bs-whatever="@mdo">Edit</button> */}
                      <button className="btn btn-warning m-3" onClick={() => handleEditReview(review)}>Edit</button>
-                  {/* <button className="btn btn-warning m-3" onClick={() => openEditModal(review)}>Edit</button> */}
                     </>
                    )
                   }
               </div>
               </div>
             </div>
-            {/* {showModal && ( */}
+           
+             {selectedReview && (
+        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
+              </div>
+              <div className="modal-body">
+                <div className="mb-3">
+                  <label htmlFor="reviewText" className="form-label">Review Text</label>
+                  <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="rating" className="form-label">Rating</label>
+                  <input type="number" className="form-control" id="rating" value={newRating.length/2} onChange={(e) => setNewRating(e.target.value)}></input>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
+                <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+                   )}
+          </div>
+        </div>
+      ))}
+           <Pagination
+           currentPage={currentPage}
+           totalPages={Total} // Calculate total pages based on total reviews
+           onPageChange={onPageChange}
+         /> 
+  
+    </div>
+  );
+}
+
+export default ReviewSection;
+
+
+
+
+
+
+
+
+
+ {/* {showModal && ( */}
              {/* <div>
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -190,51 +246,6 @@ const [newReviewText, setNewReviewText] = useState('');
                     </div>
                   </div>
              </div> */}
-             {selectedReview && (
-        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
-              </div>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label htmlFor="reviewText" className="form-label">Review Text</label>
-                  <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="rating" className="form-label">Rating</label>
-                  <input type="number" className="form-control" id="rating" value={newRating} onChange={(e) => setNewRating(e.target.value)}></input>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
-                <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-                   )}
-            {/* )} */}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export default ReviewSection;
-
-
-
-
-
-
-
-
-
-
 
 
 

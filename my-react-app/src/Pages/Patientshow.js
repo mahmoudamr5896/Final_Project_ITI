@@ -161,7 +161,7 @@ const Select_Appointment = ()=>{
             <tr style={{height:"1rem"}}><th></th></tr>
             <tr>
                 <th className="text-start bg-success text-white rounded-4" style={{width:"17rem",height:"4rem"}}><h3>&nbsp;Booking status</h3></th>
-                <th className="bg-danger-subtle rounded-4"><h5>{appointmenttInfo.Paid}</h5></th>
+                <th className="bg-danger-subtle rounded-4"><h5>Waiting Activate ...</h5></th>
             </tr>
         </table>
     </div>

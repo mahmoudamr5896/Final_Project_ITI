@@ -29,7 +29,7 @@ const  CustomNavbar= ()=> {
   setlogin(false)
   history.push('/')
   axios
-  .patch(`https://retoolapi.dev/zP9Zhd/patient/${1}`,
+  .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
    { "Active": false })
   .then(response => {
     console.log('Active status updated successfully for user with id:', User_id);
