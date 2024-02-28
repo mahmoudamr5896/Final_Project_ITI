@@ -179,7 +179,7 @@ let data = (
      <div className="col-6">
       <h3>Dr. {doctorInfo.name} Reviews</h3>
       <>Likelihood to recommend Dr.{doctorInfo.name}</>
-      <div>Based on {doctorInfo.Rating.length/2} ratings</div>
+      <div>Based on {doctorInfo.Rating} ratings</div>
       <h2>{doctorInfo.Rating}</h2>
       <p>4.1 average based on 254 reviews.</p>
      <hr style={{border:"3px solid #f1f1f1"}}/>
