@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from './Modal';
+import { Dropdown } from 'react-bootstrap';
 // import Pagination from '../Component/Pagginition'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faList } from  "@fortawesome/free-solid-svg-icons";
+
 import Pagination from './Pagination';
 function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
@@ -127,29 +132,43 @@ const [newRating, setNewRating] = useState(0);
     <div className="container  mt-5">
       {reviews.map(review => (
         <div className="d-flex justify-content-center row" key={review.id}>
-          <div className="col-md-8 ">
-            <div className="d-flex  border flex-column comment-section m-2">
-              <div className="bg-white p-2">
-                <h6>{review.Uswer_Name}</h6>
-                <div className="d-flex flex-row user-info">    
-                  <div className="d-flex flex-column justify-content-center ml-2">
-                    <span className="date text-black-50">{review.Rate}</span>
-                    <span className="d-block font-weight-bold name">{review.Review}</span>
-                    <span className="date text-black-50">{review.date}</span>
-                  </div>
+        <div className="col-md-8 ">
+          <div className="d-flex  border flex-column comment-section m-2">
+            <div className="bg-white p-2">
+              <h6 style={{textAlign:'center'}}>{review.Uswer_Name}</h6>
+              <div className="d-flex flex-row user-info">    
+                <div className="d-flex flex-column justify-content-center ml-2">
+                  <span className="date text-black-50" style={{textAlign:'center'}}>{review.Rate}</span>
+                  <span className="d-block font-weight-bold name" style={{textAlign:'center'}}>{review.Review}</span>
+                  <span className="date text-black-50" style={{textAlign:'center'}}> {review.date}</span>
                 </div>
-              <div className="mt-2">
-                  <p className="comment-text">{review.comment}</p>
-                  {userData && userData.role === 'Patient' && Id === review.User_id &&  (
-                    <>
-                    <button className="btn btn-danger m-3" onClick={() => handleDeleteReview(review.id)}>Delete</button>
-                     <button className="btn btn-warning m-3" onClick={() => handleEditReview(review)}>Edit</button>
-                    </>
-                   )
-                  }
               </div>
+              <div className="mt-2">
+                <p className="comment-text" style={{textAlign:'center'}}>{review.comment}</p>
+                {userData && userData.role === 'Patient' && Id === review.User_id &&  (
+                  <Dropdown alignRight>
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    <FontAwesomeIcon icon={faList} size="xl" style={{ color: 'inherit', cursor: 'pointer' }} />
+                  </Dropdown.Toggle>
+                
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleDeleteReview(review.id)}>Delete</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleEditReview(review)}>Edit</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                
+                
+                
+                
+                
+                )}
               </div>
             </div>
+       
+          
+  
+</div>
+
            
              {selectedReview && (
         <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
