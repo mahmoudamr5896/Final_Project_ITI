@@ -5,7 +5,7 @@ import { Dropdown } from 'react-bootstrap';
 // import Pagination from '../Component/Pagginition'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faList } from  "@fortawesome/free-solid-svg-icons";
+import { faList } from "@fortawesome/free-solid-svg-icons";
 
 import Pagination from './Pagination';
 function ReviewSection({ doctorId }) {
@@ -17,7 +17,7 @@ function ReviewSection({ doctorId }) {
     setCurrentPage(pageNumber);
   };
 
-  
+
   useEffect(() => {
     if (doctorId) {
       axios
@@ -28,11 +28,11 @@ function ReviewSection({ doctorId }) {
         })
         .catch(error => {
           console.error('Error fetching reviews:', error);
-        }); 
+        });
     }
   }, [doctorId, currentPage, reviewsPerPage]);
   const Total = Math.ceil(reviews.length / reviewsPerPage)
-//____Delete Review_____________________________________________________________________________________________
+  //____Delete Review_____________________________________________________________________________________________
   const handleDeleteReview = (reviewId) => {
     axios
       .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
@@ -49,34 +49,34 @@ function ReviewSection({ doctorId }) {
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
-      setUserData(JSON.parse(storedUserData)); 
+      setUserData(JSON.parse(storedUserData));
     }
   }, []);
-//________________________________________________________________________________________________________
-const[showModal,setshowModal]=useState(false)
-const openEditModal=()=>{
-setshowModal(false)
-}
-const [selectedRating, setSelectedRating] = useState(0);
-const handleChange_rate = (event) => {
-  const rating = parseInt(event.target.getAttribute('name'));
-  setSelectedRating(rating);
-};
-const[newReview,setNewReview]=useState({})
-const handleNameChange = (event) => {
-  const inputReview = event.target.value;
-  setNewReview(inputReview);
-};
+  //________________________________________________________________________________________________________
+  const [showModal, setshowModal] = useState(false)
+  const openEditModal = () => {
+    setshowModal(false)
+  }
+  const [selectedRating, setSelectedRating] = useState(0);
+  const handleChange_rate = (event) => {
+    const rating = parseInt(event.target.getAttribute('name'));
+    setSelectedRating(rating);
+  };
+  const [newReview, setNewReview] = useState({})
+  const handleNameChange = (event) => {
+    const inputReview = event.target.value;
+    setNewReview(inputReview);
+  };
 
-//--------------------------------------------------------------------------------------------------------
-if(userData){
-  var Id = (userData.id)
-console.log(Id)
-}
-//______________________________________________________________________________________________________________
-const [newReviewText, setNewReviewText] = useState('');
-const [selectedReview, setSelectedReview] = useState(null);
-const [newRating, setNewRating] = useState(0);
+  //--------------------------------------------------------------------------------------------------------
+  if (userData) {
+    var Id = (userData.id)
+    console.log(Id)
+  }
+  //______________________________________________________________________________________________________________
+  const [newReviewText, setNewReviewText] = useState('');
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [newRating, setNewRating] = useState(0);
   useEffect(() => {
     if (doctorId) {
       axios
@@ -98,7 +98,7 @@ const [newRating, setNewRating] = useState(0);
 
   const handleUpdateReview = () => {
     if (!selectedReview) return;
-     
+
     axios
       .put(`https://retoolapi.dev/NJuvHL/Reviews/${selectedReview.id}`, {
         Review: newReviewText,
@@ -127,86 +127,96 @@ const [newRating, setNewRating] = useState(0);
     setNewReviewText('');
     setNewRating(0);
   };
-//___________________________________________________________________
+  //___________________________________________________________________
 
 
   return (
     <div className="container  mt-5">
       {reviews.map(review => (
         <div className="d-flex justify-content-center row" key={review.id}>
-        <div className="col-md-8 ">
-          <div className="d-flex  border flex-column comment-section m-2">
-            <div className="bg-white p-2">
-              <h6 style={{textAlign:'center'}}>{review.Uswer_Name}</h6>
-              <div className="d-flex flex-row user-info">    
-                <div className="d-flex flex-column justify-content-center ml-2">
-                  <span className="date text-black-50" style={{textAlign:'center'}}>{review.Rate}</span>
-                  <span className="d-block font-weight-bold name" style={{textAlign:'center'}}>{review.Review}</span>
-                  <span className="date text-black-50" style={{textAlign:'center'}}> {review.date}</span>
+          <div className="col-md-8 ">
+            <div className="d-flex  border flex-column comment-section m-2">
+              <div className="bg-white p-2">
+                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
+                <div className="d-flex flex-row user-info">
+                  <div className="d-flex flex-column justify-content-center ml-2">
+                    <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
+                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
+                    <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-2">
-                <p className="comment-text" style={{textAlign:'center'}}>{review.comment}</p>
-                {userData && userData.role === 'Patient' && Id === review.User_id &&  (
-                  <Dropdown alignRight>
-                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                    <FontAwesomeIcon icon={faList} size="xl" style={{ color: 'inherit', cursor: 'pointer' }} />
-                  </Dropdown.Toggle>
-                
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => handleDeleteReview(review.id)}>Delete</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleEditReview(review)}>Edit</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                
-                
-                
-                
-                
-                )}
-              </div>
-            </div>
-       
+                <div className="mt-2">
+                  <p className="comment-text" style={{ textAlign: 'center' }}>{review.comment}</p>
+                  {userData && userData.role === 'Patient' && Id === review.User_id && (
+            <Dropdown alignRight>
+            <Dropdown.Toggle style={{
+              textDecoration: 'none',
+              fontWeight: 'bold', 
+              float: 'right', 
+              color: 'black', 
+              top:'30px'
+            }} variant="link" id="dropdown-basic">
+              ...
+            </Dropdown.Toggle>
           
-  
-</div>
+            <style>
+              {`
+                .dropdown-toggle::after {
+                  display: none;
+                }
+              `}
+            </style>
+          
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => handleDeleteReview(review.id)}>Delete</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleEditReview(review)}>Edit</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
-           
-             {selectedReview && (
-        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
-              </div>
-              <div className="modal-body">
-                <div className="mb-3">
-                  <label htmlFor="reviewText" className="form-label">Review Text</label>
-                  <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="rating" className="form-label">Rating</label>
-                  <input type="number" className="form-control" id="rating" value={newRating.length/2} onChange={(e) => setNewRating(e.target.value)}></input>
+                  )}
                 </div>
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
-                <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
-              </div>
+
+
+
             </div>
-          </div>
-        </div>
-                   )}
+
+
+            {selectedReview && (
+              <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
+                      <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="reviewText" className="form-label">Review Text</label>
+                        <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="rating" className="form-label">Rating</label>
+                        <input type="number" className="form-control" id="rating" value={newRating.length / 2} onChange={(e) => setNewRating(e.target.value)}></input>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
+                      <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ))}
-           <Pagination
-           currentPage={currentPage}
-           totalPages={Total} // Calculate total pages based on total reviews
-           onPageChange={onPageChange}
-         /> 
-  
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Total} // Calculate total pages based on total reviews
+        onPageChange={onPageChange}
+      />
+
     </div>
   );
 }
@@ -221,8 +231,8 @@ export default ReviewSection;
 
 
 
- {/* {showModal && ( */}
-             {/* <div>
+{/* {showModal && ( */ }
+{/* <div>
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
