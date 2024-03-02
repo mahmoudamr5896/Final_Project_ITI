@@ -4,8 +4,7 @@ import Modal from './Modal';
 import { Dropdown } from 'react-bootstrap';
 // import Pagination from '../Component/Pagginition'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faList } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 
 import Pagination from './Pagination';
 function ReviewSection({ doctorId }) {
@@ -146,32 +145,34 @@ function ReviewSection({ doctorId }) {
                   </div>
                 </div>
                 <div className="mt-2">
-                  <p className="comment-text" style={{ textAlign: 'center' }}>{review.comment}</p>
+                  <p className="comment-text" >{review.comment}</p>
                   {userData && userData.role === 'Patient' && Id === review.User_id && (
-            <Dropdown alignRight>
-            <Dropdown.Toggle style={{
-              textDecoration: 'none',
-              fontWeight: 'bold', 
-              float: 'right', 
-              color: 'black', 
-              top:'30px'
-            }} variant="link" id="dropdown-basic">
-              ...
-            </Dropdown.Toggle>
-          
-            <style>
-              {`
+                    <Dropdown alignRight>
+                      <Dropdown.Toggle style={{
+                        textDecoration: 'none',
+                        fontWeight: 'bold',
+                        float: 'right',
+                        color: 'black',
+                        top: '30px'
+                      }} variant="link" id="dropdown-basic">
+                        ...
+                      </Dropdown.Toggle>
+
+                      <style>
+                        {`
                 .dropdown-toggle::after {
                   display: none;
                 }
               `}
-            </style>
-          
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleDeleteReview(review.id)}>Delete</Dropdown.Item>
-              <Dropdown.Item onClick={() => handleEditReview(review)}>Edit</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                      </style>
+
+                      <Dropdown.Menu>
+
+                        <span><Dropdown.Item onClick={() => handleDeleteReview(review.id)} ><FontAwesomeIcon icon={faTrash} /> Delete</Dropdown.Item></span>
+                        <hr></hr>
+                        <Dropdown.Item onClick={() => handleEditReview(review)}> <FontAwesomeIcon icon={faPenToSquare} /> Edit</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
 
                   )}
                 </div>
