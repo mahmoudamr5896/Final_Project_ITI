@@ -16,6 +16,8 @@ function ReviewSection({ doctorId }) {
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  
   useEffect(() => {
     if (doctorId) {
       axios
