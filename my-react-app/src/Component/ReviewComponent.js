@@ -4,11 +4,9 @@ import Modal from './Modal';
 import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
-
 import Pagination from './Pagination';
 
 function ReviewSection({ doctorId }) {
-
   
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +44,7 @@ function ReviewSection({ doctorId }) {
       });
   };
   //_____________________________________
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
@@ -54,30 +52,30 @@ function ReviewSection({ doctorId }) {
     }
   }, []);
   //________________________________________________________________________________________________________
-  const [showModal, setshowModal] = useState(false)
-  const openEditModal = () => {
-    setshowModal(false)
-  }
-  const [selectedRating, setSelectedRating] = useState(0);
-  const handleChange_rate = (event) => {
-    const rating = parseInt(event.target.getAttribute('name'));
-    setSelectedRating(rating);
-  };
-  const [newReview, setNewReview] = useState({})
-  const handleNameChange = (event) => {
-    const inputReview = event.target.value;
-    setNewReview(inputReview);
-  };
+  // const [showModal, setshowModal] = useState(false)
+  // const openEditModal = () => {
+  //   setshowModal(false)
+  // }
+  // const [selectedRating, setSelectedRating] = useState(0);
+  // const handleChange_rate = (event) => {
+  //   const rating = parseInt(event.target.getAttribute('name'));
+  //   setSelectedRating(rating);
+  // };
+  // const [newReview, setNewReview] = useState({})
+  // const handleNameChange = (event) => {
+  //   const inputReview = event.target.value;
+  //   setNewReview(inputReview);
+  // };
 
   //--------------------------------------------------------------------------------------------------------
-  if (userData) {
-    var Id = (userData.id)
-    console.log(Id)
-  }
-  //______________________________________________________________________________________________________________
-  const [newReviewText, setNewReviewText] = useState('');
-  const [selectedReview, setSelectedReview] = useState(null);
-  const [newRating, setNewRating] = useState(0);
+  // if (userData) {
+  //   var Id = (userData.id)
+  //   console.log(Id)
+  // }
+  // //______________________________________________________________________________________________________________
+  // const [newReviewText, setNewReviewText] = useState('');
+  // const [selectedReview, setSelectedReview] = useState(null);
+  // const [newRating, setNewRating] = useState(0);
   useEffect(() => {
     if (doctorId) {
       axios
@@ -269,10 +267,24 @@ function ReviewSection({ doctorId }) {
                         <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="rating" className="form-label">Rating</label>
-                        <input type="number" className="form-control" id="rating" value={newRating.length / 2} onChange={(e) => setNewRating(e.target.value)}></input>
-                      </div>
+                        <label htmlFor="rating" className="form-label">New Rating</label>
+                         {[1, 2, 3, 4, 5].map((star) => (
+                                <i 
+                                    key={star} 
+                                    className={`fas fa-star ${star <= newRating ? 'checked' : ''}`} 
+                                    onClick={() => setNewRating(star)}
+                                ></i>
+                            ))}
+                        {/* <input min={1} max={5} type="number" className="form-control" id="rating" value={newRating} onChange={(e) => setNewRating(parseInt(e.target.value))}></input> */}
+                        <br />
+                        <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
                     </div>
+
+                      {/* <div className="mb-3">
+                        <label htmlFor="rating" className="form-label">Rating</label>
+                        <input min={1} max={5} type="number" className="form-control" id="rating" value={(newRating.length/2)} onChange={(e) => setNewRating(e.target.value)}></input>
+                      </div>*/}
+                    </div> 
                     <div className="modal-footer">
                       <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
                       <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
