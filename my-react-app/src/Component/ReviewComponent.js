@@ -8,6 +8,8 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 
 import Pagination from './Pagination';
 function ReviewSection({ doctorId }) {
+
+  
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // Changed initial currentPage to 1
   const [reviewsPerPage] = useState(3); // Number of reviews per page
@@ -70,6 +72,7 @@ function ReviewSection({ doctorId }) {
   //--------------------------------------------------------------------------------------------------------
   if (userData) {
     var Id = (userData.id)
+    var Name = (userData.Name)
     console.log(Id)
   }
   //______________________________________________________________________________________________________________
@@ -214,7 +217,6 @@ function ReviewSection({ doctorId }) {
       ))}
       <Pagination
         currentPage={currentPage}
-        // totalPages={Total} // Calculate total pages based on total reviews
         onPageChange={onPageChange}
       />
 
