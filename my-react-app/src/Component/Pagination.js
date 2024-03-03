@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-
-
-  // 
   const generatePageNumbers = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -13,69 +10,34 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     return pages;
   };
 
-
-
   return (
-          <div className="pagination d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <button className="page-link"  aria-label="Previous" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-                  <span aria-hidden="true">&laquo;</span>
-                  </button>
-                </li>
-                {generatePageNumbers().map(pageNumber => (
-                  <li key={pageNumber} className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}>
-                    <button className="page-link" onClick={() => onPageChange(pageNumber)}>
-                      {pageNumber}
-                    </button>
-                  </li>
-                ))}
-                <li className="page-item">
-                  <button className="page-link" to='/products' aria-label="Next" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                  <span aria-hidden="true">&raquo;</span>
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
+    <div className="pagination d-flex justify-content-center">
+      <nav aria-label="Page navigation example">
+        <ul className="pagination">
+          <li className="page-item">
+            <button className="page-link" aria-label="Previous" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+              <span aria-hidden="true">&laquo;</span> Previous
+            </button>
+          </li>
+          {generatePageNumbers().map(pageNumber => (
+            <li key={pageNumber} className={`page-item ${pageNumber === currentPage ? 'active' : ''}`}>
+              <button className="page-link" onClick={() => onPageChange(pageNumber)}>
+                {pageNumber}
+              </button>
+            </li>
+          ))}
+          <li className="page-item">
+            <button className="page-link" aria-label="Next" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+              Next <span aria-hidden="true">&raquo;</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 };
 
 export default Pagination;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

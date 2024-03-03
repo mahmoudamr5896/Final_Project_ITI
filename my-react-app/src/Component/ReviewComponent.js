@@ -214,7 +214,7 @@ function ReviewSection({ doctorId }) {
       ))}
       <Pagination
         currentPage={currentPage}
-        totalPages={Total} // Calculate total pages based on total reviews
+        // totalPages={Total} // Calculate total pages based on total reviews
         onPageChange={onPageChange}
       />
 
