@@ -2,20 +2,9 @@ import axios from "axios";
 import { useState ,useEffect} from "react";
 
 function DoctorReview({ doctor , User }) {
-console.log(User)
-
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
-  // const [doctorInfo, setDoctorInfo] = useState('');
-// useEffect(() => {
-//     axios(`https://retoolapi.dev/EBWb8G/Doctors/`)
-//         .then((res) => {
-//           const doctorInfo = res.data[0] 
-//           setDoctorInfo(doctorInfo);
-//         })
-//         .catch((err) => console.log(err));
-//   }, []);
-   
+
  if(User & doctor){
   setError('Please Log in First')
  }
