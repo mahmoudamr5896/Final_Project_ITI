@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function EditUserPage({ userId }) {
   const [userData, setUserData] = useState({
@@ -39,6 +40,11 @@ function EditUserPage({ userId }) {
         console.error('Error updating user data:', error);
       });
   };
+  
+  // const history = useHistory();
+  //  const infopage = () => {
+  //  history.push(`/Editmsg`);
+  // };
   
   return (
     <div className='container m-5'>

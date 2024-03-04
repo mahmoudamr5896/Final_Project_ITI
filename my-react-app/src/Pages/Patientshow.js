@@ -132,6 +132,11 @@ setAppointmentData(null)
 }
 const [AppointmentData, setAppointmentData] = useState(null);
 const Select_Appointment = ()=>{
+    if (!appointmenttInfo || Object.keys(appointmenttInfo).length === 0) {
+        const data=(<h1>No appointment found</h1>)
+        setAppointmentData(data)
+    }
+
   const data=(
     <div className="container">
         <table>
