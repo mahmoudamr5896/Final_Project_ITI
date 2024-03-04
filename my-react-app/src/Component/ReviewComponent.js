@@ -4,16 +4,14 @@ import Modal from './Modal';
 import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
-
 import Pagination from './Pagination';
 
 function ReviewSection({ doctorId }) {
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Status <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
-  const [doctorName, setDoctorName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -34,6 +32,7 @@ function ReviewSection({ doctorId }) {
 
   const Total = Math.ceil(reviews.length / reviewsPerPage);
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Delete <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleDeleteReview = (reviewId) => {
     axios
       .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
@@ -46,12 +45,41 @@ function ReviewSection({ doctorId }) {
       });
   };
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Handel Session Sorage <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  useEffect(() => {
+    const storedUserData = sessionStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
+
+  if (userData) {
+    var Id = userData.id;
+    console.log(Id);
+  }
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Get Reviews <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  useEffect(() => {
+    if (doctorId) {
+      axios
+        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
+        .then(response => {
+          setReviews(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching reviews:', error);
+        });
+    }
+  }, [doctorId]);
+
+
   const handleEditReview = (review) => {
     setSelectedReview(review);
     setNewReviewText(review.Review);
     setNewRating(review.Rate);
   };
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Update Review  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleUpdateReview = () => {
     if (!selectedReview) return;
 
@@ -91,7 +119,6 @@ function ReviewSection({ doctorId }) {
     setNewRating(0);
   };
 
-  const [userData, setUserData] = useState(null);
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
@@ -99,76 +126,51 @@ function ReviewSection({ doctorId }) {
     }
   }, []);
 
-  const [showModal, setshowModal] = useState(false);
 
   const openEditModal = () => {
     setshowModal(false);
   };
-
-  const [selectedRating, setSelectedRating] = useState(0);
+ 
 
   const handleChange_rate = (event) => {
     const rating = parseInt(event.target.getAttribute('name'));
     setSelectedRating(rating);
   };
 
-  const [newReview, setNewReview] = useState({});
-
   const handleNameChange = (event) => {
     const inputReview = event.target.value;
     setNewReview(inputReview);
   };
 
-  if (userData) {
-    var Id = userData.id;
-    console.log(Id);
-  }
-
-  const [newReviewText, setNewReviewText] = useState('');
-  const [selectedReview, setSelectedReview] = useState(null);
-  const [newRating, setNewRating] = useState(0);
-
-  useEffect(() => {
-    if (doctorId) {
-      axios
-        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
-        .then(response => {
-          setReviews(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching reviews:', error);
-        });
-    }
-  }, [doctorId]);
 
   return (
     <div className="container mt-5">
-      {reviews.map(review => (
-        <div className="d-flex justify-content-center row" key={review.id}>
-          <div className="col-md-8">
-            <div className="d-flex border flex-column comment-section m-2">
-              <div className="bg-white p-2">
-                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
-                <div className="d-flex flex-row user-info">
-                  <div className="d-flex flex-column justify-content-center ml-2">
-                    <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
-                    <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <p className="comment-text">{review.comment}</p>
-                  {userData && userData.role === 'Patient' && Id === review.User_id && (
-                    <Dropdown alignRight>
-                      <Dropdown.Toggle style={{
-                        textDecoration: 'none',
-                        fontWeight: 'bold',
-                        float: 'right',
-                        color: 'black',
-                        top: '30px'
-                      }} variant="link" id="dropdown-basic">
-                        ...
-                      </Dropdown.Toggle>
+            {reviews.map(review => (
+                <div className="d-flex justify-content-center row" key={review.id}>
+                  <div className="col-md-8">
+                    <div className="d-flex border flex-column comment-section m-2">
+                          <div className="bg-white p-2">
+                                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
+                                <div className="d-flex flex-row user-info">
+                                        <div className="d-flex flex-column justify-content-center ml-2">
+                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
+                                                      <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
+                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
+                                        </div>
+                                </div>
+                                          <div className="mt-2">
+                                                 <p className="comment-text">{review.comment}</p>
+                                                  {userData && userData.role === 'Patient' && Id === review.User_id && (
+                                                        <Dropdown alignRight>
+                                                            <Dropdown.Toggle style={{
+                                                                  textDecoration: 'none',
+                                                                  fontWeight: 'bold',
+                                                                  float: 'right',
+                                                                  color: 'black',
+                                                                  top: '30px'
+                                                                }} variant="link" id="dropdown-basic">
+                                                                  ...
+                                                              </Dropdown.Toggle>
 
                       <style>
                         {`
@@ -226,11 +228,6 @@ function ReviewSection({ doctorId }) {
                       <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
                     </div>
                     <div className="modal-body">
-                      {errorMessage && (
-                        <div className="alert alert-danger" role="alert">
-                          {errorMessage}
-                        </div>
-                      )}
                       <div className="mb-3">
                         <label htmlFor="reviewText" className="form-label">Review Text</label>
                         <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
@@ -276,8 +273,13 @@ export default ReviewSection;
 
 
 
+             {/* <input min={1} max={5} type="number" className="form-control" id="rating" value={newRating} onChange={(e) => setNewRating(parseInt(e.target.value))}></input> */}
+                                              {/* <div className="mb-3">
+                                                <label htmlFor="rating" className="form-label">Rating</label>
+                                                <input min={1} max={5} type="number" className="form-control" id="rating" value={(newRating.length/2)} onChange={(e) => setNewRating(e.target.value)}></input>
+                                              </div>*/}
 
-
+              // totalPages={Total} // Calculate total pages based on total reviews
 
 
 

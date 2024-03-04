@@ -41,8 +41,9 @@ useEffect(() => {
 }, []);
 
 const[MM,setMM]=useState('')
+const[userLoged,setuserLoged]=useState('')
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const newErrors = { ...errors };
     // Validate email
     if (formData.email.trim() === '') {
@@ -57,6 +58,7 @@ const[MM,setMM]=useState('')
       newErrors.password = '';
     }
     setErrors(newErrors);
+    
     // If there are no errors, submit the form
     if (Object.values(newErrors).every(error => error === '')) {
       console.log('Form submitted:', formData);
@@ -66,7 +68,9 @@ const[MM,setMM]=useState('')
         usersFound.forEach((user) =>
          {
          const  User_id = user.id;
+         const  User_Name = user.Name;
          setMM(User_id)
+         setuserLoged(User_Name)
           history.push(`/user/${User_id}`);
           axios
             .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`, { "Active": true })
@@ -79,6 +83,7 @@ const[MM,setMM]=useState('')
           const userData = {
             email: formData.email,
             password: formData.password,
+            Name: User_Name,
             role: 'Patient' ,
             id:User_id
           };
