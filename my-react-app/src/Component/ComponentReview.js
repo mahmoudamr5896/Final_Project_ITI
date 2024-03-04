@@ -64,6 +64,7 @@ const handleReview = (event) => {
           type="text"
           onChange={handleNameChange}
           placeholder="Leave Review ..."
+          required
           value={newReview}
         />
         <button
