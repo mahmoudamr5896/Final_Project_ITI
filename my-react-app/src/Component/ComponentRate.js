@@ -11,12 +11,8 @@ function ReviewComponent({ doctorInfo }) {
     console.log(selectedRating)
     const handleReview = (event) => {
       event.preventDefault();
-    
-      // Convert the selected rating to the desired representation
-      const stars = '⭐️'.repeat(selectedRating);
-    
-      // Prepare the review data object with the selected rating
-      const reviewData = {
+          const stars = '⭐️'.repeat(selectedRating);
+          const reviewData = {
         "Rate": stars
       };
     

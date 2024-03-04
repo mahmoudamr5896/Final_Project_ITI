@@ -21,7 +21,10 @@ const  CustomNavbar= ()=> {
   useEffect(() => {
     axios(`https://retoolapi.dev/T6Ye0M/users/${User_id}`)
         .then((res) => setuserDataLoged(res.data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(
+          setlogin(false)
+        )
 }, []);
 
  const Logout_handel = (e)=>{
@@ -69,7 +72,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {!login ? (
+            {login ? (
               <Link to='/login'>
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link>
