@@ -12,6 +12,8 @@ function ReviewSection({ doctorId }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
+  const [doctorName, setDoctorName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -53,14 +55,20 @@ function ReviewSection({ doctorId }) {
   const handleUpdateReview = () => {
     if (!selectedReview) return;
 
+    if (newReviewText.length < 10 || /^\d/.test(newReviewText)) {
+      setErrorMessage('Review must be at least 10 characters long and cannot start with a number');
+      return;
+    } else {
+      setErrorMessage('');
+    }
+
     axios
       .put(`https://retoolapi.dev/NJuvHL/Reviews/${selectedReview.id}`, {
         Review: newReviewText,
         Rate: '⭐️'.repeat(newRating),
-        Review: newReviewText,
         User_id: selectedReview.User_id,
         Doctor_id: selectedReview.Doctor_id,
-        User_name: selectedReview.Uswer_Name,
+        User_name: selectedReview.User_name,
         Doctor_Name: selectedReview.Doctor_Name,
       })
       .then(response => {
@@ -77,6 +85,7 @@ function ReviewSection({ doctorId }) {
       .catch(error => {
         console.error('Error updating review:', error);
       });
+
     setSelectedReview(null);
     setNewReviewText('');
     setNewRating(0);
@@ -217,6 +226,11 @@ function ReviewSection({ doctorId }) {
                       <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
                     </div>
                     <div className="modal-body">
+                      {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                          {errorMessage}
+                        </div>
+                      )}
                       <div className="mb-3">
                         <label htmlFor="reviewText" className="form-label">Review Text</label>
                         <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
@@ -247,6 +261,15 @@ function ReviewSection({ doctorId }) {
 }
 
 export default ReviewSection;
+
+
+
+
+
+
+
+
+
 
 
 

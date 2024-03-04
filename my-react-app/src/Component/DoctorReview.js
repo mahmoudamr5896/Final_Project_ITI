@@ -38,6 +38,11 @@ console.log(User)
       Doctor_Name: doctor.name, // Assuming the name is stored in the 'name' field
     };
 
+    if (newReview.length < 10 || /^\d/.test(newReview)) {
+      setError('Review must be at least 10 characters long and cannot start with a number');
+      return;
+    }
+
     const apiKey = 'id';
     console.log(reviewData);
     try {
