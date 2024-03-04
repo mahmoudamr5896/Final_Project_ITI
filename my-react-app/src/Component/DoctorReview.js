@@ -2,20 +2,9 @@ import axios from "axios";
 import { useState ,useEffect} from "react";
 
 function DoctorReview({ doctor , User }) {
-console.log(User)
-
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
-  // const [doctorInfo, setDoctorInfo] = useState('');
-// useEffect(() => {
-//     axios(`https://retoolapi.dev/EBWb8G/Doctors/`)
-//         .then((res) => {
-//           const doctorInfo = res.data[0] 
-//           setDoctorInfo(doctorInfo);
-//         })
-//         .catch((err) => console.log(err));
-//   }, []);
-   
+
  if(User & doctor){
   setError('Please Log in First')
  }
@@ -37,6 +26,11 @@ console.log(User)
       User_name: User.name,
       Doctor_Name: doctor.name, // Assuming the name is stored in the 'name' field
     };
+
+    if (newReview.length < 10 || /^\d/.test(newReview)) {
+      setError('Review must be at least 10 characters long and cannot start with a number');
+      return;
+    }
 
     const apiKey = 'id';
     console.log(reviewData);

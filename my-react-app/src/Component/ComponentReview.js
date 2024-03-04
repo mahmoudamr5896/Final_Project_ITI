@@ -23,20 +23,23 @@ const[doctor,Setdoctor]=useState('')
 
 const storedId = sessionStorage.getItem('userData') ;
 const userDatas = JSON.parse(storedId);
+const[user,setuser]=useState({})
 if(userDatas){
-    var User_id = userDatas.id;
+  setuser(userDatas)
+    // var User_id = userDatas.id;
+    // var User_Name = userDatas.Name;
 }
 
 
 // handle posting a review // handell review 
 const handleReview = (event) => {
-event.preventDefault();
+// event.preventDefault();
  const reviewData = {
       "Rate": "⭐️⭐️⭐️",
       "Review": newReview,
-      "User_id": User_id,
+      "User_id": user.id,
       "Doctor_id": doctor.id,
-      "User_name": "mahmoud",
+      "Uswer_Name": user.Name,
       "Doctor_Name": doctor.Doctor_Name
     };
     axios
