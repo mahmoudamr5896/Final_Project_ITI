@@ -10,9 +10,9 @@ function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
-  // const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  // const [showModal, setshowModal] = useState(false);
-  // const [userData, setUserData] = useState(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [showModal, setshowModal] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
   
   
@@ -27,6 +27,7 @@ function ReviewSection({ doctorId }) {
   const [error, setError] = useState(null);
   
   //>>>>>>>>>>>>>>>>>>>>>>>>> Hadel Pagginition <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const [newRating, setNewRating] = useState(0);
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -45,6 +46,7 @@ function ReviewSection({ doctorId }) {
   }, [doctorId, currentPage, reviewsPerPage]);
 
   const Total = Math.ceil(reviews.length / reviewsPerPage);
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleDeleteReview = (reviewId) => {
     axios
@@ -102,8 +104,10 @@ function ReviewSection({ doctorId }) {
         Review: newReviewText,
         Rate: '⭐️'.repeat(newRating),
         Review: newReviewText,
+        Review: newReviewText,
         User_id: selectedReview.User_id,
         Doctor_id: selectedReview.Doctor_id,
+        User_name: selectedReview.Uswer_Name,
         User_name: selectedReview.Uswer_Name,
         Doctor_Name: selectedReview.Doctor_Name,
       })
@@ -232,6 +236,11 @@ function ReviewSection({ doctorId }) {
                             {error}
                           </div>
                         )}
+                        {error && (
+                          <div className="alert alert-danger" role="alert">
+                            {error}
+                          </div>
+                        )}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="rating" className="form-label">New Rating</label>
@@ -348,6 +357,93 @@ function ReviewSection({ doctorId }) {
 </div>
     </>
 
+        onPageChange={onPageChange}
+      />
+                                                                            <style>
+                                                                              {`
+                                                                      .dropdown-toggle::after {
+                                                                        display: none;
+                                                                      }
+                                                                    `}
+                                                                            </style>
+                                                          <Dropdown.Menu>
+                                                            <span>
+                                                              <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
+                                                                <FontAwesomeIcon icon={faTrash} /> Delete
+                                                              </Dropdown.Item>
+                                                            </span>
+                                                            <hr></hr>
+                                                            <Dropdown.Item onClick={() => handleEditReview(review)}>
+                                                              <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                                                            </Dropdown.Item>
+                                                          </Dropdown.Menu>
+                                                        </Dropdown>
+                                                    )}
+                                          </div>
+                          </div>
+                      </div>
+                              {deleteConfirmation && (
+                                                      <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
+                                                            <div className="modal-dialog">
+                                                                    <div className="modal-content">
+                                                                          <div className="modal-header">
+                                                                            <h5 className="modal-title" id="deleteReviewModal">Delete Review</h5>
+                                                                            <button type="button" className="btn-close" aria-label="Close" onClick={() => setDeleteConfirmation(false)}></button>
+                                                                          </div>
+                                                                          <div className="modal-body">
+                                                                            Are you sure you want to delete this review?
+                                                                          </div>
+                                                                          <div className="modal-footer">
+                                                                            <button type="button" className="btn btn-secondary" onClick={() => setDeleteConfirmation(false)}>Cancel</button>
+                                                                            <button type="button" className="btn btn-danger" onClick={() => { handleDeleteReview(review.id); setDeleteConfirmation(false); }}>Delete</button>
+                                                                          </div>
+                                                                    </div>
+                                                            </div>
+                                                      </div>
+                                )}
+                                {selectedReview && (
+                                  <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
+                                                          <div className="modal-dialog">
+                                                                <div className="modal-content">
+                                                                  <div className="modal-header">
+                                                                    <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
+                                                                    <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
+                                                                  </div>
+                                                                  <div className="modal-body">
+                                                                    <div className="mb-3">
+                                                                      <label htmlFor="reviewText" className="form-label">Review Text</label>
+                                                                      <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+                                                                    </div>
+                                                                    <div className="mb-3">
+                                                                      <label htmlFor="rating" className="form-label">New Rating</label>
+                                                                      {[1, 2, 3, 4, 5].map((star) => (
+                                                                              <i 
+                                                                                  key={star} 
+                                                                                  className={`fas fa-star ${star <= newRating ? 'checked' : ''}`} 
+                                                                                  onClick={() => setNewRating(star)}
+                                                                              ></i>
+                                                                          ))}
+                                                                      <br />
+                                                                      <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
+                                                                  </div>
+                                                        
+                                                          </div> 
+                                                          <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
+                                                            <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                      </div>
+                                  )}
+                  </div>
+                </div>
+            ))}
+            <Pagination
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+            />
+    </div>
   );
 }
 export default ReviewSection;
