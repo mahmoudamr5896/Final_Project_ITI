@@ -7,10 +7,12 @@ import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import Pagination from './Pagination';
 
 function ReviewSection({ doctorId }) {
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Status <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [showModal, setshowModal] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
   
   
@@ -21,6 +23,8 @@ function ReviewSection({ doctorId }) {
   const [newReview, setNewReview] = useState({});
   const [newReviewText, setNewReviewText] = useState('');
   const [selectedReview, setSelectedReview] = useState(null);
+  const [newRating, setNewRating] = useState(0);
+  const [error, setError] = useState(null);
   
   //>>>>>>>>>>>>>>>>>>>>>>>>> Hadel Pagginition <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const [newRating, setNewRating] = useState(0);
@@ -43,7 +47,6 @@ function ReviewSection({ doctorId }) {
 
   const Total = Math.ceil(reviews.length / reviewsPerPage);
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Delete <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleDeleteReview = (reviewId) => {
     axios
       .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
@@ -56,7 +59,6 @@ function ReviewSection({ doctorId }) {
       });
   };
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Handel Session Sorage <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
@@ -69,7 +71,6 @@ function ReviewSection({ doctorId }) {
     console.log(Id);
   }
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Get Reviews <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   useEffect(() => {
     if (doctorId) {
       axios
@@ -83,16 +84,19 @@ function ReviewSection({ doctorId }) {
     }
   }, [doctorId]);
 
-
   const handleEditReview = (review) => {
     setSelectedReview(review);
     setNewReviewText(review.Review);
     setNewRating(review.Rate);
   };
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Update Review  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleUpdateReview = () => {
     if (!selectedReview) return;
+
+    if (newReviewText.length < 10 || /^\d/.test(newReviewText)) {
+      setError('The review cannot start with a number and must be at least 10 characters long.');
+      return;
+    }
 
     axios
       .put(`https://retoolapi.dev/NJuvHL/Reviews/${selectedReview.id}`, {
@@ -123,18 +127,9 @@ function ReviewSection({ doctorId }) {
     setNewRating(0);
   };
 
-  useEffect(() => {
-    const storedUserData = sessionStorage.getItem('userData');
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
-
-
   const openEditModal = () => {
     setshowModal(false);
   };
- 
 
   const handleChange_rate = (event) => {
     const rating = parseInt(event.target.getAttribute('name'));
@@ -146,36 +141,126 @@ function ReviewSection({ doctorId }) {
     setNewReview(inputReview);
   };
 
-
   return (
     <div className="container mt-5">
-            {reviews.map(review => (
-                <div className="d-flex justify-content-center row" key={review.id}>
-                  <div className="col-md-8">
-                    <div className="d-flex border flex-column comment-section m-2">
-                          <div className="bg-white p-2">
-                                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
-                                <div className="d-flex flex-row user-info">
-                                        <div className="d-flex flex-column justify-content-center ml-2">
-                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
-                                                      <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
-                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
-                                        </div>
-                                </div>
-                                          <div className="mt-2">
-                                                 <p className="comment-text">{review.comment}</p>
-                                                  {userData && userData.role === 'Patient' && Id === review.User_id && (
-                                                        <Dropdown alignRight>
-                                                            <Dropdown.Toggle style={{
-                                                                  textDecoration: 'none',
-                                                                  fontWeight: 'bold',
-                                                                  float: 'right',
-                                                                  color: 'black',
-                                                                  top: '30px'
-                                                                }} variant="link" id="dropdown-basic">
-                                                                  ...
-                                                              </Dropdown.Toggle>
+      {reviews.map(review => (
+        <div className="d-flex justify-content-center row" key={review.id}>
+          <div className="col-md-8">
+            <div className="d-flex border flex-column comment-section m-2">
+              <div className="bg-white p-2">
+                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
+                <div className="d-flex flex-row user-info">
+                  <div className="d-flex flex-column justify-content-center ml-2">
+                    <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
+                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
+                    <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <p className="comment-text">{review.comment}</p>
+                  {userData && userData.role === 'Patient' && Id === review.User_id && (
+                    <Dropdown alignRight>
+                      <Dropdown.Toggle style={{
+                        textDecoration: 'none',
+                        fontWeight: 'bold',
+                        float: 'right',
+                        color: 'black',
+                        top: '30px'
+                      }} variant="link" id="dropdown-basic">
+                        ...
+                      </Dropdown.Toggle>
 
+                      <style>
+                        {`
+                .dropdown-toggle::after {
+                  display: none;
+                }
+              `}
+                      </style>
+
+                      <Dropdown.Menu>
+                        <span>
+                          <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
+                            <FontAwesomeIcon icon={faTrash} /> Delete
+                          </Dropdown.Item>
+                        </span>
+                        <hr></hr>
+                        <Dropdown.Item onClick={() => handleEditReview(review)}>
+                          <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {deleteConfirmation && (
+              <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="deleteReviewModal">Delete Review</h5>
+                      <button type="button" className="btn-close" aria-label="Close" onClick={() => setDeleteConfirmation(false)}></button>
+                    </div>
+                    <div className="modal-body">
+                      Are you sure you want to delete this review?
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={() => setDeleteConfirmation(false)}>Cancel</button>
+                      <button type="button" className="btn btn-danger" onClick={() => { handleDeleteReview(review.id); setDeleteConfirmation(false); }}>Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedReview && (
+              <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
+                      <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="reviewText" className="form-label">Review Text</label>
+                        <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+                        {error && (
+                          <div className="alert alert-danger" role="alert">
+                            {error}
+                          </div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="rating" className="form-label">New Rating</label>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <i
+                            key={star}
+                            className={`fas fa-star ${star <= newRating ? 'checked' : ''}`}
+                            onClick={() => setNewRating(star)}
+                          ></i>
+                        ))}
+                        <br />
+                        <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
+                      <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      />
                                                                             <style>
                                                                               {`
                                                                       .dropdown-toggle::after {
@@ -263,8 +348,9 @@ function ReviewSection({ doctorId }) {
     </div>
   );
 }
-
 export default ReviewSection;
+
+
 
 
 
