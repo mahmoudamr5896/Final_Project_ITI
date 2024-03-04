@@ -10,9 +10,9 @@ function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  const [showModal, setshowModal] = useState(false);
-  const [userData, setUserData] = useState(null);
+  // const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  // const [showModal, setshowModal] = useState(false);
+  // const [userData, setUserData] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
   
   
@@ -27,7 +27,6 @@ function ReviewSection({ doctorId }) {
   const [error, setError] = useState(null);
   
   //>>>>>>>>>>>>>>>>>>>>>>>>> Hadel Pagginition <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  const [newRating, setNewRating] = useState(0);
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -46,7 +45,7 @@ function ReviewSection({ doctorId }) {
   }, [doctorId, currentPage, reviewsPerPage]);
 
   const Total = Math.ceil(reviews.length / reviewsPerPage);
-
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleDeleteReview = (reviewId) => {
     axios
       .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
@@ -142,6 +141,7 @@ function ReviewSection({ doctorId }) {
   };
 
   return (
+    <>
     <div className="container mt-5">
       {reviews.map(review => (
         <div className="d-flex justify-content-center row" key={review.id}>
@@ -254,21 +254,16 @@ function ReviewSection({ doctorId }) {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      ))}
-      <Pagination
-        currentPage={currentPage}
-        onPageChange={onPageChange}
-      />
-                                                                            <style>
-                                                                              {`
-                                                                      .dropdown-toggle::after {
-                                                                        display: none;
-                                                                      }
-                                                                    `}
-                                                                            </style>
-                                                          <Dropdown.Menu>
+       
+    
+       <style>
+           {`
+            .dropdown-toggle::after {
+              display: none;
+                        }
+                 `}
+          </style>
+                  <Dropdown.Menu>
                                                             <span>
                                                               <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
                                                                 <FontAwesomeIcon icon={faTrash} /> Delete
@@ -278,12 +273,10 @@ function ReviewSection({ doctorId }) {
                                                             <Dropdown.Item onClick={() => handleEditReview(review)}>
                                                               <FontAwesomeIcon icon={faPenToSquare} /> Edit
                                                             </Dropdown.Item>
-                                                          </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    )}
-                                          </div>
-                          </div>
-                      </div>
+                  </Dropdown.Menu>
+                    
+                                         
+                  
                               {deleteConfirmation && (
                                                       <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
                                                             <div className="modal-dialog">
@@ -303,6 +296,12 @@ function ReviewSection({ doctorId }) {
                                                             </div>
                                                       </div>
                                 )}
+                                 </div>
+        </div>
+      ))}  <Pagination
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      />  
                                 {selectedReview && (
                                   <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
                                                           <div className="modal-dialog">
@@ -338,14 +337,17 @@ function ReviewSection({ doctorId }) {
                                                       </div>
                                       </div>
                                   )}
-                  </div>
-                </div>
-            ))}
+    
+                
+            
             <Pagination
               currentPage={currentPage}
               onPageChange={onPageChange}
             />
-    </div>
+  
+</div>
+    </>
+
   );
 }
 export default ReviewSection;
