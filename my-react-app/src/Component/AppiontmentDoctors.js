@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Line } from 'victory';
 
 function AppointmentForm({ doctorInfo , UserR_id }) {
 
@@ -13,7 +14,7 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
     Doctor_name: doctorInfo.Doctor_Name,
     User_id: UserR_id,
     Doctor_Id: doctorInfo.id,
-    Activate : false,
+    Status : '', 
     Price:100,
     Paid:true
   });
@@ -59,8 +60,9 @@ const [isValidName, setIsValidName] = useState(true);
     }
       return true;
   };
-  
-
+ //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ const storedId = sessionStorage.getItem('userData') ;
+ const userDatas = JSON.parse(storedId);  
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> handell cheekout <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 const [cardNumber, setCardNumber] = useState('');
 const [validCardNumber, setValidCardNumber] = useState(true);
@@ -254,16 +256,21 @@ const Save_Appointment = (event) => {
                           {!isValidprps && <div class="alert alert-danger" role="alert">Please enter a valid problemDescription  .
                             </div>}
                             <div class="col-12">
-                            <button 
+                           {userDatas ? (<button 
                                 type="button" 
                                 class="btn btn-success w-100 py-3" 
                                 data-bs-toggle={validateForm() ? "modal" : ""} 
                                 data-bs-target={validateForm() ? "#exampleModal" : ""} 
-                                onClick={handleSubmit}
-                            >
+                                
+                                >
                                 Book Appointment
                             </button> 
-            
+                          ) :  (
+                          <p >Please  
+                            <Link to='/RegPat'>
+                            Log in 
+                            </Link>  
+                            To Be able To Book Appointment </p>)}
                             </div>
                            </div>                           
                 </div>
@@ -401,8 +408,6 @@ const Save_Appointment = (event) => {
                                           </div>
                                         </div>
                       </form>
-
-
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
