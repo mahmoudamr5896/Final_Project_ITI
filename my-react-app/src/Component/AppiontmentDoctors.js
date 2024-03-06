@@ -261,7 +261,7 @@ const Save_Appointment = (event) => {
                                 class="btn btn-success w-100 py-3" 
                                 data-bs-toggle={validateForm() ? "modal" : ""} 
                                 data-bs-target={validateForm() ? "#exampleModal" : ""} 
-                                
+                                onClick={handleSubmit}
                                 >
                                 Book Appointment
                             </button> 

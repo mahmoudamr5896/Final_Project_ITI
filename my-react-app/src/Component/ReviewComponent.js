@@ -90,7 +90,7 @@ function ReviewSection({ doctorId }) {
     setNewRating(review.Rate);
   };
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Update Review  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//>>>>>>>>>>>>>>>>>>>>>>>>>>      Handel Update Review  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleUpdateReview = () => {
     if (!selectedReview) return;
 
@@ -149,6 +149,23 @@ function ReviewSection({ doctorId }) {
 
   return (
     <div className="container mt-5">
+       <style>
+        {`
+ .star-container {
+  margin-top: 1rem;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.checked {
+  color: gold;
+}
+        `}
+      </style>
             {reviews.map(review => (
                 <div className="d-flex justify-content-center row" key={review.id}>
                   <div className="col-md-8">
@@ -232,7 +249,7 @@ function ReviewSection({ doctorId }) {
                                                                       <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
-                                                                      <label htmlFor="rating" className="form-label">New Rating</label>
+                                                                      <label htmlFor="rating" className="form-label">New Rating</label><br></br>
                                                                       {[1, 2, 3, 4, 5].map((star) => (
                                                                               <i 
                                                                                   key={star} 
@@ -243,7 +260,7 @@ function ReviewSection({ doctorId }) {
                                                                       <br />
                                                                       <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
                                                                   </div>
-                                                        
+                           
                                                           </div> 
                                                           <div className="modal-footer">
                                                             <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
@@ -333,63 +350,3 @@ export default ReviewSection;
 
 
 
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// function ReviewSection() {
-//   const [reviews, setReviews] = useState([]);
-
-//   useEffect(() => {
-//     axios.get('https://retoolapi.dev/MborCQ/Reviews')
-//       .then(response => {
-//         setReviews(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching reviews:', error);
-//       });
-//   }, []);
-
-//   return (
-
-//     <div className="container justify-content-start  mt-5">
-//       {reviews.map(review => (
-//         <div className="d-flex border  row m-2" key={review.id}>
-//           <div className="col-md-8">
-//             <div className="d-flex flex-column comment-section">
-//               <div className="bg-white p-2">
-//                 <div className="d-flex flex-row user-info">
-//                   {/* You can add the user avatar here if available */}
-//                   <div className="d-flex flex-column justify-content-start ml-2">
-//                     <span className="date text-black-50">{review.Rate}</span>
-//                     <span className="d-block font-weight-bold name">{review.Review}</span>
-//                     <span className="date text-black-50">{review.date}</span>
-//                   </div>
-//                 </div>
-//                 <div className="mt-2">
-//                   <p className="comment-text">{review.UserName}</p>
-//                 </div>
-//               </div>
-//               <div className="bg-white">
-//                 <div className="d-flex flex-row fs-12">
-//                   {/* You can add like functionality here if needed */}
-//                   {/* <div className="like p-2 cursor">
-//                     <i class="fa-solid fa-thumbs-up fa-lg"></i>
-//                     <span className="ml-1">Like</span>
-//                   </div> */}
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default ReviewSection;
