@@ -18,16 +18,26 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
     Paid:true
   });
 
+const [isValidName, setIsValidName] = useState(true);
   const HandelChangeAppontmentName = (e) => {
-    setDataAppointment({ ...DataAppointment, NameUser: e.target.value });
+    const Name = e.target.value
+      setDataAppointment({ ...DataAppointment, NameUser: Name });
+      setIsValidName(Name !== ' ')
+ 
   };
-
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const [isValidEmail, setIsValidEmail] = useState(true);
   const HandelChangeAppontmentEmail = (e) => {
-    setDataAppointment({ ...DataAppointment, UserEmail: e.target.value });
+   const Email=e.target.value
+    setDataAppointment({ ...DataAppointment, UserEmail: Email });
+    setIsValidEmail(emailRegex.test(Email) || Email === '');
   };
-
+  const PhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+  const [isValidphone, setIsValidphone] = useState(true);
   const HandelChangeAppontmentPhone = (e) => {
-    setDataAppointment({ ...DataAppointment, User_Phone: e.target.value });
+    const Phone = e.target.value 
+    setDataAppointment({ ...DataAppointment, User_Phone:Phone });
+    setIsValidphone(PhoneRegex.test(Phone) || Phone === ' ');
   };
 
   const HandelChangeAppontmentDate = (e) => {
@@ -36,18 +46,22 @@ function AppointmentForm({ doctorInfo , UserR_id }) {
   const HandelChangeAppontmentTime = (e) => {
     setDataAppointment({ ...DataAppointment, TimeAppointment: e.target.value });
   };
-
+  const [isValidprps, setIsValidprps] = useState(true);
   const HandelChangeAppontmentProps = (e) => {
-    setDataAppointment({ ...DataAppointment, problemDescription: e.target.value });
+   const  Prop = e.target.value 
+    setDataAppointment({ ...DataAppointment, problemDescription: Prop });
+    setIsValidprps(Prop !== ' ')
   };
 
   const validateForm = () => {
-   
-    return true;
+    if(Object.values(DataAppointment).some(x => x === '' && Object.values(DataAppointment).some(x => x.length  < 7) )){
+      return false;
+    }
+      return true;
   };
   
 
-// handell cheekout 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> handell cheekout <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 const [cardNumber, setCardNumber] = useState('');
 const [validCardNumber, setValidCardNumber] = useState(true);
 const [cardholderName, setCardholderName] = useState('');
@@ -113,10 +127,11 @@ const validateExpirationDate = (value) => {
 const validateCvv = (value) => {
   return /^\d{3,4}$/.test(value);
 };
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 const history = useHistory()
 const handleSubmit = (e) => {
-  e.preventDefault();
  
+  e.preventDefault();
   const isCardNumberValid = validateCardNumber(cardNumber);
   const isCardholderNameValid = validateCardholderName(cardholderName);
   const isStartDateValid = validateStartDate(startDate);
@@ -126,8 +141,7 @@ const handleSubmit = (e) => {
     console.log('Form is valid. Proceed with payment.');
     Save_Appointment()
     setShowSuccessMessage(true);
-
-  } else {
+  } else { 
     console.log('Form has validation errors. Cannot proceed with payment.');
   }
 };
@@ -187,6 +201,8 @@ const Save_Appointment = (event) => {
                               placeholder="Your Name"
                               style={{ height: "55px;" }}
                           />
+                          {!isValidName && <div class="alert alert-danger" role="alert">Please enter a valid Name .
+                            </div>}
                           <input
                               type="email"
                               class="form-control border-0"
@@ -196,6 +212,8 @@ const Save_Appointment = (event) => {
                               value={DataAppointment.UserEmail}
                               name="UserEmail"
                           />
+                           {!isValidEmail && <div class="alert alert-danger" role="alert">Please enter a valid email address.
+                                 </div>}
                           <input
                               type="text"
                               class="form-control border-0"
@@ -205,6 +223,8 @@ const Save_Appointment = (event) => {
                               onChange={HandelChangeAppontmentPhone}
                               value={DataAppointment.User_Phone}
                           />
+                          {!isValidphone && <div class="alert alert-danger" role="alert">Please enter a valid Number Phone.
+                                </div>}
                           <input
                               type="date"
                               class="form-control border-0 datetimepicker-input"
@@ -231,8 +251,19 @@ const Save_Appointment = (event) => {
                               value={DataAppointment.problemDescription}
                               onChange={HandelChangeAppontmentProps}
                           ></textarea>
+                          {!isValidprps && <div class="alert alert-danger" role="alert">Please enter a valid problemDescription  .
+                            </div>}
                             <div class="col-12">
-                                <button type="button" class="btn btn-success w-100 py-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Book Appointment</button>
+                            <button 
+                                type="button" 
+                                class="btn btn-success w-100 py-3" 
+                                data-bs-toggle={validateForm() ? "modal" : ""} 
+                                data-bs-target={validateForm() ? "#exampleModal" : ""} 
+                                onClick={handleSubmit}
+                            >
+                                Book Appointment
+                            </button> 
+            
                             </div>
                            </div>                           
                 </div>
@@ -379,7 +410,7 @@ const Save_Appointment = (event) => {
                     </div>
                   </div>
                 </div>
-                  </div> 
+            </div> 
             </div>
   );
 }
