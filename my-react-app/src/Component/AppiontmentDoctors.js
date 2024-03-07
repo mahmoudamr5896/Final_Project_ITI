@@ -55,7 +55,7 @@ const [isValidName, setIsValidName] = useState(true);
   };
 
   const validateForm = () => {
-    if(Object.values(DataAppointment).some(x => x === '' && Object.values(DataAppointment).some(x => x.length  < 7) )){
+    if(Object.values(DataAppointment).some(x => x === ' ' && Object.values(DataAppointment).some(x => x.length  < 7) )){
       return false;
     }
       return true;
@@ -119,11 +119,37 @@ const validateCardholderName = (value) => {
 };
 
 const validateStartDate = (value) => {
-  return /^[0-9]{1,2}\/[0-9]{4}$/.test(value);
+  if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
+    return false;
+  }
+  
+  const [month, year] = value.split('/').map(Number);
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; 
+
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    return false;
+  }
+
+  const startDate = new Date(year, month - 1); 
+  const today = new Date(currentYear, currentMonth - 1); 
+
+  if (startDate <= today) {
+    return false;
+  }
+
+  return true;
 };
 
+
 const validateExpirationDate = (value) => {
-  return /^[0-9]{1,2}\/[0-9]{4}$/.test(value);
+  if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
+    return false;
+  }
+  const [month, year] = value.split('/').map(Number);
+  const currentDate = new Date();
+    return new Date(year, month - 1) > currentDate;
 };
 
 const validateCvv = (value) => {
@@ -257,11 +283,11 @@ const Save_Appointment = (event) => {
                             </div>}
                             <div class="col-12">
                            {userDatas ? (<button 
+                           
                                 type="button" 
                                 class="btn btn-success w-100 py-3" 
                                 data-bs-toggle={validateForm() ? "modal" : ""} 
                                 data-bs-target={validateForm() ? "#exampleModal" : ""} 
-                                onClick={handleSubmit}
                                 >
                                 Book Appointment
                             </button> 
