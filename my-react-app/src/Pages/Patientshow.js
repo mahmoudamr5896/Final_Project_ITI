@@ -15,13 +15,13 @@ function PatientDetails() {
     const [patientInfo, setPatientInfo] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [deleteConfirmed, setDeleteConfirmed] = useState(false);
-    const [imageFile, setImageFile] = useState(null);
+    const [imageFile, setImageFile] = useState('');
     
     useEffect(() => {
       axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
         .then((res) => setPatientInfo(res.data))
         .catch((err) => console.log(err));
-    }, [id]);
+    }, []);
 
 
 const [appointmenttInfo, setAppointmentInfo] = useState({});
@@ -29,8 +29,8 @@ const [appointmenttInfo, setAppointmentInfo] = useState({});
     axios(`https://retoolapi.dev/2jV2W1/Appointment?User_id=${id}`)
         .then((res) => setAppointmentInfo(res.data[0]))
         .catch((err) => console.log(err));
-}, [id]);
-console.log(appointmenttInfo)
+}, []);
+// console.log(appointmenttInfo)
 // "id": 10,
 // "Name": "",
 // "Email": "",
@@ -225,13 +225,12 @@ const handleImageUpload = (event) => {
     setImageFile(file);
 };
 
-
+console.log(imageFile.name)
 const handleUploadImage = () => {
     const textToUpload = "img success";
     const formData = new FormData();
     formData.append('Image', textToUpload);
-
-    axios.patch(`https://retoolapi.dev/zP9Zhd/patient/${id}`, formData)
+    axios.patch(`https://retoolapi.dev/zP9Zhd/patient/${id}`,formData)
         .then((response) => {
             console.log('Text uploaded successfully:', response.data);
         })
@@ -239,7 +238,26 @@ const handleUploadImage = () => {
             console.error('Error uploading text:', error);
         });
 };
+// const handleUploadImage = () => {
+//     if (imageFile) {
+//         const formData = new FormData();
+//         formData.append('Image', imageFile.name);
 
+//         axios.patch(`https://retoolapi.dev/zP9Zhd/patient/${id}`, formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         })
+//         .then((response) => {
+//             console.log('Image uploaded successfully:', response.data);
+//         })
+//         .catch((error) => {
+//             console.error('Error uploading image:', error);
+//         });
+//     } else {
+//         console.log("Please select an image first.");
+//     }
+// };
 /*const handleUploadImage = () => {
     if (imageFile) {
         const textToUpload = "img success";

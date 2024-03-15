@@ -6,33 +6,23 @@ import { Line } from 'victory';
 function AppointmentForm({ doctorInfo , UserR_id }) {
 
   const [DataAppointment, setDataAppointment] = useState({
-    UserEmail: '',
-    User_Phone: '',
-    DateAppointment: '',
-    TimeAppointment : '',
-    problemDescription: '',
-    Doctor_name: doctorInfo.Doctor_Name,
-    User_id: UserR_id,
-    Doctor_Id: doctorInfo.id,
-    Status : '', 
-    Price:100,
-    Paid:true
-  });
+    problems: '',
+    doctor_name: doctorInfo.Doctor_Name,
+    patient_name: '',
+    status: false,
+    date_time: '' 
+  }); 
+     // UserEmail: '',
+    // User_Phone: '',
+    // DateAppointment: '',
+    // TimeAppointment : '',
+    // problemDescription: '',
+    // Doctor_name: ,
+    // User_id: UserR_id,
+    // Doctor_Id: doctorInfo.id,
+    // Price:100,
+    // Paid:true
 
-const [isValidName, setIsValidName] = useState(true);
-  const HandelChangeAppontmentName = (e) => {
-    const Name = e.target.value
-      setDataAppointment({ ...DataAppointment, NameUser: Name });
-      setIsValidName(Name !== ' ')
- 
-  };
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const HandelChangeAppontmentEmail = (e) => {
-   const Email=e.target.value
-    setDataAppointment({ ...DataAppointment, UserEmail: Email });
-    setIsValidEmail(emailRegex.test(Email) || Email === '');
-  };
   const PhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
   const [isValidphone, setIsValidphone] = useState(true);
   const HandelChangeAppontmentPhone = (e) => {
@@ -44,9 +34,7 @@ const [isValidName, setIsValidName] = useState(true);
   const HandelChangeAppontmentDate = (e) => {
     setDataAppointment({ ...DataAppointment, DateAppointment: e.target.value });
   };
-  const HandelChangeAppontmentTime = (e) => {
-    setDataAppointment({ ...DataAppointment, TimeAppointment: e.target.value });
-  };
+
   const [isValidprps, setIsValidprps] = useState(true);
   const HandelChangeAppontmentProps = (e) => {
    const  Prop = e.target.value 
@@ -60,119 +48,14 @@ const [isValidName, setIsValidName] = useState(true);
     }
       return true;
   };
+
  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  const storedId = sessionStorage.getItem('userData') ;
  const userDatas = JSON.parse(storedId);  
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> handell cheekout <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-const [cardNumber, setCardNumber] = useState('');
-const [validCardNumber, setValidCardNumber] = useState(true);
-const [cardholderName, setCardholderName] = useState('');
-const [validCardholderName, setValidCardholderName] = useState(true);
 
-const [startDate, setStartDate] = useState('');
-const [validStartDate, setValidStartDate] = useState(true);
-const [showSuccessMessage, setShowSuccessMessage] = useState(false); // New state variable
-
-const [expirationDate, setExpirationDate] = useState('');
-const [validExpirationDate, setValidExpirationDate] = useState(true);
-
-const [cvv, setCvv] = useState('');
-const [validCvv, setValidCvv] = useState(true);
-
-
-const handleCardNumberChange = (e) => {
-  const value = e.target.value;
-  setCardNumber(value);
-  setValidCardNumber(validateCardNumber(value));
-};
-
-const handleCardholderNameChange = (e) => {
-  const value = e.target.value;
-  setCardholderName(value);
-  setValidCardholderName(validateCardholderName(value));
-};
-
-const handleStartDateChange = (e) => {
-  const value = e.target.value;
-  setStartDate(value);
-  setValidStartDate(validateStartDate(value));
-};
-
-const handleExpirationDateChange = (e) => {
-  const value = e.target.value;
-  setExpirationDate(value);
-  setValidExpirationDate(validateExpirationDate(value));
-};
-
-const handleCvvChange = (e) => {
-  const value = e.target.value;
-  setCvv(value);
-  setValidCvv(validateCvv(value));
-};
-
-const validateCardNumber = (value) => {
-  return /^\d{16}$/.test(value);
-};
-
-const validateCardholderName = (value) => {
-  return /^[a-zA-Z\s]+$/.test(value);
-};
-
-const validateStartDate = (value) => {
-  if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
-    return false;
-  }
-  
-  const [month, year] = value.split('/').map(Number);
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1; 
-
-  if (year < currentYear || (year === currentYear && month < currentMonth)) {
-    return false;
-  }
-
-  const startDate = new Date(year, month - 1); 
-  const today = new Date(currentYear, currentMonth - 1); 
-
-  if (startDate <= today) {
-    return false;
-  }
-
-  return true;
-};
-
-
-const validateExpirationDate = (value) => {
-  if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
-    return false;
-  }
-  const [month, year] = value.split('/').map(Number);
-  const currentDate = new Date();
-    return new Date(year, month - 1) > currentDate;
-};
-
-const validateCvv = (value) => {
-  return /^\d{3,4}$/.test(value);
-};
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 const history = useHistory()
-const handleSubmit = (e) => {
- 
-  e.preventDefault();
-  const isCardNumberValid = validateCardNumber(cardNumber);
-  const isCardholderNameValid = validateCardholderName(cardholderName);
-  const isStartDateValid = validateStartDate(startDate);
-  const isExpirationDateValid = validateExpirationDate(expirationDate);
-  const isCvvValid = validateCvv(cvv);
-  if (isCardNumberValid && isCardholderNameValid && isStartDateValid && isExpirationDateValid && isCvvValid) {
-    console.log('Form is valid. Proceed with payment.');
-    Save_Appointment()
-    setShowSuccessMessage(true);
-  } else { 
-    console.log('Form has validation errors. Cannot proceed with payment.');
-  }
-};
 
 const Save_Appointment = (event) => {
   if (validateForm()) {
@@ -188,6 +71,7 @@ const Save_Appointment = (event) => {
     console.log('Form validation failed');
   }
 };
+
   return (
     <div class="container-xxl py-5">
     <div class="container">
@@ -217,31 +101,10 @@ const Save_Appointment = (event) => {
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                           <div class="row g-3">              
+                        <form onSubmit={Save_Appointment}>   <div class="row g-3">              
                             <div class="col-12"> 
                             </div>
-                          <input
-                              type="text"
-                              name="NameUser"
-                              value={DataAppointment.NameUser}
-                              onChange={HandelChangeAppontmentName}
-                              class="form-control border-0"
-                              placeholder="Your Name"
-                              style={{ height: "55px;" }}
-                          />
-                          {!isValidName && <div class="alert alert-danger" role="alert">Please enter a valid Name .
-                            </div>}
-                          <input
-                              type="email"
-                              class="form-control border-0"
-                              placeholder="Your Email"
-                              style={{ height: "55px;" }}
-                              onChange={HandelChangeAppontmentEmail}
-                              value={DataAppointment.UserEmail}
-                              name="UserEmail"
-                          />
-                           {!isValidEmail && <div class="alert alert-danger" role="alert">Please enter a valid email address.
-                                 </div>}
+
                           <input
                               type="text"
                               class="form-control border-0"
@@ -254,7 +117,7 @@ const Save_Appointment = (event) => {
                           {!isValidphone && <div class="alert alert-danger" role="alert">Please enter a valid Number Phone.
                                 </div>}
                           <input
-                              type="date"
+                              type="datetime-local"
                               class="form-control border-0 datetimepicker-input"
                               placeholder="Choose Date"
                               style={{ height: "55px;" }}
@@ -262,15 +125,7 @@ const Save_Appointment = (event) => {
                               onChange={HandelChangeAppontmentDate}
                               value={DataAppointment.DateAppointment}
                           />
-                          <input
-                              type="time"
-                              class="form-control border-0 datetimepicker-input"
-                              placeholder="Choose Date"
-                              style={{ height: "55px;" }}
-                              name="TimeAppointment"
-                              onChange={HandelChangeAppontmentTime}
-                              value={DataAppointment.TimeAppointment}
-                          />
+                   
                           <textarea
                               class="form-control border-0"
                               rows="5"
@@ -283,7 +138,6 @@ const Save_Appointment = (event) => {
                             </div>}
                             <div class="col-12">
                            {userDatas ? (<button 
-                           
                                 type="button" 
                                 class="btn btn-success w-100 py-3" 
                                 data-bs-toggle={validateForm() ? "modal" : ""} 
@@ -298,150 +152,14 @@ const Save_Appointment = (event) => {
                             </Link>  
                             To Be able To Book Appointment </p>)}
                             </div>
-                           </div>                           
+                           </div></form>                            
                 </div>
-            </div>  {/* <form onSubmit={Save_Appointment}></form> */}
+            </div>  {/* {/**/}
             </div>
            </div>
-           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form className="form-card border border-3 p-3" onSubmit={handleSubmit}>
-                                        <div className="row">
-                                          <div className="row main">
-                                            <div className="col-12">
-                                              <span>Cart</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                              <span>Shipping confirmation</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                              <span>Credit card checkout</span>
-                                            </div>
-                                          </div>
+           
 
-                                          <div className="row justify-content-center mrow">
-                                            <div className="col-12">
-                                              <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" width="35px" height="35px" alt="Mastercard" />
-                                              <img src="https://img.icons8.com/color/48/000000/visa.png" width="35px" height="35px" alt="Visa" />
-                                              <img src="https://img.icons8.com/color/48/000000/paypal.png" width="35px" height="35px" alt="Paypal" />
-                                            </div>
-                                          </div>
-                                          <div className="col-12">
-                                            <div className="form-group">
-                                              <input
-                                                type="text"
-                                                className={`form-control p-0 ${!validCardNumber && 'is-invalid'}`}
-                                                id="number"
-                                                required
-                                                value={cardNumber}
-                                                onChange={handleCardNumberChange}
-                                              />
-                                              <label className="form-control-placeholder p-0" htmlFor="number">
-                                                Card Number
-                                              </label>
-                                              {!validCardNumber && <div className="invalid-feedback">Invalid card number</div>}
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="row">
-                                          <div className="col-12">
-                                            <div className="form-group">
-                                              <input
-                                                type="text"
-                                                className={`form-control p-0 ${!validCardholderName && 'is-invalid'}`}
-                                                id="name"
-                                                required
-                                                value={cardholderName}
-                                                onChange={handleCardholderNameChange}
-                                              />
-                                              <label className="form-control-placeholder p-0" htmlFor="name">
-                                                Cardholder's Name
-                                              </label>
-                                              {!validCardholderName && <div className="invalid-feedback">Invalid cardholder name</div>}
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="row">
-                                          <div className="col-sm-4 col-12">
-                                            <div className="form-group">
-                                              <input
-                                                type="text"
-                                                className={`form-control p-0 ${!validStartDate && 'is-invalid'}`}
-                                                id="sdate"
-                                                required
-                                                value={startDate}
-                                                onChange={handleStartDateChange}
-                                              />
-                                              <label className="form-control-placeholder p-0" htmlFor="sdate">
-                                                Start Date
-                                              </label>
-                                              {!validStartDate && <div className="invalid-feedback">Invalid start date</div>}
-                                            </div>
-                                          </div>
-                                          <div className="col-sm-4 col-12">
-                                            <div className="form-group">
-                                              <input
-                                                type="text"
-                                                className={`form-control p-0 ${!validExpirationDate && 'is-invalid'}`}
-                                                id="expdate"
-                                                required
-                                                value={expirationDate}
-                                                onChange={handleExpirationDateChange}
-                                              />
-                                              <label className="form-control-placeholder p-0" htmlFor="expdate">
-                                                Expiration Date
-                                              </label>
-                                              {!validExpirationDate && <div className="invalid-feedback">Invalid expiration date</div>}
-                                            </div>
-                                          </div>
-                                          <div className="col-sm-4 col-12">
-                                            <div className="form-group">
-                                              <input
-                                                type="password"
-                                                className={`form-control p-0 ${!validCvv && 'is-invalid'}`}
-                                                id="passw"
-                                                required
-                                                value={cvv}
-                                                onChange={handleCvvChange}
-                                              />
-                                              <label className="form-control-placeholder p-0" htmlFor="passw">
-                                                CVV
-                                              </label>
-                                              {!validCvv && <div className="invalid-feedback">Invalid CVV</div>}
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="row lrow mt-4 mb-3">
-                                          <div className="col-sm-8 col-12">
-                                            <h3>Grand Total:</h3>
-                                          </div>
-                                          <div className="col-sm-4 col-12">
-                                            <h5>1222</h5>
-                                          </div>
-                                        </div>
-                                        <div className="row mb-2">
-                                          <div className="col-sm-12">
-                                            <button type="submit" className="btn btn-primary btn-block" data-bs-dismiss="modal" >
-                                              Pay
-                                            </button>
-                                            {showSuccessMessage && (
-                                          <div className="alert alert-success" role="alert">
-                                            Payment successful! You will be redirected shortly.
-                                          </div>
-                                        )}
-                                          </div>
-                                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      {/* <button type="button" class="btn btn-primary">Send message</button> */}
-                    </div>
-                  </div>
-                </div>
-            </div> 
+            
             </div>
   );
 }
@@ -482,7 +200,158 @@ export default AppointmentForm;
 </div>
 <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
  */}
+// const [cardNumber, setCardNumber] = useState('');
+// const [validCardNumber, setValidCardNumber] = useState(true);
+// const [cardholderName, setCardholderName] = useState('');
+// const [validCardholderName, setValidCardholderName] = useState(true);
+// const handleSubmit = (e) => {
+        {/* <input
+                              type="time"
+                              class="form-control border-0 datetimepicker-input"
+                              placeholder="Choose Date"
+                              style={{ height: "55px;" }}
+                              name="TimeAppointment"
+                              onChange={HandelChangeAppontmentTime}
+                              value={DataAppointment.TimeAppointment}
+                          /> */}
+//   e.preventDefault();
+//   const isCardNumberValid = validateCardNumber(cardNumber);
+//   const isCardholderNameValid = validateCardholderName(cardholderName);
+//   const isStartDateValid = validateStartDate(startDate);
+//   const isExpirationDateValid = validateExpirationDate(expirationDate);
+//   const isCvvValid = validateCvv(cvv);
+//   if (isCardNumberValid && isCardholderNameValid && isStartDateValid && isExpirationDateValid && isCvvValid) {
+//     console.log('Form is valid. Proceed with payment.');
+//     Save_Appointment()
+//     setShowSuccessMessage(true);
+//   } else { 
+//     console.log('Form has validation errors. Cannot proceed with payment.');
+//   }
+// };
 
+// const [startDate, setStartDate] = useState('');
+// const [validStartDate, setValidStartDate] = useState(true);
+// const [showSuccessMessage, setShowSuccessMessage] = useState(false); // New state variable
+
+// const [expirationDate, setExpirationDate] = useState('');
+// const [validExpirationDate, setValidExpirationDate] = useState(true);
+
+// const [cvv, setCvv] = useState('');
+// const [validCvv, setValidCvv] = useState(true);
+
+
+// const handleCardNumberChange = (e) => {
+//   const value = e.target.value;
+//   setCardNumber(value);
+//   setValidCardNumber(validateCardNumber(value));
+// };
+
+// const handleCardholderNameChange = (e) => {
+//   const value = e.target.value;
+//   setCardholderName(value);
+//   setValidCardholderName(validateCardholderName(value));
+// };
+                          {/* <input
+                              type="text"
+                              name="NameUser"
+                              value={DataAppointment.NameUser}
+                              onChange={HandelChangeAppontmentName}
+                              class="form-control border-0"
+                              placeholder="Your Name"
+                              style={{ height: "55px;" }}
+                          /> */}
+                          {/* {!isValidName && <div class="alert alert-danger" role="alert">Please enter a valid Name .
+                            </div>} */}
+                          {/* <input
+                              type="email"
+                              class="form-control border-0"
+                              placeholder="Your Email"
+                              style={{ height: "55px;" }}
+                              onChange={HandelChangeAppontmentEmail}
+                              value={DataAppointment.UserEmail}
+                              name="UserEmail"
+                          />
+                           {!isValidEmail && <div class="alert alert-danger" role="alert">Please enter a valid email address.
+                            </div>} */}
+// const handleStartDateChange = (e) => {
+//   const value = e.target.value;
+//   setStartDate(value);
+//   setValidStartDate(validateStartDate(value));
+// };
+
+// const handleExpirationDateChange = (e) => {
+//   const value = e.target.value;
+//   setExpirationDate(value);
+//   setValidExpirationDate(validateExpirationDate(value));
+// };  // const HandelChangeAppontmentTime = (e) => {
+  //   setDataAppointment({ ...DataAppointment, TimeAppointment: e.target.value });
+  // };
+
+// const [isValidName, setIsValidName] = useState(true);
+//   const HandelChangeAppontmentName = (e) => {
+//     const Name = e.target.value
+//       setDataAppointment({ ...DataAppointment, NameUser: Name });
+//       setIsValidName(Name !== ' ')
+ 
+//   };
+  // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  // const [isValidEmail, setIsValidEmail] = useState(true);
+  // const HandelChangeAppontmentEmail = (e) => {
+  //  const Email=e.target.value
+  //   setDataAppointment({ ...DataAppointment, UserEmail: Email });
+  //   setIsValidEmail(emailRegex.test(Email) || Email === '');
+  // };
+// const handleCvvChange = (e) => {
+//   const value = e.target.value;
+//   setCvv(value);
+//   setValidCvv(validateCvv(value));
+// };
+
+// const validateCardNumber = (value) => {
+//   return /^\d{16}$/.test(value);
+// };
+
+// const validateCardholderName = (value) => {
+//   return /^[a-zA-Z\s]+$/.test(value);
+// };
+
+// const validateStartDate = (value) => {
+//   if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
+//     return false;
+//   }
+  
+//   const [month, year] = value.split('/').map(Number);
+//   const currentDate = new Date();
+//   const currentYear = currentDate.getFullYear();
+//   const currentMonth = currentDate.getMonth() + 1; 
+
+//   if (year < currentYear || (year === currentYear && month < currentMonth)) {
+//     return false;
+//   }
+
+//   const startDate = new Date(year, month - 1); 
+//   const today = new Date(currentYear, currentMonth - 1); 
+
+//   if (startDate <= today) {
+//     return false;
+//   }
+
+//   return true;
+// };
+
+
+// const validateExpirationDate = (value) => {
+//   if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(value)) {
+//     return false;
+//   }
+//   const [month, year] = value.split('/').map(Number);
+//   const currentDate = new Date();
+//     return new Date(year, month - 1) > currentDate;
+// };
+
+// const validateCvv = (value) => {
+//   return /^\d{3,4}$/.test(value);
+// };
 
 
 
@@ -535,7 +404,145 @@ export default AppointmentForm;
 
 // import React, { useState } from 'react';
 // import axios from 'axios';
-// import { useEffect } from 'react';
+// // import { useEffect } <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+//                 <div class="modal-dialog">
+//                   <div class="modal-content">
+//                     <div class="modal-header">
+//                       <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+//                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//                     </div>
+//                     <div class="modal-body">
+//                       <form className="form-card border border-3 p-3" onSubmit={handleSubmit}>
+//                                         <div className="row">
+//                                           <div className="row main">
+//                                             <div className="col-12">
+//                                               <span>Cart</span>&nbsp;&nbsp;&nbsp;&nbsp;
+//                                               <span>Shipping confirmation</span>&nbsp;&nbsp;&nbsp;&nbsp;
+//                                               <span>Credit card checkout</span>
+//                                             </div>
+//                                           </div>
+
+//                                           <div className="row justify-content-center mrow">
+//                                             <div className="col-12">
+//                                               <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" width="35px" height="35px" alt="Mastercard" />
+//                                               <img src="https://img.icons8.com/color/48/000000/visa.png" width="35px" height="35px" alt="Visa" />
+//                                               <img src="https://img.icons8.com/color/48/000000/paypal.png" width="35px" height="35px" alt="Paypal" />
+//                                             </div>
+//                                           </div>
+//                                           <div className="col-12">
+//                                             <div className="form-group">
+//                                               <input
+//                                                 type="text"
+//                                                 className={`form-control p-0 ${!validCardNumber && 'is-invalid'}`}
+//                                                 id="number"
+//                                                 required
+//                                                 value={cardNumber}
+//                                                 onChange={handleCardNumberChange}
+//                                               />
+//                                               <label className="form-control-placeholder p-0" htmlFor="number">
+//                                                 Card Number
+//                                               </label>
+//                                               {!validCardNumber && <div className="invalid-feedback">Invalid card number</div>}
+//                                             </div>
+//                                           </div>
+//                                         </div>
+//                                         <div className="row">
+//                                           <div className="col-12">
+//                                             <div className="form-group">
+//                                               <input
+//                                                 type="text"
+//                                                 className={`form-control p-0 ${!validCardholderName && 'is-invalid'}`}
+//                                                 id="name"
+//                                                 required
+//                                                 value={cardholderName}
+//                                                 onChange={handleCardholderNameChange}
+//                                               />
+//                                               <label className="form-control-placeholder p-0" htmlFor="name">
+//                                                 Cardholder's Name
+//                                               </label>
+//                                               {!validCardholderName && <div className="invalid-feedback">Invalid cardholder name</div>}
+//                                             </div>
+//                                           </div>
+//                                         </div>
+//                                         <div className="row">
+//                                           <div className="col-sm-4 col-12">
+//                                             <div className="form-group">
+//                                               <input
+//                                                 type="text"
+//                                                 className={`form-control p-0 ${!validStartDate && 'is-invalid'}`}
+//                                                 id="sdate"
+//                                                 required
+//                                                 value={startDate}
+//                                                 onChange={handleStartDateChange}
+//                                               />
+//                                               <label className="form-control-placeholder p-0" htmlFor="sdate">
+//                                                 Start Date
+//                                               </label>
+//                                               {!validStartDate && <div className="invalid-feedback">Invalid start date</div>}
+//                                             </div>
+//                                           </div>
+//                                           <div className="col-sm-4 col-12">
+//                                             <div className="form-group">
+//                                               <input
+//                                                 type="text"
+//                                                 className={`form-control p-0 ${!validExpirationDate && 'is-invalid'}`}
+//                                                 id="expdate"
+//                                                 required
+//                                                 value={expirationDate}
+//                                                 onChange={handleExpirationDateChange}
+//                                               />
+//                                               <label className="form-control-placeholder p-0" htmlFor="expdate">
+//                                                 Expiration Date
+//                                               </label>
+//                                               {!validExpirationDate && <div className="invalid-feedback">Invalid expiration date</div>}
+//                                             </div>
+//                                           </div>
+//                                           <div className="col-sm-4 col-12">
+//                                             <div className="form-group">
+//                                               <input
+//                                                 type="password"
+//                                                 className={`form-control p-0 ${!validCvv && 'is-invalid'}`}
+//                                                 id="passw"
+//                                                 required
+//                                                 value={cvv}
+//                                                 onChange={handleCvvChange}
+//                                               />
+//                                               <label className="form-control-placeholder p-0" htmlFor="passw">
+//                                                 CVV
+//                                               </label>
+//                                               {!validCvv && <div className="invalid-feedback">Invalid CVV</div>}
+//                                             </div>
+//                                           </div>
+//                                         </div>
+//                                         <div className="row lrow mt-4 mb-3">
+//                                           <div className="col-sm-8 col-12">
+//                                             <h3>Grand Total:</h3>
+//                                           </div>
+//                                           <div className="col-sm-4 col-12">
+//                                             <h5>1222</h5>
+//                                           </div>
+//                                         </div>
+//                                         <div className="row mb-2">
+//                                           <div className="col-sm-12">
+//                                             <button type="submit" className="btn btn-primary btn-block" data-bs-dismiss="modal" >
+//                                               Pay
+//                                             </button>
+//                                             {showSuccessMessage && (
+//                                           <div className="alert alert-success" role="alert">
+//                                             Payment successful! You will be redirected shortly.
+//                                           </div>
+//                                         )}
+//                                           </div>
+//                                         </div>
+//                       </form>
+//                     </div>
+//                     <div class="modal-footer">
+//                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+//                       {/* <button type="button" class="btn btn-primary">Send message</button> */}
+//                     </div>
+//                   </div>
+//                 </div>
+//             </div>  from 'react';
 // function AppointmentForm({ doctorInfo }) {
 //  const [DataAppointment, setDataAppointment] = useState({})
 //  const[NameUser,setNameUser]=useState('')

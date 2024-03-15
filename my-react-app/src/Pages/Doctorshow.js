@@ -289,7 +289,7 @@ const Select_About = ()=>{
              <>
              <>
              <div className='row '>
-                     <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2" >Frequantly Asked Quastion</h4>
+              <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2" >Frequantly Asked Quastion</h4>
              </div>
              <hr></hr>
              <div class="col-12">
