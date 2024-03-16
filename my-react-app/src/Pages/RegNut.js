@@ -90,19 +90,27 @@ function RegsNut() {
         // Navigate to login page
         history.push('/logNut');
         const Nwew_user ={
-            "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            "Email": formData.email,
-            "Image": "audio.mp3",
-            "Phone": "(555) 820-9259",
-            "Gender": "Male ",
-            "Rating": "⭐️⭐️⭐️⭐️",
-            "Location": "Muncie, Indiana, United States",
-            "Password": formData.password,
-            "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
-            "Payment_Appointment": "Invoice" 
+          username : formData.userName,
+          password:formData.password,
+          email : formData.email,
+          first_name : formData.firstName,
+          last_name : formData.lastName,
+          role : "doctor"
         };
-      axios
-.post('https://retoolapi.dev/EBWb8G/Doctors', Nwew_user)
+  
+        // "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            // "Email": formData.email,
+            // "Image": "audio.mp3",
+            // "Phone": "(555) 820-9259",
+            // "Gender": "Male ",
+            // "Rating": "⭐️⭐️⭐️⭐️",
+            // "Location": "Muncie, Indiana, United States",
+            // "Password": formData.password,
+            // "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
+            // "Payment_Appointment": "Invoice" 
+      
+axios
+.post('http://127.0.0.1:8000/users/', Nwew_user)
   .then(response => {
     console.log('Doctor posted successfully:', response.data);
   })
@@ -110,8 +118,31 @@ function RegsNut() {
     console.error('Error posting Doctor:', error);
   });  
 };
+
+const Doctor={
+  username : formData.userName,
+  name : formData.firstName + formData.last_name,
+  age: 27,
+  image: null,
+  experience: 0,
+  gender: "M",
+  phone: "+20",
+  location: "None"
+}
+axios
+.post('http://127.0.0.1:8000/doctors/', Doctor)
+.then(response => {
+console.log('Doctor posted successfully:', response.data);
+})
+.catch(error => {
+console.error('Error posting Doctor:', error);
+}); 
+
+
     }
   };
+
+
   return (
     <div style={{marginTop:'100px'}}> 
       <Container >
