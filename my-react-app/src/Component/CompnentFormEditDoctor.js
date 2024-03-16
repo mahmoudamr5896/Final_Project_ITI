@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function EditUserPage({ userId }) {
   const [userData, setUserData] = useState({
+    id:'',
     username: '',
     name: '',
     age: 0,
@@ -12,16 +13,25 @@ function EditUserPage({ userId }) {
     phone: '',
     location: ''
   });
+  // "id": 1,
+  // "username": "mahmoudamr",
+  // "name": "mahmoud",
+  // "age": 23,
+  // "image": null,
+  // "experience": 2,
+  // "gender": "M",
+  // "phone": "01060860534",
+  // "location": "cairo"
 
   useEffect(() => {
     if (!userId) return;
-    // axios.get(`http://127.0.0.1:8000/doctors/${userId.id}/`)
-    //   .then(response => {
-    //     setUserData(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching user data:', error);
-    //   });
+    axios.get(`http://127.0.0.1:8000/doctors/${userId.id}/`)
+      .then(response => {
+        setUserData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
   }, [userId]);
 
   const handleChange = (e) => {
@@ -35,14 +45,14 @@ function EditUserPage({ userId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(userData)
-    // axios.put(`http://127.0.0.1:8000/doctors/${userData.id}/`, userData)
-    //   .then(response => {
+    axios.put(`http://127.0.0.1:8000/doctors/${userData.id}/`, userData)
+      .then(response => {
 
-    //     console.log('User data updated successfully:', response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error updating user data:', error);
-    //   });
+        console.log('User data updated successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error updating user data:', error);
+      });
   };
 
   return (

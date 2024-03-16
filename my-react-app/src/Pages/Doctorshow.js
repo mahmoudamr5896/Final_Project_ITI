@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './Css/Doctors.css'
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 import { Button } from "bootstrap";
 import MinMaxText from "../Component/Minimaize";
@@ -11,7 +11,7 @@ import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
-// import EditUserPage from '../Component/CompnentFormEditDoctor'
+import EditUserPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
 import { Modal } from "react-bootstrap";
@@ -380,7 +380,7 @@ const Select_Appon = ()=>{
 }
 
 
-//_______    Handell  Appoinment Save      _____________________________________________________________
+//_______    Handell  Delete Account    _____________________________________________________________
 // const updatePatientInfo = () => {
 //   axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
 //     .then((res) => console.log(res.data))
@@ -421,11 +421,22 @@ const Select_Appon = ()=>{
 // };
 
 //________________________________________________________________________________________________
+
+const [showModal1, setShowModal1] = useState(false);
+const handleOpenModal = () => {
+  setShowModal1(true);
+};
+
+const handleCloseModal = () => {
+  setShowModal1(false);
+};
+const history= useHistory()
 const handleDeleteAccount = () => {
   axios
   .delete(`http://127.0.0.1:8000/doctors/${ doctorInfo.id}/`)
     .then(response => {
       console.log('Account deleted successfully:', response.data);
+      history.push('/')
     })
     .catch(error => {
       console.error('Error deleting account:', error);
@@ -462,11 +473,9 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
-
-
-{/* <EditUserPage
+<EditUserPage
  userId={doctorInfo}
- ></EditUserPage> */}
+ ></EditUserPage>
   </div>
   )
   setIsEditProfileOpen(data);
@@ -532,10 +541,28 @@ useEffect(() => {
                                                   className="mx-2"
                                                 >
                                                 <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                                <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                                <Dropdown.Item >
+                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
+                                               </Dropdown.Item>
                                                 </DropdownButton>
                                                       )}
-
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete Account</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                      Are You Sure You Want To delete Account ?
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
                                               
                                             </div>
                                         </div>
@@ -560,7 +587,36 @@ useEffect(() => {
 }
 export default DoctorDetails;
 
+{/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div> */}
 
 
 // <div className="container">

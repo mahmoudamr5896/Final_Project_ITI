@@ -50,11 +50,7 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-          
-         
-          
-          
-                   <Route exact path='/dashboard/:id'
+         <Route exact path='/dashboard/:id'
           component={Dash}/>
           <Route exact path='/Editmsg'
           component={Editmsg}/>
