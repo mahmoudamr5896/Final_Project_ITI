@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'; 
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
-import './Css/Reg.css';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap'; 
+import './Css/Reg.css';
+
 function Regspatien() {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -23,7 +24,6 @@ function Regspatien() {
     repeatPassword: ''
   });
 
-  const history = useHistory(); // Initialize useHistory hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,15 +59,7 @@ function Regspatien() {
     }
     setErrors(newErrors);
   };
-
-// handell api post 
-const[id_,setid_]=useState()
-useEffect(() => {
-  axios(`https://retoolapi.dev/zP9Zhd/patient`)
-      .then((res) => setid_(res.data))
-      .catch((err) => console.log(err));
-}, []);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
@@ -82,112 +74,133 @@ useEffect(() => {
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      const user_n = id_.find((user) => user.Email === formData.email );
-      if(user_n){
-           console.log("This Email Is Exites")
-      }else{
-      history.push('/LogPat');
-      const Nwew_user ={
-        "Age": "",
-        "Email": formData.email,
-        "Image": "",
-        "password": formData.password,
-        "Name": formData.userName,
-        "Active":	false
+      const newUser = {
+        username: formData.email, // Assuming email is the username
+        password: formData.password,
+        email: formData.email,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        role: "patient"
       };
+
       axios
-      .post('https://retoolapi.dev/zP9Zhd/patient', Nwew_user)
+        .post('http://127.0.0.1:8000/users/', newUser)
         .then(response => {
-          console.log('Patient posted successfully:', response.data);
+          console.log('User posted successfully:', response.data);
+          // Proceed with posting patient data only if user creation was successful
+          const newPatient = {
+            username: formData.userName,
+            name: `${formData.firstName} ${formData.lastName}`,
+            age: 27,
+            weight: 70, // Make sure this field is provided in the form
+            image: null,
+            height: 170,
+            gender: "M",
+            phone: "+20",
+            medical_history: "None" // Make sure this field name matches the backend
+          };
+
+          axios
+            .post('http://127.0.0.1:8000/patients/', newPatient)
+            .then(response => {
+              console.log('Patient data posted successfully:', response.data);
+              history.push('/LogPat');
+            })
+            .catch(error => {
+              console.error('Error posting patient data:', error);
+            });
         })
         .catch(error => {
-          console.error('Error posting Patient:', error);
+          console.error('Error posting user:', error.response.data); // Log the response data for better understanding
         });
-      }
-
     }
   };
 
   return (
     <div style={{marginTop:'100px'}}> 
-      <Container className="mt-5">
-      <Row>
-        <Col md={6} className="photo-column">
-          
-          <img src="us.jpg" alt="User" className="user-photo" style={{ marginBottom: "20%", height: "100%", marginTop: "20%" }} />
-        </Col>
-        <Col md={6} className="form">
-          <div className="containerForm">
-            <form onSubmit={handleSubmit} className="signup-form">
-              <h2>Sign Up</h2>
-              <p>Join us and start your new healthy life</p>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.firstName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.lastName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="userName"
-                  placeholder="Username"
-                  value={formData.userName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.userName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.email}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  name="repeatPassword"
-                  placeholder="Repeat Password"
-                  value={formData.repeatPassword}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
-              </div>
-              <button type="submit" className='btn'>Sign Up</button>
-            </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/LogPat')} className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+      <Container >
+        <Row>
+          <Col md={6} className="photo-column">
+            <img src="nutr3.jpg" alt="User" className="user-photo" style={{ marginBottom: "20%", height: "100%", marginTop: "20%" }} />
+          </Col>
+          <Col md={6} className="form">
+            <div className="containerForm">
+              <form onSubmit={handleSubmit} className="signup-form">
+                <h2>Sign Up</h2>
+                <p>Join us To be one of the most successful nutritionists </p>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="firstName"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.firstName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.lastName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="userName"
+                    placeholder="Username"
+                    value={formData.userName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.userName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className='email-input'
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.email}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className='password-input'
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className='password-input'
+                    name="repeatPassword"
+                    placeholder="Repeat Password"
+                    value={formData.repeatPassword}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
+                </div>
+                <button type="submit">Sign Up</button>
+              </form>
+              <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/logNut')}  className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
