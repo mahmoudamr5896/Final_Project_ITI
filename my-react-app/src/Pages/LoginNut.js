@@ -36,79 +36,77 @@ function LoginNut() {
 const[AcceptUser,setAcceptUser]=useState()
 const[doctor,setDoctor]=useState()
 
-<<<<<<< HEAD
 useEffect(() => {
   axios(`http://127.0.0.1:8000/users/`)
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  // Check if username exists
-  const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
-  if (!existingUser) {
-    console.log('User not found');
-    return;
-  }
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   // Check if username exists
+//   const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
+//   if (!existingUser) {
+//     console.log('User not found');
+//     return;
+//   }
 
-  // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
-  //   if (err) {
-  //     console.error('Error comparing passwords:', err);
-  //     return;
-  //   }
+//   // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
+//   //   if (err) {
+//   //     console.error('Error comparing passwords:', err);
+//   //     return;
+//   //   }
     
-  //   if (result) {
-  //     console.log('Login successful');
-  //   } else {
-  //     console.log('Incorrect password');
-  //   }
-  // });
-  // const hashedPassword = existingUser.password;
+//   //   if (result) {
+//   //     console.log('Login successful');
+//   //   } else {
+//   //     console.log('Incorrect password');
+//   //   }
+//   // });
+//   // const hashedPassword = existingUser.password;
   
-  // try {
-  //   // Compare the provided password with the hashed password
-  //   const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
+//   // try {
+//   //   // Compare the provided password with the hashed password
+//   //   const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
     
-  //   if (passwordMatch) {
-  //     console.log('Login successful'); 
+//   //   if (passwordMatch) {
+//   //     console.log('Login successful'); 
      
-  //     // Redirect to dashboard or perform other actions
-  //   } else {
-  //     console.log('Incorrect password');
-  //   }
-  // } catch (error) {
-  //   console.error('Error comparing passwords:', error);
-  // }
- if (existingUser) {
-        axios.get('http://127.0.0.1:8000/doctors/')
-          .then(response => {
-            const doctors = response.data;
-            const doctor = doctors.find(d => d.username === existingUser.username);
-            if (doctor) {
-              console.log(doctor);
-              history.push(`/dashboard/${doctor.id}`);
-              const userData = {
-             email: formData.emailOrUsername,
-            password: formData.password,
-            role: 'Doctor' ,
-            id:doctor.id
-            };
-           const userDataString = JSON.stringify(userData);
-                       sessionStorage.setItem('userData', userDataString);
-                       console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+//   //     // Redirect to dashboard or perform other actions
+//   //   } else {
+//   //     console.log('Incorrect password');
+//   //   }
+//   // } catch (error) {
+//   //   console.error('Error comparing passwords:', error);
+//   // }
+//  if (existingUser) {
+//         axios.get('http://127.0.0.1:8000/doctors/')
+//           .then(response => {
+//             const doctors = response.data;
+//             const doctor = doctors.find(d => d.username === existingUser.username);
+//             if (doctor) {
+//               console.log(doctor);
+//               history.push(`/dashboard/${doctor.id}`);
+//               const userData = {
+//              email: formData.emailOrUsername,
+//             password: formData.password,
+//             role: 'Doctor' ,
+//             id:doctor.id
+//             };
+//            const userDataString = JSON.stringify(userData);
+//                        sessionStorage.setItem('userData', userDataString);
+//                        console.log("Successfully updated user data in session storage for user with id:", doctor.id);
     
-            } else {
-              console.log('Doctor not found');
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching doctors:', error);
-          });
-      }
-};
+//             } else {
+//               console.log('Doctor not found');
+//             }
+//           })
+//           .catch(error => {
+//             console.error('Error fetching doctors:', error);
+//           });
+//       }
+// };
 
-=======
 const [error, setError] = useState('');
 const username = formData.emailOrUsername
 const password = formData.password
@@ -159,7 +157,6 @@ const handleSubmit = async (e) => {
 };
 
 
->>>>>>> main
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const newErrors = { ...errors };
@@ -243,9 +240,6 @@ const handleSubmit = async (e) => {
   );
 }
 
-<<<<<<< HEAD
-export default LoginNut;
-=======
 export default LoginNut;
 
 
@@ -322,4 +316,3 @@ export default LoginNut;
 // };
 
 
->>>>>>> main
