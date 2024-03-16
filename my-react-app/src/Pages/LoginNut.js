@@ -4,6 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import './Css/Reg.css';
 import axios from 'axios';
+import bcrypt from 'bcryptjs'; // Import bcrypt library for password hashing
+import { checkPassword } from 'bcryptjs'; // Assuming you have bcryptjs installed
+
 function LoginNut() {
   const [formData, setFormData] = useState({
     emailOrUsername: '',
@@ -31,46 +34,114 @@ function LoginNut() {
 
 // Handel Accept user
 const[AcceptUser,setAcceptUser]=useState()
+const[doctor,setDoctor]=useState()
+
 useEffect(() => {
-  axios(`https://retoolapi.dev/EBWb8G/Doctors`)
+  axios(`http://127.0.0.1:8000/users/`)
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = { ...errors };
-    Object.keys(formData).forEach(key => {
-      if (formData[key].trim() === '') {
-        newErrors[key] = `Please enter your ${key === 'emailOrUsername' ? 'email or username' : 'password'}`;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  // Check if username exists
+  const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
+  if (!existingUser) {
+    console.log('User not found');
+    return;
+  }
+ 
+
+  // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
+  //   if (err) {
+  //     console.error('Error comparing passwords:', err);
+  //     return;
+  //   }
+    
+  //   if (result) {
+  //     console.log('Login successful');
+  //   } else {
+  //     console.log('Incorrect password');
+  //   }
+  // });
+  // const hashedPassword = existingUser.password;
+  
+  // try {
+  //   // Compare the provided password with the hashed password
+  //   const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
+    
+  //   if (passwordMatch) {
+  //     console.log('Login successful'); 
+     
+  //     // Redirect to dashboard or perform other actions
+  //   } else {
+  //     console.log('Incorrect password');
+  //   }
+  // } catch (error) {
+  //   console.error('Error comparing passwords:', error);
+  // }
+ if (existingUser) {
+        axios.get('http://127.0.0.1:8000/doctors/')
+          .then(response => {
+            const doctors = response.data;
+            const doctor = doctors.find(d => d.username === existingUser.username);
+            if (doctor) {
+              console.log(doctor);
+              history.push(`/dashboard/${doctor.id}`);
+              const userData = {
+             email: formData.emailOrUsername,
+            password: formData.password,
+            role: 'Doctor' ,
+            id:doctor.id
+            };
+           const userDataString = JSON.stringify(userData);
+                       sessionStorage.setItem('userData', userDataString);
+                       console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+    
+            } else {
+              console.log('Doctor not found');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching doctors:', error);
+          });
       }
-    });
-    if (Object.values(newErrors).some(error => error !== '')) {
-      setErrors(newErrors);
-      console.log('Validation failed');
-    } else {
-      console.log('Form submitted:', formData);
-      const user_n = AcceptUser.filter((user) => user.Email === formData.emailOrUsername && user.Password === formData.password);
-      if (user_n.length > 0){
-        user_n.forEach((user) =>
-        {
-        const  User_id = user.id;
-         history.push(`/dashboard/${User_id}`);
-         const userData = {
-           email: formData.emailOrUsername,
-           password: formData.password,
-           role: 'Doctor' ,
-           id:User_id
-         };
-         const userDataString = JSON.stringify(userData);
-         sessionStorage.setItem('userData', userDataString);
-         console.log("Successfully updated user data in session storage for user with id:", User_id);
-       });
-      }else{
-          console.log("Does't Exits")
-      }
+};
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newErrors = { ...errors };
+  //   Object.keys(formData).forEach(key => {
+  //     if (formData[key].trim() === '') {
+  //       newErrors[key] = `Please enter your ${key === 'emailOrUsername' ? 'email or username' : 'password'}`;
+  //     }
+  //   });
+  //   if (Object.values(newErrors).some(error => error !== '')) {
+  //     setErrors(newErrors);
+  //     console.log('Validation failed');
+  //   } else {
+  //     console.log('Form submitted:', formData);
+  //     const user_n = AcceptUser.filter((user) => user.username === formData.emailOrUsername && user.Password === formData.password);
+  //     if (user_n.length > 0){
+  //     //   user_n.forEach((user) =>
+  //     //   {
+  //     //   const  User_id = user.id;
+  //     //    history.push(`/dashboard/${User_id}`);
+  //     //    const userData = {
+  //     //      email: formData.emailOrUsername,
+  //     //      password: formData.password,
+  //     //      role: 'Doctor' ,
+  //     //      id:User_id
+  //     //    };
+  //     //    const userDataString = JSON.stringify(userData);
+  //     //    sessionStorage.setItem('userData', userDataString);
+  //     //    console.log("Successfully updated user data in session storage for user with id:", User_id);
+  //     //  });
+  //     }else{
+  //         console.log("Does't Exits")
+  //     }
       
-    }
-  };
+  //   }
+  // };
 
   return (
     <div style={{marginTop:'100px'}}>
