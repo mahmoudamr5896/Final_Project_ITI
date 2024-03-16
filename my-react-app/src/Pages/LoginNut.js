@@ -36,6 +36,7 @@ function LoginNut() {
 const[AcceptUser,setAcceptUser]=useState()
 const[doctor,setDoctor]=useState()
 
+<<<<<<< HEAD
 useEffect(() => {
   axios(`http://127.0.0.1:8000/users/`)
       .then((res) => setAcceptUser(res.data))
@@ -50,7 +51,6 @@ const handleSubmit = async (e) => {
     console.log('User not found');
     return;
   }
- 
 
   // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
   //   if (err) {
@@ -108,6 +108,58 @@ const handleSubmit = async (e) => {
       }
 };
 
+=======
+const [error, setError] = useState('');
+const username = formData.emailOrUsername
+const password = formData.password
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+      const response = await axios.post('http://localhost:8000/auth/login/', { username , password });
+      const authToken = response.data.token;
+      if (response) {
+                axios.get('http://127.0.0.1:8000/doctors/')
+                  .then(response => {
+                    const doctors = response.data;
+                    const doctor = doctors.find(d => d.username === username);
+                    if (doctor) {
+                      console.log(doctor);
+                      history.push(`/dashboard/${doctor.id}`);
+                      const userData = {
+                     email: formData.emailOrUsername,
+                    password: formData.password,
+                    role: 'Doctor' ,
+                    id:doctor.id
+                    };
+                   const userDataString = JSON.stringify(userData);
+                               sessionStorage.setItem('userData', userDataString);
+                               console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+            
+                    } else {
+                      console.log('Doctor not found');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error fetching doctors:', error);
+                  });
+              }
+      // Save the authToken in local storage or state for future requests
+  } catch (error) {
+      if (error.response) {
+          // The request was made and the server responded with a status code
+          console.log(error.response.data.error || 'Failed to login');
+      } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Network error occurred');
+      } else {
+          // Other errors
+          console.log('An error occurred');
+      }
+  }
+};
+
+
+>>>>>>> main
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const newErrors = { ...errors };
@@ -181,7 +233,7 @@ const handleSubmit = async (e) => {
               </div>
               <button type="submit">Login</button>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} > Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} className=' btn-primary'> Sign Up</button></p>
           </div>
         </Col>
       </Row>
@@ -191,4 +243,83 @@ const handleSubmit = async (e) => {
   );
 }
 
+<<<<<<< HEAD
 export default LoginNut;
+=======
+export default LoginNut;
+
+
+
+// useEffect(() => {
+//   axios(`http://127.0.0.1:8000/users/`)
+//       .then((res) => setAcceptUser(res.data))
+//       .catch((err) => console.log(err));
+// }, []);
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   // Check if username exists
+//   const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
+//   if (!existingUser) {
+//     console.log('User not found');
+//     return;
+//   }
+ 
+
+//   // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
+//   //   if (err) {
+//   //     console.error('Error comparing passwords:', err);
+//   //     return;
+//   //   }
+    
+//   //   if (result) {
+//   //     console.log('Login successful');
+//   //   } else {
+//   //     console.log('Incorrect password');
+//   //   }
+//   // });
+//   // const hashedPassword = existingUser.password;
+  
+//   // try {
+//   //   // Compare the provided password with the hashed password
+//   //   const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
+    
+//   //   if (passwordMatch) {
+//   //     console.log('Login successful'); 
+     
+//   //     // Redirect to dashboard or perform other actions
+//   //   } else {
+//   //     console.log('Incorrect password');
+//   //   }
+//   // } catch (error) {
+//   //   console.error('Error comparing passwords:', error);
+//   // }
+//  if (existingUser) {
+//         axios.get('http://127.0.0.1:8000/doctors/')
+//           .then(response => {
+//             const doctors = response.data;
+//             const doctor = doctors.find(d => d.username === existingUser.username);
+//             if (doctor) {
+//               console.log(doctor);
+//               history.push(`/dashboard/${doctor.id}`);
+//               const userData = {
+//              email: formData.emailOrUsername,
+//             password: formData.password,
+//             role: 'Doctor' ,
+//             id:doctor.id
+//             };
+//            const userDataString = JSON.stringify(userData);
+//                        sessionStorage.setItem('userData', userDataString);
+//                        console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+    
+//             } else {
+//               console.log('Doctor not found');
+//             }
+//           })
+//           .catch(error => {
+//             console.error('Error fetching doctors:', error);
+//           });
+//       }
+// };
+
+
+>>>>>>> main

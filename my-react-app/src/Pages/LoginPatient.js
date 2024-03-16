@@ -42,31 +42,79 @@ function LoginPatient() {
       .catch(error => console.error('Error fetching patients:', error));
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const existingUser = acceptedUsers.find(user => user.username === formData.emailOrUsername);
-    if (!existingUser) {
-      console.log('User not found');
-      return;
-    }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const existingUser = acceptedUsers.find(user => user.username === formData.emailOrUsername);
+  //   if (!existingUser) {
+  //     console.log('User not found');
+  //     return;
+  //   }
 
-    const patient = patients.find(p => p.name === existingUser.first_name + ' ' + existingUser.last_name);
-    if (patient) {
-      console.log(patient);
-      const userData = {
-        email: formData.emailOrUsername,
-        password: formData.password,
-        role: 'patient',
-        id: patient.id
-      };
-      const userDataString = JSON.stringify(userData);
-      sessionStorage.setItem('userData', userDataString);
-      console.log("Successfully updated user data in session storage for user with id:", patient.id);
-      history.push(`/user/${patient.id}`); // Redirect to patient's ID
-    } else {
-      console.log('Patient not found');
-    }
-  };
+  //   const patient = patients.find(p => p.name === existingUser.first_name + ' ' + existingUser.last_name);
+  //   if (patient) {
+  //     console.log(patient);
+  //     const userData = {
+  //       email: formData.emailOrUsername,
+  //       password: formData.password,
+  //       role: 'patient',
+  //       id: patient.id
+  //     };
+  //     const userDataString = JSON.stringify(userData);
+  //     sessionStorage.setItem('userData', userDataString);
+  //     console.log("Successfully updated user data in session storage for user with id:", patient.id);
+  //     history.push(`/user/${patient.id}`); // Redirect to patient's ID
+  //   } else {
+  //     console.log('Patient not found');
+  //   }
+  // };
+const [error, setError] = useState('');
+const username = formData.emailOrUsername
+const password = formData.password
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+      const response = await axios.post('http://localhost:8000/auth/login/', { username , password });
+      const authToken = response.data.token;
+      if (response){
+                axios.get('http://127.0.0.1:8000/patients/')
+                  .then(response => {
+                    const doctors = response.data;
+                    const doctor = doctors.find(d => d.username === username);
+                    if (doctor) {
+                      console.log(doctor);
+                      history.push(`/user/${doctor.id}`);
+                      const userData = {
+                     email: formData.emailOrUsername,
+                    password: formData.password,
+                    role: 'Patient' ,
+                    id:doctor.id
+                    };
+                   const userDataString = JSON.stringify(userData);
+                    sessionStorage.setItem('userData', userDataString);
+                    console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+            
+                    } else {
+                      console.log('Doctor not found');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error fetching doctors:', error);
+                  });
+              }
+      // Save the authToken in local storage or state for future requests
+  } catch (error) {
+      if (error.response) {
+          // The request was made and the server responded with a status code
+          console.log(error.response.data.error || 'Failed to login');
+      } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Network error occurred');
+      } else {
+          // Other errors
+          console.log('An error occurred');
+      }
+  }
+};
 
   return (
     <div style={{marginTop:'100px'}}>

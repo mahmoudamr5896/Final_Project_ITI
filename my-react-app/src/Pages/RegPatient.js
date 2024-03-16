@@ -75,7 +75,7 @@ function Regspatien() {
     } else {
       console.log('Form submitted:', formData);
       const newUser = {
-        username: formData.email, // Assuming email is the username
+        username: formData.userName, // Assuming email is the username
         password: formData.password,
         email: formData.email,
         first_name: formData.firstName,
@@ -91,10 +91,10 @@ function Regspatien() {
           const newPatient = {
             username: formData.userName,
             name: `${formData.firstName} ${formData.lastName}`,
-            age: 27,
-            weight: 70, // Make sure this field is provided in the form
+            age: 0,
+            weight: 0, // Make sure this field is provided in the form
             image: null,
-            height: 170,
+            height: 0,
             gender: "M",
             phone: "+20",
             medical_history: "None" // Make sure this field name matches the backend
