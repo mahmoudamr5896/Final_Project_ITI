@@ -41,6 +41,7 @@ useEffect(() => {
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   // Check if username exists

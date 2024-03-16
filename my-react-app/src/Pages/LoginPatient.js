@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'; 
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import { useHistory } from 'react-router-dom'; 
 import axios from 'axios';
 import './Css/Reg.css';
 
-function LoginPatien() {
+function LoginPatient() {
   const [formData, setFormData] = useState({
-    email: '',
+    emailOrUsername: '',
     password: ''
   });
 
   const [errors, setErrors] = useState({
-    email: '',
+    emailOrUsername: '',
     password: ''
   });
 
@@ -25,47 +25,46 @@ function LoginPatien() {
     }));
 
     const newErrors = { ...errors };
-    newErrors[name] = value.trim() === '' ? `Please enter your ${name === 'email' ? 'email' : 'password'}` : '';
+    newErrors[name] = value.trim() === '' ? `Please enter your ${name === 'emailOrUsername' ? 'email or username' : 'password'}` : '';
     setErrors(newErrors);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = { ...errors };
+  const [acceptedUsers, setAcceptedUsers] = useState([]);
+  const [patients, setPatients] = useState([]);
 
-    // Validate email
-    if (formData.email.trim() === '') {
-      newErrors.email = 'Please enter your email';
-    } else {
-      newErrors.email = '';
-    }
-
-    // Validate password
-    if (formData.password.trim() === '') {
-      newErrors.password = 'Please enter your password';
-    } else {
-      newErrors.password = '';
-    }
-
-    setErrors(newErrors);
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/users/')
+      .then(response => setAcceptedUsers(response.data))
+      .catch(error => console.error('Error fetching users:', error));
     
-    // If there are no errors, submit the form
-    if (Object.values(newErrors).every(error => error === '')) {
-      console.log('Form submitted:', formData);
+    axios.get('http://127.0.0.1:8000/patients/')
+      .then(response => setPatients(response.data))
+      .catch(error => console.error('Error fetching patients:', error));
+  }, []);
 
-      // Perform API request to authenticate user
-      axios.post('http://127.0.0.1:8000/users/login/', formData)
-        .then(response => {
-          console.log('Login successful:', response.data);
-          const userId = response.data.id; // Assuming the response contains the user ID
-          history.push(`/user/${userId}`);
-        })
-        .catch(error => {
-          console.error('Login failed:', error);
-          // Handle login failure, show error message to user
-        });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const existingUser = acceptedUsers.find(user => user.username === formData.emailOrUsername);
+    if (!existingUser) {
+      console.log('User not found');
+      return;
+    }
+
+    const patient = patients.find(p => p.name === existingUser.first_name + ' ' + existingUser.last_name);
+    if (patient) {
+      console.log(patient);
+      const userData = {
+        email: formData.emailOrUsername,
+        password: formData.password,
+        role: 'patient',
+        id: patient.id
+      };
+      const userDataString = JSON.stringify(userData);
+      sessionStorage.setItem('userData', userDataString);
+      console.log("Successfully updated user data in session storage for user with id:", patient.id);
+      history.push(`/user/${patient.id}`); // Redirect to patient's ID
     } else {
-      console.log('Validation failed');
+      console.log('Patient not found');
     }
   };
 
@@ -85,12 +84,12 @@ function LoginPatien() {
                   <input
                     type="text"
                     className="text-input"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
+                    name="emailOrUsername"
+                    placeholder="Email or Username"
+                    value={formData.emailOrUsername}
                     onChange={handleChange}
                   />
-                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.email}</span>
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.emailOrUsername}</span>
                 </div>
                 <div className="form-group">
                   <input
@@ -114,4 +113,4 @@ function LoginPatien() {
   );
 }
 
-export default LoginPatien;
+export default LoginPatient;
