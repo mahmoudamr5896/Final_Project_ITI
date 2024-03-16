@@ -156,7 +156,6 @@ const handleSubmit = async (e) => {
   }
 };
 
-
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const newErrors = { ...errors };
@@ -240,8 +239,8 @@ const handleSubmit = async (e) => {
   );
 }
 
-export default LoginNut;
 
+export default LoginNut;
 
 
 // useEffect(() => {

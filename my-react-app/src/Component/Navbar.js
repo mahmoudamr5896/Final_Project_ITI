@@ -73,11 +73,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {!login ? (
-              <Link to='/'>
-               <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
-              </Link>  
-              ):(
+            {login ? (
               <Link to='/login'>
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link> 
