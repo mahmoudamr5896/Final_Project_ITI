@@ -50,7 +50,6 @@ const handleSubmit = async (e) => {
     console.log('User not found');
     return;
   }
- 
 
   // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
   //   if (err) {

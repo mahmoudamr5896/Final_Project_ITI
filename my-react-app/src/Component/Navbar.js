@@ -72,7 +72,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {login ? (
+            {!login ? (
               <Link to='/login'>
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link>
