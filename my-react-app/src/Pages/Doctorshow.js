@@ -23,22 +23,37 @@ function DoctorDetails() {
   
   const { id } = useParams();
   const [doctorInfo, setDoctorInfo] = useState({
-      Bio: '',
-      Img: '',
       name: '',
-      Email: '',
-      Phone: '',
-      Location: '',
-      Payment_Appointment: '',
-      Password:'',
+      age: '',
+      image: '',
+      experience: 0,
+      gender: "",
+      phone: "",
+      location: ""
   });
+      // Bio: '',
+      // Img: '',
+      // name: '',
+      // Email: '',
+      // Phone: '',
+      // Location: '',
+      // Payment_Appointment: '',
+      // Password:'',
+
   useEffect(() => {
-      axios(`https://retoolapi.dev/EBWb8G/Doctors/${id}`)
+      axios(`http://127.0.0.1:8000/doctors/${id}/`)
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
-
   }, [id]);
 
+        // "username": "mahmoudsaleh",
+        // "name": "mahmoudundefined",
+        // "age": 27,
+        // "image": null,
+        // "experience": 0,
+        // "gender": "M",
+        // "phone": "+20",
+        // "location": "None"
 
 const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -368,7 +383,7 @@ const Select_Appon = ()=>{
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
   axios
-  .delete(`https://retoolapi.dev/EBWb8G/Doctors/${ doctorInfo.id}`)
+  .delete(`http://127.0.0.1:8000/doctors/${ doctorInfo.id}/`)
     .then(response => {
       console.log('Account deleted successfully:', response.data);
     })
@@ -378,14 +393,14 @@ const handleDeleteAccount = () => {
 };
 //______________________________________________________________________________________
 useEffect(() => {
-  axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`)
+  axios.get(`http://127.0.0.1:8000/doctors/${parseInt(id)}/`)
     .then(response => {
       setDoctorInfo(response.data);
     })
     .catch(error => {
       console.error('Error fetching user data:', error);
     });
-}, [id]);
+}, []);
 const handleChange = (e) => {
   const { name, value } = e.target;
   setDoctorInfo(prevData => ({
@@ -395,7 +410,7 @@ const handleChange = (e) => {
 };
 const handleSubmit = (e) => {
   e.preventDefault();
-  axios.patch(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`, doctorInfo)
+  axios.patch(`http://127.0.0.1:8000/doctors/${doctorInfo.id}/`, doctorInfo)
     .then(response => {
       console.log('User data updated successfully:', response.data);
     })
@@ -407,64 +422,11 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
-    
-    {/* <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
-    <h1>Edit User</h1>
-  <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
-  
-    <form onSubmit={handleSubmit} className="row g-3 justify-content-center">
-      <div className="col-md-10 mb-3">
-        <label htmlFor="bio" className="form-label">Bio:</label>
-        <textarea id="bio" name="Bio" className="form-control" value={doctorInfo.Bio} onChange={handleChange} />
-      </div>
-      <div className="col-md-10 mb-3">
-        <label htmlFor="img" className="form-label">Img:</label>
-        <input id="img" type="text" name="Img" className="form-control" value={doctorInfo.Image} onChange={handleChange} />
-      </div>
-      <div className="col-md-5 mb-3">
-        <label htmlFor="name" className="form-label">Name:</label>
-        <input id="name" type="text" name="name" className="form-control" value={doctorInfo.Doctor_Name} onChange={handleChange} />
-      </div>
-      <div className="col-md-5 mb-3">
-        <label htmlFor="email" className="form-label">Email:</label>
-        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email} onChange={handleChange} />
-      </div>
-      <div className="col-md-10 mb-3">
-        <label htmlFor="img" className="form-label">New password:</label>
-        <input id="img" type="password" name="Img" className="form-control" value={doctorInfo.Password} onChange={handleChange} />
-      </div>
-      
-      <div className="col-md-5 mb-3">
-        <label htmlFor="phone" className="form-label">Phone:</label>
-        <input id="phone" type="text" name="Phone" className="form-control" placeholder={doctorInfo.Phone} onChange={handleChange} />
-      </div>
-      <div className="col-md-5 mb-3">
-        <label htmlFor="location" className="form-label">Location:</label>
-        <input id="location" type="text" name="Location" className="form-control" value={doctorInfo.Location} onChange={handleChange} />
-      </div>
-      <div className="col-md-5 mb-3">
-        <label className="form-label">Payment Appointment:</label>
-        <select className="form-select" value={doctorInfo.Payment_Appointment} onChange={handleChange}>
-          <option value="debit">Debit</option>
-          <option value="credit">Credit</option>
-        </select>
-      </div>
-      <div className="col-md-5 mb-3">
-        <label className="form-label">Gender:</label>
-        <select className="form-select" value={doctorInfo.Gender} onChange={handleChange}>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div className="col-md-10 mb-3 text-center">
-        <button type="submit" className="btn btn-primary">Save Changes</button>
-      </div>
-    </form>
-  </div>
-</div> */}
 
-<EditUserPage userId={doctorInfo.id}></EditUserPage>
+
+<EditUserPage
+ userId={doctorInfo.id}
+ ></EditUserPage>
   </div>
   )
   setIsEditProfileOpen(data);
@@ -496,10 +458,10 @@ useEffect(() => {
                             <div className="row" style={{background:"#03974D"}}>
                                 <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                                     <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                                {doctorInfo.Rating}
+                                {/* {doctorInfo.Rating} */}
                                 </div>
                                 <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                                    <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
+                                    <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                       <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
                                         <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
@@ -591,7 +553,61 @@ export default DoctorDetails;
     //     <button type="submit" className="btn btn-primary">Submit</button>
     //   </form>
     // </div>
-
+    {/* <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
+    <h1>Edit User</h1>
+  <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
+  
+    <form onSubmit={handleSubmit} className="row g-3 justify-content-center">
+      <div className="col-md-10 mb-3">
+        <label htmlFor="bio" className="form-label">Bio:</label>
+        <textarea id="bio" name="Bio" className="form-control" value={doctorInfo.Bio} onChange={handleChange} />
+      </div>
+      <div className="col-md-10 mb-3">
+        <label htmlFor="img" className="form-label">Img:</label>
+        <input id="img" type="text" name="Img" className="form-control" value={doctorInfo.Image} onChange={handleChange} />
+      </div>
+      <div className="col-md-5 mb-3">
+        <label htmlFor="name" className="form-label">Name:</label>
+        <input id="name" type="text" name="name" className="form-control" value={doctorInfo.Doctor_Name} onChange={handleChange} />
+      </div>
+      <div className="col-md-5 mb-3">
+        <label htmlFor="email" className="form-label">Email:</label>
+        <input id="email" type="text" name="Email" className="form-control" value={doctorInfo.Email} onChange={handleChange} />
+      </div>
+      <div className="col-md-10 mb-3">
+        <label htmlFor="img" className="form-label">New password:</label>
+        <input id="img" type="password" name="Img" className="form-control" value={doctorInfo.Password} onChange={handleChange} />
+      </div>
+      
+      <div className="col-md-5 mb-3">
+        <label htmlFor="phone" className="form-label">Phone:</label>
+        <input id="phone" type="text" name="Phone" className="form-control" placeholder={doctorInfo.Phone} onChange={handleChange} />
+      </div>
+      <div className="col-md-5 mb-3">
+        <label htmlFor="location" className="form-label">Location:</label>
+        <input id="location" type="text" name="Location" className="form-control" value={doctorInfo.Location} onChange={handleChange} />
+      </div>
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Payment Appointment:</label>
+        <select className="form-select" value={doctorInfo.Payment_Appointment} onChange={handleChange}>
+          <option value="debit">Debit</option>
+          <option value="credit">Credit</option>
+        </select>
+      </div>
+      <div className="col-md-5 mb-3">
+        <label className="form-label">Gender:</label>
+        <select className="form-select" value={doctorInfo.Gender} onChange={handleChange}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div className="col-md-10 mb-3 text-center">
+        <button type="submit" className="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div> */}
 
 
 

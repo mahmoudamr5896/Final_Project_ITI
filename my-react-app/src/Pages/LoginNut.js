@@ -45,7 +45,6 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   // Check if username exists
   const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
-  
   if (!existingUser) {
     console.log('User not found');
     return;
@@ -64,15 +63,23 @@ const handleSubmit = async (e) => {
   //     console.log('Incorrect password');
   //   }
   // });
-  const hashedPassword = existingUser.password;
+  // const hashedPassword = existingUser.password;
   
-  try {
-    // Compare the provided password with the hashed password
-    const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
+  // try {
+  //   // Compare the provided password with the hashed password
+  //   const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
     
-    if (passwordMatch) {
-      console.log('Login successful'); 
-      if (existingUser) {
+  //   if (passwordMatch) {
+  //     console.log('Login successful'); 
+     
+  //     // Redirect to dashboard or perform other actions
+  //   } else {
+  //     console.log('Incorrect password');
+  //   }
+  // } catch (error) {
+  //   console.error('Error comparing passwords:', error);
+  // }
+ if (existingUser) {
         axios.get('http://127.0.0.1:8000/doctors/')
           .then(response => {
             const doctors = response.data;
@@ -80,6 +87,15 @@ const handleSubmit = async (e) => {
             if (doctor) {
               console.log(doctor);
               history.push(`/dashboard/${doctor.id}`);
+              const userData = {
+             email: formData.emailOrUsername,
+            password: formData.password,
+            role: 'Doctor' ,
+            id:doctor.id
+            };
+           const userDataString = JSON.stringify(userData);
+                       sessionStorage.setItem('userData', userDataString);
+                       console.log("Successfully updated user data in session storage for user with id:", doctor.id);
     
             } else {
               console.log('Doctor not found');
@@ -89,14 +105,6 @@ const handleSubmit = async (e) => {
             console.error('Error fetching doctors:', error);
           });
       }
-      // Redirect to dashboard or perform other actions
-    } else {
-      console.log('Incorrect password');
-    }
-  } catch (error) {
-    console.error('Error comparing passwords:', error);
-  }
-
 };
 
   // const handleSubmit = (e) => {
