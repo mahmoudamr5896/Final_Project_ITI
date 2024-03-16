@@ -322,7 +322,7 @@ const handleUploadImage = () => {
                                         <Button variant="secondary" onClick={handleCloseModal}> Cancel </Button>
                                         <Button variant="danger" onClick={handleDeleteAccount}> Delete </Button>
                                     </Modal.Footer>
-                            </Modal>                    
+                                </Modal>                    
                             </div>
                         </div>
                     </nav>

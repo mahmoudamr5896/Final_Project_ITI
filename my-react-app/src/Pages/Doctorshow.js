@@ -11,16 +11,18 @@ import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
-import EditUserPage from '../Component/CompnentFormEdit'
+// import EditUserPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
+import { Modal } from "react-bootstrap";
 
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 import ReviewComponent from '../Component/ComponentRate'
 
 function DoctorDetails() {
-  
+  const [showModal, setShowModal] = useState(false);
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const { id } = useParams();
   const [doctorInfo, setDoctorInfo] = useState({
       name: '',
@@ -379,7 +381,45 @@ const Select_Appon = ()=>{
 
 
 //_______    Handell  Appoinment Save      _____________________________________________________________
+// const updatePatientInfo = () => {
+//   axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
+//     .then((res) => console.log(res.data))
+//     .catch((err) => console.log(err));
+// };
+// const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
+// const toggleEditProfile = () => {
+//   const data=(
+//     <div className='container m-5'>
+//       <EditUserPage userId={id}
+//       updatePatientInfo={updatePatientInfo} />
+//   </div>
+//   )
+//   setIsEditProfileOpen(data);
+//   setAppointment(null)
+//   setAboutData(null)
+//   setExperienceData(null)
+//   setLocationData(null)
+//   setRatingData(null)
+// };
+
 //_____________________________________________________________________________________________________
+// const handleShowModal = () => setShowModal(true);
+// const handleCloseModal = () => setShowModal(false);
+
+// const handleDeleteAccount = () => {
+//   axios
+//     .delete(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
+//     .then((response) => {
+//       console.log("Account deleted successfully:", response.data);
+//       setDeleteConfirmed(true);
+//       handleCloseModal();
+//       window.location.href = "/confirmation-page"; 
+//     })
+//     .catch((error) => {
+//       console.error("Error deleting account:", error);
+//     });
+// };
+
 //________________________________________________________________________________________________
 const handleDeleteAccount = () => {
   axios
@@ -424,9 +464,9 @@ const toggleEditProfile = () => {
     <div className='container m-5'>
 
 
-<EditUserPage
- userId={doctorInfo.id}
- ></EditUserPage>
+{/* <EditUserPage
+ userId={doctorInfo}
+ ></EditUserPage> */}
   </div>
   )
   setIsEditProfileOpen(data);
@@ -491,10 +531,12 @@ useEffect(() => {
                                                   variant="success"
                                                   className="mx-2"
                                                 >
-                                                  <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                                  <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+                                                <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
                                                 </DropdownButton>
                                                       )}
+
+                                              
                                             </div>
                                         </div>
                                     </nav>
