@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './Css/Doctors.css'
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import StarRating from "../Component/Rate";
 import { Button } from "bootstrap";
 import MinMaxText from "../Component/Minimaize";
@@ -11,34 +11,51 @@ import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
-import EditUserPage from '../Component/CompnentFormEdit'
+import EditUserPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
+import { Modal } from "react-bootstrap";
 
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 import ReviewComponent from '../Component/ComponentRate'
 
 function DoctorDetails() {
-  
+  const [showModal, setShowModal] = useState(false);
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const { id } = useParams();
   const [doctorInfo, setDoctorInfo] = useState({
-      Bio: '',
-      Img: '',
       name: '',
-      Email: '',
-      Phone: '',
-      Location: '',
-      Payment_Appointment: '',
-      Password:'',
+      age: '',
+      image: '',
+      experience: 0,
+      gender: "",
+      phone: "",
+      location: ""
   });
+      // Bio: '',
+      // Img: '',
+      // name: '',
+      // Email: '',
+      // Phone: '',
+      // Location: '',
+      // Payment_Appointment: '',
+      // Password:'',
+
   useEffect(() => {
-      axios(`https://retoolapi.dev/EBWb8G/Doctors/${id}`)
+      axios(`http://127.0.0.1:8000/doctors/${id}/`)
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
-
   }, [id]);
 
+        // "username": "mahmoudsaleh",
+        // "name": "mahmoudundefined",
+        // "age": 27,
+        // "image": null,
+        // "experience": 0,
+        // "gender": "M",
+        // "phone": "+20",
+        // "location": "None"
 
 const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -289,7 +306,7 @@ const Select_About = ()=>{
              <>
              <>
              <div className='row '>
-                     <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2" >Frequantly Asked Quastion</h4>
+              <h4 class="text-start"type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample2" >Frequantly Asked Quastion</h4>
              </div>
              <hr></hr>
              <div class="col-12">
@@ -363,14 +380,63 @@ const Select_Appon = ()=>{
 }
 
 
-//_______    Handell  Appoinment Save      _____________________________________________________________
+//_______    Handell  Delete Account    _____________________________________________________________
+// const updatePatientInfo = () => {
+//   axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
+//     .then((res) => console.log(res.data))
+//     .catch((err) => console.log(err));
+// };
+// const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
+// const toggleEditProfile = () => {
+//   const data=(
+//     <div className='container m-5'>
+//       <EditUserPage userId={id}
+//       updatePatientInfo={updatePatientInfo} />
+//   </div>
+//   )
+//   setIsEditProfileOpen(data);
+//   setAppointment(null)
+//   setAboutData(null)
+//   setExperienceData(null)
+//   setLocationData(null)
+//   setRatingData(null)
+// };
+
 //_____________________________________________________________________________________________________
+// const handleShowModal = () => setShowModal(true);
+// const handleCloseModal = () => setShowModal(false);
+
+// const handleDeleteAccount = () => {
+//   axios
+//     .delete(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
+//     .then((response) => {
+//       console.log("Account deleted successfully:", response.data);
+//       setDeleteConfirmed(true);
+//       handleCloseModal();
+//       window.location.href = "/confirmation-page"; 
+//     })
+//     .catch((error) => {
+//       console.error("Error deleting account:", error);
+//     });
+// };
+
 //________________________________________________________________________________________________
+
+const [showModal1, setShowModal1] = useState(false);
+const handleOpenModal = () => {
+  setShowModal1(true);
+};
+
+const handleCloseModal = () => {
+  setShowModal1(false);
+};
+const history= useHistory()
 const handleDeleteAccount = () => {
   axios
-  .delete(`https://retoolapi.dev/EBWb8G/Doctors/${ doctorInfo.id}`)
+  .delete(`http://127.0.0.1:8000/doctors/${ doctorInfo.id}/`)
     .then(response => {
       console.log('Account deleted successfully:', response.data);
+      history.push('/')
     })
     .catch(error => {
       console.error('Error deleting account:', error);
@@ -378,14 +444,14 @@ const handleDeleteAccount = () => {
 };
 //______________________________________________________________________________________
 useEffect(() => {
-  axios.get(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`)
+  axios.get(`http://127.0.0.1:8000/doctors/${parseInt(id)}/`)
     .then(response => {
       setDoctorInfo(response.data);
     })
     .catch(error => {
       console.error('Error fetching user data:', error);
     });
-}, [id]);
+}, []);
 const handleChange = (e) => {
   const { name, value } = e.target;
   setDoctorInfo(prevData => ({
@@ -395,7 +461,7 @@ const handleChange = (e) => {
 };
 const handleSubmit = (e) => {
   e.preventDefault();
-  axios.patch(`https://retoolapi.dev/EBWb8G/Doctors/${doctorInfo.id}`, doctorInfo)
+  axios.patch(`http://127.0.0.1:8000/doctors/${doctorInfo.id}/`, doctorInfo)
     .then(response => {
       console.log('User data updated successfully:', response.data);
     })
@@ -407,7 +473,184 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
-    
+<EditUserPage
+ userId={doctorInfo}
+ ></EditUserPage>
+  </div>
+  )
+  setIsEditProfileOpen(data);
+  setAppointment(null)
+  setAboutData(null)
+  setExperienceData(null)
+  setLocationData(null)
+  setRatingData(null)
+};
+//___________________________________________________________________
+
+//__________________________________________________________________________________________________________________
+
+//________________________________________________________________________________
+const [userData, setUserData] = useState(null);
+useEffect(() => {
+  // Retrieve user data from session storage
+  const storedUserData = sessionStorage.getItem('userData');
+  if (storedUserData) {
+    setUserData(JSON.parse(storedUserData));
+  }
+}, []);
+//_______________________________________________________________________________________________________
+  return ( 
+              <>
+            <div className="container-fluid">
+                    <div><br/><br/><br/><br/>
+                    </div>
+                            <div className="row" style={{background:"#03974D"}}>
+                                <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
+                                    <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
+                                {/* {doctorInfo.Rating} */}
+                                </div>
+                                <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
+                                    <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                      <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
+                                        <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
+                                    </div> 
+                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                                </div>
+                            </div> 
+                            <div className="row docgradient">
+                                <div className="col-1"></div>
+                                <div className="col-7">
+                                    <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                            <div class="navbar-nav bg-white d-flex justify-content-center" > 
+                                                <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                                <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                                <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
+                                                <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
+                                                <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
+                                                <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
+                                                <DropdownButton
+                                                  id="dropdown-basic-button"
+                                                  title="Settings"
+                                                  variant="success"
+                                                  className="mx-2"
+                                                >
+                                                <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                                                <Dropdown.Item >
+                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
+                                               </Dropdown.Item>
+                                                </DropdownButton>
+                                                      )}
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete Account</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                      Are You Sure You Want To delete Account ?
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+
+                                <div className="col-4"></div>
+                            </div> 
+                    <div>
+            </div>
+            </div>
+            <div className="container mt-5 d-flex justify-content-center" id='Data'>
+            {locationData}
+            {ExperienceData}
+            {RatingData}
+            {AboutData}
+            {Appointment}
+            {isEditProfileOpen}
+            </div>
+            </>       
+  );
+}
+export default DoctorDetails;
+
+{/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div> */}
+
+
+// <div className="container">
+    //   <form onSubmit={handleSubmit}>
+    //     <div className="mb-3">
+    //       <label className="form-label">Name</label>
+    //       <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label className="form-label">Email</label>
+    //       <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label className="form-label">Phone</label>
+    //       <input type="text" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label className="form-label">Location</label>
+    //       <input type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)} />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label className="form-label">Start Date</label>
+    //       <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+    //     </div>
+    //     <div className="mb-3">
+    //       <label className="form-label">Payment Appointment</label>
+    //       <select className="form-select" value={paymentAppointment} onChange={(e) => setPaymentAppointment(e.target.value)}>
+    //         <option value="debit">Debit</option>
+    //         <option value="credit">Credit</option>
+    //       </select>
+    //     </div>
+    //     <button type="submit" className="btn btn-primary">Submit</button>
+    //   </form>
+    // </div>
     {/* <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.5s">
     <h1>Edit User</h1>
   <div class="bg-light rounded h-100 d-flex align-items-center p-5 ">
@@ -463,135 +706,6 @@ const toggleEditProfile = () => {
     </form>
   </div>
 </div> */}
-
-<EditUserPage userId={doctorInfo.id}></EditUserPage>
-  </div>
-  )
-  setIsEditProfileOpen(data);
-  setAppointment(null)
-  setAboutData(null)
-  setExperienceData(null)
-  setLocationData(null)
-  setRatingData(null)
-};
-//___________________________________________________________________
-
-//__________________________________________________________________________________________________________________
-
-//________________________________________________________________________________
-const [userData, setUserData] = useState(null);
-useEffect(() => {
-  // Retrieve user data from session storage
-  const storedUserData = sessionStorage.getItem('userData');
-  if (storedUserData) {
-    setUserData(JSON.parse(storedUserData));
-  }
-}, []);
-//_______________________________________________________________________________________________________
-  return ( 
-              <>
-            <div className="container-fluid">
-                    <div><br/><br/><br/><br/>
-                    </div>
-                            <div className="row" style={{background:"#03974D"}}>
-                                <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-                                    <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                                {doctorInfo.Rating}
-                                </div>
-                                <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
-                                    <h1 style={{Color:"white"}}> Dr. {doctorInfo.Doctor_Name}</h1>
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                      <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                                        <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
-                                    </div> 
-                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
-                                </div>
-                            </div> 
-                            <div className="row docgradient">
-                                <div className="col-1"></div>
-                                <div className="col-7">
-                                    <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
-                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
-                                        </button>
-                                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                            <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                                <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
-                                                <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
-                                                <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
-                                                <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
-                                                <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
-                                                <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
-                                                <DropdownButton
-                                                  id="dropdown-basic-button"
-                                                  title="Settings"
-                                                  variant="success"
-                                                  className="mx-2"
-                                                >
-                                                  <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                                                  <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
-                                                </DropdownButton>
-                                                      )}
-                                            </div>
-                                        </div>
-                                    </nav>
-                                </div>
-
-                                <div className="col-4"></div>
-                            </div> 
-                    <div>
-            </div>
-            </div>
-            <div className="container mt-5 d-flex justify-content-center" id='Data'>
-            {locationData}
-            {ExperienceData}
-            {RatingData}
-            {AboutData}
-            {Appointment}
-            {isEditProfileOpen}
-            </div>
-            </>       
-  );
-}
-export default DoctorDetails;
-
-
-
-
-// <div className="container">
-    //   <form onSubmit={handleSubmit}>
-    //     <div className="mb-3">
-    //       <label className="form-label">Name</label>
-    //       <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
-    //     </div>
-    //     <div className="mb-3">
-    //       <label className="form-label">Email</label>
-    //       <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-    //     </div>
-    //     <div className="mb-3">
-    //       <label className="form-label">Phone</label>
-    //       <input type="text" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} />
-    //     </div>
-    //     <div className="mb-3">
-    //       <label className="form-label">Location</label>
-    //       <input type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)} />
-    //     </div>
-    //     <div className="mb-3">
-    //       <label className="form-label">Start Date</label>
-    //       <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-    //     </div>
-    //     <div className="mb-3">
-    //       <label className="form-label">Payment Appointment</label>
-    //       <select className="form-select" value={paymentAppointment} onChange={(e) => setPaymentAppointment(e.target.value)}>
-    //         <option value="debit">Debit</option>
-    //         <option value="credit">Credit</option>
-    //       </select>
-    //     </div>
-    //     <button type="submit" className="btn btn-primary">Submit</button>
-    //   </form>
-    // </div>
-
 
 
 

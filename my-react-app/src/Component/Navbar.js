@@ -8,28 +8,29 @@ import "./CSS/Navbar.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
-  const[login,setlogin]=useState(true)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
   const storedId = sessionStorage.getItem('userData') ;
-  const userDatas = JSON.parse(storedId);
+  const userDatas = JSON.parse(storedId); 
+  const[join,setjoin]=useState('')
+
   if(userDatas){
-      var User_id = userDatas.id;
+   var User_id = userDatas.id;
   }
+  const [login, setLogin] = useState(userData !== null);
+
   const[userDataLoged,setuserDataLoged]=useState('')
   useEffect(() => {
+    
     axios(`https://retoolapi.dev/T6Ye0M/users/${User_id}`)
         .then((res) => setuserDataLoged(res.data))
         .catch((err) => console.log(err))
-        .finally(
-          setlogin(false)
-        )
 }, []);
 
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
-  setlogin(false)
+  setLogin(!login)
   history.push('/')
   axios
   .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
@@ -72,13 +73,19 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
+<<<<<<< HEAD
             {!login ? (
+=======
+            {login ? ( 
+              <Link to='/'>
+               <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
+              </Link>  
+              ):(
+>>>>>>> main
               <Link to='/login'>
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
-              </Link>
-              ):(
-              <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
-          )}
+              </Link> 
+            )}
           </Nav>
           </Navbar.Collapse>
         </Container>

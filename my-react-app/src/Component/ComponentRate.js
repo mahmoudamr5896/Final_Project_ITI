@@ -8,8 +8,9 @@ function ReviewComponent({ doctorInfo }) {
     const rating = parseInt(event.target.getAttribute('name'));
     setSelectedRating(rating);
   };
-    console.log(selectedRating)
-    const handleReview = (event) => {
+console.log(selectedRating)
+
+const handleReview = (event) => {
       event.preventDefault();
           const stars = '⭐️'.repeat(selectedRating);
           const reviewData = {
@@ -28,7 +29,7 @@ function ReviewComponent({ doctorInfo }) {
         });
     };
 
-  // const handleReview = (event) => {
+// const handleReview = (event) => {
   //   event.preventDefault();
   //    const reviewData = {
   //         "Rate": ('⭐️' * selectedRating )

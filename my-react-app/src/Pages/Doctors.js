@@ -19,8 +19,8 @@ const DoctorsPage = () => {
     }, [currentPage, searchName, searchLocation]); 
 
     const fetchData = async () => {
-        try {
-            const response = await axios.get('https://retoolapi.dev/EBWb8G/Doctors');
+        try {    //https://retoolapi.dev/EBWb8G/Doctors
+            const response = await axios.get('http://127.0.0.1:8000/doctors/?');
             setDoctors(response.data);
             setLoading(false);
         } catch (error) {
@@ -133,7 +133,7 @@ const Handel_Card =()=>{
                 {Islist ? (
                 currentDoctors.map((doctor, index) => (
                     <DoctorProfileCard
-                    dname={doctor.Doctor_Name}
+                    dname={doctor.name}
                     dPhone={doctor.Phone}
                     dLocation={doctor.Location}
                     id={doctor.id}   
