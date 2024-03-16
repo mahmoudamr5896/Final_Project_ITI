@@ -60,8 +60,6 @@ function RegsNut() {
     setErrors(newErrors);
   };
 
-
-
   const[id_,setid_]=useState()
   useEffect(() => {
     axios(`https://retoolapi.dev/EBWb8G/Doctors`)
@@ -97,17 +95,7 @@ function RegsNut() {
           last_name : formData.lastName,
           role : "doctor"
         };
-  
-        // "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            // "Email": formData.email,
-            // "Image": "audio.mp3",
-            // "Phone": "(555) 820-9259",
-            // "Gender": "Male ",
-            // "Rating": "⭐️⭐️⭐️⭐️",
-            // "Location": "Muncie, Indiana, United States",
-            // "Password": formData.password,
-            // "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
-            // "Payment_Appointment": "Invoice" 
+
       
 axios
 .post('http://127.0.0.1:8000/users/', Nwew_user)
@@ -235,3 +223,14 @@ console.error('Error posting Doctor:', error);
 }
 
 export default RegsNut;
+  
+        // "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            // "Email": formData.email,
+            // "Image": "audio.mp3",
+            // "Phone": "(555) 820-9259",
+            // "Gender": "Male ",
+            // "Rating": "⭐️⭐️⭐️⭐️",
+            // "Location": "Muncie, Indiana, United States",
+            // "Password": formData.password,
+            // "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
+            // "Payment_Appointment": "Invoice" 

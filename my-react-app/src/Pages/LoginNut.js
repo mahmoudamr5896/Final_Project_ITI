@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import './Css/Reg.css';
 import axios from 'axios';
 import bcrypt from 'bcryptjs'; // Import bcrypt library for password hashing
+import { checkPassword } from 'bcryptjs'; // Assuming you have bcryptjs installed
 
 function LoginNut() {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ useEffect(() => {
       .then((res) => setAcceptUser(res.data))
       .catch((err) => console.log(err));
 }, []);
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   // Check if username exists
   const existingUser = AcceptUser.find(user => user.username === formData.emailOrUsername);
@@ -49,22 +50,7 @@ const handleSubmit = (e) => {
     console.log('User not found');
     return;
   }
-  if (existingUser) {
-    axios.get('http://127.0.0.1:8000/doctors/')
-      .then(response => {
-        const doctors = response.data;
-        const doctor = doctors.find(d => d.username === existingUser.username);
-        if (doctor) {
-          console.log(doctor);
-          history.push(`/dashboard/${doctor.id}`);
-        } else {
-          console.log('Doctor not found');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching doctors:', error);
-      });
-  }
+ 
 
   // bcrypt.compare(formData.password, existingUser.password, (err, result) => {
   //   if (err) {
@@ -78,6 +64,38 @@ const handleSubmit = (e) => {
   //     console.log('Incorrect password');
   //   }
   // });
+  const hashedPassword = existingUser.password;
+  
+  try {
+    // Compare the provided password with the hashed password
+    const passwordMatch = await bcrypt.compare(formData.password, hashedPassword);
+    
+    if (passwordMatch) {
+      console.log('Login successful'); 
+      if (existingUser) {
+        axios.get('http://127.0.0.1:8000/doctors/')
+          .then(response => {
+            const doctors = response.data;
+            const doctor = doctors.find(d => d.username === existingUser.username);
+            if (doctor) {
+              console.log(doctor);
+              history.push(`/dashboard/${doctor.id}`);
+    
+            } else {
+              console.log('Doctor not found');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching doctors:', error);
+          });
+      }
+      // Redirect to dashboard or perform other actions
+    } else {
+      console.log('Incorrect password');
+    }
+  } catch (error) {
+    console.error('Error comparing passwords:', error);
+  }
 
 };
 
