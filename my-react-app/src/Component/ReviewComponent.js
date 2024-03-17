@@ -6,24 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import Pagination from './Pagination';
 
-function ReviewSection({ doctorId }) {
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Status <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+function ReviewSection({ doctorId }){
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
-  const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Add deleteConfirmation state
-  
-  
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [showModal, setshowModal] = useState(false);
   const [userData, setUserData] = useState(null);
-
   const [selectedRating, setSelectedRating] = useState(0);
-  const [newReview, setNewReview] = useState({});
   const [newReviewText, setNewReviewText] = useState('');
   const [selectedReview, setSelectedReview] = useState(null);
-  
-  //>>>>>>>>>>>>>>>>>>>>>>>>> Hadel Pagginition <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const [newRating, setNewRating] = useState(0);
+  const [error, setError] = useState(null);
+
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -31,7 +26,7 @@ function ReviewSection({ doctorId }) {
   useEffect(() => {
     if (doctorId) {
       axios
-        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}&_page=${currentPage}&_limit=${reviewsPerPage}`)
+        .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}&page=${currentPage}`)
         .then(response => {
           setReviews(response.data);
         })
@@ -41,12 +36,9 @@ function ReviewSection({ doctorId }) {
     }
   }, [doctorId, currentPage, reviewsPerPage]);
 
-  const Total = Math.ceil(reviews.length / reviewsPerPage);
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Delete <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleDeleteReview = (reviewId) => {
     axios
-      .delete(`https://retoolapi.dev/NJuvHL/Reviews/${reviewId}`)
+      .delete(`http://127.0.0.1:8000/reviews-all/${reviewId}/`)
       .then(response => {
         console.log('Review deleted successfully:', response.data);
         setReviews(prevReviews => prevReviews.filter(review => review.id !== reviewId));
@@ -56,7 +48,6 @@ function ReviewSection({ doctorId }) {
       });
   };
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Handel Session Sorage <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
@@ -69,11 +60,10 @@ function ReviewSection({ doctorId }) {
     console.log(Id);
   }
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Handel Get Reviews <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   useEffect(() => {
     if (doctorId) {
       axios
-        .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
+        .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}`)
         .then(response => {
           setReviews(response.data);
         })
@@ -83,31 +73,29 @@ function ReviewSection({ doctorId }) {
     }
   }, [doctorId]);
 
-
   const handleEditReview = (review) => {
     setSelectedReview(review);
     setNewReviewText(review.Review);
     setNewRating(review.Rate);
   };
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>      Handel Update Review  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   const handleUpdateReview = () => {
     if (!selectedReview) return;
 
+    if (newReviewText.length < 10 || /^\d/.test(newReviewText)) {
+      setError('The review cannot start with a number and must be at least 10 characters long.');
+      return;
+    }
+
     axios
-      .put(`https://retoolapi.dev/NJuvHL/Reviews/${selectedReview.id}`, {
+      .put(`http://127.0.0.1:8000/reviews-all/${selectedReview.id}/`, {
         Review: newReviewText,
-        Rate: '⭐️'.repeat(newRating),
-        Review: newReviewText,
-        User_id: selectedReview.User_id,
-        Doctor_id: selectedReview.Doctor_id,
-        User_name: selectedReview.Uswer_Name,
-        Doctor_Name: selectedReview.Doctor_Name,
+        Rate: newRating,
       })
       .then(response => {
         console.log('Review updated successfully:', response.data);
         axios
-          .get(`https://retoolapi.dev/NJuvHL/Reviews?Doctor_id=${doctorId}`)
+          .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}`)
           .then(response => {
             setReviews(response.data);
           })
@@ -123,18 +111,9 @@ function ReviewSection({ doctorId }) {
     setNewRating(0);
   };
 
-  useEffect(() => {
-    const storedUserData = sessionStorage.getItem('userData');
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
-
-
   const openEditModal = () => {
     setshowModal(false);
   };
- 
 
   const handleChange_rate = (event) => {
     const rating = parseInt(event.target.getAttribute('name'));
@@ -143,210 +122,133 @@ function ReviewSection({ doctorId }) {
 
   const handleNameChange = (event) => {
     const inputReview = event.target.value;
-    setNewReview(inputReview);
+    setNewReviewText(inputReview);
   };
-
 
   return (
     <div className="container mt-5">
-       <style>
-        {`
- .star-container {
-  margin-top: 1rem;
-}
+      {reviews.map(review => (
+        <div className="d-flex justify-content-center row" key={review.id}>
+          <div className="col-md-8">
+            <div className="d-flex border flex-column comment-section m-2">
+              <div className="bg-white p-2">
+                <h5 style={{ textAlign: 'center' }}>{review.User_Name}</h5>
+                  <span className="date text-black-50" style={{ textAlign: 'center' }}>
+                    {Array.from({ length: review.Rate }, (_, index) => (
+                      <span key={index}>⭐️</span>
+                    ))}
+                    <p className="font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</p>
+                  </span>
+               
 
-.star {
-  font-size: 1.5rem;
-  color: gray;
-  cursor: pointer;
-}
 
-.star.checked {
-  color: gold;
-}
-        `}
-      </style>
-            {reviews.map(review => (
-                <div className="d-flex justify-content-center row" key={review.id}>
-                  <div className="col-md-8">
-                    <div className="d-flex border flex-column comment-section m-2">
-                          <div className="bg-white p-2">
-                                <h6 style={{ textAlign: 'center' }}>{review.Uswer_Name}</h6>
-                                <div className="d-flex flex-row user-info">
-                                        <div className="d-flex flex-column justify-content-center ml-2">
-                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
-                                                      <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
-                                                      <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
-                                        </div>
-                                </div>
-                                          <div className="mt-2">
-                                                 <p className="comment-text">{review.comment}</p>
-                                                  {userData && userData.role === 'Patient' && Id === review.User_id && (
-                                                        <Dropdown alignRight>
-                                                            <Dropdown.Toggle style={{
-                                                                  textDecoration: 'none',
-                                                                  fontWeight: 'bold',
-                                                                  float: 'right',
-                                                                  color: 'black',
-                                                                  top: '30px'
-                                                                }} variant="link" id="dropdown-basic">
-                                                                  ...
-                                                              </Dropdown.Toggle>
+                <div className="mt-2">
+                  <p className="comment-text">{review.comment}</p>
+                  {userData && userData.role === 'Patient' && Id === review.User_id && (
+                    <Dropdown alignRight>
+                      <Dropdown.Toggle style={{
+                        textDecoration: 'none',
+                        fontWeight: 'bold',
+                        float: 'right',
+                        color: 'black',
+                        top: '30px'
+                      }} variant="link" id="dropdown-basic">
+                        ...
+                      </Dropdown.Toggle>
 
-                                                                            <style>
-                                                                              {`
-                                                                      .dropdown-toggle::after {
-                                                                        display: none;
-                                                                      }
-                                                                    `}
-                                                                            </style>
-                                                          <Dropdown.Menu>
-                                                            <span>
-                                                              <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
-                                                                <FontAwesomeIcon icon={faTrash} /> Delete
-                                                              </Dropdown.Item>
-                                                            </span>
-                                                            <hr></hr>
-                                                            <Dropdown.Item onClick={() => handleEditReview(review)}>
-                                                              <FontAwesomeIcon icon={faPenToSquare} /> Edit
-                                                            </Dropdown.Item>
-                                                          </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    )}
-                                          </div>
-                          </div>
-                      </div>
-                              {deleteConfirmation && (
-                                                      <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
-                                                            <div className="modal-dialog">
-                                                                    <div className="modal-content">
-                                                                          <div className="modal-header">
-                                                                            <h5 className="modal-title" id="deleteReviewModal">Delete Review</h5>
-                                                                            <button type="button" className="btn-close" aria-label="Close" onClick={() => setDeleteConfirmation(false)}></button>
-                                                                          </div>
-                                                                          <div className="modal-body">
-                                                                            Are you sure you want to delete this review?
-                                                                          </div>
-                                                                          <div className="modal-footer">
-                                                                            <button type="button" className="btn btn-secondary" onClick={() => setDeleteConfirmation(false)}>Cancel</button>
-                                                                            <button type="button" className="btn btn-danger" onClick={() => { handleDeleteReview(review.id); setDeleteConfirmation(false); }}>Delete</button>
-                                                                          </div>
-                                                                    </div>
-                                                            </div>
-                                                      </div>
-                                )}
-                                {selectedReview && (
-                                  <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
-                                                          <div className="modal-dialog">
-                                                                <div className="modal-content">
-                                                                  <div className="modal-header">
-                                                                    <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
-                                                                    <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
-                                                                  </div>
-                                                                  <div className="modal-body">
-                                                                    <div className="mb-3">
-                                                                      <label htmlFor="reviewText" className="form-label">Review Text</label>
-                                                                      <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
-                                                                    </div>
-                                                                    <div className="mb-3">
-                                                                      <label htmlFor="rating" className="form-label">New Rating</label><br></br>
-                                                                      {[1, 2, 3, 4, 5].map((star) => (
-                                                                              <i 
-                                                                                  key={star} 
-                                                                                  className={`fas fa-star ${star <= newRating ? 'checked' : ''}`} 
-                                                                                  onClick={() => setNewRating(star)}
-                                                                              ></i>
-                                                                          ))}
-                                                                      <br />
-                                                                      <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
-                                                                  </div>
-                           
-                                                          </div> 
-                                                          <div className="modal-footer">
-                                                            <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
-                                                            <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                      </div>
-                                  )}
+                      <style>
+                        {`
+                .dropdown-toggle::after {
+                  display: none;
+                }
+              `}
+                      </style>
+
+                      <Dropdown.Menu>
+                        <span>
+                          <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
+                            <FontAwesomeIcon icon={faTrash} /> Delete
+                          </Dropdown.Item>
+                        </span>
+                        <hr></hr>
+                        <Dropdown.Item onClick={() => handleEditReview(review)}>
+                          <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {deleteConfirmation && (
+              <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="deleteReviewModal">Delete Review</h5>
+                      <button type="button" className="btn-close" aria-label="Close" onClick={() => setDeleteConfirmation(false)}></button>
+                    </div>
+                    <div className="modal-body">
+                      Are you sure you want to delete this review?
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={() => setDeleteConfirmation(false)}>Cancel</button>
+                      <button type="button" className="btn btn-danger" onClick={() => { handleDeleteReview(review.id); setDeleteConfirmation(false); }}>Delete</button>
+                    </div>
                   </div>
                 </div>
-            ))}
-            <Pagination
-              currentPage={currentPage}
-              onPageChange={onPageChange}
-            />
+              </div>
+            )}
+
+            {selectedReview && (
+              <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="editReviewModal">Edit Review</h5>
+                      <button type="button" className="btn-close" aria-label="Close" onClick={() => setSelectedReview(null)}></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="mb-3">
+                        <label htmlFor="reviewText" className="form-label">Review Text</label>
+                        <textarea className="form-control" id="reviewText" value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+                        {error && (
+                          <div className="alert alert-danger" role="alert">
+                            {error}
+                          </div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="rating" className="form-label">New Rating</label>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <i
+                            key={star}
+                            className={`fas fa-star ${star <= newRating ? 'checked' : ''}`}
+                            onClick={() => setNewRating(star)}
+                          ></i>
+                        ))}
+                        <br />
+                        <p>You rated {newRating} star{newRating !== 1 ? 's' : ''}</p>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" onClick={() => setSelectedReview(null)}>Close</button>
+                      <button type="button" className="btn btn-primary" onClick={handleUpdateReview}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+      // totalPages={Total} 
+      />
     </div>
   );
 }
-
 export default ReviewSection;
-
-
-
-
-
-
-             {/* <input min={1} max={5} type="number" className="form-control" id="rating" value={newRating} onChange={(e) => setNewRating(parseInt(e.target.value))}></input> */}
-                                              {/* <div className="mb-3">
-                                                <label htmlFor="rating" className="form-label">Rating</label>
-                                                <input min={1} max={5} type="number" className="form-control" id="rating" value={(newRating.length/2)} onChange={(e) => setNewRating(e.target.value)}></input>
-                                              </div>*/}
-
-              // totalPages={Total} // Calculate total pages based on total reviews
-
-
-
-
-{/* {showModal && ( */ }
-{/* <div>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Review</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <form>
-                          <div className="col-12 border mt-4">
-                                <h5 className="text-start pt-3">Leave a review</h5>
-                                <div className="mt-4">
-                                  <i className={`fas fa-star ${selectedRating >= 1 ? 'checked' : ''}`} name='1' onClick={handleChange_rate}></i>
-                                  <i className={`fas fa-star ${selectedRating >= 2 ? 'checked' : ''}`} name='2' onClick={handleChange_rate}></i>
-                                  <i className={`fas fa-star ${selectedRating >= 3 ? 'checked' : ''}`} name='3' onClick={handleChange_rate}></i>
-                                  <i className={`fas fa-star ${selectedRating >= 4 ? 'checked' : ''}`} name='4' onClick={handleChange_rate}></i>
-                                  <i className={`fas fa-star ${selectedRating >= 5 ? 'checked' : ''}`} name='5' onClick={handleChange_rate}></i>
-                                  <br/>
-                                  <p>You rated {selectedRating} star{selectedRating !== 1 ? 's' : ''}</p>
-                                </div>
-                                <p className="text-start">How was your experience with Dr.{} </p> 
-                                <div className="d-flex pb-4">
-                                  <input
-                                    className="form-control me-2"
-                                    type="text"
-                                    onChange={handleNameChange}
-                                    placeholder="Leave Review ..."
-                                    value={review}
-                                  />
-                                </div>
-                              </div>
-
-
-                        
-                          </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save Review</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-             </div> */}
-
-
-
-
-

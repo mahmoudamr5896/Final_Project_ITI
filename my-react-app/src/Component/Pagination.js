@@ -4,7 +4,18 @@ import { Link } from 'react-router-dom';
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const generatePageNumbers = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const maxPagesToShow = 3; // Change this value to adjust the number of pages to show
+
+    // Calculate the start and end page numbers based on the current page
+    let startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
+    let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+
+    // Adjust the start page if necessary to always show the desired number of pages
+    if (endPage - startPage + 1 < maxPagesToShow) {
+      startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
     return pages;

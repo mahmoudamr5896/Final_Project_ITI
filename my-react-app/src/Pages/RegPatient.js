@@ -82,7 +82,7 @@ function Regspatien() {
         last_name: formData.lastName,
         role: "patient"
       };
-
+ 
       axios
         .post('http://127.0.0.1:8000/users/', newUser)
         .then(response => {

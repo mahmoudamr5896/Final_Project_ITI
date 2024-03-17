@@ -14,15 +14,17 @@ const  CustomNavbar= ()=> {
   const storedId = sessionStorage.getItem('userData') ;
   const userDatas = JSON.parse(storedId); 
   const[join,setjoin]=useState('')
-
   if(userDatas){
    var User_id = userDatas.id;
   }
-  const [login, setLogin] = useState(userData !== null);
+  console.log(storedId)
+  const [login, setLogin] = useState(null);
+  useEffect(()=>{
+    setLogin(userDatas !== null)
+  },[storedId])
 
   const[userDataLoged,setuserDataLoged]=useState('')
   useEffect(() => {
-    
     axios(`https://retoolapi.dev/T6Ye0M/users/${User_id}`)
         .then((res) => setuserDataLoged(res.data))
         .catch((err) => console.log(err))
@@ -32,15 +34,15 @@ const  CustomNavbar= ()=> {
   sessionStorage.removeItem('userData');
   setLogin(!login)
   history.push('/')
-  axios
-  .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
-   { "Active": false })
-  .then(response => {
-    console.log('Active status updated successfully for user with id:', User_id);
-  })
-  .catch(error => {
-    console.error('Error updating Active status for user with id:', User_id, error);
-  });
+  // axios
+  // .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
+  //  { "Active": false })
+  // .then(response => {
+  //   console.log('Active status updated successfully for user with id:', User_id);
+  // })
+  // .catch(error => {
+  //   console.error('Error updating Active status for user with id:', User_id, error);
+  // });
 } 
 
 
@@ -73,7 +75,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {!login ? (
+            {login ? (
               <Link to='/'>
                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
               </Link>  

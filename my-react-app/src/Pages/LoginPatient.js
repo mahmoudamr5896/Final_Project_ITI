@@ -94,24 +94,24 @@ const handleSubmit = async (e) => {
                     console.log("Successfully updated user data in session storage for user with id:", doctor.id);
             
                     } else {
-                      console.log('Patient not found');
+                      setError('Patient not found');
                     }
                   })
                   .catch(error => {
-                    console.error('Error fetching doctors:', error);
+                    setError('Error fetching Patient:', error);
                   });
               }
       // Save the authToken in local storage or state for future requests
   } catch (error) {
       if (error.response) {
           // The request was made and the server responded with a status code
-          console.log(error.response.data.error || 'Failed to login');
+          setError(error.response.data.error || 'Failed to login');
       } else if (error.request) {
           // The request was made but no response was received
-          console.log('Network error occurred');
+          setError('Network error occurred');
       } else {
           // Other errors
-          console.log('An error occurred');
+          setError('An error occurred');
       }
   }
 };
@@ -151,6 +151,7 @@ const handleSubmit = async (e) => {
                   <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
                 </div>
                 <button type="submit">Login</button>
+                <p className='text-danger'>{error}</p>
               </form>
               <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegPat')} className='btn btn-promary' style={{color:'blue'}}>Sign Up</button></p>
             </div>
