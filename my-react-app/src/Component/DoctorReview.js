@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
+
 function DoctorReview({ doctor , User }) {
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(0);
 
- if(User & doctor){
-  setError('Please Log in First')
- }
+  useEffect(() => {
+    if (!User || !doctor) {
+      setError('Please Log in First');
+    }
+  }, [User, doctor]);
 
   const handleNameChange = (event) => {
     const inputReview = event.target.value;
@@ -14,11 +18,10 @@ function DoctorReview({ doctor , User }) {
   };
 
   const handleReview = async (event) => {
-
     event.preventDefault();
-    const stars = '⭐️'.repeat(selectedRating);
+    // const stars = '⭐️'.repeat(selectedRating);
     const reviewData = {
-      Rate: stars,
+      Rate: selectedRating,
       Review: newReview,
       User_id: User.id,
       Doctor_id: doctor.id,
@@ -31,14 +34,8 @@ function DoctorReview({ doctor , User }) {
       return;
     }
 
-    const apiKey = 'id';
-    console.log(reviewData);
     try {
-      const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      });
+      const response = await axios.post('http://127.0.0.1:8000/reviews-all/', reviewData);
       console.log('Review posted successfully:', response.data);
       setNewReview('');
       setSelectedRating(0);
@@ -47,49 +44,23 @@ function DoctorReview({ doctor , User }) {
       console.error('Error posting review:', error);
       setError('Error posting review');
     }
-  };
+  }; 
   
-  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.......
-  const [selectedRating, setSelectedRating] = useState(0);
-  // const handleChange_rate = (event) => {
-  //   const rating = parseInt(event.target.getAttribute('name'));
-  //   setSelectedRating(rating);
-  // };
   const handleChange_rate = (event) => {
     const rating = parseInt(event.target.getAttribute('name'));
-    if (rating === 5) {
-      setSelectedRating(5); 
-    } else {
-      setSelectedRating(rating);
-    }
+    setSelectedRating(rating);
   };
 
   return (
     <div className="col-12 border mt-4">
-      <style>
-        {`
- .star-container {
-  margin-top: 1rem;
-}
-
-.star {
-  font-size: 1.5rem;
-  color: gray;
-  cursor: pointer;
-}
-
-.star.checked {
-  color: gold;
-}
-        `}
-      </style>
       <h5 className="text-start pt-3">Leave a review</h5>
       <div className="mt-4">
-      <i className={`fas fa-star star ${selectedRating >= 1 ? 'checked' : ''}`} name='1' onClick={handleChange_rate}></i>
-  <i className={`fas fa-star star ${selectedRating >= 2 ? 'checked' : ''}`} name='2' onClick={handleChange_rate}></i>
-  <i className={`fas fa-star star ${selectedRating >= 3 ? 'checked' : ''}`} name='3' onClick={handleChange_rate}></i>
-  <i className={`fas fa-star star ${selectedRating >= 4 ? 'checked' : ''}`} name='4' onClick={handleChange_rate}></i>
-  <i className={`fas fa-star star ${selectedRating >= 5 ? 'checked' : ''}`} name='5' onClick={handleChange_rate}></i><br/>
+        <i className={`fas fa-star ${selectedRating >= 1 ? 'checked' : ''}`} name='1' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 2 ? 'checked' : ''}`} name='2' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 3 ? 'checked' : ''}`} name='3' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 4 ? 'checked' : ''}`} name='4' onClick={handleChange_rate}></i>
+        <i className={`fas fa-star ${selectedRating >= 5 ? 'checked' : ''}`} name='5' onClick={handleChange_rate}></i>
+        <br/>
         <p>You rated {selectedRating} star{selectedRating !== 1 ? 's' : ''}</p>
       </div>
       <p className="text-start">How was your experience with Dr.{doctor.name} </p> 
