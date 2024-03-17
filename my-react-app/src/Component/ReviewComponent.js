@@ -90,7 +90,7 @@ function ReviewSection({ doctorId }) {
     axios
       .put(`http://127.0.0.1:8000/reviews-all/${selectedReview.id}/`, {
         Review: newReviewText,
-        Rate: '⭐️'.repeat(newRating),
+        Rate: newRating,
       })
       .then(response => {
         console.log('Review updated successfully:', response.data);
@@ -125,8 +125,6 @@ function ReviewSection({ doctorId }) {
     setNewReviewText(inputReview);
   };
 
-  const Total = Math.ceil(reviews.length / reviewsPerPage);
-
   return (
     <div className="container mt-5">
       {reviews.map(review => (
@@ -135,18 +133,14 @@ function ReviewSection({ doctorId }) {
             <div className="d-flex border flex-column comment-section m-2">
               <div className="bg-white p-2">
                 <h6 style={{ textAlign: 'center' }}>{review.User_Name}</h6>
-                <div className="d-flex flex-row user-info">
+                <div className="d-flex flex-row user-info" style={{ textAlign: 'center' }}>
                   <div className="d-flex flex-column justify-content-center ml-2">
-                    <span className="date text-black-50" style={{ textAlign: 'center' }}>{review.Rate}</span>
+                    <span className="date text-black-50" style={{ textAlign: 'center' }}>
+                      {Array.from({ length: review.Rate }, (_, index) => (
+                        <span key={index}>⭐️</span>
+                      ))}
+                    </span>
                     <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Doctor_id}</span>
-
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Doctor_name}</span>---
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.User_id}</span>
-
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.User_name}</span>
-
-                    <span className="date text-black-50" style={{ textAlign: 'center' }}> {review.date}</span>
                   </div>
                 </div>
                 <div className="mt-2">
