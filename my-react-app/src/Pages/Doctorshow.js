@@ -15,7 +15,6 @@ import EditDoctorPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
 import { Modal } from "react-bootstrap";
-
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 import ReviewComponent from '../Component/ComponentRate'
@@ -65,33 +64,32 @@ const [newReview, setNewReview] = useState('');
     setNewReview(inputReview);
   };
 
-  const handleReview = async (event) => {
-    event.preventDefault();
-    const reviewData = {
-      Rate: '⭐️⭐️⭐️',
-      Review: newReview,
-      User_id: 1,
-      Doctor_id: null, // Assuming you don't have doctorInfo, set this to null
-      User_name: 'mahmoud',
-      Doctor_Name: 'Dr. Example', // Replace 'Dr. Example' with the actual name of the doctor
-    };
-    const apiKey = 'id';
-    console.log(reviewData);
-    try {
-      const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      });
-      console.log('Review posted successfully:', response.data);
-      setNewReview('');
-      setError(null);
-    } catch (error) {
-      console.error('Error posting review:', error);
-      setError('Error posting review');
-    }
-  };
-
+  // const handleReview = async (event) => {
+  //   event.preventDefault();
+  //   const reviewData = {
+  //     Rate: '⭐️⭐️⭐️',
+  //     Review: newReview,
+  //     User_id: 1,
+  //     Doctor_id: null, // Assuming you don't have doctorInfo, set this to null
+  //     User_name: 'mahmoud',
+  //     Doctor_Name: 'Dr. Example', // Replace 'Dr. Example' with the actual name of the doctor
+  //   };
+  //   const apiKey = 'id';
+  //   console.log(reviewData);
+  //   try {
+  //     const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
+  //       headers: {
+  //         Authorization: `Bearer ${apiKey}`,
+  //       },
+  //     });
+  //     console.log('Review posted successfully:', response.data);
+  //     setNewReview('');
+  //     setError(null);
+  //   } catch (error) {
+  //     console.error('Error posting review:', error);
+  //     setError('Error posting review');
+  //   }
+  // };
 //_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
@@ -191,6 +189,7 @@ if(userDatas){
 // handel review _____________________________________________________________________________________________
 const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
+
 let data = (
  <div className="container row d-flex mt-5" style={{width:'80%'}}>
      <div className="col-6">
@@ -227,7 +226,6 @@ let data = (
          </CommentSection>
        <hr>
        </hr>
-       
       </div>
     
      </div>
@@ -236,9 +234,7 @@ let data = (
      doctor={doctorInfo}
      User={userDatas}
      />
-
  </div>
- 
   )
 setIsEditProfileOpen(null);
 setRatingData(data)

@@ -14,11 +14,14 @@ const  CustomNavbar= ()=> {
   const storedId = sessionStorage.getItem('userData') ;
   const userDatas = JSON.parse(storedId); 
   const[join,setjoin]=useState('')
-
   if(userDatas){
    var User_id = userDatas.id;
   }
-  const [login, setLogin] = useState(userData !== null);
+  console.log(storedId)
+  const [login, setLogin] = useState(null);
+  useEffect(()=>{
+    setLogin(userDatas !== null)
+  },[storedId])
 
   const[userDataLoged,setuserDataLoged]=useState('')
   useEffect(() => {
@@ -72,7 +75,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {!login ? (
+            {login ? (
               <Link to='/'>
                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
               </Link>  
