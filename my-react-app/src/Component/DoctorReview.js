@@ -89,7 +89,7 @@ function DoctorReview({ doctor , User }) {
           {error}
         </div>
       )}
-    </div>
+      </div>
  
   );
 }
