@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import './Css/Reg.css';
 import axios from 'axios';
 import bcrypt from 'bcryptjs'; // Import bcrypt library for password hashing
-import { checkPassword } from 'bcryptjs'; // Assuming you have bcryptjs installed
+
+
 
 function LoginNut() {
   const [formData, setFormData] = useState({
