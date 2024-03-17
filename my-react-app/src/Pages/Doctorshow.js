@@ -11,7 +11,7 @@ import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
-// import EditDoctorPage from '../Component/CompnentFormEditDoctor'
+import EditDoctorPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
 import { Modal } from "react-bootstrap";
@@ -430,12 +430,27 @@ const handleOpenModal = () => {
 const handleCloseModal = () => {
   setShowModal1(false);
 };
+const[userDel,setUserDel]=useState([])
+useEffect(() => {
+  axios(`http://127.0.0.1:8000/users/`)
+      .then((res) => setUserDel(res.data))
+      .catch((err) => console.log(err));
+}, [id]);
+
+const User = userDel.find((d)=> d.username === doctorInfo.username )
+console.log(User)
 const history= useHistory()
 const handleDeleteAccount = () => {
   axios
   .delete(`http://127.0.0.1:8000/doctors/${ doctorInfo.id}/`)
     .then(response => {
       console.log('Account deleted successfully:', response.data);
+      axios
+    .delete(`http://127.0.0.1:8000/users/${User.id}/`)
+    .then(res =>{
+      console.log('Delete user',res)
+    })
+      sessionStorage.removeItem('userData');
       history.push('/')
     })
     .catch(error => {
@@ -473,9 +488,9 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
-{/* <EditUserPage
+<EditDoctorPage
  userId={doctorInfo}
- ></EditUserPage> */}
+ ></EditDoctorPage>
   </div>
   )
   setIsEditProfileOpen(data);

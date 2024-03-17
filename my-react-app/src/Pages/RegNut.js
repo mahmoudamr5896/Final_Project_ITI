@@ -121,9 +121,9 @@ axios
 
 const Doctor={
   username : formData.userName,
-  name : formData.firstName + formData.last_name,
+  name : `${formData.firstName} ${formData.last_name}`,
   age: 27,
-  image: null,
+  image: '',
   experience: 0,
   gender: "M",
   phone: "+20",

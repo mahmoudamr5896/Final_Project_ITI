@@ -22,7 +22,6 @@ const  CustomNavbar= ()=> {
 
   const[userDataLoged,setuserDataLoged]=useState('')
   useEffect(() => {
-    
     axios(`https://retoolapi.dev/T6Ye0M/users/${User_id}`)
         .then((res) => setuserDataLoged(res.data))
         .catch((err) => console.log(err))
@@ -32,15 +31,15 @@ const  CustomNavbar= ()=> {
   sessionStorage.removeItem('userData');
   setLogin(!login)
   history.push('/')
-  axios
-  .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
-   { "Active": false })
-  .then(response => {
-    console.log('Active status updated successfully for user with id:', User_id);
-  })
-  .catch(error => {
-    console.error('Error updating Active status for user with id:', User_id, error);
-  });
+  // axios
+  // .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
+  //  { "Active": false })
+  // .then(response => {
+  //   console.log('Active status updated successfully for user with id:', User_id);
+  // })
+  // .catch(error => {
+  //   console.error('Error updating Active status for user with id:', User_id, error);
+  // });
 } 
 
 
