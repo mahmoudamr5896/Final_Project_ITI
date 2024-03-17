@@ -16,7 +16,7 @@ function DoctorAppointmentsTable({ id }) {
 
   useEffect(() => {
     if (id) {
-      axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
+      axios.get(`http://127.0.0.1:8000/appointments/`)
         .then(response => {
           setAppointments(response.data);
         })
@@ -37,7 +37,7 @@ function DoctorAppointmentsTable({ id }) {
     setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentId));
 
     // Make a request to your backend API to add the approved appointment
-    axios.post('https://retoolapi.dev/2jV2W1/AcceptedAppointment', appointmentToApprove)
+    axios.post('http://127.0.0.1:8000/appointments/', appointmentToApprove)
       .then(response => {
         console.log('Appointment approved and added to Accepted Appointments:', response.data);
       })
@@ -111,10 +111,10 @@ function DoctorAppointmentsTable({ id }) {
             <tbody>
               {currentAppointments.map(appointment => (
                 <tr key={appointment.id}>
-                  <td>{appointment.NameUser}</td>
-                  <td>{appointment.User_Phone}</td>
-                  <td>{appointment.DateAppointment}</td>
-                  <td>{appointment.problemDescription}</td>
+                  <td>{appointment.doctor_name}</td>
+                  <td>{appointment.doctor_phone}</td>
+                  <td>{appointment.date_time}</td>
+                  <td>{appointment.problems}</td>
                   <td>
                     <Button variant="success" onClick={() => handleApprove(appointment.id)}>Approve</Button>
                     <Button variant="danger" onClick={() => handleReject(appointment.id)}>Reject</Button>
@@ -159,7 +159,6 @@ function DoctorAppointmentsTable({ id }) {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Phone</th>
             <th>Date</th>
             <th>Case</th>
           </tr>
@@ -167,10 +166,10 @@ function DoctorAppointmentsTable({ id }) {
         <tbody>
           {acceptedAppointments.map(appointment => (
             <tr key={appointment.id}>
-              <td>{appointment.NameUser}</td>
-              <td>{appointment.User_Phone}</td>
-              <td>{appointment.DateAppointment}</td>
-              <td>{appointment.problemDescription}</td>
+              <td>{appointment.doctor_name}</td>
+              <td>{appointment.doctor_phone}</td>
+              <td>{appointment.date_time}</td>
+              <td>{appointment.problems}</td>
             </tr>
           ))}
         </tbody>
