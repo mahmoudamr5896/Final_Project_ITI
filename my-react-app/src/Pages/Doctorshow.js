@@ -11,7 +11,7 @@ import CommentSection from '../Component/ReviewComponent'
 import AppointmentRequestCard from '../Component/RequastApp'
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import CheckoutForm from '../Component/CheekoutForm'
-import EditUserPage from '../Component/CompnentFormEditDoctor'
+// import EditDoctorPage from '../Component/CompnentFormEditDoctor'
 import AppointmentForm from '../Component/AppiontmentDoctors'
 import DoctorReview from '../Component/DoctorReview';
 import { Modal } from "react-bootstrap";
@@ -473,9 +473,9 @@ const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
     <div className='container m-5'>
-<EditUserPage
+{/* <EditUserPage
  userId={doctorInfo}
- ></EditUserPage>
+ ></EditUserPage> */}
   </div>
   )
   setIsEditProfileOpen(data);

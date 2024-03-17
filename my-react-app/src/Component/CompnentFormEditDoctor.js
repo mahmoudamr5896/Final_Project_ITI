@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function EditUserPage({ userId }) {
+function EditDoctorPage({ userId }) {
   const [userData, setUserData] = useState({
     id:'',
     username: '',
@@ -57,7 +57,7 @@ function EditUserPage({ userId }) {
 
   return (
     <div className='container m-5'>
-      <h1>Edit User</h1>
+      <h1>Edit Doctor Profile</h1>
       <form onSubmit={handleSubmit} action='PATCH'>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">Username:</label>
@@ -97,4 +97,4 @@ function EditUserPage({ userId }) {
   );
 }
 
-export default EditUserPage;
+export default EditDoctorPage;

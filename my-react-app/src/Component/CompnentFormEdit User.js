@@ -71,7 +71,7 @@ function EditUserPage({ userId }) {
 
   return (
     <div className='container m-5'>
-      <h1>Edit User</h1>
+      <h1>Edit Profile  User</h1>
       <form onSubmit={handleSubmit}>
       <div className="mb-3">
           <label htmlFor="Name" className="form-label">Name:</label>
