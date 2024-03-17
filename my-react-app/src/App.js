@@ -25,6 +25,11 @@ function App() {
         <Switch>
         <Route exact path={`/user/:id`}
           component={PatientDetails}/>
+<<<<<<< HEAD
+=======
+        <Route exact path='/form'
+          component={EditUserPage}/> 
+>>>>>>> origin/nardeen_3
           <Route exact path='/'
           component={HomePage}/>
           <Route exact path='/profile' 
