@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
-
+import BMICalculator from '../Component/BMI'
 function PatientDetails() {
   const history = useHistory();
   const { id } = useParams();
@@ -47,17 +47,24 @@ function PatientDetails() {
       .then((res) => setAppointmentInfo(res.data[0]))
       .catch((err) => console.log(err));
   }, [id]);
+//_________________________________________________________________
+const [bmi, setBMI] = useState(null);
 
   const toggleInformation = () => {
+    const heightInMeters =patientInfo.height / 100;
+const bmiValue = patientInfo.weight / (heightInMeters * heightInMeters);
+setBMI(bmiValue.toFixed(2));
     setShowInformation(true);
     setShowAppointment(false);
     setShowEditProfile(false);
+    setMealplan(null)
   };
 
   const toggleAppointment = () => {
     setShowInformation(false);
     setShowAppointment(true);
     setShowEditProfile(false);
+    setMealplan(null)
   };
 
   const toggleEditProfile = () => {
@@ -103,7 +110,23 @@ function PatientDetails() {
       alert('Error deleting account: ' + error.message);
     });
   };
-  
+//__________________________________________________________________________________________________
+const[Mealplan,setMealplan]=useState(null)
+const toggleMealplan =()=>{
+const data=(
+  <div className="mt-5">
+<BMICalculator
+
+>
+</BMICalculator>
+  </div >
+)
+setMealplan(data)
+setShowInformation(false);
+setShowAppointment(false);
+setShowEditProfile(false);
+
+}
   
   return (
     <>
@@ -130,7 +153,7 @@ function PatientDetails() {
               <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div className="navbar-nav bg-white d-flex justify-content-center">
                   <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
-                  <button className="nav-link mx-2"><h6 style={{ color: "green" }}>Meal Plan</h6></button>
+                  <button className="nav-link mx-2"><h6 style={{ color: "green" }} onClick={toggleMealplan}>Meal Plan</h6></button>
                   <button className="nav-link mx-2"><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
                   <button className="nav-link mx-2" onClick={toggleAppointment}><h6 style={{ color: "green" }}>Appointment</h6></button>
                   <DropdownButton
@@ -158,7 +181,7 @@ function PatientDetails() {
               <div className="col-lg-4 col-md-12 border border-success rounded-4 p-2 text-start">
                 <h1 className="text-center text-success">Information</h1><hr/><br/>
                 <div className="table-responsive">
-                  <table className="table table-striped">
+                  <table className="table table-striped table-success ">
                     <tbody>
                       <tr>
                         <th scope="row">Name</th>
@@ -187,6 +210,10 @@ function PatientDetails() {
                       <tr>
                         <th scope="row">Height</th>
                         <td>{patientInfo.height}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">BMI</th>
+                        <td>{bmi}</td>
                       </tr>
                    
                     </tbody>
@@ -238,7 +265,7 @@ function PatientDetails() {
           </div>
         </div>
       )}
-
+       {Mealplan}
       {/* Render Appointment Section */}
       {showAppointment && (
         <div className="container mt-5 d-flex justify-content-center" id='Data'>

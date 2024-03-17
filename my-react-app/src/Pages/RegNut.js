@@ -68,7 +68,7 @@ function RegsNut() {
         .then((res) => setid_(res.data))
         .catch((err) => console.log(err));
   }, []);
-
+  const [error, setError] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
@@ -85,7 +85,7 @@ function RegsNut() {
       console.log('Form submitted:', formData);
       const user_n = id_.find((user) => user.Email === formData.email );
       if(user_n){
-           console.log("This Email Is Exites")
+           setError("This Email Is Exites")
       }else{
         // Navigate to login page
         history.push('/logNut');
@@ -115,7 +115,7 @@ axios
     console.log('Doctor posted successfully:', response.data);
   })
   .catch(error => {
-    console.error('Error posting Doctor:', error);
+    setError('Error posting Doctor:', error);
   });  
 };
 
@@ -135,7 +135,7 @@ axios
 console.log('Doctor posted successfully:', response.data);
 })
 .catch(error => {
-console.error('Error posting Doctor:', error);
+setError('Error posting Doctor:', error);
 }); 
 
 
@@ -222,6 +222,7 @@ console.error('Error posting Doctor:', error);
                 <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
               </div>
               <button type="submit">Sign Up</button>
+              <p className='text-danger'>{error}</p>
             </form>
             <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/logNut')}  className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
           </div>
