@@ -29,7 +29,7 @@ function App() {
         <Route exact path={`/user/:id`}
           component={PatientDetails}/>
         <Route exact path='/form'
-          component={EditUserPage}/>
+          component={EditUserPage}/> 
           <Route exact path='/'
           component={HomePage}/>
           <Route exact path='/profile' 
