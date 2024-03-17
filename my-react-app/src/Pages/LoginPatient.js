@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
                     console.log("Successfully updated user data in session storage for user with id:", doctor.id);
             
                     } else {
-                      console.log('Doctor not found');
+                      console.log('Patient not found');
                     }
                   })
                   .catch(error => {

@@ -89,11 +89,12 @@ function Regspatien() {
           console.log('User posted successfully:', response.data);
           // Proceed with posting patient data only if user creation was successful
           const newPatient = {
+            id:'',
             username: formData.userName,
             name: `${formData.firstName} ${formData.lastName}`,
             age: 0,
             weight: 0, // Make sure this field is provided in the form
-            image: null,
+            image: '',
             height: 0,
             gender: "M",
             phone: "+20",
