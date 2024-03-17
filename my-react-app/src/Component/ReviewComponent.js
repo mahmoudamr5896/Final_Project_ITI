@@ -26,7 +26,7 @@ function ReviewSection({ doctorId }) {
   useEffect(() => {
     if (doctorId) {
       axios
-        .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}`)
+        .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}&page=${currentPage}`)
         .then(response => {
           setReviews(response.data);
         })
@@ -132,17 +132,16 @@ function ReviewSection({ doctorId }) {
           <div className="col-md-8">
             <div className="d-flex border flex-column comment-section m-2">
               <div className="bg-white p-2">
-                <h6 style={{ textAlign: 'center' }}>{review.User_Name}</h6>
-                <div className="d-flex flex-row user-info" style={{ textAlign: 'center' }}>
-                  <div className="d-flex flex-column justify-content-center ml-2">
-                    <span className="date text-black-50" style={{ textAlign: 'center' }}>
-                      {Array.from({ length: review.Rate }, (_, index) => (
-                        <span key={index}>⭐️</span>
-                      ))}
-                    </span>
-                    <span className="d-block font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</span>
-                  </div>
-                </div>
+                <h5 style={{ textAlign: 'center' }}>{review.User_Name}</h5>
+                  <span className="date text-black-50" style={{ textAlign: 'center' }}>
+                    {Array.from({ length: review.Rate }, (_, index) => (
+                      <span key={index}>⭐️</span>
+                    ))}
+                    <p className="font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</p>
+                  </span>
+               
+
+
                 <div className="mt-2">
                   <p className="comment-text">{review.comment}</p>
                   {userData && userData.role === 'Patient' && Id === review.User_id && (
@@ -244,11 +243,11 @@ function ReviewSection({ doctorId }) {
           </div>
         </div>
       ))}
-      {/* <Pagination
+      <Pagination
         currentPage={currentPage}
-        // onPageChange={onPageChange}
-        totalPages={Total} // Assuming you have the total pages available
-      /> */}
+        onPageChange={onPageChange}
+      // totalPages={Total} 
+      />
     </div>
   );
 }

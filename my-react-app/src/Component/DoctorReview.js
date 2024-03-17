@@ -42,7 +42,7 @@ function DoctorReview({ doctor , User }) {
       setError(null);
     } catch (error) {
       console.error('Error posting review:', error);
-      setError('Error posting review');
+      setError('Please add rate too');
     }
   }; 
   
