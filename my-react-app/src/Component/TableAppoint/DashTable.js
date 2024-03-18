@@ -220,9 +220,11 @@ setSelect_Appiont(null)
           <Button variant="primary" onClick={handleModalSubmit}>Submit</Button>
         </Modal.Footer>
       </Modal>
-          {Select_Appiont_a}
+      <div className='mb-5'>
+            {Select_Appiont_a}
           {Select_Appiont}
-
+      </div  >
+      
     </div>
   );
 }

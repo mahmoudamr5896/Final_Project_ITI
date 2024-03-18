@@ -48,10 +48,19 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
   const HandelChangeAppontmentPatient = (e) => {
     setDataAppointment({ ...DataAppointment, patient: e.target.value });
   };
-
+const[date,setdate]=useState()
   const HandleChangeAppointmentDate = (e) => {
-    setDataAppointment({ ...DataAppointment, date_time: e.target.value });
+    const selectedDateTime = new Date(e.target.value);
+    const currentDate = new Date();
+        if (selectedDateTime <= currentDate) {
+      setDataAppointment({ ...DataAppointment, date_time: '' });
+      console.log('Selected date and time must be after the current date.');
+      setdate('Set Valid Date-Time')
+    } else {
+      setDataAppointment({ ...DataAppointment, date_time: e.target.value });
+    }
   };
+  
 
   const HandelChangeAppontmentProps = (e) => {
     setDataAppointment({ ...DataAppointment, problems: e.target.value });
@@ -130,6 +139,7 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
                       onChange={HandleChangeAppointmentDate}
                       value={DataAppointment.date_time}
                     />
+                    <p className="text-danger">{date}</p>
                     <textarea
                       className="form-control border-0"
                       rows="5"

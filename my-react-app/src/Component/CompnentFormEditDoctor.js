@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useHistory ,useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 function EditDoctorPage({ userId }) {
   const [userData, setUserData] = useState({
     id:'',
@@ -13,15 +13,6 @@ function EditDoctorPage({ userId }) {
     phone: '',
     location: ''
   });
-  // "id": 1,
-  // "username": "mahmoudamr",
-  // "name": "mahmoud",
-  // "age": 23,
-  // "image": null,
-  // "experience": 2,
-  // "gender": "M",
-  // "phone": "01060860534",
-  // "location": "cairo"
 
   useEffect(() => {
     if (!userId) return;
@@ -41,13 +32,35 @@ function EditDoctorPage({ userId }) {
       [name]: value
     }));
   };
+const location = useLocation()
+const[Error,setError]=useState()
+  const handleSubmit = (e) => {  
+  // Basic validation
+  if (!userData.username.trim()) {
+    setError('Please enter a username.');
+    return;
+  }
+  
+  if (!userData.name.trim()) {
+    setError('Please enter a name.');
+    return;
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  if (userData.age <= 0) {
+    setError('Please enter a valid age.');
+    return;
+  }
+  const PhoneRegex = /^\+?[1-9]\d{1,14}$/;
+
+
+  if (!userData.phone.trim() || !PhoneRegex.test(userData.phone)) {
+    setError('Please enter a valid phone number.');
+    return;
+  }
+
     console.log(userData)
     axios.put(`http://127.0.0.1:8000/doctors/${userData.id}/`, userData)
       .then(response => {
-
         console.log('User data updated successfully:', response.data);
       })
       .catch(error => {
@@ -58,11 +71,11 @@ function EditDoctorPage({ userId }) {
   return (
     <div className='container m-5'>
       <h1>Edit Doctor Profile</h1>
-      <form onSubmit={handleSubmit} action='PATCH'>
-        <div className="mb-3">
+      <form onSubmit={handleSubmit} >
+        {/* <div className="mb-3">
           <label htmlFor="username" className="form-label">Username:</label>
           <input type="text" id="username" name="username" className="form-control" value={userData.username} onChange={handleChange} />
-        </div>
+        </div> */}
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name:</label>
           <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
@@ -73,7 +86,7 @@ function EditDoctorPage({ userId }) {
         </div>
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Image:</label>
-          <input type="text" id="image" name="image" className="form-control" value={userData.image} onChange={handleChange} />
+          <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
         </div>
         <div className="mb-3">
           <label htmlFor="experience" className="form-label">Experience:</label>
@@ -81,7 +94,11 @@ function EditDoctorPage({ userId }) {
         </div>
         <div className="mb-3">
           <label htmlFor="gender" className="form-label">Gender:</label>
-          <input type="text" id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange} />
+          <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
+            <option value="">Select Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
         </div>
         <div className="mb-3">
           <label htmlFor="phone" className="form-label">Phone:</label>
@@ -91,6 +108,7 @@ function EditDoctorPage({ userId }) {
           <label htmlFor="location" className="form-label">Location:</label>
           <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
         </div>
+        <p className='text-danger'>{Error}</p>
         <button type="submit" className="btn btn-primary">Save Changes</button>
       </form>
     </div>
@@ -98,3 +116,12 @@ function EditDoctorPage({ userId }) {
 }
 
 export default EditDoctorPage;
+  // "id": 1,
+  // "username": "mahmoudamr",
+  // "name": "mahmoud",
+  // "age": 23,
+  // "image": null,
+  // "experience": 2,
+  // "gender": "M",
+  // "phone": "01060860534",
+  // "location": "cairo"
