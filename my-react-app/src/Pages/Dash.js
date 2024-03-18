@@ -26,13 +26,13 @@ function Dash() {
         <DashTableCont
          id={id}
         ></DashTableCont>
-        <ProgressChart
+        {/* <ProgressChart
         id={id}
-        ></ProgressChart>
+        ></ProgressChart> */}
         <div>
-          <Reviews
+          {/* <Reviews
 
-          ></Reviews>
+          ></Reviews> */}
           
         </div>
        

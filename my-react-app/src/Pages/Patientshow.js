@@ -127,6 +127,34 @@ setShowAppointment(false);
 setShowEditProfile(false);
 
 }
+//________________________________________________________________________________
+// Appointment Rejected 
+const[Appointments,setAppointments]=useState([])
+const[Appointments_r,setAppointments_r]=useState([])
+useEffect(() => {
+  if (id) {
+    axios.get(`http://127.0.0.1:8000/appointments/`)
+      .then(response => {
+        // Filter appointments with status true
+        const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.patient == id);
+        setAppointments(filteredAppointments);
+      })
+      .catch(error => {
+        console.error('Error fetching appointments:', error);
+      });
+    axios.get(`http://127.0.0.1:8000/appointments/`)
+      .then(response => {
+        // Filter appointments with status true
+        const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.patient == id && appointment.Reasone_reject !=  'none');
+        setAppointments_r(filteredAppointments);
+      })
+      .catch(error => {
+        console.error('Error fetching appointments:', error);
+      });
+
+    
+  }
+}, [id]);
   
   return (
     <>
@@ -268,12 +296,29 @@ setShowEditProfile(false);
        {Mealplan}
       {/* Render Appointment Section */}
       {showAppointment && (
-        <div className="container mt-5 d-flex justify-content-center" id='Data'>
-          <div className="container">
-            {/* Render Appointment Details */}
-          </div>
-        </div>
-      )}
+  <div className="container mt-5 d-flex justify-content-center" id='Data'>
+    <div className="container">
+      {Appointments.map((item) => {
+      
+        return   <>
+        <p>Docor Name :{item.doctor_name}</p> 
+        <p>Date :{item.date_time}</p> 
+              <p className="text-success">accepted</p>
+        </>
+      })}
+      {Appointments_r.map((item) => {
+      
+        return   <>
+        <p>Doctor Name: {item.doctor_name}</p> 
+        <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+        <p className="text-danger">Rejected</p>
+        </>
+      })}
+
+    </div>
+  </div>
+)}
+
 
       {showEditProfile && (
         <div className="container mt-5 d-flex justify-content-center" id='Data'>

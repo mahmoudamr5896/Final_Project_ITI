@@ -10,7 +10,8 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
     patient: '',
     date_time: '',
     problems: '',
-    status: false
+    status: false,
+    Reasone_reject:'none'
   });
 
   const [patients, setPatients] = useState([]);

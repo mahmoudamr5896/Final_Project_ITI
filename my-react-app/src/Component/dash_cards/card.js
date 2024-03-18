@@ -33,7 +33,6 @@ const Cards = ({id}) => {
   axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
   .then(response => {
     const numberOfAppointments = response.data.length;
-     setAppointmentsCount(numberOfAppointments)
   })
   .catch(error => {
     console.error('Error fetching appointments:', error);
@@ -47,6 +46,21 @@ const Cards = ({id}) => {
   .catch(error => {
     console.error('Error fetching appointments:', error);
   });
+
+//____________________________________________________________________________________
+useEffect(() => {
+  if (id) {
+    axios.get(`http://127.0.0.1:8000/appointments/`)
+      .then(response => {
+        // Filter appointments with status true
+        const filteredAppointments = response.data.filter(appointment => appointment.status === true);
+        setAppointmentsCount(filteredAppointments.length);
+      })
+      .catch(error => {
+        console.error('Error fetching appointments:', error);
+      });
+  }
+}, [id]);
 
   return (
     <div>
