@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'; 
+import { Container, Row, Col } from 'react-bootstrap';
 import './Css/Reg.css';
 
 function RegsNut() {
@@ -13,7 +12,8 @@ function RegsNut() {
     userName: '',
     email: '',
     password: '',
-    repeatPassword: ''
+    repeatPassword: '',
+    image: null, // Add state for image
   });
 
   const [errors, setErrors] = useState({
@@ -22,14 +22,14 @@ function RegsNut() {
     userName: '',
     email: '',
     password: '',
-    repeatPassword: ''
+    repeatPassword: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
 
     const newErrors = { ...errors };
@@ -60,182 +60,188 @@ function RegsNut() {
     setErrors(newErrors);
   };
 
-
-
-  const[id_,setid_]=useState()
+  const [id_, setid_] = useState([]);
   useEffect(() => {
-    axios(`https://retoolapi.dev/EBWb8G/Doctors`)
-        .then((res) => setid_(res.data))
-        .catch((err) => console.log(err));
+    axios('https://retoolapi.dev/EBWb8G/Doctors')
+      .then((res) => setid_(res.data))
+      .catch((err) => console.log(err));
   }, []);
+
   const [error, setError] = useState('');
+
+  // const handleImageChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     image: e.target.files[0], // Set the selected image file
+  //   });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = { ...errors };
-    Object.keys(formData).forEach(key => {
-      if (formData[key].trim() === '') {
+    Object.keys(formData).forEach((key) => {
+      const value = formData[key];
+      if (typeof value === 'string' && value.trim() === '') {
         newErrors[key] = `Please enter your ${key}`;
       }
     });
-
-    if (Object.values(newErrors).some(error => error !== '')) {
+  
+    if (Object.values(newErrors).some((error) => error !== '')) {
       setErrors(newErrors);
       console.log('Validation failed');
     } else {
       console.log('Form submitted:', formData);
-      const user_n = id_.find((user) => user.Email === formData.email );
-      if(user_n){
-           setError("This Email Is Exites")
-      }else{
-        // Navigate to login page
-        history.push('/logNut');
-        const Nwew_user ={
-          username : formData.userName,
-          password:formData.password,
-          email : formData.email,
-          first_name : formData.firstName,
-          last_name : formData.lastName,
-          role : "doctor"
-        };
   
-        // "Bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            // "Email": formData.email,
-            // "Image": "audio.mp3",
-            // "Phone": "(555) 820-9259",
-            // "Gender": "Male ",
-            // "Rating": "⭐️⭐️⭐️⭐️",
-            // "Location": "Muncie, Indiana, United States",
-            // "Password": formData.password,
-            // "Doctor_Name": `${formData.firstName} ${formData.lastName}`,
-            // "Payment_Appointment": "Invoice" 
-      
-axios
-.post('http://127.0.0.1:8000/users/', Nwew_user)
-  .then(response => {
-    console.log('Doctor posted successfully:', response.data);
-  })
-  .catch(error => {
-    setError('Error posting Doctor:', error);
-  });  
-};
-
-const Doctor={
-  username : formData.userName,
-  name : `${formData.firstName} ${formData.last_name}`,
-  age: 0,
-  image: 'png.1',
-  experience: 0,
-  gender: "M",
-  phone: "+20",
-  location: "None"
-}
-axios
-.post('http://127.0.0.1:8000/doctors/', Doctor)
-.then(response => {
-console.log('Doctor posted successfully:', response.data);
-})
-.catch(error => {
-setError('Error posting Doctor:', error);
-}); 
-
-
+      const user_n = id_.find((user) => user.Email === formData.email);
+      if (user_n) {
+        setError('This Email Is Exites');
+      } else {
+        const postData = new FormData();
+        postData.append('username', formData.userName);
+        postData.append('password', formData.password);
+        postData.append('email', formData.email);
+        postData.append('first_name', formData.firstName);
+        postData.append('last_name', formData.lastName);
+        postData.append('role', 'doctor');
+        postData.append('image', formData.image); // Append image file to FormData
+  
+        axios
+          .post('http://127.0.0.1:8000/users/', postData)
+          .then((response) => {
+            console.log('User posted successfully:', response.data);
+            // Create doctor after user creation
+            const Doctor = {
+              username: formData.userName,
+              name: `${formData.firstName} ${formData.lastName}`,
+              age: 0,
+              image: formData.image, // Placeholder for now, replace with actual image URL or file
+              experience: 0,
+              gender: 'M',
+              phone: '+20',
+              location: 'None',
+            };
+  
+            axios
+              .post('http://127.0.0.1:8000/doctors/', Doctor ,{headers:{'Content-Type':'multipart/form-data'},})
+              .then((response) => {
+                console.log('Doctor posted successfully:', response.data);
+                // Navigate to login page
+                history.push('/logNut');
+              })
+              .catch((error) => {
+                setError('Error posting Doctor:', error);
+              });
+          })
+          .catch((error) => {
+            setError('Error posting User:', error);
+          });
+      }
     }
   };
+  
 
+            
 
   return (
-    <div style={{marginTop:'100px'}}> 
-      <Container >
-      <Row>
-        <Col md={6} className="photo-column">
-          <img src="nutr3.jpg" alt="User" className="user-photo" style={{ marginBottom: "20%", height: "100%", marginTop: "20%" }} />
-        </Col>
-        <Col md={6} className="form">
-          <div className="containerForm">
-            <form onSubmit={handleSubmit} className="signup-form">
-              <h2>Sign Up</h2>
-              <p>Join us To be one of the most successful nutritionists </p>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="text-input"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.firstName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="text-input"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.lastName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="text-input"
-                  name="userName"
-                  placeholder="Username"
-                  value={formData.userName}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.userName}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className='email-input'
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.email}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className='password-input'
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className='password-input'
-                  name="repeatPassword"
-                  placeholder="Repeat Password"
-                  value={formData.repeatPassword}
-                  onChange={handleChange}
-                />
-                <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
-              </div>
-              <button type="submit">Sign Up</button>
-              <p className='text-danger'>{error}</p>
-            </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Already have an account? <button onClick={() => history.push('/logNut')}  className='btn btn-promary' style={{color:'blue'}}>Login</button></p>
-          </div>
-        </Col>
-      </Row>
-    </Container>
-
+    <div style={{ marginTop: '100px' }}>
+      <Container>
+        <Row>
+          <Col md={6} className="photo-column">
+            <img src="nutr3.jpg" alt="User" className="user-photo" style={{ marginBottom: '20%', height: '100%', marginTop: '20%' }} />
+          </Col>
+          <Col md={6} className="form">
+            <div className="containerForm">
+              <form onSubmit={handleSubmit} className="signup-form">
+                <h2>Sign Up</h2>
+                <p>Join us To be one of the most successful nutritionists </p>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="firstName"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.firstName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.lastName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="text-input"
+                    name="userName"
+                    placeholder="Username"
+                    value={formData.userName}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.userName}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className='email-input'
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.email}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className='password-input'
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className='password-input'
+                    name="repeatPassword"
+                    placeholder="Repeat Password"
+                    value={formData.repeatPassword}
+                    onChange={handleChange}
+                  />
+                  <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
+                </div>
+                <div className="form-group">
+                  <input type="file" name="image" onChange={handleChange} />
+                </div>
+                <button type="submit">Sign Up</button>
+                <p className="text-danger">{error}</p>
+              </form>
+              <p style={{ textAlign: 'center', marginTop: '20px' }}>
+                Already have an account?{' '}
+                <button onClick={() => history.push('/logNut')} className="btn btn-promary" style={{ color: 'blue' }}>
+                  Login
+                </button>
+              </p>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
- 
   );
 }
 
 export default RegsNut;
+
 
 
 
