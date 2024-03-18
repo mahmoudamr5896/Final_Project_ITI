@@ -70,20 +70,6 @@ export default DoctorProfileCard;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //         <div className="d-flex flex-row border mb-2 p-5 ">        
 //<img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
 

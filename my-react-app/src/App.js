@@ -20,6 +20,7 @@ import PatientDetails from './Pages/Patientshow';
 import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
 import Editmsg from './Pages/Editmsg';
+import NotFound from './Pages/NotFound';
 function App() {
   return (
     <div className="App">
@@ -54,8 +55,13 @@ function App() {
           component={Dash}/>
           <Route exact path='/Editmsg'
           component={Editmsg}/>
+        
+        <Route exact path={"*"} 
+          component={NotFound} />
         </Switch>
+        
         <Footer/>
+
         </BrowserRouter>  
           
     </div>
