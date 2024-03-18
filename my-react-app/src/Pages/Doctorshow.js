@@ -364,6 +364,7 @@ const Select_Appon = ()=>{
     <AppointmentForm 
     doctorInfo={doctorInfo}
     UserR_id={User_id} 
+    doc_id={doctorInfo.id}
     ></AppointmentForm>
 
  )
