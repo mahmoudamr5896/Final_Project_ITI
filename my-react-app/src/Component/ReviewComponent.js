@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Modal from './Modal';
 import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import Pagination from './Pagination';
 
-function ReviewSection({ doctorId }){
+function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(3);
@@ -18,47 +17,6 @@ function ReviewSection({ doctorId }){
   const [selectedReview, setSelectedReview] = useState(null);
   const [newRating, setNewRating] = useState(0);
   const [error, setError] = useState(null);
-
-  const onPageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    if (doctorId) {
-      axios
-        .get(`http://127.0.0.1:8000/reviews-all/?doctor_id=${doctorId}&page=${currentPage}`)
-        .then(response => {
-          setReviews(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching reviews:', error);
-        });
-    }
-  }, [doctorId, currentPage, reviewsPerPage]);
-
-  const handleDeleteReview = (reviewId) => {
-    axios
-      .delete(`http://127.0.0.1:8000/reviews-all/${reviewId}/`)
-      .then(response => {
-        console.log('Review deleted successfully:', response.data);
-        setReviews(prevReviews => prevReviews.filter(review => review.id !== reviewId));
-      })
-      .catch(error => {
-        console.error('Error deleting review:', error);
-      });
-  };
-
-  useEffect(() => {
-    const storedUserData = sessionStorage.getItem('userData');
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-    }
-  }, []);
-
-  if (userData) {
-    var Id = userData.id;
-    console.log(Id);
-  }
 
   useEffect(() => {
     if (doctorId) {
@@ -73,6 +31,26 @@ function ReviewSection({ doctorId }){
     }
   }, [doctorId]);
 
+  useEffect(() => {
+    const storedUserData = sessionStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
+
+  const handleDeleteReview = (reviewId) => {
+    axios
+      .delete(`http://127.0.0.1:8000/reviews-all/${reviewId}/`)
+      .then(response => {
+        console.log('Review deleted successfully:', response.data);
+        setReviews(prevReviews => prevReviews.filter(review => review.id !== reviewId));
+        console.log(reviewId)
+      })
+      .catch(error => {
+        console.error('Error deleting review:', error);
+      });
+  };
+
   const handleEditReview = (review) => {
     setSelectedReview(review);
     setNewReviewText(review.Review);
@@ -86,7 +64,6 @@ function ReviewSection({ doctorId }){
       setError('The review cannot start with a number and must be at least 10 characters long.');
       return;
     }
-
     axios
       .put(`http://127.0.0.1:8000/reviews-all/${selectedReview.id}/`, {
         Review: newReviewText,
@@ -125,45 +102,46 @@ function ReviewSection({ doctorId }){
     setNewReviewText(inputReview);
   };
 
+  // Pagination logic
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="container mt-5">
-      {reviews.map(review => (
+      {currentReviews.map(review => (
         <div className="d-flex justify-content-center row" key={review.id}>
           <div className="col-md-8">
             <div className="d-flex border flex-column comment-section m-2">
               <div className="bg-white p-2">
                 <h5 style={{ textAlign: 'center' }}>{review.User_Name}</h5>
-                  <span className="date text-black-50" style={{ textAlign: 'center' }}>
-                    {Array.from({ length: review.Rate }, (_, index) => (
-                      <span key={index}>⭐️</span>
-                    ))}
-                    <p className="font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</p>
-                  </span>
-               
-
-
+                <span className="date text-black-50" style={{ textAlign: 'center' }}>
+                  {Array.from({ length: review.Rate }, (_, index) => (
+                    <span key={index}>⭐️</span>
+                  ))}
+                  <p className="font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</p>
+                </span>
                 <div className="mt-2">
                   <p className="comment-text">{review.comment}</p>
-                  {userData && userData.role === 'Patient' && Id === review.User_id && (
+                  {userData && userData.role === 'Patient' && userData.id === review.User_id && (
                     <Dropdown alignRight>
                       <Dropdown.Toggle style={{
                         textDecoration: 'none',
                         fontWeight: 'bold',
                         float: 'right',
                         color: 'black',
-                        top: '30px'
                       }} variant="link" id="dropdown-basic">
                         ...
                       </Dropdown.Toggle>
-
                       <style>
                         {`
-                .dropdown-toggle::after {
-                  display: none;
-                }
-              `}
+                          .dropdown-toggle::after {
+                            display: none;
+                          }
+                        `}
                       </style>
-
                       <Dropdown.Menu>
                         <span>
                           <Dropdown.Item onClick={() => setDeleteConfirmation(true)}>
@@ -180,7 +158,6 @@ function ReviewSection({ doctorId }){
                 </div>
               </div>
             </div>
-
             {deleteConfirmation && (
               <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
                 <div className="modal-dialog">
@@ -200,7 +177,6 @@ function ReviewSection({ doctorId }){
                 </div>
               </div>
             )}
-
             {selectedReview && (
               <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" aria-labelledby="editReviewModal" aria-hidden="true">
                 <div className="modal-dialog">
@@ -243,12 +219,15 @@ function ReviewSection({ doctorId }){
           </div>
         </div>
       ))}
+
       <Pagination
+        itemsPerPage={reviewsPerPage}
+        totalItems={reviews.length}
         currentPage={currentPage}
-        onPageChange={onPageChange}
-      // totalPages={Total} 
+        onPageChange={paginate} // Corrected prop name
       />
     </div>
   );
 }
+
 export default ReviewSection;
