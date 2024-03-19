@@ -151,7 +151,7 @@ const Handel_Card =()=>{
                             <DoctorCard
                                 key={index}
                                 delay="0.1s"
-                                imageUrl='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
+                                imageUrl={doctor.image}//'https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'
                                 name={doctor.name}
                                 department="View Profile"
                                 id={doctor.id}

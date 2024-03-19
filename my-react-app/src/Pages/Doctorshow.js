@@ -543,16 +543,16 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
 // athanticate 
-// if(!userDatas){
-//   history.push('/')
-// }else{
-//   if(userDatas.id == id){
-//     console.log(userDatas.role)
-//     console.log('ok')
-//    }else{
-//        history.push('/')
-//    } 
-// }
+if(!userDatas){
+  history.push('/')
+}else{
+  if(userDatas.id == id){
+    console.log(userDatas.role)
+    console.log('ok')
+   }else{
+      //  history.push('/')
+   } 
+}
 
 console.log(doctorInfo.image)
 const url=doctorInfo.image
