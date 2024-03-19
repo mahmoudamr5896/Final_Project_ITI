@@ -4,10 +4,14 @@ import { useHistory } from 'react-router-dom';
 
 const PhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
-function AppointmentForm({ doctorInfo, UserR_id }) {
+const userDataString = sessionStorage.getItem('userData');
+const userData = JSON.parse(userDataString);
+const userId = userData.id;
+
+function AppointmentForm({ doctorInfo, doc_id}) {
   const [DataAppointment, setDataAppointment] = useState({
-    doctor: '',
-    patient: '',
+    doctor: doc_id,
+    patient: userId,
     date_time: '',
     problems: '',
     status: false,
@@ -71,10 +75,9 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
     setIsValidprps(e.target.value.trim() !== '');
   };
 
+
   const validateForm = () => {
     return (
-      DataAppointment.doctor.trim() !== '' &&
-      DataAppointment.patient.trim() !== '' &&
       DataAppointment.date_time.trim() !== '' &&
       DataAppointment.problems.trim() !== ''
     );
@@ -83,6 +86,7 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
   const Save_Appointment = (event) => {
     event.preventDefault();
     if (validateForm()) {
+      console.log('DataAppointment', DataAppointment);
       axios.post('http://127.0.0.1:8000/appointments/', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
@@ -106,6 +110,7 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
               <form onSubmit={Save_Appointment} method="post">
                 <div className="row g-3">
                   <div className="col-12">
+<<<<<<< HEAD
                     <select
                       className="form-control border-0"
                       style={{ height: "55px;" }}
@@ -134,6 +139,13 @@ function AppointmentForm({ doctorInfo, UserR_id }) {
                     </select>
                     <select
                       className="form-control border-0 m-2"
+=======
+                  
+                    <input
+                      type="datetime-local"
+                      className="form-control border-0"
+                      placeholder="Date and Time"
+>>>>>>> origin/ahmedredaappointment
                       style={{ height: "55px;" }}
                       name="Doctor_Name"
                       onChange={HandleChangeAppointmentDate}

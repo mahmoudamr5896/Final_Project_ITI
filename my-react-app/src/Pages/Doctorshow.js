@@ -371,6 +371,7 @@ e.preventDefault()
     <AppointmentForm 
     doctorInfo={doctorInfo.id}
     UserR_id={User_id} 
+    doc_id={doctorInfo.id}
     ></AppointmentForm>
 
  )
