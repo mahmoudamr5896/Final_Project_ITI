@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
 import BMICalculator from '../Component/BMI'
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PaymentForm from './Payment';
 function PatientDetails() {
   const history = useHistory();
   const { id } = useParams();
@@ -13,6 +15,14 @@ function PatientDetails() {
   const [showAppointment, setShowAppointment] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false); 
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
+
+const handleShowPaymentForm = (appointmentId) => {
+  setShowPaymentForm(true);
+  setSelectedAppointmentId(appointmentId);
+};
+
   const [formData, setFormData] = useState({
     // id: 10,
     name: "",
@@ -152,10 +162,38 @@ useEffect(() => {
         console.error('Error fetching appointments:', error);
       });
 
+
     
   }
 }, [id]);
   
+
+
+{showAppointment && (
+  <div className="container mt-5 d-flex justify-content-center" id='Data'>
+    <div className="container">
+      {Appointments.map((item) => (
+        <div key={item.id}>
+          <p>Doctor Name: {item.doctor_name}</p> 
+          <p>Date: {item.date_time}</p> 
+          <p className="text-success">Accepted</p>
+          {/* Add a button to show payment form */}
+          <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
+          <Link to="/pays">Please pay for your appointment from here </Link>
+        </div>
+      ))}
+      {Appointments_r.map((item) => (
+        <div key={item.id}>
+          <p>Doctor Name: {item.doctor_name}</p> 
+          <p>Reason Of Rejected: {item.Reasone_reject}</p> 
+          <p className="text-danger">Rejected</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
   return (
     <>
       <div className="container-fluid">
@@ -304,6 +342,8 @@ useEffect(() => {
         <p>Docor Name :{item.doctor_name}</p> 
         <p>Date :{item.date_time}</p> 
               <p className="text-success">accepted</p>
+              <PaymentForm appointmentId={item.id} />
+              {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
         </>
       })}
       {Appointments_r.map((item) => {
