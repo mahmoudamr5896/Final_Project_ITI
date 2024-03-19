@@ -9,28 +9,25 @@ const PaymentForm = ({ appointmentId }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [savedCards, setSavedCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState('');
+  const [isPaid, setIsPaid] = useState(false); // State to indicate if appointment is paid
 
   useEffect(() => {
-    const fetchSavedCards = async () => {
+    const fetchPaymentInfo = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/payments/');
-        const data = await response.json();
-        const uniqueCardNumbers = Array.from(new Set(data.map(payment => payment.card_number)));
-        const cardNumbers = uniqueCardNumbers.map(cardNumber => {
-          const last8Digits = cardNumber.slice(-8);
-          return {
-            fullCardNumber: cardNumber,
-            displayCardNumber: `Card ending in ${last8Digits}`
-          };
-        });
-        setSavedCards(cardNumbers);
+        // Fetch payment information for the appointment
+        const response = await fetch(`http://127.0.0.1:8000/payments/?appointment_id=${appointmentId}`);
+        const paymentData = await response.json();
+        if (paymentData.length > 0) {
+          // Appointment is paid
+          setIsPaid(true);
+        }
       } catch (error) {
-        console.error('Error fetching saved cards:', error);
+        console.error('Error fetching payment information:', error);
       }
     };
 
-    fetchSavedCards();
-  }, []);
+    fetchPaymentInfo();
+  }, [appointmentId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,12 +35,12 @@ const PaymentForm = ({ appointmentId }) => {
       // Check if the appointment has already been paid
       const paymentCheckResponse = await fetch(`http://127.0.0.1:8000/payments/?appointment_id=${appointmentId}`);
       const paymentCheckData = await paymentCheckResponse.json();
-  
+
       if (paymentCheckData.length > 0) {
         setError('Appointment has already been paid.');
         return;
       }
-  
+
       const response = await fetch('http://127.0.0.1:8000/payments/', {
         method: 'POST',
         headers: {
@@ -72,7 +69,7 @@ const PaymentForm = ({ appointmentId }) => {
       setError('Error submitting payment');
     }
   };
-  
+
   return (
     <div className="payment-form container border rounded p-4 shadow">
       <h2 className="text-center mb-4" style={{ fontFamily: "fantasy" }}>Enter Card Information</h2>
@@ -147,11 +144,11 @@ const PaymentForm = ({ appointmentId }) => {
             </div>
           </div>
           <div className="text-center">
-            <button type="submit" className="btn btn-primary btn-sm">Submit Payment</button>
+            <button type="submit" className="btn btn-primary btn-sm" style={{width:"15%",fontFamily:"cursive",fontSize:"100%"}}>Submit Payment</button>
           </div>
         </form>
       )}
-      <div className="text-center mt-3">
+      {/* <div className="text-center mt-3">
         <div className="or-divider">OR</div>
         {savedCards.length > 0 && (
           <div>
@@ -167,7 +164,7 @@ const PaymentForm = ({ appointmentId }) => {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
