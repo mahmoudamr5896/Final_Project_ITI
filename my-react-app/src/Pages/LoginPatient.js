@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom'; 
 import axios from 'axios';
 import './Css/Reg.css';
+import { useDispatch } from 'react-redux';
+import { login } from '../Store/Actions/authAction';
 
 function LoginPatient() {
   const [formData, setFormData] = useState({
@@ -70,6 +72,10 @@ function LoginPatient() {
 const [error, setError] = useState('');
 const username = formData.emailOrUsername
 const password = formData.password
+const storedId = sessionStorage.getItem('userData') ;
+const userDatas = JSON.parse(storedId); 
+const dispatch = useDispatch();
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
@@ -92,7 +98,8 @@ const handleSubmit = async (e) => {
                    const userDataString = JSON.stringify(userData);
                     sessionStorage.setItem('userData', userDataString);
                     console.log("Successfully updated user data in session storage for user with id:", doctor.id);
-            
+                    dispatch(login(userDatas));
+
                     } else {
                       setError('Patient not found');
                     }
@@ -117,6 +124,7 @@ const handleSubmit = async (e) => {
 };
 
   return (
+    
     <div style={{marginTop:'100px'}}>
       <Container>
         <Row>

@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import './Css/Reg.css';
 import axios from 'axios';
 import bcrypt from 'bcryptjs'; // Import bcrypt library for password hashing
-
+import { useDispatch } from 'react-redux';
+import { login } from '../Store/Actions/authAction';
 
 
 function LoginNut() {
@@ -20,6 +21,7 @@ function LoginNut() {
   });
 
   const history = useHistory(); 
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +49,8 @@ useEffect(() => {
 const [error, setError] = useState('');
 const username = formData.emailOrUsername
 const password = formData.password
-
+const storedId = sessionStorage.getItem('userData') ;
+const userDatas = JSON.parse(storedId); 
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
@@ -61,6 +64,8 @@ const handleSubmit = async (e) => {
                     if (doctor) {
                       console.log(doctor);
                       history.push(`/dashboard/${doctor.id}`);
+                      dispatch(login(userDatas));
+
                       const userData = {
                      email: formData.emailOrUsername,
                     password: formData.password,
@@ -93,7 +98,8 @@ const handleSubmit = async (e) => {
       }
   }
 };
-
+//______________________________________________________________________
+//dispash action
  
   return (
     <div style={{marginTop:'100px'}}>

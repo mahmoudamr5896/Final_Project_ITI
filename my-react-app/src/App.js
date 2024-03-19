@@ -17,9 +17,13 @@ import DoctorDetails from './Pages/Doctorshow';
 import PatientDetails from './Pages/Patientshow';
 import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
+import store from './Store/store';
+import { Provider } from 'react-redux';
+
 function App() {
   return (
-    <div className="App">
+    <Provider store={store}>
+    <div className="App" >
         <BrowserRouter >
         <Navbar/>
         <Switch>
@@ -51,8 +55,8 @@ function App() {
         </Switch>
         <Footer/>
         </BrowserRouter>  
-          
     </div>
+    </Provider>
   );
 }
 

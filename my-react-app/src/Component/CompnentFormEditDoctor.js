@@ -26,10 +26,11 @@ function EditDoctorPage({ userId }) {
   }, [userId]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const newValue = type === 'file' ? e.target.files[0] : value;
     setUserData(prevData => ({
       ...prevData,
-      [name]: value
+      [name]: newValue
     }));
   };
 const location = useLocation()

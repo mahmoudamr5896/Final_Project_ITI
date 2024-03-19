@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo7 from "./img/logo7.png";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout } from '../Store/Actions/authAction';
+
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./CSS/Navbar.css"; 
@@ -29,27 +33,17 @@ const  CustomNavbar= ()=> {
         .then((res) => setuserDataLoged(res.data))
         .catch((err) => console.log(err))
 }, []);
-
+const dispatch = useDispatch()
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
   setLogin(!login)
   history.push('/')
-  // axios
-  // .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
-  //  { "Active": false })
-  // .then(response => {
-  //   console.log('Active status updated successfully for user with id:', User_id);
-  // })
-  // .catch(error => {
-  //   console.error('Error updating Active status for user with id:', User_id, error);
-  // });
+  dispatch(logout(userDatas));
 } 
-
-
-
-
+//______________________________________________________________________________
+const selectedData = useSelector(state => state.isLoggedIn);
+console.log(selectedData)
   return (
-
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={{ boxShadow: "0 4px 5px -2px gray" }}>
         <Container>
@@ -75,7 +69,7 @@ const  CustomNavbar= ()=> {
               )}
             </Nav>
             <Nav>
-            {login ? (
+            {login  || selectedData ? (
               <Link to='/'>
                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
               </Link>  
@@ -93,3 +87,12 @@ const  CustomNavbar= ()=> {
 }
 
 export default CustomNavbar;
+  // axios
+  // .patch(`https://retoolapi.dev/zP9Zhd/patient/${User_id}`,
+  //  { "Active": false })
+  // .then(response => {
+  //   console.log('Active status updated successfully for user with id:', User_id);
+  // })
+  // .catch(error => {
+  //   console.error('Error updating Active status for user with id:', User_id, error);
+  // });

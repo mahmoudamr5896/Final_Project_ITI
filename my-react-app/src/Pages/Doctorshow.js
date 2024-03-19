@@ -18,7 +18,7 @@ import { Modal } from "react-bootstrap";
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 import ReviewComponent from '../Component/ComponentRate'
-
+import DoctorScheduleForm from '../Component/Schule'
 function DoctorDetails() {
   const [showModal, setShowModal] = useState(false);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -99,7 +99,7 @@ const toggleShowFullBio = () => {
 // handel Sections 
 //_________________________________________________________________________________________________________
 const [locationData, setLocationData] = useState(null);
-const selectLocation = () => {
+const selectLocation = (e) => {
   const data = (
     <div className="map_container mt-5" style={{ width: '100%' }}>
       <h2 className="text-start text-success ">Location <hr></hr></h2>
@@ -124,7 +124,9 @@ const selectLocation = () => {
 }; 
 //___________________________________________________________________________________________
 const [ExperienceData, setExperienceData] = useState(null);
-const Select_Exprience = ()=>{
+const Select_Exprience = (e)=>{
+  e.preventDefault()
+
 const data=(
   <div className="container">
       <h1 className="text-start col-12"/>
@@ -188,7 +190,8 @@ if(userDatas){
 }
 // handel review _____________________________________________________________________________________________
 const[RatingData,setRatingData]=useState(null)
-const Select_Rating = ()=>{
+const Select_Rating = (e)=>{
+  e.preventDefault()
 
 let data = (
  <div className="container row d-flex mt-5" style={{width:'80%'}}>
@@ -238,6 +241,8 @@ let data = (
   )
 setIsEditProfileOpen(null);
 setRatingData(data)
+setSchedule(null)
+
 setLocationData(null)
 setExperienceData(null)
 setAboutData(null)
@@ -341,19 +346,21 @@ const Select_About = ()=>{
   setExperienceData(null)
   setLocationData(null)
   setIsEditProfileOpen(null);
+  setSchedule(null)
 
   setRatingData(null)
 setAppointment(null)
 
 }
 //_____________________________________________________________________________________
-const Select_Overview = ()=>{
+const Select_Overview = (e)=>{
+  e.preventDefault()
 
 }
 //__________________________________________________________________________________
 const[Appointment,setAppointment]=useState(null)
-const Select_Appon = ()=>{
-
+const Select_Appon = (e)=>{
+e.preventDefault()
   const storedId = sessionStorage.getItem('userData');
    const userDatas = JSON.parse(storedId);
    if(userData){
@@ -362,7 +369,7 @@ const Select_Appon = ()=>{
 
   const data=(
     <AppointmentForm 
-    doctorInfo={doctorInfo}
+    doctorInfo={doctorInfo.id}
     UserR_id={User_id} 
     ></AppointmentForm>
 
@@ -373,6 +380,8 @@ const Select_Appon = ()=>{
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
+  setSchedule(null)
+
 }
 
 
@@ -495,9 +504,29 @@ const toggleEditProfile = () => {
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
+  setSchedule(null)
+
 };
 //___________________________________________________________________
+const[Schedule,setSchedule]=useState(null)
+const select_Schedule=()=>{
 
+  const data = (
+    <>
+    <DoctorScheduleForm
+    doctorId={id}>
+    </DoctorScheduleForm>
+    </>
+    
+)
+setSchedule(data)
+setIsEditProfileOpen(null);
+setAppointment(null)
+setAboutData(null)
+setExperienceData(null)
+setLocationData(null)
+setRatingData(null)
+}
 //__________________________________________________________________________________________________________________
 
 //________________________________________________________________________________
@@ -511,7 +540,8 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
   return ( 
-              <>
+    <> 
+      <>
             <div className="container-fluid">
                     <div><br/><br/><br/><br/>
                     </div>
@@ -544,6 +574,7 @@ useEffect(() => {
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
+                                                <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
                                                 {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
@@ -592,8 +623,12 @@ useEffect(() => {
             {AboutData}
             {Appointment}
             {isEditProfileOpen}
+            {Schedule}
             </div>
-            </>       
+            </> 
+      
+    </>
+       
   );
 }
 export default DoctorDetails;
