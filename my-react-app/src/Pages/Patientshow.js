@@ -339,9 +339,12 @@ useEffect(() => {
       {Appointments.map((item) => {
       
         return   <>
-        <p>Docor Name :{item.doctor_name}</p> 
-        <p>Date :{item.date_time}</p> 
-              <p className="text-success">accepted</p>
+        <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+  <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+  <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+  <p style={{ fontSize: '16px', color: 'green' }}>Accepted</p>
+</div>
+
               <PaymentForm appointmentId={item.id} />
               {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
         </>
