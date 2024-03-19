@@ -116,6 +116,13 @@ function Regspatien() {
         });
     }
   };
+  //_______________________________________________________________________
+  const storedId = sessionStorage.getItem('userData') ;
+  const userDatas = JSON.parse(storedId); 
+  if(userDatas){
+    history.push('/')
+  }
+  //________________________________________________________________________
 
   return (
     <div style={{marginTop:'100px'}}> 

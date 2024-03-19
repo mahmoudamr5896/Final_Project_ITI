@@ -19,14 +19,11 @@ import EditUserPage from './Pages/Form'
 import PatientDetails from './Pages/Patientshow';
 import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
-<<<<<<< HEAD
 import store from './Store/store';
 import { Provider } from 'react-redux';
 
-=======
 import Editmsg from './Pages/Editmsg';
 import NotFound from './Pages/NotFound';
->>>>>>> origin/nardeen_3
 function App() {
   return (
     <Provider store={store}>
@@ -62,7 +59,6 @@ function App() {
           component={Dash}/>
           <Route exact path='/Editmsg'
           component={Editmsg}/>
-        
         <Route exact path={"*"} 
           component={NotFound} />
         </Switch>

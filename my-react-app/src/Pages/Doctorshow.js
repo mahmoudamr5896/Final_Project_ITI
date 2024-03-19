@@ -540,7 +540,20 @@ useEffect(() => {
   }
 }, []);
 //_______________________________________________________________________________________________________
-  return ( 
+// athanticate 
+if(!userDatas){
+  history.push('/')
+}else{
+  if(userDatas.id == id){
+    console.log(userDatas.role)
+    console.log('ok')
+   }else{
+       history.push('/')
+   } 
+}
+
+
+return ( 
     <> 
       <>
             <div className="container-fluid">

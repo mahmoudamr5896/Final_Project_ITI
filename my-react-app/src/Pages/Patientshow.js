@@ -155,7 +155,21 @@ useEffect(() => {
     
   }
 }, [id]);
-  
+console.log(patientInfo.id)
+//____________________________________________________________
+const storedId = sessionStorage.getItem('userData') ;
+const userDatas = JSON.parse(storedId); 
+if(!userDatas){
+  history.push('/')
+}
+else{
+ if(userDatas.id == id){
+  console.log(userDatas.role)
+  console.log('ok')
+ }else{
+     history.push('/')
+ } 
+}
   return (
     <>
       <div className="container-fluid">

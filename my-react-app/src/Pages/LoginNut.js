@@ -100,7 +100,11 @@ const handleSubmit = async (e) => {
 };
 //______________________________________________________________________
 //dispash action
- 
+
+if(userDatas){
+  history.push('/')
+}
+//____________________________________________________________________
   return (
     <div style={{marginTop:'100px'}}>
         <Container >
