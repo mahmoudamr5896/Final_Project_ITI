@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import StarRating from '../Component/Rate';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './CSS/list.css'
-const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => {
+const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date ,image}) => {
     const [Phone, setPhone] = useState(false);
     const Handel_phone = () => {
         setPhone(!Phone);
@@ -11,7 +11,10 @@ const DoctorProfileCard = ({ dname, dLocation, dPhone ,id ,rate ,Bio ,date}) => 
         <div style={{width:'80%'}}> 
         <hr></hr>
         <div className="d-flex flex-row border-start border-end  mb-2 p-5 align-items-center" >
-            <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" />
+        {image && (
+     <img src={`${image}`} alt="Doctor" style={{ height:"160px", width:"100px"  }} />
+          )}
+            {/* <img src="https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg" height="160" width="100" /> */}
                  <div className='' style={{ width: '250px', position: '' }}>
                 <h5 className='text-start m-2'>DR.{dname}</h5>
                 <h6 className='text-start m-2'>Medical Family</h6>

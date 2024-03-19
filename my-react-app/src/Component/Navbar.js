@@ -12,6 +12,8 @@ import "./CSS/Navbar.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
+  const selectedData = useSelector((state) => state.auth.isLoggedIn);
+console.log(selectedData)
   const userData = sessionStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
@@ -41,8 +43,7 @@ const dispatch = useDispatch()
   dispatch(logout(userDatas));
 } 
 //______________________________________________________________________________
-const selectedData = useSelector(state => state.isLoggedIn);
-console.log(selectedData)
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={{ boxShadow: "0 4px 5px -2px gray" }}>

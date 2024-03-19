@@ -140,6 +140,7 @@ const Handel_Card =()=>{
                     rate={doctor.Rating}
                     Bio={doctor.Bio}
                     date={doctor.Start_date}
+                    image={doctor.image}
                     />
        
                         ))

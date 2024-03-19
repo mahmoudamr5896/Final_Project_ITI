@@ -94,7 +94,7 @@ function Regspatien() {
             name: `${formData.firstName} ${formData.lastName}`,
             age: 0,
             weight: 0, // Make sure this field is provided in the form
-            image: '',
+            image: '1.png',
             height: 0,
             gender: "M",
             phone: "+20",

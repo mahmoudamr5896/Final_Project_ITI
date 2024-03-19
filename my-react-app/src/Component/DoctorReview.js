@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
-
+import { useDispatch } from 'react-redux';
+import { addReview } from '../Store/Actions/actionreview';
 function DoctorReview({ doctor , User }) {
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -16,7 +17,7 @@ function DoctorReview({ doctor , User }) {
     const inputReview = event.target.value;
     setNewReview(inputReview);
   };
-
+const dispatch = useDispatch()
   const handleReview = async (event) => {
     event.preventDefault();
     // const stars = '⭐️'.repeat(selectedRating);
@@ -37,6 +38,7 @@ function DoctorReview({ doctor , User }) {
     try {
       const response = await axios.post('http://127.0.0.1:8000/reviews-all/', reviewData);
       console.log('Review posted successfully:', response.data);
+      dispatch(addReview(response.data)); // Dispatching the action with the new review data
       setNewReview('');
       setSelectedRating(0);
       setError(null);

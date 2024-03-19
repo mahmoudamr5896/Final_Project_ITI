@@ -62,15 +62,14 @@ const handleSubmit = async (e) => {
                     const doctors = response.data;
                     const doctor = doctors.find(d => d.username === username);
                     if (doctor) {
-                      console.log(doctor);
+                      console.log(doctor.id);
                       history.push(`/dashboard/${doctor.id}`);
                       dispatch(login(userDatas));
-
                       const userData = {
                      email: formData.emailOrUsername,
                     password: formData.password,
                     role: 'Doctor' ,
-                    id:doctor.id
+                     id:doctor.id
                     };
                    const userDataString = JSON.stringify(userData);
                                sessionStorage.setItem('userData', userDataString);

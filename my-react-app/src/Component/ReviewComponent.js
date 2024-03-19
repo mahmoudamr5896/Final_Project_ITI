@@ -4,6 +4,7 @@ import { Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import Pagination from './Pagination';
+import { useSelector } from 'react-redux';
 
 function ReviewSection({ doctorId }) {
   const [reviews, setReviews] = useState([]);
@@ -17,7 +18,7 @@ function ReviewSection({ doctorId }) {
   const [selectedReview, setSelectedReview] = useState(null);
   const [newRating, setNewRating] = useState(0);
   const [error, setError] = useState(null);
-
+  const reviewData = useSelector(state => state.review);
   useEffect(() => {
     if (doctorId) {
       axios
@@ -29,14 +30,14 @@ function ReviewSection({ doctorId }) {
           console.error('Error fetching reviews:', error);
         });
     }
-  }, [doctorId]);
+  }, [reviewData]);
 
   useEffect(() => {
     const storedUserData = sessionStorage.getItem('userData');
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
-  }, []);
+  }, [reviews]);
 
   const handleDeleteReview = (reviewId) => {
     axios

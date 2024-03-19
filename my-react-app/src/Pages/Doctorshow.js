@@ -180,6 +180,7 @@ setLocationData(null)
 setRatingData(null)
 setAboutData(null)
 setAppointment(null)
+setSchedule(null)
 }
 //___________________________________________________________________________________
 const storedId = sessionStorage.getItem('userData') ;
@@ -225,7 +226,8 @@ let data = (
        <hr></hr>
        <div className="container"> 
          <CommentSection 
-            doctorId={id}>
+            doctorId={id}
+            >
          </CommentSection>
        <hr>
        </hr>
@@ -541,18 +543,19 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
 // athanticate 
-if(!userDatas){
-  history.push('/')
-}else{
-  if(userDatas.id == id){
-    console.log(userDatas.role)
-    console.log('ok')
-   }else{
-       history.push('/')
-   } 
-}
+// if(!userDatas){
+//   history.push('/')
+// }else{
+//   if(userDatas.id == id){
+//     console.log(userDatas.role)
+//     console.log('ok')
+//    }else{
+//        history.push('/')
+//    } 
+// }
 
-
+console.log(doctorInfo.image)
+const url=doctorInfo.image
 return ( 
     <> 
       <>
@@ -561,8 +564,11 @@ return (
                     </div>
                             <div className="row" style={{background:"#03974D"}}>
                                 <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-                                    <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{width:'170px'}}/>
-                                {/* {doctorInfo.Rating} */}
+                                {doctorInfo.image && (
+                                     <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+                               )}
+                                {/* <img src='{{ doctorInfo.image }}'  className="border border-white border-3 rounded-2" style={{width:'170px'}}/> */}
+                                {/* {doctorInfo.Rating}http://127.0.0.1:8000/media/ypoy_logo.jpeg{{ doctorInfo.image }}src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'  */}
                                 </div>
                                 <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
                                     <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
@@ -576,13 +582,58 @@ return (
                             <div className="row docgradient">
                                 <div className="col-1"></div>
                                 <div className="col-7">
-                                    <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
+                                  <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex justify-content-center">
+            <button className="nav-link" onClick={Select_Exprience}><h6 style={{ color: "green" }}>Experience</h6></button>
+            <button className="nav-link" onClick={Select_Rating}><h6 style={{ color: "green" }}>Ratings</h6></button>
+            <button className="nav-link" onClick={Select_About}><h6 style={{ color: "green" }}>About Me</h6></button>
+            <button className="nav-link" onClick={Select_Appon}><h6 style={{ color: "green" }}>Appointment</h6></button>
+            <button className="nav-link" onClick={select_Schedule}><h6 style={{ color: "green" }}>Schedule</h6></button>
+            {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
+                <DropdownButton
+                    id="dropdown-basic-button"
+                    title="Settings"
+                    variant="success"
+                    className="mx-2"
+                >
+                    <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+                    <Dropdown.Item>
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
+                    </Dropdown.Item>
+                </DropdownButton>
+            )}
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete Account</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are You Sure You Want To delete Account ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+                                    {/* <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
                                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="navbar-toggler-icon"></span>
                                         </button>
                                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                                             <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                                <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                                 <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button> 
                                                 <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
                                                 <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
@@ -618,11 +669,10 @@ return (
                                                       </div>
                                                     </div>
                                                   </div>
-                                                </div>
-                                              
+                                                </div>                        
                                             </div>
                                         </div>
-                                    </nav>
+                                    </nav> */}
                                 </div>
 
                                 <div className="col-4"></div>
