@@ -30,9 +30,9 @@ function Dash() {
         id={id}
         ></ProgressChart> */}
         <div>
-          {/* <Reviews
+          <Reviews
 
-          ></Reviews> */}
+          ></Reviews>
           
         </div>
        
