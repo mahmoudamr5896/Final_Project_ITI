@@ -14,12 +14,19 @@ import RegsNut from './Pages/RegNut';
 import LoginPatien from './Pages/LoginPatient';
 import Regspatien from './Pages/RegPatient';
 import DoctorDetails from './Pages/Doctorshow';
+import EditUserPage from './Pages/Form'
+
 import PatientDetails from './Pages/Patientshow';
 import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
+<<<<<<< HEAD
 import store from './Store/store';
 import { Provider } from 'react-redux';
 
+=======
+import Editmsg from './Pages/Editmsg';
+import NotFound from './Pages/NotFound';
+>>>>>>> origin/nardeen_3
 function App() {
   return (
     <Provider store={store}>
@@ -29,7 +36,8 @@ function App() {
         <Switch>
         <Route exact path={`/user/:id`}
           component={PatientDetails}/>
-      
+        <Route exact path='/form'
+          component={EditUserPage}/>
           <Route exact path='/'
           component={HomePage}/>
           <Route exact path='/profile' 
@@ -50,10 +58,17 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-        <Route exact path='/dashboard/:id'
+         <Route exact path='/dashboard/:id'
           component={Dash}/>
+          <Route exact path='/Editmsg'
+          component={Editmsg}/>
+        
+        <Route exact path={"*"} 
+          component={NotFound} />
         </Switch>
+        
         <Footer/>
+
         </BrowserRouter>  
     </div>
     </Provider>
