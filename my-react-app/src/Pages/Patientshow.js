@@ -229,7 +229,7 @@ useEffect(() => {
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
-              <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="collapse navbar-collapse" id="navbarNavAltMarkup"  style={{marginLeft:"8%"}}>
                 <div className="navbar-nav bg-white d-flex justify-content-center">
                   <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
                   <button className="nav-link mx-2"><h6 style={{ color: "green" }} onClick={toggleMealplan}>Meal Plan</h6></button>
