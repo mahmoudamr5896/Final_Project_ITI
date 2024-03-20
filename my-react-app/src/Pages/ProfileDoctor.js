@@ -52,13 +52,6 @@
 // //     const { Id } = useParams();
 // //     console.log(Id);
 // //       const [Doctor, setDoctor] = useState(null);
-  
-// //     useEffect(() => {
-// //       axios
-// //         .get(`https://jsonplaceholder.typicode.com/users/${Id}`)
-// //         .then(response => setDoctor(response.data))
-// //         .catch(error => console.error('Error fetching doctor:', error));
-// //     }, [Id]);
 
 // //     return (
 // //         <div classNameName="doctor-profile">

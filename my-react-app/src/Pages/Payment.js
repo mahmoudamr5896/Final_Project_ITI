@@ -150,6 +150,7 @@ const PaymentForm = ({ appointmentId }) => {
         <PayPalCheckoutButton
           amount={parseFloat(amount)} // Convert amount to a number
           onSuccess={(order) => {
+            
             // Handle PayPal payment success
             console.log('PayPal payment successful:', order);
             setSuccessMessage('PayPal payment successful');
@@ -157,6 +158,7 @@ const PaymentForm = ({ appointmentId }) => {
             setError('');
           }}
           onError={(err) => {
+
             // Handle PayPal payment error
             console.error('PayPal payment failed:', err);
             setError('PayPal payment failed');

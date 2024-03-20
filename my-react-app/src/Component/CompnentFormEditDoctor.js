@@ -71,47 +71,50 @@ const[Error,setError]=useState()
 
   return (
     <div className='container m-5'>
-      <h1>Edit Doctor Profile</h1>
-      <form onSubmit={handleSubmit} >
-        {/* <div className="mb-3">
-          <label htmlFor="username" className="form-label">Username:</label>
-          <input type="text" id="username" name="username" className="form-control" value={userData.username} onChange={handleChange} />
-        </div> */}
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name:</label>
-          <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="age" className="form-label">Age:</label>
-          <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="image" className="form-label">Image:</label>
-          <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="experience" className="form-label">Experience:</label>
-          <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="gender" className="form-label">Gender:</label>
-          <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
-            <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="phone" className="form-label">Phone:</label>
-          <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="location" className="form-label">Location:</label>
-          <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
-        </div>
-        <p className='text-danger'>{Error}</p>
-        <button type="submit" className="btn btn-primary">Save Changes</button>
-      </form>
+      <h1>Edit Your Data</h1>
+      <form onSubmit={handleSubmit} className="row g-3">
+  <div className="col-md-6">
+    <label htmlFor="name" className="form-label">Name:</label>
+    <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="age" className="form-label">Age:</label>
+    <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="experience" className="form-label">Experience:</label>
+    <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="gender" className="form-label">Gender:</label>
+    <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
+      <option value="">Select Gender</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="phone" className="form-label">Phone:</label>
+    <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="location" className="form-label">Location:</label>
+    <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="image" className="form-label">Image:</label>
+    <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
+  </div>
+  <div className="col-12 d-flex justify-content-center">
+    
+    <div className="col-12 col-md-3">
+      <button type="submit" className="btn btn-primary w-100">Save Changes</button>
+      <p className="text-danger">{Error}</p>
+    </div>
+  </div>
+</form>
+
+
     </div>
   );
 }
