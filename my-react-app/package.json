@@ -9,12 +9,14 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@paypal/react-paypal-js": "^8.1.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.2",
+    "paypal-checkout": "^4.0.341",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
@@ -25,7 +27,8 @@
     "redux": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",
     "victory": "^36.9.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zoid": "^9.0.86"
   },
   "scripts": {
     "start": "react-scripts start",
