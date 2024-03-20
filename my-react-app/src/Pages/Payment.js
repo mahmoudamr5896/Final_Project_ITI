@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PayPalCheckoutButton from '../Component/PayPal';
 
 const PaymentForm = ({ appointmentId }) => {
   const [cardNumber, setCardNumber] = useState('');
@@ -148,23 +149,24 @@ const PaymentForm = ({ appointmentId }) => {
           </div>
         </form>
       )}
-      {/* <div className="text-center mt-3">
-        <div className="or-divider">OR</div>
-        {savedCards.length > 0 && (
-          <div>
-            <h5>Select a saved card to pay:</h5>
-            {savedCards.map((card, index) => (
-              <button
-                key={index}
-                className="btn btn-outline-secondary m-1"
-                onClick={() => setSelectedCard(card)}
-              >
-                {card.displayCardNumber}
-              </button>
-            ))}
-          </div>
-        )}
-      </div> */}
+      {/* PayPal Checkout Button */}
+      <PayPalCheckoutButton
+  amount={parseFloat(amount)} // Convert amount to a number
+  onSuccess={(order) => {
+    // Handle PayPal payment success
+    console.log('PayPal payment successful:', order);
+    setSuccessMessage('PayPal payment successful');
+    setAmount('');
+    setError('');
+  }}
+  onError={(err) => {
+    // Handle PayPal payment error
+    console.error('PayPal payment failed:', err);
+    setError('PayPal payment failed');
+  }}
+/>
+
+
     </div>
   );
 };

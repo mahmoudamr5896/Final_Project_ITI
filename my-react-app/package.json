@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^5.3.4",
+    "react-script-hook": "^1.7.2",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",

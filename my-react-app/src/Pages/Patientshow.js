@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
 import BMICalculator from '../Component/BMI'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PayPalCheckoutButton from '../Component/PayPal'
 import PaymentForm from './Payment';
 function PatientDetails() {
   const history = useHistory();
@@ -184,11 +185,15 @@ useEffect(() => {
                 <p className="text-success">Accepted</p>
                 {/* Add a button to show payment form */}
                 <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
+                
+                
               </>
             )}
           </div>
         );
       })}
+      
+      
       {Appointments_r.map((item) => (
         <div key={item.id}>
           <p>Doctor Name: {item.doctor_name}</p> 
