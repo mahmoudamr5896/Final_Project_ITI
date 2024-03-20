@@ -12,9 +12,9 @@ import "./CSS/Navbar.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
-  const selectedData = useSelector((state) => state.auth.isLoggedIn);
+const selectedData = useSelector((state) => state.auth.isLoggedIn);
 console.log(selectedData)
-  const userData = sessionStorage.getItem('userData');
+  const userData = localStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
   const storedId = sessionStorage.getItem('userData') ;
@@ -38,6 +38,7 @@ console.log(selectedData)
 const dispatch = useDispatch()
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
+  localStorage.removeItem('userData');
   setLogin(!login)
   history.push('/')
   dispatch(logout(userDatas));
@@ -70,7 +71,7 @@ const dispatch = useDispatch()
               )}
             </Nav>
             <Nav>
-            {login  || selectedData ? (
+            {login   || userData ? (
               <Link to='/'>
                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
               </Link>  

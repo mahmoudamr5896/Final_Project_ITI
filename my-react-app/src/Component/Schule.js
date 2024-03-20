@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function DoctorScheduleForm({ doctorId }) {
+
   const [selectedDay, setSelectedDay] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -19,7 +20,7 @@ function DoctorScheduleForm({ doctorId }) {
   }, [doctorSchedule]);
 
 
-  const storedId = sessionStorage.getItem('userData');
+  const storedId = localStorage.getItem('userData');
   const userDatas = JSON.parse(storedId);
   const getNext10Days = () => {
     const today = new Date();
@@ -126,7 +127,7 @@ const User_id = userDatas.id
     }}
   return (
 <div className="container doctor-schedule-form">
-  {userDatas && userDatas.role === 'Doctor' && (
+  {userDatas && userDatas.role === 'Doctor' && User_id === doctorId && (
     <form onSubmit={handleSubmit} className="schedule-form">
       <div className="row">
         <div className="col-md-4">
@@ -189,8 +190,11 @@ const User_id = userDatas.id
                 <th>Day</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Edit</th>
+                {userDatas && userDatas.role === 'Doctor' && User_id === doctorId && (
+<>   <th>Edit</th>
                 <th>Delete</th>
+</>)}
+             
               </tr>
             </thead>
             <tbody>
@@ -199,7 +203,8 @@ const User_id = userDatas.id
                   <td>{scheduleItem.day}</td>
                   <td>{scheduleItem.start_time}</td>
                   <td>{scheduleItem.end_time}</td>
-                  <td>
+                  {userDatas && userDatas.role === 'Doctor' && User_id === doctorId && (
+                    <>       <td>
                     <button
                       className="btn btn-sm btn-primary me-1"
                       onClick={() => handleEdit(scheduleItem.id)}
@@ -215,6 +220,9 @@ const User_id = userDatas.id
                       Delete
                     </button>
                   </td>
+                    </>
+                  )}
+           
                 </tr>
               ))}
             </tbody>
@@ -224,7 +232,6 @@ const User_id = userDatas.id
     </div>
   </div>
 </div>
-
   );
 }
 

@@ -14,22 +14,23 @@ function Dash() {
 ///_____________________________________________________________________________
   const history = useHistory()
   const storedId = sessionStorage.getItem('userData') ;
+  const userData = localStorage.getItem('userData') ;
   const userDatas = JSON.parse(storedId); 
-  if(!userDatas){
+  const userData_ = JSON.parse(userData); 
+  if(!userData_ && !storedId){
      history.push('/')
   }else{
-    if(userDatas.role === 'Patient'){
-      console.log(userDatas.role)
-       history.push('/')
-    }else{
-      if(userDatas.id == id){
-        
-        console.log(userDatas.role)
-        console.log('ok')
-       }else{
-           history.push('/')
-       } 
-    } 
+    // if(userDatas.role === 'Patient'){
+    //   console.log(userDatas.role)
+    //    history.push('/')
+    // }else{
+    //   if(userDatas.id == id userData_ ){
+    //     console.log(userDatas.role)
+    //     console.log('ok')
+    //    }else{
+    //        history.push('/')
+    //    } 
+    // } 
   }
   return (
     <>

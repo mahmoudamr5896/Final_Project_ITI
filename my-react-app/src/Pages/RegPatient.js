@@ -119,7 +119,9 @@ function Regspatien() {
   //_______________________________________________________________________
   const storedId = sessionStorage.getItem('userData') ;
   const userDatas = JSON.parse(storedId); 
-  if(userDatas){
+  const userData = localStorage.getItem('userData') ;
+  const userData_ = JSON.parse(userData); 
+  if(userData_){
     history.push('/')
   }
   //________________________________________________________________________

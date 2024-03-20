@@ -168,20 +168,26 @@ useEffect(() => {
 }, [id]);
 console.log(patientInfo.id)
 //____________________________________________________________
-const storedId = sessionStorage.getItem('userData') ;
-const userDatas = JSON.parse(storedId); 
-if(!userDatas){
+// const storedId = sessionStorage.getItem('userData') ;
+// const userDatas = JSON.parse(storedId); 
+// if(!userDatas ){
+//   history.push('/')
+// }
+// else{
+//  if(userDatas.id == id){
+//   console.log(userDatas.role)
+//   console.log('ok')
+//  }else{
+//      history.push('/')
+//  } 
+// }
+const storedIdw = sessionStorage.getItem('userData') ;
+const userDataw = localStorage.getItem('userData') ;
+const userDatasw = JSON.parse(storedIdw); 
+const userData_ = JSON.parse(userDataw); 
+if(!userData_ && !storedIdw){
   history.push('/')
 }
-else{
- if(userDatas.id == id){
-  console.log(userDatas.role)
-  console.log('ok')
- }else{
-     history.push('/')
- } 
-}
-  
 
 
 {showAppointment && (

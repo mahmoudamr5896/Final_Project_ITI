@@ -543,7 +543,7 @@ const select_Schedule=()=>{
   const data = (
     <>
     <DoctorScheduleForm
-    doctorId={id}>
+    doctorId={doctorInfo.id}>
     </DoctorScheduleForm>
     </>
     
@@ -569,15 +569,22 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
 // athanticate 
-if(!userDatas){
+// if(!userDatas){
+//   history.push('/')
+// }else{
+//   if(userDatas.id == id){
+//     console.log(userDatas.role)
+//     console.log('ok')
+//    }else{
+//       //  history.push('/')
+//    } 
+// }
+const storedIdw = sessionStorage.getItem('userData') ;
+const userDataw = localStorage.getItem('userData') ;
+// const userDatasw = JSON.parse(storedId); 
+const userData_ = JSON.parse(userDataw); 
+if(!userData_ && !storedIdw){
   history.push('/')
-}else{
-  if(userDatas.id == id){
-    console.log(userDatas.role)
-    console.log('ok')
-   }else{
-      //  history.push('/')
-   } 
 }
 
 console.log(doctorInfo.image)
@@ -621,7 +628,7 @@ return (
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
                                                 <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
-                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
+                                                {userData_ && userData_.role === 'Doctor' && userData_.id === doctorInfo.id && (
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"
