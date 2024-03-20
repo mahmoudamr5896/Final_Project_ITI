@@ -9,7 +9,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
   const userData = JSON.parse(userDataString);
   const [DataAppointment, setDataAppointment] = useState({
     doctor: doc_id,
-    patient_name: userData.name,
+    username : userData.email,
     patient:userData.id,
     date_time: '',
     problems: '',
