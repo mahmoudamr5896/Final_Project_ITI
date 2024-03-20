@@ -154,7 +154,7 @@ const handleSubmit = async (e) => {
                     name="password"
                     placeholder="Password"
                     value={formData.password}
-                    onChange={handleChange}
+                    onChange={handleChange} 
                   />
                   <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
                 </div>
