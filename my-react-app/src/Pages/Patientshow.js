@@ -166,7 +166,6 @@ useEffect(() => {
     
   }
 }, [id]);
-<<<<<<< HEAD
 console.log(patientInfo.id)
 //____________________________________________________________
 const storedId = sessionStorage.getItem('userData') ;
@@ -182,7 +181,6 @@ else{
      history.push('/')
  } 
 }
-=======
   
 
 
@@ -219,7 +217,6 @@ else{
 
 
 
->>>>>>> origin/mai_Mohamed
   return (
     <>
       <div className="container-fluid">

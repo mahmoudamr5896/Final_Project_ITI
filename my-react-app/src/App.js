@@ -56,15 +56,12 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-<<<<<<< HEAD
          <Route exact path='/dashboard/:id'
-=======
-
+></Route>
           <Route exact path='/pays'
           component={PaymentForm}/>
 
         <Route exact path='/dashboard/:id'
->>>>>>> origin/mai_Mohamed
           component={Dash}/>
           <Route exact path='/Editmsg'
           component={Editmsg}/>
