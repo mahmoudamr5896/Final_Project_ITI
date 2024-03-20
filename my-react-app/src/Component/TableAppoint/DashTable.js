@@ -71,7 +71,7 @@ useEffect(() => {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, [acceptedAppointments]);
+  }, []);
 
 //________________________________________________________________________________________________________________
 
@@ -104,7 +104,7 @@ useEffect(() => {
 console.log(selectedAppointmentId)
 const handleModalSubmit = () => {
   if (selectedAppointmentId) {
-    axios.patch(`http://127.0.0.1:8000/appointments/${selectedAppointmentId}/`, { Reasone_reject: rejectionReason })
+    axios.patch(`http://127.0.0.1:8000/appointments/${selectedAppointmentId}/`, { Reasone_reject: rejectionReason ,status:false})
       .then(response => {
         console.log('Appointment rejected successfully:', response.data);
         const updatedAppointments = appointments.map(appointment => {

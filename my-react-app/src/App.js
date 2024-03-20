@@ -21,7 +21,6 @@ import MyContext from '../src/Context/Context';
 import Dash from './Pages/Dash';
 import store from './Store/store';
 import { Provider } from 'react-redux';
-import PaymentForm from './Pages/Payment';
 
 import Editmsg from './Pages/Editmsg';
 import NotFound from './Pages/NotFound';
@@ -54,8 +53,6 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-          <Route exact path='/pays'
-          component={PaymentForm}/>
         <Route exact path='/dashboard/:id'
           component={Dash}/>
           <Route exact path='/Editmsg'
