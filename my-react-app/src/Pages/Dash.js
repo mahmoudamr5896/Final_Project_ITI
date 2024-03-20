@@ -20,7 +20,7 @@ function Dash() {
   }else{
     if(userDatas.role === 'Patient'){
       console.log(userDatas.role)
-     history.push('/')
+       history.push('/')
     }else{
       if(userDatas.id == id){
         console.log(userDatas.role)

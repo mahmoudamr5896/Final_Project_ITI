@@ -13,8 +13,50 @@ function DoctorAppointmentsTable({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
-
-
+//_____________________________________________________________________________________
+const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
+const Select_Appiontment_accept=()=>{
+const data= (
+  <>
+        <h2>Accepted Appointments</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name Of Patient</th>
+            <th>Date</th>
+            <th>Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          {acceptedAppointments.map(appointment => (
+            <tr key={appointment.id}>
+              <td>{appointment.patient_name}</td>
+              {/* <td>{appointment.doctor_phone}</td> */}
+              <td>{appointment.date_time}</td>
+              <td>{appointment.problems}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+  </>
+)
+setSelect_Appiont_a(data)
+setSelect_Appiont(null)
+}
+// Appointment status false 
+useEffect(() => {
+    if (id) {
+      axios.get(`http://127.0.0.1:8000/appointments/`)
+        .then(response => {
+          // Filter appointments with status true
+          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none');
+          setAppointments(filteredAppointments);
+        })
+        .catch(error => {
+          console.error('Error fetching appointments:', error);
+        });
+    }
+  }, [Select_Appiont_a]);
 
 // Appointment status true 
   useEffect(() => {
@@ -30,20 +72,7 @@ function DoctorAppointmentsTable({ id }) {
         });
     }
   }, [acceptedAppointments]);
-// Appointment status false 
-useEffect(() => {
-    if (id) {
-      axios.get(`http://127.0.0.1:8000/appointments/`)
-        .then(response => {
-          // Filter appointments with status true
-          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none');
-          setAppointments(filteredAppointments);
-        })
-        .catch(error => {
-          console.error('Error fetching appointments:', error);
-        });
-    }
-  }, [acceptedAppointments]);
+
 //________________________________________________________________________________________________________________
 
   const handleApprove = (appointmentId) => {
@@ -171,35 +200,7 @@ const data =(
 setSelect_Appiont_a(null)
 setSelect_Appiont(data)
 }
-const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
-const Select_Appiontment_accept=()=>{
-const data= (
-  <>
-        <h2>Accepted Appointments</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name Of Patient</th>
-            <th>Date</th>
-            <th>Case</th>
-          </tr>
-        </thead>
-        <tbody>
-          {acceptedAppointments.map(appointment => (
-            <tr key={appointment.id}>
-              <td>{appointment.patient_name}</td>
-              {/* <td>{appointment.doctor_phone}</td> */}
-              <td>{appointment.date_time}</td>
-              <td>{appointment.problems}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-  </>
-)
-setSelect_Appiont_a(data)
-setSelect_Appiont(null)
-}
+
 //_________________________________________________________________________________________________________________
   return (
     <div>

@@ -38,8 +38,6 @@ function App() {
           component={EditUserPage}/>
           <Route exact path='/'
           component={HomePage}/>
-          <Route exact path='/profile' 
-          component={DoctorProfile}/>
           <Route exact path='/doctors'
           component={DoctorsPage}/>
            <Route exact path='/profile/:id'
@@ -56,11 +54,8 @@ function App() {
           component={RegsNut}/>
           <Route exact path='/RegPat'
           component={Regspatien}/>
-         <Route exact path='/dashboard/:id'
-></Route>
           <Route exact path='/pays'
           component={PaymentForm}/>
-
         <Route exact path='/dashboard/:id'
           component={Dash}/>
           <Route exact path='/Editmsg'

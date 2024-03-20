@@ -89,7 +89,10 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       axios.post('http://127.0.0.1:8000/appointments/', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
-          history.push(`/profile/${doctorInfo.id}`);
+          // history.push(`/profile/${doctorInfo.id}`);
+          DataAppointment.problems('')
+          DataAppointment.date_time('')
+          
         })
         .catch(error => {
           console.error('Error posting Appointment:', error);
@@ -106,7 +109,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"></div>
       <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
         <div className="bg-light rounded h-100 d-flex align-items-center p-5">
-          <form onSubmit={Save_Appointment} method="post">
+          <form onSubmit={Save_Appointment} >
             <div className="row g-3">
               <div className="col-12">
                 <select
