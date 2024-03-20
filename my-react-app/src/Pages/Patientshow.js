@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
 import BMICalculator from '../Component/BMI'
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PaymentForm from './Payment';
 function PatientDetails() {
   const history = useHistory();
   const { id } = useParams();
@@ -13,6 +15,14 @@ function PatientDetails() {
   const [showAppointment, setShowAppointment] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false); 
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
+
+const handleShowPaymentForm = (appointmentId) => {
+  setShowPaymentForm(true);
+  setSelectedAppointmentId(appointmentId);
+};
+
   const [formData, setFormData] = useState({
     // id: 10,
     name: "",
@@ -152,9 +162,11 @@ useEffect(() => {
         console.error('Error fetching appointments:', error);
       });
 
+
     
   }
 }, [id]);
+<<<<<<< HEAD
 console.log(patientInfo.id)
 //____________________________________________________________
 const storedId = sessionStorage.getItem('userData') ;
@@ -170,6 +182,44 @@ else{
      history.push('/')
  } 
 }
+=======
+  
+
+
+{showAppointment && (
+  <div className="container mt-5 d-flex justify-content-center" id='Data'>
+    <div className="container">
+      {Appointments.map((item) => {
+        return (
+          <div key={item.id} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+            <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+            <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+            {item.is_paid ? (
+              <p className="text-success">Paid and under review</p>
+            ) : (
+              <>
+                <p className="text-success">Accepted</p>
+                {/* Add a button to show payment form */}
+                <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
+              </>
+            )}
+          </div>
+        );
+      })}
+      {Appointments_r.map((item) => (
+        <div key={item.id}>
+          <p>Doctor Name: {item.doctor_name}</p> 
+          <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+          <p className="text-danger">Rejected</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
+
+>>>>>>> origin/mai_Mohamed
   return (
     <>
       <div className="container-fluid">
@@ -315,9 +365,14 @@ else{
       {Appointments.map((item) => {
       
         return   <>
-        <p>Docor Name :{item.doctor_name}</p> 
-        <p>Date :{item.date_time}</p> 
-              <p className="text-success">accepted</p>
+        <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+  <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+  <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+  <p style={{ fontSize: '16px', color: 'green' }}>Accepted</p>
+</div>
+
+              <PaymentForm appointmentId={item.id} />
+              {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
         </>
       })}
       {Appointments_r.map((item) => {
@@ -334,48 +389,71 @@ else{
 )}
 
 
-      {showEditProfile && (
-        <div className="container mt-5 d-flex justify-content-center" id='Data'>
-          <div className='container m-5'>
-            <form onSubmit={handleEditProfile}>
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input type="text" className="form-control" id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="phone" className="form-label">Phone</label>
-                <input type="tel" className="form-control" id="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="gender" className="form-label">Gender</label>
-                <input type="text" className="form-control" id="gender" value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="age" className="form-label">Age</label>
-                <input type="number" className="form-control" id="age" value={formData.age} onChange={(e) => setFormData({ ...formData, age: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="weight" className="form-label">Weight</label>
-                <input type="number" className="form-control" id="weight" value={formData.weight} onChange={(e) => setFormData({ ...formData, weight: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="height" className="form-label">Height</label>
-                <input type="number" className="form-control" id="height" value={formData.height} onChange={(e) => setFormData({ ...formData, height: e.target.value })} />
-              </div>
-             
-              <div className="mb-3">
-                <label htmlFor="medicalHistory" className="form-label">Medical History</label>
-                <input type="text" className="form-control" id="medicalHistory" value={formData.medicalHistory} onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="image" className="form-label">Image</label>
-                <input type="file" className="form-control" id="image" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} />
-              </div>
-              <button type="submit" className="btn btn-primary">Save Changes</button>
-            </form>
-          </div>
+{showEditProfile && (
+      
+        
+      <div className="container mt-5 d-flex justify-content-center" id='Data'>
+<div className='container m-5 shadow p-5 bg-white rounded'>
+<div style={{
+background: "linear-gradient(to right, #00FF00, #008000)",
+backgroundColor: "rgba(0, 0, 0, 0.5)",
+borderRadius: "15px",
+width:"30%",
+marginLeft:"36%"
+}}>
+<h4 style={{ width: "50%", marginBottom: "10%", marginLeft: "30%", color: "black", fontFamily: "fantasy" }}>Edit your data</h4>
+</div>
+<hr></hr> <br></br>
+  <form onSubmit={handleEditProfile}>
+    <div className="row">
+      <div className="col-md-6">
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="name" className="form-label me-3" style={{ width: "30%" }}>Name</label>
+          <input type="text" className="form-control" id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} style={{ width: "70%" }} />
         </div>
-      )}
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="phone" className="form-label me-3" style={{ width: "30%" }}>Phone</label>
+          <input type="tel" className="form-control" id="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} style={{ width: "70%" }} />
+        </div>
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="gender" className="form-label me-3" style={{ width: "30%" }}>Gender</label>
+          <input type="text" className="form-control" id="gender" value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} style={{ width: "70%" }} />
+        </div>
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="image" className="form-label" style={{ width: "30%" }}>Image</label>
+          <input type="file" className="form-control" id="image" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} style={{ width: "70%" }} />
+        </div>
+      </div>
+     
+      <div className="col-md-6">
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="age" className="form-label me-3" style={{ width: "30%" }}>Age</label>
+          <input type="number" className="form-control" id="age" value={formData.age} onChange={(e) => setFormData({ ...formData, age: e.target.value })} style={{ width: "70%" }} />
+        </div>
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="weight" className="form-label me-3" style={{ width: "30%" }}>Weight</label>
+          <input type="number" className="form-control" id="weight" value={formData.weight} onChange={(e) => setFormData({ ...formData, weight: e.target.value })} style={{ width: "70%" }} />
+        </div>
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="height" className="form-label me-3" style={{ width: "30%" }}>Height</label>
+          <input type="number" className="form-control" id="height" value={formData.height} onChange={(e) => setFormData({ ...formData, height: e.target.value })} style={{ width: "70%" }} />
+        </div>
+        <div className="mb-3 d-flex align-items-center">
+          <label htmlFor="medicalHistory" className="form-label" style={{ width: "30%" }}>Medical History</label>
+          <textarea className="form-control" id="medicalHistory" value={formData.medicalHistory} onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.value })} style={{ width: "70%" }}></textarea>
+        </div>
+        <div className="mb-3 d-flex justify-content-center"> {/* Align button to the center */}
+          <button type="submit" className="btn btn-primary" style={{ width: "50%", marginRight:"90%", marginTop:"10%" }}>Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+   
+        
+    )}
 
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
         <Modal.Header closeButton>

@@ -203,6 +203,7 @@ setSelect_Appiont(null)
 //_________________________________________________________________________________________________________________
   return (
     <div>
+       <h3 style={{ marginBottom:"5%",color:"var(--black)",fontFamily:"'Inter', sans-serif"}}>Current Appointments</h3><br></br>
       <div className='col-12'>
         <button className='btn btn-warning m-4' onClick={Select_Appiontment}>Pending Appointment</button>
         <button className='btn btn-success' onClick={Select_Appiontment_accept}>Accepted Appiontemt</button>
@@ -220,11 +221,9 @@ setSelect_Appiont(null)
           <Button variant="primary" onClick={handleModalSubmit}>Submit</Button>
         </Modal.Footer>
       </Modal>
-      <div className='mb-5'>
-            {Select_Appiont_a}
+          {Select_Appiont_a}
           {Select_Appiont}
-      </div  >
-      
+
     </div>
   );
 }

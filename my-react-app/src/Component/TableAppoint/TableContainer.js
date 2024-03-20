@@ -4,8 +4,8 @@ import BasicExample from "./DashTable";
 function DashTableCont({id}) {
   return (
     <>
-      <br /><br />    <br /><br />    
-      <h3 style={{ marginLeft: "-45%" ,color:"var(--black)",fontFamily:"'Inter', sans-serif"}}>Current Appointments</h3><br></br>
+      <br /><br />   
+     
       <div
         style={{
           backgroundColor: "honeydew",
@@ -14,7 +14,7 @@ function DashTableCont({id}) {
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
           width: "58%",
           marginBottom:"2%",
-          marginLeft: "19%"
+          marginLeft: "25%"
         }}
       >
         <BasicExample 

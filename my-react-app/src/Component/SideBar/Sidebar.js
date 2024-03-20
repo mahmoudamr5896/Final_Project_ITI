@@ -34,7 +34,7 @@ const Sidebar = ({id}) => {
   // }, []);
   useEffect(() => {
 
-  axios.get(`https://retoolapi.dev/EBWb8G/Doctors?id=${id}`)
+  axios.get(`http://127.0.0.1:8000/doctors/?id=${id}`)
   .then((response)=> setDoctorInfo(response.data[0]))
   .catch((err) => console.log(err))
    }, [id]);
@@ -42,13 +42,13 @@ const Sidebar = ({id}) => {
   // Logout function
   const logoutHandler = (e) => {
     e.preventDefault();
-    sessionStorage.removeItem('userData');
+    // sessionStorage.removeItem('userData');
     history.push('/');
   };
 console.log(doctorInfo)
   return (
     <div>
-      <div className="sidebar" style={{height:"145vh"}}>
+      <div className="sidebar" style={{height:"98vh"}}>
         <div>
           {doctorInfo && (
             <div className="doctor-info">
@@ -64,7 +64,7 @@ console.log(doctorInfo)
                     padding: "5px"
                   }}
                 >
-                  DR / {doctorInfo.Doctor_Name}
+                  DR / {doctorInfo.name}
                 </span>
                 {/* <div style={{color:"#3BA93E"}}>{doctorInfo.Location}</div> */}
                 <hr />

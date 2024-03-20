@@ -1,40 +1,39 @@
 .TableContainer {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 400;
-    font-size: 0.875rem;
-    /* line-height: 1.43; */
-    letter-spacing: 0.01071em;
-    display: table-cell;
-    vertical-align: inherit;
-    border-bottom: 1px solid rgb(74, 149, 92);
-    text-align: left;
-    padding: 16px;
-    color: rgba(0, 0, 0, 0.87);
-   
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  /* line-height: 1.43; */
+  letter-spacing: 0.01071em;
+  display: table-cell;
+  vertical-align: inherit;
+  border-bottom: 1px solid rgb(74, 149, 92);
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
+ 
 
 }
 
 .Dash_th {
-    padding: 10px;
-    font-weight: bold;
-  }
-  
-  
+  padding: 10px;
+  font-weight: bold;
+}
 
-  th {
-    padding: 16px;
-    font-weight: bold;
-    text-align: left;
-  }
-  
 
-  td {
-    padding: 16px;
-    text-align: left;
-  }
-  
 
-  tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+th {
+  padding: 16px;
+  font-weight: bold;
+  text-align: left;
+}
+
+
+td {
+  padding: 16px;
+  text-align: left;
+}
+
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
