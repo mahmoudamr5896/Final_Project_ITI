@@ -23,6 +23,7 @@ function Dash() {
        history.push('/')
     }else{
       if(userDatas.id == id){
+        
         console.log(userDatas.role)
         console.log('ok')
        }else{

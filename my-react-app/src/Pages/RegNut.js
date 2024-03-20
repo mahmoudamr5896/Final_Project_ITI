@@ -103,7 +103,7 @@ function RegsNut() {
         postData.append('first_name', formData.firstName);
         postData.append('last_name', formData.lastName);
         postData.append('role', 'doctor');
-        postData.append('image', formData.image); // Append image file to FormData
+        postData.append('image', ''); // Append image file to FormData
   
         axios
           .post('http://127.0.0.1:8000/users/', postData)
@@ -114,7 +114,7 @@ function RegsNut() {
               username: formData.userName,
               name: `${formData.firstName} ${formData.lastName}`,
               age: 0,
-              image: formData.image, // Placeholder for now, replace with actual image URL or file
+              image: '', // Placeholder for now, replace with actual image URL or file
               experience: 0,
               gender: 'M',
               phone: '+20',
@@ -224,9 +224,9 @@ function RegsNut() {
                   />
                   <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.repeatPassword}</span>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <input type="file" name="image" onChange={handleChange} />
-                </div>
+                </div> */}
                 <button type="submit">Sign Up</button>
                 <p className="text-danger">{error}</p>
               </form>

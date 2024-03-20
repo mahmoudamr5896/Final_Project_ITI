@@ -79,7 +79,7 @@ const dispatch = useDispatch()
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link> 
             )}
-          </Nav>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
