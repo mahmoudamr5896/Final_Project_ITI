@@ -380,7 +380,17 @@ useEffect(() => {
       
         
       <div className="container mt-5 d-flex justify-content-center" id='Data'>
+        
 <div className='container m-5 shadow p-5 bg-white rounded'>
+<h1 style={{ backgroundColor: "whitesmoke",
+        fontFamily: "Century Gothic",
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        padding: "20px", 
+        border: "2px solid #03974D", 
+        borderRadius: "10px", 
+        boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+        textAlign: "center", marginBottom:'20px'}}>Edit your data</h1>
 <div style={{
 background: "linear-gradient(to right, #00FF00, #008000)",
 backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -388,7 +398,7 @@ borderRadius: "15px",
 width:"30%",
 marginLeft:"36%"
 }}>
-<h4 style={{ width: "50%", marginBottom: "10%", marginLeft: "30%", color: "black", fontFamily: "fantasy" }}>Edit your data</h4>
+
 </div>
 <hr></hr> <br></br>
   <form onSubmit={handleEditProfile}>
@@ -429,7 +439,8 @@ marginLeft:"36%"
           <label htmlFor="medicalHistory" className="form-label" style={{ width: "30%" }}>Medical History</label>
           <textarea className="form-control" id="medicalHistory" value={formData.medicalHistory} onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.value })} style={{ width: "70%" }}></textarea>
         </div>
-        <div className="mb-3 d-flex justify-content-center"> {/* Align button to the center */}
+      
+        <div className="mb-3 d-flex justify-content-center " > {/* Align button to the center */}
           <button type="submit" className="btn btn-primary" style={{ width: "50%", marginRight:"90%", marginTop:"10%" }}>Save Changes</button>
         </div>
       </div>

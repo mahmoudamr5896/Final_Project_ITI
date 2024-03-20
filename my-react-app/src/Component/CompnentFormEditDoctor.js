@@ -71,7 +71,15 @@ const[Error,setError]=useState()
 
   return (
     <div className='container m-5'>
-      <h1>Edit Your Data</h1>
+      <h1 style={{ backgroundColor: "whitesmoke",
+        fontFamily: "Century Gothic",
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        padding: "20px", 
+        border: "2px solid #03974D", 
+        borderRadius: "10px", 
+        boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+        textAlign: "center", marginBottom:'20px'}}>Edit Your Data</h1>
       <form onSubmit={handleSubmit} className="row g-3">
   <div className="col-md-6">
     <label htmlFor="name" className="form-label">Name:</label>
