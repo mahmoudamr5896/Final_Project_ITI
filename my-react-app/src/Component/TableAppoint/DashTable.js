@@ -29,7 +29,7 @@ function DoctorAppointmentsTable({ id }) {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, [id]);
+  }, [acceptedAppointments]);
 // Appointment status false 
 useEffect(() => {
     if (id) {
@@ -43,7 +43,7 @@ useEffect(() => {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, [id]);
+  }, [acceptedAppointments]);
 //________________________________________________________________________________________________________________
 
   const handleApprove = (appointmentId) => {

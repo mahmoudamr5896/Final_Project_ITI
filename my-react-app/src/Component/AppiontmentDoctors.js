@@ -100,62 +100,117 @@ function AppointmentForm({ doctorInfo, doc_id}) {
   };
 
   return (
-    <div className="container-xxl py-5">
-      <div className="container">
-        <div className="row g-5">
-          <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"></div>
-          <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div className="bg-light rounded h-100 d-flex align-items-center p-5">
-              <form onSubmit={Save_Appointment} method="post">
-                <div className="row g-3">
-                  <div className="col-12">
-                    <select
-                      className="form-control border-0 m-2"
-                      type="datetime-local"
-                      placeholder="Date and Time"
-                      style={{ height: "55px;" }}
-                      name="Doctor_Name"
-                      onChange={HandleChangeAppointmentDate}
-                      value={DataAppointment.date_time}
-                    >
-                      <option value="">Select Day Availability</option>
-                      {avv.map(availability => (
-                        <option key={availability.id} value={availability.date_time}>
-                          {availability.day} {availability.start_time} - {availability.end_time}
-                        </option>
-                      ))}
-                    </select>
-                    <textarea
-                      className="form-control border-0"
-                      rows="5"
-                      placeholder="Describe your problem"
-                      name="Problems"
-                      value={DataAppointment.problems}
-                      onChange={HandelChangeAppontmentProps}
-                    ></textarea>
-                    {!isValidprps && <div className="alert alert-danger" role="alert">Please enter a valid problemDescription  .</div>}
-                    <div className="col-12">
-                      <button
-                        type="submit"
-                        className="btn btn-success w-100 py-3"
-                        disabled={!validateForm()}
-                      >
-                        Book Appointment
-                      </button>
-                    </div>
+<div className="container-xxl py-5">
+  <div className="container">
+    <div className="row g-5">
+      <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"></div>
+      <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div className="bg-light rounded h-100 d-flex align-items-center p-5">
+          <form onSubmit={Save_Appointment} method="post">
+            <div className="row g-3">
+              <div className="col-12">
+                <select
+                  className="form-control border-0 m-2"
+                  type="datetime-local"
+                  placeholder="Date and Time"
+                  style={{ height: "55px" }}
+                  name="Doctor_Name"
+                  onChange={HandleChangeAppointmentDate}
+                  value={DataAppointment.date_time}
+                >
+                  <option value="">Select Day Availability</option>
+                  {avv.map((availability) => (
+                    <option key={availability.id} value={availability.date_time}>
+                      {availability.day} {availability.start_time} - {availability.end_time}
+                    </option>
+                  ))}
+                </select>
+                <textarea
+                  className="form-control border-0"
+                  rows="5"
+                  placeholder="Describe your problem"
+                  name="Problems"
+                  value={DataAppointment.problems}
+                  onChange={HandelChangeAppontmentProps}
+                ></textarea>
+                {!isValidprps && (
+                  <div className="alert alert-danger" role="alert">
+                    Please enter a valid problemDescription .
                   </div>
-                </div>
-              </form>
+                )}
+              </div>
+              <div className="col-12">
+                <button
+                  type="submit"
+                  className="btn btn-success w-100 py-3"
+                  disabled={!validateForm()}
+                >
+                  Book Appointment
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 }
 
 export default AppointmentForm;
-
+{/* <div className="container-xxl py-5">
+<div className="container">
+  <div className="row g-5">
+    <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"></div>
+    <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+      <div className="bg-light rounded h-100 d-flex align-items-center p-5">
+        <form onSubmit={Save_Appointment} method="post">
+          <div className="row g-3">
+            <div className="col-12">
+              <select
+                className="form-control border-0 m-2"
+                type="datetime-local"
+                placeholder="Date and Time"
+                style={{ height: "55px;" }}
+                name="Doctor_Name"
+                onChange={HandleChangeAppointmentDate}
+                value={DataAppointment.date_time}
+              >
+                <option value="">Select Day Availability</option>
+                {avv.map(availability => (
+                  <option key={availability.id} value={availability.date_time}>
+                    {availability.day} {availability.start_time} - {availability.end_time}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                className="form-control border-0"
+                rows="5"
+                placeholder="Describe your problem"
+                name="Problems"
+                value={DataAppointment.problems}
+                onChange={HandelChangeAppontmentProps}
+              ></textarea>
+              {!isValidprps && <div className="alert alert-danger" role="alert">Please enter a valid problemDescription  .</div>}
+              <div className="col-12">
+                <button
+                  type="submit"
+                  className="btn btn-success w-100 py-3"
+                  disabled={!validateForm()}
+                >
+                  Book Appointment
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div> */}
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import { useHistory } from 'react-router-dom';

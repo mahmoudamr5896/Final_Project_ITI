@@ -130,47 +130,29 @@ const Select_Exprience = (e)=>{
 const data=(
   <div className="container">
       <h1 className="text-start col-12"/>
-  <div className="container">     <h1 className="text-start col-12">
-     Experience and Background Checks
-     <hr></hr>
-   </h1>
-   <br></br>
-    <div className="container mt-5">
-         <div className="row border mb-5" style={{ width: '500px', height: 'auto' }}>
-           <div className="col-6 d-flex align-items-center">
-               <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{ width: '70px' }} />
-               <p className="m-0 ms-2">Experience</p>
-           </div>
-           <div className="col-6 d-flex align-items-center">
-               <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{ width: '70px' }} />
-               <p className="m-0 ms-2">Background</p>
-           </div>
-       </div>
-       <p className="text-start">Experience Check<br />
-           Check Dr. {doctorInfo.name}'s experience treating your condition or procedure
-       </p>
-   </div>
-  {/* <div className="row border " style={{width:'100%',height:'100px'}}>
-            <span className="">
-          <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{width:'70px'}} />
-          <p className="">Exprience</p></span>
-          <span className="col-6" style={{width:'100px'}}>
-            <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{width:'70px'}}/>
-            <span><p className="">Background</p></span></span>
-  </div> */}
-          {/* <p className="text-start">Experience Check<br></br>
-            Check Dr.{doctorInfo.name}'s experience treating your condition or procedure</p>
           <div className="container">
-          <div className="container ">
-                <h1 className="text-start ">
-              Experience and Background Checks
-              <hr />
-            </h1>
-          </div> </div> */}
-  
-            
-
+                 <h1 className="text-start col-12">
+            Experience and Background Checks
+            <hr></hr>
+          </h1>
+          <br></br>
+          <div className="container mt-5">
+  <div className="row border mb-5">
+    <div className="col-lg-6 col-md-12 d-flex align-items-center">
+      <img src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTwc96ABQRwexDILOeixZ0SMISPPeoavW7U1sJfIfX-vwfDL_Xc' style={{ width: '70px' }} />
+      <p className="m-0 ms-2">Experience</p>
+    </div>
+    <div className="col-lg-6 col-md-12 d-flex align-items-center">
+      <img src='https://media.licdn.com/dms/image/D4E0BAQGMXphjW3D52g/company-logo_200_200/0/1703668545508?e=1715817600&v=beta&t=33f6xNyyb4747yocqYoswXfCk5AiBYdAoC-GQQLBzLs' style={{ width: '70px' }} />
+      <p className="m-0 ms-2">Background</p>
+    </div>
   </div>
+  <p className="text-start">Experience Check<br />
+    Check Dr. {doctorInfo.name}'s experience treating your condition or procedure
+  </p>
+</div>
+
+          </div>
   </div>
 
 )
@@ -180,7 +162,6 @@ setLocationData(null)
 setRatingData(null)
 setAboutData(null)
 setAppointment(null)
-setSchedule(null)
 }
 //___________________________________________________________________________________
 const storedId = sessionStorage.getItem('userData') ;
@@ -195,16 +176,63 @@ const Select_Rating = (e)=>{
   e.preventDefault()
 
 let data = (
- <div className="container row d-flex mt-5" style={{width:'80%'}}>
-     <div className="col-6">
-      <h3>Dr. {doctorInfo.name} Reviews</h3>
-      <>Likelihood to recommend Dr.{doctorInfo.name}</>
-      <div>Based on {doctorInfo.Rating} ratings</div>
-      <h2>{doctorInfo.Rating}</h2>
-      <p>4.1 average based on 254 reviews.</p>
-     <hr style={{border:"3px solid #f1f1f1"}}/>
-     </div>
-     {/* <div className="col-6 border">
+//  <div className="container row d-flex mt-5" style={{width:'80%'}}>
+//      <div className="col-6">
+//       <h3>Dr. {doctorInfo.name} Reviews</h3>
+//       <>Likelihood to recommend Dr.{doctorInfo.name}</>
+//       <div>Based on {doctorInfo.Rating} ratings</div>
+//       <h2>{doctorInfo.Rating}</h2>
+//       <p>4.1 average based on 254 reviews.</p>
+//      <hr style={{border:"3px solid #f1f1f1"}}/>
+//      </div>
+//      {/* <div className="col-6 border">
+//       <p className="pt-3">Leave Review</p>
+//       <hr></hr>
+//       <>How likely are you to recommend 
+//       <br></br>Dr.{doctorInfo.name}</><br></br>
+//       <div className="mt-4" >
+//              <i className="fas fa-star" onClick={handleChange_rate} name='1' ></i>                  
+//              <i className="fas fa-star" name='2' onClick={handleChange_rate}></i>
+//              <i className="fas fa-star" name='3'  onClick={handleChange_rate}></i>
+//              <span className="fa fa-star " name='4' onClick={handleChange_rate}></span>
+//              <span className="fa fa-star" name='5' onClick={handleChange_rate}></span> <br></br>
+//       </div>
+//        <div className='m-3'>Select Rating</div>
+//      </div> */}
+//      <ReviewComponent 
+//      doctorInfo={doctorInfo}
+//      />
+//      <div className="mt-5">
+//        <h3>Reviews</h3>
+//        <hr></hr>
+//        <div className="container"> 
+//          <CommentSection 
+//             doctorId={id}
+//             >
+//          </CommentSection>
+//        <hr>
+//        </hr>
+//       </div>
+    
+//      </div>
+   
+//     <DoctorReview
+//      doctor={doctorInfo}
+//      User={userDatas}
+//      />
+//  </div>
+<div className="container row mt-5" style={{ width: '80%' }}>
+  <div className="col-lg-6">
+    <h3>Dr. {doctorInfo.name} Reviews</h3>
+    <p>Likelihood to recommend Dr.{doctorInfo.name}</p>
+    <div>Based on {doctorInfo.Rating} ratings</div>
+    <h2>{doctorInfo.Rating}</h2>
+    <p>4.1 average based on 254 reviews.</p>
+    <hr style={{ border: "3px solid #f1f1f1" }} />
+  </div>
+  <div className="col-lg-6">
+    {/* Commented out for responsiveness */}
+    {/* <div className="col-6 border">
       <p className="pt-3">Leave Review</p>
       <hr></hr>
       <>How likely are you to recommend 
@@ -218,28 +246,26 @@ let data = (
       </div>
        <div className='m-3'>Select Rating</div>
      </div> */}
-     <ReviewComponent 
-     doctorInfo={doctorInfo}
-     />
-     <div className="mt-5">
-       <h3>Reviews</h3>
-       <hr></hr>
-       <div className="container"> 
-         <CommentSection 
-            doctorId={id}
-            >
-         </CommentSection>
-       <hr>
-       </hr>
-      </div>
-    
-     </div>
-   
-    <DoctorReview
-     doctor={doctorInfo}
-     User={userDatas}
-     />
- </div>
+    <ReviewComponent
+      doctorInfo={doctorInfo}
+    />
+  </div>
+  <div className="mt-5 col-12">
+    <h3>Reviews</h3>
+    <hr />
+    <div className="container">
+      <CommentSection
+        doctorId={id}
+      />
+      <hr />
+    </div>
+  </div>
+  <DoctorReview
+    doctor={doctorInfo}
+    User={userDatas}
+  />
+</div>
+
   )
 setIsEditProfileOpen(null);
 setRatingData(data)
@@ -443,7 +469,7 @@ useEffect(() => {
   axios(`http://127.0.0.1:8000/users/`)
       .then((res) => setUserDel(res.data))
       .catch((err) => console.log(err));
-}, [id]);
+}, []);
 
 const User = userDel.find((d)=> d.username === doctorInfo.username )
 console.log(User)
@@ -495,7 +521,7 @@ const handleSubmit = (e) => {
 const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
 const toggleEditProfile = () => {
   const data=(
-    <div className='container m-5'>
+    <div className='container d-flex justify-content-center'>
 <EditDoctorPage
  userId={doctorInfo}
  ></EditDoctorPage>
@@ -581,60 +607,15 @@ return (
                             </div> 
                             <div className="row docgradient">
                                 <div className="col-1"></div>
-                                <div className="col-7">
-                                  <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-        <div class="navbar-nav d-flex justify-content-center">
-            <button className="nav-link" onClick={Select_Exprience}><h6 style={{ color: "green" }}>Experience</h6></button>
-            <button className="nav-link" onClick={Select_Rating}><h6 style={{ color: "green" }}>Ratings</h6></button>
-            <button className="nav-link" onClick={Select_About}><h6 style={{ color: "green" }}>About Me</h6></button>
-            <button className="nav-link" onClick={Select_Appon}><h6 style={{ color: "green" }}>Appointment</h6></button>
-            <button className="nav-link" onClick={select_Schedule}><h6 style={{ color: "green" }}>Schedule</h6></button>
-            {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
-                <DropdownButton
-                    id="dropdown-basic-button"
-                    title="Settings"
-                    variant="success"
-                    className="mx-2"
-                >
-                    <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
-                    <Dropdown.Item>
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
-                    </Dropdown.Item>
-                </DropdownButton>
-            )}
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete Account</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are You Sure You Want To delete Account ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-                                    {/* <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{height:"100px"}}>
-                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                        <span class="navbar-toggler-icon"></span>
+                                <div className="col-8">
+                                <nav class="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+                                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                          <span class="navbar-toggler-icon"></span>
                                         </button>
-                                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                            <div class="navbar-nav bg-white d-flex justify-content-center" > 
-                                                 <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button> 
-                                                <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button>
+                                        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                                               <div class="navbar-nav bg-white d-flex justify-content-center">
+                                                <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
+                                                {/* <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button> */}
                                                 <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
@@ -653,7 +634,17 @@ return (
                                                </Dropdown.Item>
                                                 </DropdownButton>
                                                       )}
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+
+                                <div className="col-4"></div>
+                            </div> 
+                    <div>
+            </div> 
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                   <div class="modal-dialog">
                                                     <div class="modal-content">
                                                       <div class="modal-header">
@@ -669,18 +660,9 @@ return (
                                                       </div>
                                                     </div>
                                                   </div>
-                                                </div>                        
-                                            </div>
-                                        </div>
-                                    </nav> */}
-                                </div>
-
-                                <div className="col-4"></div>
-                            </div> 
-                    <div>
+              </div>
             </div>
-            </div>
-            <div className="container mt-5 d-flex justify-content-center" id='Data'>
+            <div className="container mt-5 d-flex justify-content-center" >
             {locationData}
             {ExperienceData}
             {RatingData}

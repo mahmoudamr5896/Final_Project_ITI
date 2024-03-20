@@ -122,10 +122,10 @@ function ReviewSection({ doctorId }) {
                   {Array.from({ length: review.Rate }, (_, index) => (
                     <span key={index}>⭐️</span>
                   ))}
-                  <p className="font-weight-bold name" style={{ textAlign: 'center' }}>{review.Review}</p>
+                  <p className="font-weight-bold name"  style={{ textAlign: 'center', width:'100px' }}>{review.Review}</p>
                 </span>
                 <div className="mt-2">
-                  <p className="comment-text">{review.comment}</p>
+                  <p className="comment-text" style={{width:'100px'}}>{review.comment}</p>
                   {userData && userData.role === 'Patient' && userData.id === review.User_id && (
                     <Dropdown alignRight>
                       <Dropdown.Toggle style={{
@@ -228,6 +228,10 @@ function ReviewSection({ doctorId }) {
         onPageChange={paginate} // Corrected prop name
       />
     </div>
+
+   
+
+
   );
 }
 

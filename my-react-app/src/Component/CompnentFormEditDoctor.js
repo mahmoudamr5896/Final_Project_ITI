@@ -79,59 +79,109 @@ const history = useHistory()
 const[Error,setError]=useState()
 
   return (
-    <div className='container m-5'>
-      {/* <h1>Edit Doctor Profile</h1> style={{width:'500px'}}*/}
-      <form   onSubmit={handleSubmit}  >
-        <div className='row border p-4'>
-          <div className='col-6'>
-                  <div className="mb-3">
-                    <label htmlFor="username" className="form-label " >Username:</label>
-                    <input type="text" id="username" name="username" className="form-control"disabled value={userData.username} onChange={handleChange} />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Name:</label>
-                    <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="age" className="form-label">Age:</label>
-                    <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
-                  </div>
-                   <div className="mb-3">
-                        <label htmlFor="image" className="form-label">Image:</label>
-                        <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
-                      </div>
-          </div>
-          <div className='col-6'>
+    // <div className='container m-5'>
+    //   {/* <h1>Edit Doctor Profile</h1> style={{width:'500px'}}*/}
+    //   <form   onSubmit={handleSubmit}  >
+    //     <div className='row border p-4'>
+    //       <div className='col-6'>
+    //               <div className="mb-3">
+    //                 <label htmlFor="username" className="form-label " >Username:</label>
+    //                 <input type="text" id="username" name="username" className="form-control"disabled value={userData.username} onChange={handleChange} />
+    //               </div>
+    //               <div className="mb-3">
+    //                 <label htmlFor="name" className="form-label">Name:</label>
+    //                 <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
+    //               </div>
+    //               <div className="mb-3">
+    //                 <label htmlFor="age" className="form-label">Age:</label>
+    //                 <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
+    //               </div>
+    //                <div className="mb-3">
+    //                     <label htmlFor="image" className="form-label">Image:</label>
+    //                     <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
+    //                   </div>
+    //       </div>
+    //       <div className='col-6'>
                      
-                      <div className="mb-3">
-                        <label htmlFor="experience" className="form-label">Experience:</label>
-                        <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="gender" className="form-label">Gender:</label>
-                        <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
-                          <option value="">Select Gender</option>
-                          <option value="M">Male</option>
-                          <option value="F">Female</option>
-                        </select>
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="phone" className="form-label">Phone:</label>
-                        <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
-                      </div>  <div className="mb-3">
+    //                   <div className="mb-3">
+    //                     <label htmlFor="experience" className="form-label">Experience:</label>
+    //                     <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
+    //                   </div>
+    //                   <div className="mb-3">
+    //                     <label htmlFor="gender" className="form-label">Gender:</label>
+    //                     <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
+    //                       <option value="">Select Gender</option>
+    //                       <option value="M">Male</option>
+    //                       <option value="F">Female</option>
+    //                     </select>
+    //                   </div>
+    //                   <div className="mb-3">
+    //                     <label htmlFor="phone" className="form-label">Phone:</label>
+    //                     <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
+    //                   </div>  <div className="mb-3">
+    //       <label htmlFor="location" className="form-label">Location:</label>
+    //       <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
+           
+    //     </div> 
+        
+    //       </div>
+    //     </div>
+    //   <button type="submit" className="btn btn-sm btn-primary mt-3"style={{width:'150px'}}>Save Changes</button>
+
+    //     <p className='text-danger'>{Error}</p>
+      
+    //   </form>
+    // </div>
+    <div className='container '>
+  {/* <h1>Edit Doctor Profile</h1> style={{width:'500px'}}*/}
+  <form onSubmit={handleSubmit}>
+    <div className='row border p-4'>
+      <div className='col-lg-6 col-md-12'>
+        <div className="mb-3">
+          <label htmlFor="username" className="form-label">Username:</label>
+          <input type="text" id="username" name="username" className="form-control" disabled value={userData.username} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Name:</label>
+          <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="age" className="form-label">Age:</label>
+          <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="image" className="form-label">Image:</label>
+          <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
+        </div>
+      </div>
+      <div className='col-lg-6 col-md-12'>
+        <div className="mb-3">
+          <label htmlFor="experience" className="form-label">Experience:</label>
+          <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="gender" className="form-label">Gender:</label>
+          <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
+            <option value="">Select Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="phone" className="form-label">Phone:</label>
+          <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
           <label htmlFor="location" className="form-label">Location:</label>
           <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
-           
-        </div> 
-        
-          </div>
         </div>
-      <button type="submit" className="btn btn-sm btn-primary mt-3"style={{width:'150px'}}>Save Changes</button>
-
-        <p className='text-danger'>{Error}</p>
-      
-      </form>
+      </div>
     </div>
+    <button type="submit" className="btn btn-sm btn-primary mt-3" style={{ width: '150px' }}>Save Changes</button>
+    <p className='text-danger'>{Error}</p>
+  </form>
+</div>
+
   );
 }
 

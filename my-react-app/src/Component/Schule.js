@@ -125,108 +125,106 @@ const User_id = userDatas.id
       setEditingScheduleItemId(id);
     }}
   return (
-    <div className="doctor-schedule-form">
-       {userDatas && userDatas.role === 'Doctor' && (
-        <form onSubmit={handleSubmit} className="schedule-form">
-  <table className="table">
-  <tbody>
-    <tr>
-      <td>
-        <div className="form-group" style={{ width: '200px' }}>
-          <label htmlFor="day">Day:</label>
-          <select
-            id="day"
-            className="form-control"
-            value={selectedDay}
-            onChange={(e) => setSelectedDay(e.target.value)}
-            required
-          >
-            <option value="">Select Day</option>
-            {next10Days.map((day, index) => (
-              <option key={index} value={day.date}>
-                {day.date} ({day.day})
-              </option>
-            ))}
-          </select>
+<div className="container doctor-schedule-form">
+  {userDatas && userDatas.role === 'Doctor' && (
+    <form onSubmit={handleSubmit} className="schedule-form">
+      <div className="row">
+        <div className="col-md-4">
+          <div className="form-group">
+            <label htmlFor="day">Day:</label>
+            <select
+              id="day"
+              className="form-control"
+              value={selectedDay}
+              onChange={(e) => setSelectedDay(e.target.value)}
+              required
+            >
+              <option value="">Select Day</option>
+              {next10Days.map((day, index) => (
+                <option key={index} value={day.date}>
+                  {day.date} ({day.day})
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </td>
-      <td>
-        <div className="form-group">
-          <label htmlFor="startTime">Start Time:</label>
-          <input
-            type="time"
-            id="startTime"
-            className="form-control"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-            required
-          />
+        <div className="col-md-4">
+          <div className="form-group">
+            <label htmlFor="startTime">Start Time:</label>
+            <input
+              type="time"
+              id="startTime"
+              className="form-control"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              required
+            />
+          </div>
         </div>
-      </td>
-      <td>
-        <div className="form-group">
-          <label htmlFor="endTime">End Time:</label>
-          <input
-            type="time"
-            id="endTime"
-            className="form-control"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-            required
-          />
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button type="submit" className="btn btn-primary" style={{width:'100px'}}>Save</button>
-
-        </form>
-      )}
-      <div className="container">
-        <div className="row" style={{ width: '800px' }}>
-          <div className="col">
-            <h2 className="mt-4 mb-3">Doctor's Schedule</h2>
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Day</th>
-                  <th>Start Time</th>
-                  <th>End Time</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {doctorSchedule.map((scheduleItem, index) => (
-                  <tr key={index}>
-                    <td>{scheduleItem.day}</td>
-                    <td>{scheduleItem.start_time}</td>
-                    <td>{scheduleItem.end_time}</td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-primary me-1"
-                        onClick={() => handleEdit(scheduleItem.id)}
-                      >
-                        Edit
-                      </button>
-                      </td>
-                      <td>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        onClick={() => handleDelete(scheduleItem.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="col-md-4">
+          <div className="form-group">
+            <label htmlFor="endTime">End Time:</label>
+            <input
+              type="time"
+              id="endTime"
+              className="form-control"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              required
+            />
           </div>
         </div>
       </div>
+      <button type="submit" className="btn btn-primary" style={{ width: '100px' }}>Save</button>
+    </form>
+  )}
+  <div className="container">
+    <div className="row">
+      <div className="col">
+        <h2 className="mt-4 mb-3">Doctor's Schedule</h2>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {doctorSchedule.map((scheduleItem, index) => (
+                <tr key={index}>
+                  <td>{scheduleItem.day}</td>
+                  <td>{scheduleItem.start_time}</td>
+                  <td>{scheduleItem.end_time}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-primary me-1"
+                      onClick={() => handleEdit(scheduleItem.id)}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleDelete(scheduleItem.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
   );
 }
 
