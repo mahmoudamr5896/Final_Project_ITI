@@ -360,7 +360,9 @@ useEffect(() => {
 
               <PaymentForm appointmentId={item.id} />
               {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
+              <PayPalCheckoutButton  appointmentId={item.id} ></PayPalCheckoutButton>
         </>
+        
       })}
       {Appointments_r.map((item) => {
       
