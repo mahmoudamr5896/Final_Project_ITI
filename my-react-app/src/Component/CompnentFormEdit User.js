@@ -8,6 +8,7 @@ function EditUserPage({ userId }) {
     "Name": "",
     "Phone": "",
     "Password": "",
+    "image":'',
     "Gender": "",
   });
 

@@ -18,7 +18,7 @@ import { Modal } from "react-bootstrap";
 import { useContext } from "react";
 import MyContext from "../Context/Context";
 import ReviewComponent from '../Component/ComponentRate'
-
+import DoctorScheduleForm from '../Component/Schule'
 function DoctorDetails() {
   const [showModal, setShowModal] = useState(false);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -159,6 +159,8 @@ setExperienceData(data)
 setLocationData(null)
 setRatingData(null)
 setAboutData(null)
+setSchedule(null)
+
 setAppointment(null)
 }
 //___________________________________________________________________________________
@@ -270,6 +272,8 @@ setLocationData(null)
 setExperienceData(null)
 setAboutData(null)
 setAppointment(null)
+setSchedule(null)
+
 
 }
 //_________________________________________________________________________________________
@@ -364,6 +368,7 @@ const Select_About = ()=>{
    </div>
 
   )
+  setSchedule(null)
 
   setAboutData(data)
   setExperienceData(null)
@@ -399,6 +404,8 @@ const Select_Appon = ()=>{
   setAppointment(data)
   setIsEditProfileOpen(null);
   setAboutData(null)
+  setSchedule(null)
+
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
@@ -524,10 +531,13 @@ const toggleEditProfile = () => {
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
+  setSchedule(null)
 };
 //___________________________________________________________________
+const[Schedule,setSchedule]=useState(null)
+const select_Schedule=()=>{
 
-<<<<<<< HEAD
+
   const data = (
     <>
     <DoctorScheduleForm
@@ -544,8 +554,6 @@ setExperienceData(null)
 setLocationData(null)
 setRatingData(null)
 }
-=======
->>>>>>> origin/mai_Mohamed
 //__________________________________________________________________________________________________________________
 
 //________________________________________________________________________________
@@ -558,7 +566,6 @@ useEffect(() => {
   }
 }, []);
 //_______________________________________________________________________________________________________
-<<<<<<< HEAD
 // athanticate 
 // if(!userDatas){
 //   history.push('/')
@@ -581,19 +588,15 @@ if(!userData_ && !storedIdw){
 console.log(doctorInfo.image)
 const url=doctorInfo.image
 return ( 
-    <> 
-      <>
-=======
-  return ( 
+
               <>
->>>>>>> origin/mai_Mohamed
             <div className="container-fluid">
                     <div><br/><br/><br/><br/>
                     </div>
                             <div className="row" style={{background:"#03974D"}}>
                                 <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                                 {doctorInfo.image && (
-                                     <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+                                    <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
                                )}
                                 {/* <img src='{{ doctorInfo.image }}'  className="border border-white border-3 rounded-2" style={{width:'170px'}}/> */}
                                 {/* {doctorInfo.Rating}http://127.0.0.1:8000/media/ypoy_logo.jpeg{{ doctorInfo.image }}src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'  */}
@@ -622,15 +625,11 @@ return (
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
-<<<<<<< HEAD
                                                 <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
 
                                                 {userData_ && userData_.role === 'Doctor' && userData_.id === doctorInfo.id && (
                                                  <>
                                                  <Link  className="nav-link" to={`/dashboard/${doctorInfo.id}`}><h6 style={{color:"green"}}>Dashboard</h6></Link>
-=======
-                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
->>>>>>> origin/mai_Mohamed
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"
@@ -680,6 +679,7 @@ return (
             {AboutData}
             {Appointment}
             {isEditProfileOpen}
+            {Schedule}
             </div>
             </>       
   );

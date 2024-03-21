@@ -40,7 +40,7 @@ useEffect(() => {
           {doctorInfo && (
             <div className="doctor-info">
               <div className="doctor-image-container">
-                <img src={author1} alt="Logo" className="doctor-image" style={{ borderRadius: "50%", width: "30%" }} />
+                <img src={`${doctorInfo.image}`} alt="Logo" className="doctor-image" style={{ borderRadius: "50%", width: "30%" }} />
               </div>
               <div className="doctor-name">
                 <span

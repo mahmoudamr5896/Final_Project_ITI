@@ -84,9 +84,9 @@ setBMI(bmiValue.toFixed(2));
     setShowEditProfile(true);
   };
   
-  const handleEditProfile = () => {
+  const handleEditProfile = (e) => {
+    e.preventDefault()
     const updatedFields = { ...formData };
-
     axios.patch(`http://127.0.0.1:8000/patients/${id}/`, updatedFields)
       .then(response => {
         console.log('Profile updated successfully:', response.data);
@@ -234,8 +234,9 @@ if(!userData_ && !storedIdw){
         <div><br /><br /><br /><br /></div>
         <div className="row" style={{ background: "#03974D" }}>
           <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
-            <img src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg' className="border border-white border-3 rounded-2" style={{ width: '170px' }} />
-          </div>
+        {patientInfo.image && (
+                                    <img src={`${patientInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+                               )}             </div>
           <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <img src="/patientlogo.png" width={"50px"} className="rounded-circle" /> &nbsp;

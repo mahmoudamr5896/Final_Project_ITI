@@ -56,7 +56,7 @@ function Dash() {
         ></ProgressChart> */}
         <div>
           <Reviews
-
+          id={id}
           ></Reviews>
           
         </div>

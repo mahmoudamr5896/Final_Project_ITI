@@ -170,7 +170,7 @@ const data =(
             <tbody>
               {currentAppointments.map(appointment => (
                 <tr key={appointment.id}>
-                  <td>{appointment.doctor_name}</td>
+                  <td>{appointment.patient_name}</td>
                   <td>{appointment.doctor_phone}</td>
                   <td>{appointment.date_time}</td>
                   <td>{appointment.problems}</td>
