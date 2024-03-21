@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Review.css"; // Import the CSS file for styling
 
-const Reviews = () => {
+const Reviews = ({id}) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(1); // Display only one review per page
@@ -11,7 +11,8 @@ const Reviews = () => {
     // Fetch reviews from the API
     axios.get("http://127.0.0.1:8000/reviews-all/")
       .then(response => {
-        setReviews(response.data);
+        const filteredDoctor = response.data.filter((doctor) => doctor.Doctor_id == id );
+        setReviews(filteredDoctor);
       })
       .catch(error => {
         console.error('Error fetching reviews:', error);
@@ -37,7 +38,7 @@ const Reviews = () => {
               <span className="patient-name">From:{currentReview.User_Name}</span>
             </div>
           </div>
-          <div className="rating">Rating: {currentReview.Rate}</div>
+          <div className="rating">Rating:⭐️ {currentReview.Rate} </div>
           <div className="comment">Comment: "{currentReview.Review}"</div>
         </div>
       )}

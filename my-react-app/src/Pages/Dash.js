@@ -5,12 +5,37 @@ import Cards from "../Component/dash_cards/card";
 import Reviews from "../Component/Reviews/Review";
 import DashTableCont from "../Component/TableAppoint/TableContainer";
 import ProgressChart from "../Component/Charts/ProgrssChart";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 
 function Dash() {
   const { id } = useParams();
   console.log("id:", id);
+///_____________________________________________________________________________
+  const history = useHistory()
+  const storedId = sessionStorage.getItem('userData') ;
+  const userData = localStorage.getItem('userData') ;
+  const userDatas = JSON.parse(storedId); 
+  const userData_ = JSON.parse(userData); 
+
+
+
+  if(!userData_ && !storedId){
+     history.push('/')
+  }else{
+    // if(userDatas.role === 'Patient'){
+    //   console.log(userDatas.role)
+    //    history.push('/')
+    // }else{
+    //   if(userDatas.id == id userData_ ){
+    //     console.log(userDatas.role)
+    //     console.log('ok')
+    //    }else{
+    //        history.push('/')
+    //    } 
+    // } 
+  }
+  console.log(id)
   return (
     <>
     <br></br>
@@ -31,7 +56,7 @@ function Dash() {
         ></ProgressChart> */}
         <div>
           <Reviews
-
+          id={id}
           ></Reviews>
           
         </div>

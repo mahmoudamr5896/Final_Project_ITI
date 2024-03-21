@@ -4,8 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './table.css';
 import axios from 'axios';
-
+import { useDispatch,useSelector  } from 'react-redux';
+import { addAppiontment } from '../../Store/Actions/ActionAppointment';
 function DoctorAppointmentsTable({ id }) {
+  // console.log(id)
   const [appointments, setAppointments] = useState([]);
   const [acceptedAppointments, setAcceptedAppointments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +16,54 @@ function DoctorAppointmentsTable({ id }) {
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
 
+const dispatch = useDispatch()
+const yourData = useSelector(state => state.data.data);
 
+//_____________________________________________________________________________________
+const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
+const Select_Appiontment_accept=()=>{
+const data= (
+  <>
+        <h2>Accepted Appointments</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name Of Patient</th>
+            <th>Date</th>
+            <th>Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          {acceptedAppointments.map(appointment => (
+            <tr key={appointment.id}>
+              <td>{appointment.patient_name}</td>
+              {/* <td>{appointment.doctor_phone}</td> */}
+              <td>{appointment.date_time}</td>
+              <td>{appointment.problems}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+  </>
+)
+setSelect_Appiont_a(data)
+setSelect_Appiont(null)
+}
+// Appointment status false 
+useEffect(() => {
+    if (id) {
+      axios.get(`http://127.0.0.1:8000/appointments/`)
+        .then(response => {
+          // Filter appointments with status true
+          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none' && appointment.doctor == id);
+          setAppointments(filteredAppointments);
+          // dispatch(addAppiontment(appointments));
+        })
+        .catch(error => {
+          console.error('Error fetching appointments:', error);
+        });
+    }
+  }, [acceptedAppointments]);
 
 // Appointment status true 
   useEffect(() => {
@@ -22,36 +71,23 @@ function DoctorAppointmentsTable({ id }) {
       axios.get(`http://127.0.0.1:8000/appointments/`)
         .then(response => {
           // Filter appointments with status true
-          const filteredAppointments = response.data.filter(appointment => appointment.status === true);
+          const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.doctor == id);
           setAcceptedAppointments(filteredAppointments);
+          // dispatch(addAppiontment(acceptedAppointments));
+
         })
         .catch(error => {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, [id]);
-// Appointment status false 
-useEffect(() => {
-    if (id) {
-      axios.get(`http://127.0.0.1:8000/appointments/`)
-        .then(response => {
-          // Filter appointments with status true
-          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none');
-          setAppointments(filteredAppointments);
-        })
-        .catch(error => {
-          console.error('Error fetching appointments:', error);
-        });
-    }
-  }, [id]);
+  }, [acceptedAppointments]);
+
 //________________________________________________________________________________________________________________
 
   const handleApprove = (appointmentId) => {
-      // Make a PUT request to update the status of the consultation
       axios.patch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, { status: true })
         .then(response => {
           console.log('Consultation approved successfully:', response.data);
-          // Handle any further actions you need after approving the consultation
         })
         .catch(error => {
           console.error('Error approving consultation:', error);
@@ -72,10 +108,10 @@ useEffect(() => {
     setShowModal(false);
     setRejectionReason('');
   };
-console.log(selectedAppointmentId)
+// console.log(selectedAppointmentId)
 const handleModalSubmit = () => {
   if (selectedAppointmentId) {
-    axios.patch(`http://127.0.0.1:8000/appointments/${selectedAppointmentId}/`, { Reasone_reject: rejectionReason })
+    axios.patch(`http://127.0.0.1:8000/appointments/${selectedAppointmentId}/`, { Reasone_reject: rejectionReason ,status:false})
       .then(response => {
         console.log('Appointment rejected successfully:', response.data);
         const updatedAppointments = appointments.map(appointment => {
@@ -134,7 +170,7 @@ const data =(
             <tbody>
               {currentAppointments.map(appointment => (
                 <tr key={appointment.id}>
-                  <td>{appointment.doctor_name}</td>
+                  <td>{appointment.patient_name}</td>
                   <td>{appointment.doctor_phone}</td>
                   <td>{appointment.date_time}</td>
                   <td>{appointment.problems}</td>
@@ -171,35 +207,7 @@ const data =(
 setSelect_Appiont_a(null)
 setSelect_Appiont(data)
 }
-const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
-const Select_Appiontment_accept=()=>{
-const data= (
-  <>
-        <h2>Accepted Appointments</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name Of Patient</th>
-            <th>Date</th>
-            <th>Case</th>
-          </tr>
-        </thead>
-        <tbody>
-          {acceptedAppointments.map(appointment => (
-            <tr key={appointment.id}>
-              <td>{appointment.patient_name}</td>
-              {/* <td>{appointment.doctor_phone}</td> */}
-              <td>{appointment.date_time}</td>
-              <td>{appointment.problems}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-  </>
-)
-setSelect_Appiont_a(data)
-setSelect_Appiont(null)
-}
+
 //_________________________________________________________________________________________________________________
   return (
     <div>

@@ -62,19 +62,19 @@ const handleSubmit = async (e) => {
                     const doctors = response.data;
                     const doctor = doctors.find(d => d.username === username);
                     if (doctor) {
-                      console.log(doctor);
+                      console.log(doctor.id);
                       history.push(`/dashboard/${doctor.id}`);
                       dispatch(login(userDatas));
-
                       const userData = {
                      email: formData.emailOrUsername,
-                    password: formData.password,
+                    password:authToken ,
                     role: 'Doctor' ,
-                    id:doctor.id
+                     id:doctor.id
                     };
-                   const userDataString = JSON.stringify(userData);
-                               sessionStorage.setItem('userData', userDataString);
-                               console.log("Successfully updated user data in session storage for user with id:", doctor.id);
+                     const userDataString = JSON.stringify(userData);
+                     sessionStorage.setItem('userData', userDataString);
+                     localStorage.setItem('userData', userDataString);
+                     console.log("Successfully updated user data in session storage for user with id:", doctor.id);
             
                     } else {
                       setError('Doctor not found');
@@ -99,8 +99,13 @@ const handleSubmit = async (e) => {
   }
 };
 //______________________________________________________________________
-//dispash action
- 
+//dispash action 
+const userData = localStorage.getItem('userData') ;
+const userData_ = JSON.parse(userData); 
+if(userData_){
+  history.push('/')
+}
+//____________________________________________________________________
   return (
     <div style={{marginTop:'100px'}}>
         <Container >

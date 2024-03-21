@@ -97,6 +97,7 @@ const handleSubmit = async (e) => {
                     };
                    const userDataString = JSON.stringify(userData);
                     sessionStorage.setItem('userData', userDataString);
+                    localStorage.setItem('userData', userDataString);
                     console.log("Successfully updated user data in session storage for user with id:", doctor.id);
                     dispatch(login(userDatas));
 
@@ -123,6 +124,13 @@ const handleSubmit = async (e) => {
   }
 };
 
+//____________________________________________________________
+const userData = localStorage.getItem('userData') ;
+const userData_ = JSON.parse(userData); 
+if(userData_){
+  history.push('/')
+}
+//___________________________________________________________
   return (
     
     <div style={{marginTop:'100px'}}>

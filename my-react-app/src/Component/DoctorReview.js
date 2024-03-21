@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
-
+import { useDispatch } from 'react-redux';
+import { addReview } from '../Store/Actions/actionreview';
 function DoctorReview({ doctor , User }) {
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -16,13 +17,7 @@ function DoctorReview({ doctor , User }) {
     const inputReview = event.target.value;
     setNewReview(inputReview);
   };
-// useEffect(()=>{
-// axios.post('http://127.0.0.1:8000/reviews-all/')
-// .then((res)=> console.log(res.data))
-// .catch((err)=>{
-//   console.log(err)
-// })
-// },[User,doctor])
+const dispatch = useDispatch()
   const handleReview = async (event) => {
     event.preventDefault();
     // const stars = '⭐️'.repeat(selectedRating);
@@ -41,9 +36,9 @@ function DoctorReview({ doctor , User }) {
     }
 
     try {
-      
       const response = await axios.post('http://127.0.0.1:8000/reviews-all/', reviewData);
       console.log('Review posted successfully:', response.data);
+      dispatch(addReview(response.data)); // Dispatching the action with the new review data
       setNewReview('');
       setSelectedRating(0);
       setError(null);
@@ -59,8 +54,7 @@ function DoctorReview({ doctor , User }) {
   };
 
   return (
-  
-      <div className="col-12 border mt-4">
+    <div className="col-12 border mt-4">
       <h5 className="text-start pt-3">Leave a review</h5>
       <div className="mt-4">
         <i className={`fas fa-star ${selectedRating >= 1 ? 'checked' : ''}`} name='1' onClick={handleChange_rate}></i>
@@ -89,8 +83,7 @@ function DoctorReview({ doctor , User }) {
           {error}
         </div>
       )}
-      </div>
- 
+    </div>
   );
 }
 

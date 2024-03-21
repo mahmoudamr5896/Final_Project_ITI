@@ -3,32 +3,38 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faStar, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import "./card.css";
 import axios from "axios";
-
+import { useDispatch,useSelector  } from 'react-redux';
+import { addAppiontment } from '../../Store/Actions/ActionAppointment';
 const Cards = ({ id }) => {
   const [appointmentsCount, setAppointmentsCount] = useState(0);
   const [reviewsCount, setReviewsCount] = useState(0);
+// console.log(id)
+const dispatch = useDispatch()
+const yourData = useSelector(state => state.data.data);
 
   useEffect(() => {
     // Fetch appointments count
-    axios.get(`http://127.0.0.1:8000/appointments/?Doctor_Id=${id}`)
-      .then(response => {
-        const numberOfAppointments = response.data.length;
-        setAppointmentsCount(numberOfAppointments);
-      })
-      .catch(error => {
-        console.error('Error fetching appointments:', error);
-      });
+    axios.get('http://127.0.0.1:8000/appointments/')
+    .then((response) => {
+      const filteredDoctor = response.data.filter((doctor) => doctor.doctor == id && doctor.status != false);
+      setAppointmentsCount(filteredDoctor.length);
+      dispatch(addAppiontment(appointmentsCount));
+    })
+    .catch((error) => {
+      console.error('Error fetching doctor info:', error);
+    });
 
-    // Fetch reviews count
-    axios.get(`http://127.0.0.1:8000/reviews-all/?Doctor_id=${id}`)
-      .then(response => {
-        const numberOfReviews = response.data.length;
-        setReviewsCount(numberOfReviews);
+    // // Fetch reviews count
+      axios.get('http://127.0.0.1:8000/reviews-all/')
+      .then((response) => {
+        const filteredDoctor = response.data.filter((doctor) => doctor.Doctor_id == id);
+        setReviewsCount(filteredDoctor.length);
       })
-      .catch(error => {
-        console.error('Error fetching Reviews:', error);
+      .catch((error) => {
+        console.error('Error fetching doctor info:', error);
       });
-  }, [id]);
+  }, [yourData]);
+
 
   return (
     <div>

@@ -94,7 +94,7 @@ function Regspatien() {
             name: `${formData.firstName} ${formData.lastName}`,
             age: 0,
             weight: 0, // Make sure this field is provided in the form
-            image: '',
+            image: '1.png',
             height: 0,
             gender: "M",
             phone: "+20",
@@ -116,6 +116,15 @@ function Regspatien() {
         });
     }
   };
+  //_______________________________________________________________________
+  const storedId = sessionStorage.getItem('userData') ;
+  const userDatas = JSON.parse(storedId); 
+  const userData = localStorage.getItem('userData') ;
+  const userData_ = JSON.parse(userData); 
+  if(userData_){
+    history.push('/')
+  }
+  //________________________________________________________________________
 
   return (
     <div style={{marginTop:'100px'}}> 

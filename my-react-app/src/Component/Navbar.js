@@ -12,7 +12,9 @@ import "./CSS/Navbar.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 const  CustomNavbar= ()=> {
-  const userData = sessionStorage.getItem('userData');
+const selectedData = useSelector((state) => state.auth.isLoggedIn);
+console.log(selectedData)
+  const userData = localStorage.getItem('userData');
   const showJoinButton = !userData;
   const history = useHistory()
   const storedId = sessionStorage.getItem('userData') ;
@@ -36,13 +38,13 @@ const  CustomNavbar= ()=> {
 const dispatch = useDispatch()
  const Logout_handel = (e)=>{
   sessionStorage.removeItem('userData');
+  localStorage.removeItem('userData');
   setLogin(!login)
   history.push('/')
   dispatch(logout(userDatas));
 } 
 //______________________________________________________________________________
-const selectedData = useSelector(state => state.isLoggedIn);
-console.log(selectedData)
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={{ boxShadow: "0 4px 5px -2px gray" }}>
@@ -69,7 +71,7 @@ console.log(selectedData)
               )}
             </Nav>
             <Nav>
-            {login  || selectedData ? (
+            {login   || userData ? (
               <Link to='/'>
                <button className="button1 type12 ms-auto" onClick={Logout_handel}>Log Out</button>
               </Link>  
@@ -78,7 +80,7 @@ console.log(selectedData)
                 <button className="button1 type12 ms-auto" >Join Us Now</button>
               </Link> 
             )}
-          </Nav>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

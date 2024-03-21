@@ -161,6 +161,8 @@ setExperienceData(data)
 setLocationData(null)
 setRatingData(null)
 setAboutData(null)
+setSchedule(null)
+
 setAppointment(null)
 }
 //___________________________________________________________________________________
@@ -275,6 +277,8 @@ setLocationData(null)
 setExperienceData(null)
 setAboutData(null)
 setAppointment(null)
+setSchedule(null)
+
 
 }
 //_________________________________________________________________________________________
@@ -369,6 +373,7 @@ const Select_About = ()=>{
    </div>
 
   )
+  setSchedule(null)
 
   setAboutData(data)
   setExperienceData(null)
@@ -406,6 +411,8 @@ e.preventDefault()
   setAppointment(data)
   setIsEditProfileOpen(null);
   setAboutData(null)
+  setSchedule(null)
+
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
@@ -534,16 +541,27 @@ const toggleEditProfile = () => {
   setLocationData(null)
   setRatingData(null)
   setSchedule(null)
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
 };
 //___________________________________________________________________
 const[Schedule,setSchedule]=useState(null)
 const select_Schedule=()=>{
 
+<<<<<<< HEAD
   const data = (
     <>
     <DoctorScheduleForm
     doctorId={id}>
+=======
+
+  const data = (
+    <>
+    <DoctorScheduleForm
+    doctorId={doctorInfo.id}>
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
     </DoctorScheduleForm>
     </>
     
@@ -569,6 +587,7 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
 // athanticate 
+<<<<<<< HEAD
 if(!userDatas){
   history.push('/')
 }else{
@@ -578,20 +597,47 @@ if(!userDatas){
    }else{
       //  history.push('/')
    } 
+=======
+// if(!userDatas){
+//   history.push('/')
+// }else{
+//   if(userDatas.id == id){
+//     console.log(userDatas.role)
+//     console.log('ok')
+//    }else{
+//       //  history.push('/')
+//    } 
+// }
+const storedIdw = sessionStorage.getItem('userData') ;
+const userDataw = localStorage.getItem('userData') ;
+// const userDatasw = JSON.parse(storedId); 
+const userData_ = JSON.parse(userDataw); 
+if(!userData_ && !storedIdw){
+  history.push('/')
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
 }
 
 console.log(doctorInfo.image)
 const url=doctorInfo.image
 return ( 
+<<<<<<< HEAD
     <> 
       <>
+=======
+
+              <>
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
             <div className="container-fluid">
                     <div><br/><br/><br/><br/>
                     </div>
                             <div className="row" style={{background:"#03974D"}}>
                                 <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                                 {doctorInfo.image && (
+<<<<<<< HEAD
                                      <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+=======
+                                    <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
                                )}
                                 {/* <img src='{{ doctorInfo.image }}'  className="border border-white border-3 rounded-2" style={{width:'170px'}}/> */}
                                 {/* {doctorInfo.Rating}http://127.0.0.1:8000/media/ypoy_logo.jpeg{{ doctorInfo.image }}src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'  */}
@@ -621,7 +667,14 @@ return (
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
                                                 <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
+<<<<<<< HEAD
                                                 {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
+=======
+
+                                                {userData_ && userData_.role === 'Doctor' && userData_.id === doctorInfo.id && (
+                                                 <>
+                                                 <Link  className="nav-link" to={`/dashboard/${doctorInfo.id}`}><h6 style={{color:"green"}}>Dashboard</h6></Link>
+>>>>>>> e0e758953b8da46924faa225b6c347332b336389
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"
@@ -633,6 +686,8 @@ return (
                                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
                                                </Dropdown.Item>
                                                 </DropdownButton>
+
+                                                 </> 
                                                       )}
 
                                             </div>
