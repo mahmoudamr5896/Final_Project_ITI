@@ -142,9 +142,11 @@ if(userData_){
                 <span className="error" style={{ color: 'red', textAlign: 'left', display: 'block' }}>{errors.password}</span>
               </div>
               <button type="submit">Login</button>
+
               <p className='text-danger'>{error}</p>
             </form>
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} className=' btn-primary'> Sign Up</button></p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>Don't have an account? <button onClick={() => history.push('/RegNut')} className='btn btn-promary' style={{color:'blue'}}> Sign Up</button></p>
+
           </div>
         </Col>
       </Row>

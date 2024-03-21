@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
 import BMICalculator from '../Component/BMI'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PayPalCheckoutButton from '../Component/PayPal'
 import PaymentForm from './Payment';
 function PatientDetails() {
   const history = useHistory();
@@ -205,11 +206,15 @@ if(!userData_ && !storedIdw){
                 <p className="text-success">Accepted</p>
                 {/* Add a button to show payment form */}
                 <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
+                
+                
               </>
             )}
           </div>
         );
       })}
+      
+      
       {Appointments_r.map((item) => (
         <div key={item.id}>
           <p>Doctor Name: {item.doctor_name}</p> 
@@ -245,7 +250,7 @@ if(!userData_ && !storedIdw){
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
-              <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="collapse navbar-collapse" id="navbarNavAltMarkup"  style={{marginLeft:"8%"}}>
                 <div className="navbar-nav bg-white d-flex justify-content-center">
                   <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
                   <button className="nav-link mx-2"><h6 style={{ color: "green" }} onClick={toggleMealplan}>Meal Plan</h6></button>
@@ -396,7 +401,17 @@ if(!userData_ && !storedIdw){
       
         
       <div className="container mt-5 d-flex justify-content-center" id='Data'>
+        
 <div className='container m-5 shadow p-5 bg-white rounded'>
+<h1 style={{ backgroundColor: "whitesmoke",
+        fontFamily: "Century Gothic",
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        padding: "20px", 
+        border: "2px solid #03974D", 
+        borderRadius: "10px", 
+        boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+        textAlign: "center", marginBottom:'20px'}}>Edit your data</h1>
 <div style={{
 background: "linear-gradient(to right, #00FF00, #008000)",
 backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -404,7 +419,7 @@ borderRadius: "15px",
 width:"30%",
 marginLeft:"36%"
 }}>
-<h4 style={{ width: "50%", marginBottom: "10%", marginLeft: "30%", color: "black", fontFamily: "fantasy" }}>Edit your data</h4>
+
 </div>
 <hr></hr> <br></br>
   <form onSubmit={handleEditProfile}>
@@ -445,7 +460,8 @@ marginLeft:"36%"
           <label htmlFor="medicalHistory" className="form-label" style={{ width: "30%" }}>Medical History</label>
           <textarea className="form-control" id="medicalHistory" value={formData.medicalHistory} onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.value })} style={{ width: "70%" }}></textarea>
         </div>
-        <div className="mb-3 d-flex justify-content-center"> {/* Align button to the center */}
+      
+        <div className="mb-3 d-flex justify-content-center " > {/* Align button to the center */}
           <button type="submit" className="btn btn-primary" style={{ width: "50%", marginRight:"90%", marginTop:"10%" }}>Save Changes</button>
         </div>
       </div>

@@ -79,6 +79,7 @@ const history = useHistory()
 const[Error,setError]=useState()
 
   return (
+<<<<<<< HEAD
     // <div className='container m-5'>
     //   {/* <h1>Edit Doctor Profile</h1> style={{width:'500px'}}*/}
     //   <form   onSubmit={handleSubmit}  >
@@ -176,6 +177,61 @@ const[Error,setError]=useState()
           <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
         </div>
       </div>
+=======
+    <div className='container m-5'>
+      <h1 style={{ backgroundColor: "whitesmoke",
+        fontFamily: "Century Gothic",
+        fontSize: "2.5rem",
+        fontWeight: "bold",
+        padding: "20px", 
+        border: "2px solid #03974D", 
+        borderRadius: "10px", 
+        boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)", 
+        textAlign: "center", marginBottom:'20px'}}>Edit Your Data</h1>
+      <form onSubmit={handleSubmit} className="row g-3">
+  <div className="col-md-6">
+    <label htmlFor="name" className="form-label">Name:</label>
+    <input type="text" id="name" name="name" className="form-control" value={userData.name} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="age" className="form-label">Age:</label>
+    <input type="number" id="age" name="age" className="form-control" value={userData.age} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="experience" className="form-label">Experience:</label>
+    <input type="number" id="experience" name="experience" className="form-control" value={userData.experience} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="gender" className="form-label">Gender:</label>
+    <select id="gender" name="gender" className="form-control" value={userData.gender} onChange={handleChange}>
+      <option value="">Select Gender</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="phone" className="form-label">Phone:</label>
+    <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="location" className="form-label">Location:</label>
+    <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
+  </div>
+  <div className="col-md-6">
+    <label htmlFor="image" className="form-label">Image:</label>
+    <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
+  </div>
+  <div className="col-12 d-flex justify-content-center">
+    
+    <div className="col-12 col-md-3">
+      <button type="submit" className="btn btn-primary w-100">Save Changes</button>
+      <p className="text-danger">{Error}</p>
+    </div>
+  </div>
+</form>
+
+
+>>>>>>> origin/mai_Mohamed
     </div>
     <button type="submit" className="btn btn-sm btn-primary mt-3" style={{ width: '150px' }}>Save Changes</button>
     <p className='text-danger'>{Error}</p>
@@ -195,6 +251,7 @@ export default EditDoctorPage;
   // "experience": 2,
   // "gender": "M",
   // "phone": "01060860534",
+<<<<<<< HEAD
   // "location": "cairo"
   // const handleSubmit = (e) => { 
   //   e.preventDefault();
@@ -234,3 +291,6 @@ export default EditDoctorPage;
 
   //     });
   // };
+=======
+  // "location": "cairo"
+>>>>>>> origin/mai_Mohamed
