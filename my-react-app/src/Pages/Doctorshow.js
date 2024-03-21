@@ -99,7 +99,7 @@ const toggleShowFullBio = () => {
 // handel Sections 
 //_________________________________________________________________________________________________________
 const [locationData, setLocationData] = useState(null);
-const selectLocation = (e) => {
+const selectLocation = () => {
   const data = (
     <div className="map_container mt-5" style={{ width: '100%' }}>
       <h2 className="text-start text-success ">Location <hr></hr></h2>
@@ -124,9 +124,7 @@ const selectLocation = (e) => {
 }; 
 //___________________________________________________________________________________________
 const [ExperienceData, setExperienceData] = useState(null);
-const Select_Exprience = (e)=>{
-  e.preventDefault()
-
+const Select_Exprience = ()=>{
 const data=(
   <div className="container">
       <h1 className="text-start col-12"/>
@@ -174,8 +172,7 @@ if(userDatas){
 }
 // handel review _____________________________________________________________________________________________
 const[RatingData,setRatingData]=useState(null)
-const Select_Rating = (e)=>{
-  e.preventDefault()
+const Select_Rating = ()=>{
 
 let data = (
 //  <div className="container row d-flex mt-5" style={{width:'80%'}}>
@@ -271,8 +268,6 @@ let data = (
   )
 setIsEditProfileOpen(null);
 setRatingData(data)
-setSchedule(null)
-
 setLocationData(null)
 setExperienceData(null)
 setAboutData(null)
@@ -379,21 +374,19 @@ const Select_About = ()=>{
   setExperienceData(null)
   setLocationData(null)
   setIsEditProfileOpen(null);
-  setSchedule(null)
 
   setRatingData(null)
 setAppointment(null)
 
 }
 //_____________________________________________________________________________________
-const Select_Overview = (e)=>{
-  e.preventDefault()
+const Select_Overview = ()=>{
 
 }
 //__________________________________________________________________________________
 const[Appointment,setAppointment]=useState(null)
-const Select_Appon = (e)=>{
-e.preventDefault()
+const Select_Appon = ()=>{
+
   const storedId = sessionStorage.getItem('userData');
    const userDatas = JSON.parse(storedId);
    if(userData){
@@ -402,7 +395,7 @@ e.preventDefault()
 
   const data=(
     <AppointmentForm 
-    doctorInfo={doctorInfo.id}
+    doctorInfo={doctorInfo}
     UserR_id={User_id} 
     doc_id={doctorInfo.id}
     ></AppointmentForm>
@@ -416,8 +409,6 @@ e.preventDefault()
   setExperienceData(null)
   setLocationData(null)
   setRatingData(null)
-  setSchedule(null)
-
 }
 
 
@@ -541,27 +532,16 @@ const toggleEditProfile = () => {
   setLocationData(null)
   setRatingData(null)
   setSchedule(null)
-<<<<<<< HEAD
-
-=======
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
 };
 //___________________________________________________________________
 const[Schedule,setSchedule]=useState(null)
 const select_Schedule=()=>{
 
-<<<<<<< HEAD
-  const data = (
-    <>
-    <DoctorScheduleForm
-    doctorId={id}>
-=======
 
   const data = (
     <>
     <DoctorScheduleForm
     doctorId={doctorInfo.id}>
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
     </DoctorScheduleForm>
     </>
     
@@ -587,17 +567,6 @@ useEffect(() => {
 }, []);
 //_______________________________________________________________________________________________________
 // athanticate 
-<<<<<<< HEAD
-if(!userDatas){
-  history.push('/')
-}else{
-  if(userDatas.id == id){
-    console.log(userDatas.role)
-    console.log('ok')
-   }else{
-      //  history.push('/')
-   } 
-=======
 // if(!userDatas){
 //   history.push('/')
 // }else{
@@ -614,30 +583,20 @@ const userDataw = localStorage.getItem('userData') ;
 const userData_ = JSON.parse(userDataw); 
 if(!userData_ && !storedIdw){
   history.push('/')
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
 }
 
 console.log(doctorInfo.image)
 const url=doctorInfo.image
 return ( 
-<<<<<<< HEAD
-    <> 
-      <>
-=======
 
               <>
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
             <div className="container-fluid">
                     <div><br/><br/><br/><br/>
                     </div>
                             <div className="row" style={{background:"#03974D"}}>
                                 <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
                                 {doctorInfo.image && (
-<<<<<<< HEAD
-                                     <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
-=======
                                     <img src={`${doctorInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
                                )}
                                 {/* <img src='{{ doctorInfo.image }}'  className="border border-white border-3 rounded-2" style={{width:'170px'}}/> */}
                                 {/* {doctorInfo.Rating}http://127.0.0.1:8000/media/ypoy_logo.jpeg{{ doctorInfo.image }}src='https://professions.ng/wp-content/uploads/2023/07/The-Process-of-Becoming-a-Doctor-in-Nigeria-A-Roadmap2-768x768.jpg'  */}
@@ -646,9 +605,9 @@ return (
                                     <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                       <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                                        <h5>&nbsp; Nutritionist &bull; {doctorInfo.gender === 'M' ? 'Male' : 'Female'} &bull; Age {doctorInfo.age}</h5> 
+                                        <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
                                     </div> 
-                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {doctorInfo.experience} years of experience in nutrition field. </p>
+                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
                                 </div>
                             </div> 
                             <div className="row docgradient">
@@ -667,14 +626,10 @@ return (
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
                                                 <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
-<<<<<<< HEAD
-                                                {userData && userData.role === 'Doctor' && userData.id === doctorInfo.id && (
-=======
 
                                                 {userData_ && userData_.role === 'Doctor' && userData_.id === doctorInfo.id && (
                                                  <>
                                                  <Link  className="nav-link" to={`/dashboard/${doctorInfo.id}`}><h6 style={{color:"green"}}>Dashboard</h6></Link>
->>>>>>> e0e758953b8da46924faa225b6c347332b336389
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"
@@ -726,10 +681,7 @@ return (
             {isEditProfileOpen}
             {Schedule}
             </div>
-            </> 
-      
-    </>
-       
+            </>       
   );
 }
 export default DoctorDetails;
