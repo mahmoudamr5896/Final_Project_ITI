@@ -4,8 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './table.css';
 import axios from 'axios';
-
+import { useDispatch,useSelector  } from 'react-redux';
+import { addAppiontment } from '../../Store/Actions/ActionAppointment';
 function DoctorAppointmentsTable({ id }) {
+  // console.log(id)
   const [appointments, setAppointments] = useState([]);
   const [acceptedAppointments, setAcceptedAppointments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,6 +15,10 @@ function DoctorAppointmentsTable({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
+
+const dispatch = useDispatch()
+const yourData = useSelector(state => state.data.data);
+
 //_____________________________________________________________________________________
 const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
 const Select_Appiontment_accept=()=>{
@@ -49,14 +55,15 @@ useEffect(() => {
       axios.get(`http://127.0.0.1:8000/appointments/`)
         .then(response => {
           // Filter appointments with status true
-          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none');
+          const filteredAppointments = response.data.filter(appointment => appointment.status === false && appointment.Reasone_reject === 'none' && appointment.doctor == id);
           setAppointments(filteredAppointments);
+          // dispatch(addAppiontment(appointments));
         })
         .catch(error => {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, [Select_Appiont_a]);
+  }, [acceptedAppointments]);
 
 // Appointment status true 
   useEffect(() => {
@@ -64,23 +71,23 @@ useEffect(() => {
       axios.get(`http://127.0.0.1:8000/appointments/`)
         .then(response => {
           // Filter appointments with status true
-          const filteredAppointments = response.data.filter(appointment => appointment.status === true);
+          const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.doctor == id);
           setAcceptedAppointments(filteredAppointments);
+          // dispatch(addAppiontment(acceptedAppointments));
+
         })
         .catch(error => {
           console.error('Error fetching appointments:', error);
         });
     }
-  }, []);
+  }, [acceptedAppointments]);
 
 //________________________________________________________________________________________________________________
 
   const handleApprove = (appointmentId) => {
-      // Make a PUT request to update the status of the consultation
       axios.patch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, { status: true })
         .then(response => {
           console.log('Consultation approved successfully:', response.data);
-          // Handle any further actions you need after approving the consultation
         })
         .catch(error => {
           console.error('Error approving consultation:', error);
@@ -101,7 +108,7 @@ useEffect(() => {
     setShowModal(false);
     setRejectionReason('');
   };
-console.log(selectedAppointmentId)
+// console.log(selectedAppointmentId)
 const handleModalSubmit = () => {
   if (selectedAppointmentId) {
     axios.patch(`http://127.0.0.1:8000/appointments/${selectedAppointmentId}/`, { Reasone_reject: rejectionReason ,status:false})

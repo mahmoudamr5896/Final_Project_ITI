@@ -128,56 +128,59 @@ const User_id = userDatas.id
   return (
 <div className="container doctor-schedule-form">
   {userDatas && userDatas.role === 'Doctor' && User_id === doctorId && (
-    <form onSubmit={handleSubmit} className="schedule-form">
-      <div className="row">
-        <div className="col-md-4">
-          <div className="form-group">
-            <label htmlFor="day">Day:</label>
-            <select
-              id="day"
-              className="form-control"
-              value={selectedDay}
-              onChange={(e) => setSelectedDay(e.target.value)}
-              required
-            >
-              <option value="">Select Day</option>
-              {next10Days.map((day, index) => (
-                <option key={index} value={day.date}>
-                  {day.date} ({day.day})
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="form-group">
-            <label htmlFor="startTime">Start Time:</label>
-            <input
-              type="time"
-              id="startTime"
-              className="form-control"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="form-group">
-            <label htmlFor="endTime">End Time:</label>
-            <input
-              type="time"
-              id="endTime"
-              className="form-control"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-      </div>
-      <button type="submit" className="btn btn-primary" style={{ width: '100px' }}>Save</button>
-    </form>
+ <form onSubmit={handleSubmit} className="schedule-form">
+ <div className="row">
+   <div className="col-md-4">
+     <div className="form-group">
+       <label htmlFor="day">Day:</label>
+       <select
+         id="day"
+         value={selectedDay}
+         onChange={(e) => setSelectedDay(e.target.value)}
+         className="form-control"
+         required
+       >
+         <option value="">Select Day</option>
+         <option value="Monday">Monday</option>
+         <option value="Tuesday">Tuesday</option>
+         <option value="Wednesday">Wednesday</option>
+         <option value="Thursday">Thursday</option>
+         <option value="Friday">Friday</option>
+         <option value="Saturday">Saturday</option>
+         <option value="Sunday">Sunday</option>
+       </select>
+     </div>
+   </div>
+   <div className="col-md-4">
+     <div className="form-group">
+       <label htmlFor="startTime">Start Time:</label>
+       <input
+         type="time"
+         id="startTime"
+         className="form-control"
+         value={startTime}
+         onChange={(e) => setStartTime(e.target.value)}
+         required
+       />
+     </div>
+   </div>
+   <div className="col-md-4">
+     <div className="form-group">
+       <label htmlFor="endTime">End Time:</label>
+       <input
+         type="time"
+         id="endTime"
+         className="form-control"
+         value={endTime}
+         onChange={(e) => setEndTime(e.target.value)}
+         required
+       />
+     </div>
+   </div>
+ </div>
+ <button type="submit" className="btn btn-primary" style={{ width: '100px' }}>Save</button>
+</form>
+
   )}
   <div className="container">
     <div className="row">
@@ -283,7 +286,23 @@ export default DoctorScheduleForm;
 //   const [editingScheduleItemId, setEditingScheduleItemId] = useState(null);
 //   const handleSubmit = (event) => {
   //   event.preventDefault();
-
+ {/* <div className="form-group">
+            <label htmlFor="day">Day:</label>
+            <select
+              id="day"
+              className="form-control"
+              value={selectedDay}
+              onChange={(e) => setSelectedDay(e.target.value)}
+              required
+            >
+              <option value="">Select Day</option>
+              {next10Days.map((day, index) => (
+                <option key={index} value={day.date}>
+                  {day.date} ({day.day})
+                </option>
+              ))}
+            </select>
+          </div> */}
   //   if (!startTime || !endTime) {
   //     alert('Please select both start and end times.');
   //     return;

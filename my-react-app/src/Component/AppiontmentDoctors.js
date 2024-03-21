@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-
+import { useDispatch,useSelector  } from 'react-redux';
+import { addAppiontment } from '../Store/Actions/ActionAppointment';
 const PhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
 function AppointmentForm({ doctorInfo, doc_id}) {
+  const dispatch = useDispatch()
+const yourData = useSelector(state => state.data.data);
+console.log(yourData)
   const userDataString = sessionStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
   const [DataAppointment, setDataAppointment] = useState({
@@ -59,7 +63,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       .catch(error => {
         console.error('Error fetching doctors:', error);
       });
-  }, []);
+  }, [yourData]);
 
   const HandelChangeAppontmentDoctor = (e) => {
     setDataAppointment({ ...DataAppointment, doctor: e.target.value });
@@ -89,6 +93,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       axios.post('http://127.0.0.1:8000/appointments/', DataAppointment)
         .then(response => {
           console.log('Appointment posted successfully:', response.data);
+          dispatch(addAppiontment(DataAppointment));
           // history.push(`/profile/${doctorInfo.id}`);
           DataAppointment.problems('')
           DataAppointment.date_time('')

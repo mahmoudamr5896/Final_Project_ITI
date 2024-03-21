@@ -17,6 +17,9 @@ function Dash() {
   const userData = localStorage.getItem('userData') ;
   const userDatas = JSON.parse(storedId); 
   const userData_ = JSON.parse(userData); 
+
+
+
   if(!userData_ && !storedId){
      history.push('/')
   }else{
@@ -32,6 +35,7 @@ function Dash() {
     //    } 
     // } 
   }
+  console.log(id)
   return (
     <>
     <br></br>

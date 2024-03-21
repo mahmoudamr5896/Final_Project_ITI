@@ -628,7 +628,10 @@ return (
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>
                                                 <button className="nav-link" onClick={Select_Appon}><h6 style={{color:"green"}}>Appointment</h6></button>
                                                 <button className="nav-link" onClick={select_Schedule}><h6 style={{color:"green"}}>Schedule</h6></button>
+
                                                 {userData_ && userData_.role === 'Doctor' && userData_.id === doctorInfo.id && (
+                                                 <>
+                                                 <Link  className="nav-link" to={`/dashboard/${doctorInfo.id}`}><h6 style={{color:"green"}}>Dashboard</h6></Link>
                                                 <DropdownButton
                                                   id="dropdown-basic-button"
                                                   title="Settings"
@@ -640,6 +643,8 @@ return (
                                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Delete Account</button>
                                                </Dropdown.Item>
                                                 </DropdownButton>
+
+                                                 </> 
                                                       )}
 
                                             </div>
