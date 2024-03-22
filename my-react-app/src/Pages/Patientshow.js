@@ -25,14 +25,13 @@ const handleShowPaymentForm = (appointmentId) => {
 };
 
   const [formData, setFormData] = useState({
-    // id: 10,
     name: "",
     age: "",
     weight: "",
-    image: null,
+    image: null, // Updated to handle image file
     height: "",
     gender: "M",
-    phone : "+20",
+    phone: "+20",
     medicalHistory: ""
   });
 
@@ -85,9 +84,30 @@ setBMI(bmiValue.toFixed(2));
   };
   
   const handleEditProfile = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
+    // Create a shallow copy of formData
     const updatedFields = { ...formData };
-    axios.patch(`http://127.0.0.1:8000/patients/${id}/`, updatedFields)
+  
+    // Check if the image field is null (no new image selected)
+    if(updatedFields.image === null) {
+      // Remove the image field from the updatedFields object
+      delete updatedFields.image;
+    }
+  
+    // Create FormData object
+    const formDataWithImage = new FormData();
+    
+    // Iterate over the updatedFields and append them to formDataWithImage
+    for (const key in updatedFields) {
+      formDataWithImage.append(key, updatedFields[key]);
+    }
+  
+    axios.patch(`http://127.0.0.1:8000/patients/${id}/`, formDataWithImage, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
       .then(response => {
         console.log('Profile updated successfully:', response.data);
         setPatientInfo(response.data);
@@ -98,7 +118,7 @@ setBMI(bmiValue.toFixed(2));
         alert('Failed to update profile. Please try again.');
       });
   };
-
+  
   const handleDeleteAccount = () => {
     setShowDeleteModal(true); 
   };
@@ -382,7 +402,9 @@ if(!userData_ && !storedIdw){
 
               <PaymentForm appointmentId={item.id} />
               {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
+              <PayPalCheckoutButton  appointmentId={item.id} ></PayPalCheckoutButton>
         </>
+        
       })}
       {Appointments_r.map((item) => {
       
@@ -423,7 +445,7 @@ marginLeft:"36%"
 
 </div>
 <hr></hr> <br></br>
-  <form onSubmit={handleEditProfile}>
+  <form onSubmit={handleEditProfile} encType="multipart/form-data">
     <div className="row">
       <div className="col-md-6">
         <div className="mb-3 d-flex align-items-center">
@@ -435,10 +457,14 @@ marginLeft:"36%"
           <input type="tel" className="form-control" id="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} style={{ width: "70%" }} />
         </div>
         <div className="mb-3 d-flex align-items-center">
-          <label htmlFor="gender" className="form-label me-3" style={{ width: "30%" }}>Gender</label>
-          <input type="text" className="form-control" id="gender" value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} style={{ width: "70%" }} />
-        </div>
-        <div className="mb-3 d-flex align-items-center">
+  <label htmlFor="gender" className="form-label me-3" style={{ width: "30%" }}>Gender</label>
+  <select className="form-select" id="gender" value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} style={{ width: "70%" }}>
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+  </select>
+</div>
+
+<div className="mb-3 d-flex align-items-center">
           <label htmlFor="image" className="form-label" style={{ width: "30%" }}>Image</label>
           <input type="file" className="form-control" id="image" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} style={{ width: "70%" }} />
         </div>
@@ -469,10 +495,7 @@ marginLeft:"36%"
     </div>
   </form>
 </div>
-</div>
-
-   
-        
+</div>  
     )}
 
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
