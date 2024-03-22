@@ -84,17 +84,28 @@ setBMI(bmiValue.toFixed(2));
   };
   
   const handleEditProfile = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
+    // Create a shallow copy of formData
     const updatedFields = { ...formData };
-    const formDataWithImage = new FormData(); // Create FormData object
+  
+    // Check if the image field is null (no new image selected)
+    if(updatedFields.image === null) {
+      // Remove the image field from the updatedFields object
+      delete updatedFields.image;
+    }
+  
+    // Create FormData object
+    const formDataWithImage = new FormData();
+    
+    // Iterate over the updatedFields and append them to formDataWithImage
     for (const key in updatedFields) {
       formDataWithImage.append(key, updatedFields[key]);
     }
-    // Append image file
-    formDataWithImage.append("image", updatedFields.image);
+  
     axios.patch(`http://127.0.0.1:8000/patients/${id}/`, formDataWithImage, {
       headers: {
-        "Content-Type": "multipart/form-data" // Set content type
+        "Content-Type": "multipart/form-data"
       }
     })
       .then(response => {
@@ -107,7 +118,7 @@ setBMI(bmiValue.toFixed(2));
         alert('Failed to update profile. Please try again.');
       });
   };
-
+  
   const handleDeleteAccount = () => {
     setShowDeleteModal(true); 
   };
