@@ -15,6 +15,7 @@ function BeforeSignUpFor() {
 
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+
       <Container>
         {currentPage === 'userTypeSelection' && (
           <div className="d-flex justify-content-between">
