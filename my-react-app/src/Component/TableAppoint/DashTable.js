@@ -163,7 +163,6 @@ const data =(
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Phone</th>
                 <th>Date</th>
                 <th>Case</th>
                 <th>Approve</th>
@@ -174,7 +173,6 @@ const data =(
               {currentAppointments.map(appointment => (
                 <tr key={appointment.id}>
                   <td>{appointment.patient_name}</td>
-                  <td>{appointment.doctor_phone}</td>
                   <td>{appointment.date_time}</td>
                   <td>{appointment.problems}</td>
                   <td>

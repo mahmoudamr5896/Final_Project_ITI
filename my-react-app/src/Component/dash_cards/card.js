@@ -39,9 +39,11 @@ const [profit, setProfit] = useState(0);
 useEffect(() => {
   const fetchPayments = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/payments/?doctor_id=${id}`);
-      const payments = response.data;
-      const income = payments.reduce((total, payment) => total + parseFloat(payment.amount), 0);
+      const response = await axios.get(`http://127.0.0.1:8000/payments/`);
+      const filteredDoctor = response.data.filter((doctor) => doctor.doctor_id == id);
+      // console.log(filteredDoctor)
+      // const payments = response.data;
+      const income = filteredDoctor.reduce((total, payment) => total + parseFloat(payment.amount), 0);
       setProfit(income);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -49,7 +51,7 @@ useEffect(() => {
   };
 
   fetchPayments();
-}, [id]);
+}, [yourData]);
 
   return (
     <div>

@@ -336,7 +336,7 @@ const Rejected_=()=>{
         <div className="row docgradient">
           <div className="col-1"></div>
           <div className="col-6">
-            <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+            {/* <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -357,7 +357,32 @@ const Rejected_=()=>{
                   </DropdownButton>
                 </div>
               </div>
-            </nav>
+            </nav> */}
+            <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+        <div className="container">
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+      <div className="navbar-nav">
+        <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
+        <button className="nav-link mx-2" onClick={toggleMealplan}><h6 style={{ color: "green" }}>Meal Plan</h6></button>
+        <button className="nav-link mx-2" ><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
+        <button className="nav-link mx-2" onClick={toggleAppointment}><h6 style={{ color: "green" }}>Appointment</h6></button>
+        <DropdownButton
+          id="dropdown-basic-button"
+          title="Settings"
+          variant="success"
+          className="mx-2"
+        >
+          <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+          <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+        </DropdownButton>
+      </div>
+    </div>
+      </div>
+</nav>
+
           </div>
           <div className="col-5"></div>
         </div>

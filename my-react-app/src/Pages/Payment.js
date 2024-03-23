@@ -6,18 +6,14 @@ const PaymentForm = ({ appointmentId }) => {
   const [cardNumber, setCardNumber] = useState('');
   const [expire, setExpire] = useState('');
   const [securityCode, setSecurityCode] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('0.00');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isPaid, setIsPaid] = useState(false); // State to indicate if appointment is paid
   const [showPaymentForm, setShowPaymentForm] = useState(false); // State to toggle payment form visibility
-console.log(appointmentId)
-  
-//_______________________________________________________________________________
-// make appointment paid i user has piad 
+  const [doctorAppointmentPrice, setDoctorAppointmentPrice] = useState(0); // State to store doctor's appointment price
 
-// confirm_appointmentpaid()
-useEffect(() => {
+  useEffect(() => {
     const fetchPaymentInfo = async () => {
       try {
         // Fetch payment information for the appointment
@@ -35,70 +31,189 @@ useEffect(() => {
     fetchPaymentInfo();
   }, [appointmentId]);
 
-//____________________________________________________________________________________________________________
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    // Check if the appointment has already been paid
-    const paymentCheckResponse = await fetch(`http://127.0.0.1:8000/appointments/?id=${appointmentId}`);
-    const appointmentData = await paymentCheckResponse.json();
-    console.log(appointmentData)
-    if (appointmentData.Paid) {
-      setError('Appointment has already been paid.');
-      return;
-    }
+  useEffect(() => {
+    const fetchDoctorInfo = async () => {
+      try {
+        // Fetch appointment information including the doctor's ID
+        const response = await axios.get(`http://127.0.0.1:8000/appointments/${appointmentId}/`);
+        const appointmentData = response.data;
+        const doctorId = appointmentData.doctor; // Assuming doctor ID is included in appointment data
 
-    const response = await fetch('http://127.0.0.1:8000/payments/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        appointment_id: appointmentId,
-        card_number: cardNumber,
-        expire: expire,
-        security_code: securityCode,
-        amount: parseFloat(amount),
-      }),
-    });
+        // Fetch doctor's information using the doctor ID
+        const doctorResponse = await axios.get(`http://127.0.0.1:8000/doctors/${doctorId}/`);
+        const doctorData = doctorResponse.data;
 
-    if (response.ok) {
-      console.log('Payment successful!');
-      setSuccessMessage('Your payment was successful and is now under review.');
-      // Update the appointment's Paid status
-      const confirmAppointmentPaid = async () => {
-        try {
-          const appointmentUpdateResponse = await fetch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              Paid: true,
-            }),
-          });
+        // Set the doctor's appointment price
+        setDoctorAppointmentPrice(doctorData.appointment_price);
+      } catch (error) {
+        console.error('Error fetching doctor information:', error);
+      }
+    };
 
-          if (appointmentUpdateResponse.ok) {
-            console.log('Appointment status updated successfully!');
-          } else {
-            console.error('Error updating appointment status:', appointmentUpdateResponse.statusText);
-          }
-        } catch (error) {
-          console.error('Error updating appointment status:', error);
+    fetchDoctorInfo();
+  }, [appointmentId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Check if the appointment has already been paid
+      const paymentCheckResponse = await fetch(`http://127.0.0.1:8000/appointments/?id=${appointmentId}`);
+      const appointmentData = await paymentCheckResponse.json();
+      if (appointmentData.Paid) {
+        setError('Appointment has already been paid.');
+        return;
+      }
+
+      const response = await fetch('http://127.0.0.1:8000/payments/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          appointment_id: appointmentId,
+          card_number: cardNumber,
+          expire: expire,
+          security_code: securityCode,
+          amount: doctorAppointmentPrice, // Set amount to doctor's appointment price
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Payment successful!');
+        setSuccessMessage('Your payment was successful and is now under review.');
+
+        // Update the appointment's Paid status
+        const appointmentUpdateResponse = await fetch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Paid: true,
+          }),
+        });
+
+        if (appointmentUpdateResponse.ok) {
+          console.log('Appointment status updated successfully!');
+        } else {
+          console.error('Error updating appointment status:', appointmentUpdateResponse.statusText);
         }
-      };
-      confirmAppointmentPaid();
-      setAmount('');
-      setError('');
-    } else {
-      console.error('Payment failed:', response.statusText);
-      setError('Payment failed Has Been Paid: ' + response.statusText);
+
+        setAmount('');
+        setError('');
+      } else {
+        console.error('Payment failed:', response.statusText);
+        setError('Payment failed Has Been Paid: ' + response.statusText);
+      }
+    } catch (err) {
+      console.error('Error submitting payment:', err);
+      setError('Error submitting payment');
     }
-  } catch (err) {
-    console.error('Error submitting payment:', err);
-    setError('Error submitting payment');
-  }
-};
+  };
+
+//   const [cardNumber, setCardNumber] = useState('');
+//   const [expire, setExpire] = useState('');
+//   const [securityCode, setSecurityCode] = useState('');
+//   const [amount, setAmount] = useState('0.00');
+//   const [error, setError] = useState('');
+//   const [successMessage, setSuccessMessage] = useState('');
+//   const [isPaid, setIsPaid] = useState(false); // State to indicate if appointment is paid
+//   const [showPaymentForm, setShowPaymentForm] = useState(false); // State to toggle payment form visibility
+// console.log(appointmentId)
+
+// //_______________________________________________________________________________
+// // make appointment paid i user has piad 
+// // confirm_appointmentpaid()
+// useEffect(() => {
+//     const fetchPaymentInfo = async () => {
+//       try {
+//         // Fetch payment information for the appointment
+//         const response = await fetch(`http://127.0.0.1:8000/payments/?appointment_id=${appointmentId}`);
+//         const paymentData = await response.json();
+//         if (paymentData.length > 0) {
+//           // Appointment is paid
+//           setIsPaid(true);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching payment information:', error);
+//       }
+//     };
+
+//     fetchPaymentInfo();
+//   }, [appointmentId]);
+
+// //____________________________________________________________________________________________________________
+// const[doctorData_ , setdoctorData_]=useState('0.00')
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try {
+
+//     // Check if the appointment has already been paid
+//     const paymentCheckResponse = await fetch(`http://127.0.0.1:8000/appointments/?id=${appointmentId}`);
+//     const appointmentData = await paymentCheckResponse.json();
+//     console.log(appointmentData)
+//     if (appointmentData.Paid) {
+//       setError('Appointment has already been paid.');
+//       return;
+//     }
+//     const doctorId = appointmentData.doctor
+
+//     const doctorResponse = await axios.get(`http://127.0.0.1:8000/doctors/${doctorId}/`);
+//     const doctorData = doctorResponse.data;
+//     setdoctorData_(doctorData.appointment_price);
+//     const response = await fetch('http://127.0.0.1:8000/payments/', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         appointment_id: appointmentId,
+//         card_number: cardNumber,
+//         expire: expire,
+//         security_code: securityCode,
+//         amount: amount,
+//       }),
+//     });
+
+//     if (response.ok) {
+//       console.log('Payment successful!');
+//       setSuccessMessage('Your payment was successful and is now under review.');
+//       // Update the appointment's Paid status
+//       const confirmAppointmentPaid = async () => {
+//         try {
+//           const appointmentUpdateResponse = await fetch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, {
+//             method: 'PATCH',
+//             headers: {
+//               'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//               Paid: true,
+//             }),
+//           });
+
+//           if (appointmentUpdateResponse.ok) {
+//             console.log('Appointment status updated successfully!');
+//           } else {
+//             console.error('Error updating appointment status:', appointmentUpdateResponse.statusText);
+//           }
+//         } catch (error) {
+//           console.error('Error updating appointment status:', error);
+//         }
+//       };
+
+//       //__________________________________________
+//       confirmAppointmentPaid();
+//       setAmount('');
+//       setError('');
+//     } else {
+//       console.error('Payment failed:', response.statusText);
+//       setError('Payment failed Has Been Paid: ' + response.statusText);
+//     }
+//   } catch (err) {
+//     console.error('Error submitting payment:', err);
+//     setError('Error submitting payment');
+//   }
+// };
 
   
   // const handleSubmit = async (e) => {
@@ -203,13 +318,14 @@ const handleSubmit = async (e) => {
             </div>
           </div>
           <div className="col-md-6">
-            <div className="form-group">
+            <div className="form-group collabs">
               <label>Amount:</label>
               <input
+               disabled
                 type="text"
                 className="form-control"
                 placeholder="Enter amount"
-                value={amount}
+                value={doctorAppointmentPrice}
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
