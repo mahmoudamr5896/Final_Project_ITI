@@ -31,6 +31,7 @@ const data= (
             <th>Name Of Patient</th>
             <th>Date</th>
             <th>Case</th>
+            <th>Paid</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +41,8 @@ const data= (
               {/* <td>{appointment.doctor_phone}</td> */}
               <td>{appointment.date_time}</td>
               <td>{appointment.problems}</td>
+              {appointment.Paid === true && <td>Yes</td> }
+              {appointment.Paid ===  false && <td>No</td> }
             </tr>
           ))}
         </tbody>
