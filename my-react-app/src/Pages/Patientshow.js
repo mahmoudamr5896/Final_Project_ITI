@@ -7,6 +7,8 @@ import BMICalculator from '../Component/BMI'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import PayPalCheckoutButton from '../Component/PayPal'
 import PaymentForm from './Payment';
+import { useDispatch,useSelector  } from 'react-redux';
+
 function PatientDetails() {
   const history = useHistory();
   const { id } = useParams();
@@ -70,13 +72,7 @@ setBMI(bmiValue.toFixed(2));
     setMealplan(null)
   };
 
-  const toggleAppointment = () => {
-    setShowInformation(false);
-    setShowAppointment(true);
-    setShowEditProfile(false);
-    setMealplan(null)
-  };
-
+ 
   const toggleEditProfile = () => {
     setShowInformation(false);
     setShowAppointment(false);
@@ -161,18 +157,36 @@ setShowEditProfile(false);
 //________________________________________________________________________________
 // Appointment Rejected 
 const[Appointments,setAppointments]=useState([])
+const[Appointments_d,setAppointments_d]=useState([])
+//_____________________________________________________________________________________________
+// Appointment has aleady paid 
+const yourData = useSelector(state => state.data.data);
+
 const[Appointments_r,setAppointments_r]=useState([])
 useEffect(() => {
   if (id) {
+    //__________________not paid ________________________________
     axios.get(`http://127.0.0.1:8000/appointments/`)
       .then(response => {
         // Filter appointments with status true
-        const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.patient == id);
+        const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.patient == id && appointment.Paid === false);
         setAppointments(filteredAppointments);
       })
       .catch(error => {
         console.error('Error fetching appointments:', error);
       });
+    //________________  paid ________________________________
+    axios.get(`http://127.0.0.1:8000/appointments/`)
+    .then(response => {
+      // Filter appointments with status true
+      const filteredAppointments = response.data.filter(appointment => appointment.status === true && appointment.patient == id && appointment.Paid === true);
+      setAppointments_d(filteredAppointments);
+    })
+    .catch(error => {
+      console.error('Error fetching appointments:', error);
+    });
+
+    //_____________________ rejected _______________________________
     axios.get(`http://127.0.0.1:8000/appointments/`)
       .then(response => {
         // Filter appointments with status true
@@ -181,13 +195,10 @@ useEffect(() => {
       })
       .catch(error => {
         console.error('Error fetching appointments:', error);
-      });
-
-
-    
+      });  
   }
-}, [id]);
-console.log(patientInfo.id)
+}, [Appointments]);
+// console.log(patientInfo.id)
 //____________________________________________________________
 // const storedId = sessionStorage.getItem('userData') ;
 // const userDatas = JSON.parse(storedId); 
@@ -209,44 +220,100 @@ const userData_ = JSON.parse(userDataw);
 if(!userData_ && !storedIdw){
   history.push('/')
 }
+//__________________________________________________________________________________________________________________________
+const toggleAppointment = () => {
+  setShowInformation(false);
+  setShowAppointment(true);
+  setShowEditProfile(false);
+  setMealplan(null)
+};
+
+//___________________Section of Appiontment______________________________________
+const[history_,setHistory_]=useState(null)
+const History_a=()=>{
+
+  const data=(
+    <>
+<div className="container mt-5 d-flex justify-content-center" id="Data">
+  <div className="container">
+    <h1 className="mb-4">History Of Appointment</h1>
+    {Appointments_d.length === 0 ? (
+      <p className="text-center">No appointments found.</p>
+    ) : (
+      Appointments_d.map((item) => (
+        <div key={item.id} className="border p-3 mb-3">
+          <p className="mb-1">Doctor Name: {item.doctor_name}</p>
+          <p className="mb-0">Date: {item.date_time}</p>
+        </div>
+      ))
+    )}
+  </div>
+</div>
 
 
-{showAppointment && (
-  <div className="container mt-5 d-flex justify-content-center" id='Data'>
-    <div className="container">
-      {Appointments.map((item) => {
-        return (
-          <div key={item.id} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
-            <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
-            <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
-            {item.is_paid ? (
-              <p className="text-success">Paid and under review</p>
-            ) : (
-              <>
-                <p className="text-success">Accepted</p>
-                {/* Add a button to show payment form */}
-                <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
-                
-                
-              </>
-            )}
-          </div>
-        );
-      })}
-      
-      
-      {Appointments_r.map((item) => (
+
+    </>
+  )
+  setHistory_(data)
+  setRejected(null)
+  setAccepted(null)
+}
+const[Accepted,setAccepted]=useState(null)
+const Accepted_s=()=>{
+
+  const data=(
+    <>
+<div className="container mt-5 d-flex justify-content-center" id='Data'>
+  <div className="container">
+    {Appointments.length === 0 ? (
+      <p className="text-center">No appointments found.</p>
+    ) : (
+      Appointments.map((item) => (
+        <div key={item.id} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+          <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+          <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+          <p style={{ fontSize: '16px', color: 'green' }}>Accepted</p>
+          <PaymentForm appointmentId={item.id} />
+          <PayPalCheckoutButton appointmentId={item.id} />
+        </div>
+      ))
+    )}
+  </div>
+</div>
+
+    </>
+  )
+  setAccepted(data)
+  setRejected(null)
+  setHistory_(null)
+}
+const[Rejected,setRejected]=useState(null)
+const Rejected_=()=>{
+
+  const data=(
+    <>
+  <div className="container mt-5 d-flex justify-content-center" id="Data">
+  <div className="container">
+    {Appointments_r.length === 0 ? (
+      <p className="text-center">No appointments found.</p>
+    ) : (
+      Appointments_r.map((item) => (
         <div key={item.id}>
           <p>Doctor Name: {item.doctor_name}</p> 
-          <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+          <p>Reason Of Rejected: {item.Reasone_reject}</p> 
           <p className="text-danger">Rejected</p>
         </div>
-      ))}
-    </div>
+      ))
+    )}
   </div>
-)}
+</div>
 
-
+    </>
+  )
+  setRejected(data)
+  setAccepted(null)
+  setHistory_(null)
+}
 
   return (
       <>
@@ -254,9 +321,11 @@ if(!userData_ && !storedIdw){
         <div><br /><br /><br /><br /></div>
         <div className="row" style={{ background: "#03974D" }}>
           <div className="col-lg-2 col-sm-12 my-5  d-flex flex-column align-items-center">
+          
         {patientInfo.image && (
-                                    <img src={`${patientInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
-                               )}             </div>
+        <img src={`${patientInfo.image}`} alt="Doctor" className="border border-white border-3 rounded-2" style={{width:'170px'}} />
+            )}
+        </div>
           <div className="col-lg-6 lg-sm-12 my-5 text-start text-white">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <img src="/patientlogo.png" width={"50px"} className="rounded-circle" /> &nbsp;
@@ -267,7 +336,7 @@ if(!userData_ && !storedIdw){
         <div className="row docgradient">
           <div className="col-1"></div>
           <div className="col-6">
-            <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+            {/* <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -288,7 +357,32 @@ if(!userData_ && !storedIdw){
                   </DropdownButton>
                 </div>
               </div>
-            </nav>
+            </nav> */}
+            <nav className="navbar navbar-expand-lg bg-white border border-secondary" style={{ height: "100px" }}>
+        <div className="container">
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+      <div className="navbar-nav">
+        <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
+        <button className="nav-link mx-2" onClick={toggleMealplan}><h6 style={{ color: "green" }}>Meal Plan</h6></button>
+        <button className="nav-link mx-2" ><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
+        <button className="nav-link mx-2" onClick={toggleAppointment}><h6 style={{ color: "green" }}>Appointment</h6></button>
+        <DropdownButton
+          id="dropdown-basic-button"
+          title="Settings"
+          variant="success"
+          className="mx-2"
+        >
+          <Dropdown.Item onClick={toggleEditProfile}>Edit Profile</Dropdown.Item>
+          <Dropdown.Item onClick={handleDeleteAccount}>Delete Account</Dropdown.Item>
+        </DropdownButton>
+      </div>
+    </div>
+      </div>
+</nav>
+
           </div>
           <div className="col-5"></div>
         </div>
@@ -389,35 +483,17 @@ if(!userData_ && !storedIdw){
        {Mealplan}
       {/* Render Appointment Section */}
       {showAppointment && (
-  <div className="container mt-5 d-flex justify-content-center" id='Data'>
-    <div className="container">
-      {Appointments.map((item) => {
-      
-        return   <>
-        <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
-  <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
-  <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
-  <p style={{ fontSize: '16px', color: 'green' }}>Accepted</p>
-</div>
-
-              <PaymentForm appointmentId={item.id} />
-              {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
-              <PayPalCheckoutButton  appointmentId={item.id} ></PayPalCheckoutButton>
-        </>
-        
-      })}
-      {Appointments_r.map((item) => {
-      
-        return   <>
-        <p>Doctor Name: {item.doctor_name}</p> 
-        <p>Resone Of Rejected :{item.Reasone_reject}</p> 
-        <p className="text-danger">Rejected</p>
-        </>
-      })}
-
-    </div>
-  </div>
-)}
+        <div className="container">
+      <div className="col-12 m-3 border">
+        <button className="col-3 btn btn-secondary m-3 btn-hover-" onClick={History_a}>History Of Appointment</button>
+        <button className="col-3 btn btn-success m-3 btn-hover" onClick={Accepted_s}>Accepted</button>
+        <button className="col-3 btn btn-danger m-3 btn-hover" onClick={Rejected_}>Rejected</button>
+      </div>
+        {Accepted} 
+        {history_}
+        {Rejected}
+        </div> 
+        )}
 
 
 {showEditProfile && (
@@ -517,3 +593,97 @@ marginLeft:"36%"
 }
 
 export default PatientDetails;
+
+
+
+
+
+//     <div className="container mt-5 d-flex justify-content-center" id='Data'>
+  //     <div className="container">
+  //     {Appointments.map((item) => {
+  //       return   <>
+  //             <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+  //               <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+  //               <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+  //               <p style={{ fontSize: '16px', color: 'green' }}>Accepted</p>
+  //             </div>
+
+  //             <PaymentForm
+  //              appointmentId={item.id} 
+  //             />
+  //             {/* <Link to="/pays">Please pay for your appointment from here </Link> */}
+  //             <PayPalCheckoutButton
+  //               appointmentId={item.id} 
+  //             ></PayPalCheckoutButton>
+  //       </>
+        
+  //     })}
+
+  //     {Appointments_r.map((item) => {
+  //       return   <>
+  //       <p>Doctor Name: {item.doctor_name}</p> 
+  //       <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+  //       <p className="text-danger">Rejected</p>
+  //       </>
+  //     })}
+  //       <h1>History Of Appointment</h1>
+  //       {Appointments_d.map((item) => (
+  //       <div key={item.id}>
+  //         <p>Doctor Name: {item.doctor_name}</p> 
+  //         <p>Date :{item.date_time}</p> 
+  //       </div>
+  //     ))}
+
+  //   </div>
+  // </div>
+// const Appointment_section = () =>{
+
+// const data = (
+//   <>
+//      {showAppointment && (
+      
+//         )}
+
+//   </>
+// )
+// }
+// {showAppointment && (
+//   <div className="container mt-5 d-flex justify-content-center" id='Data'>
+//     <div className="container">
+//       {/* {Appointments.map((item) => {
+//         return (
+//           <div key={item.id} style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '20px' }}>
+//             <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Doctor Name: {item.doctor_name}</p> 
+//             <p style={{ fontSize: '16px', marginBottom: '5px' }}>Date: {item.date_time}</p> 
+//             {item.is_paid ? (
+//               <p className="text-success">Paid and under review</p>
+//             ) : (
+//               <>
+//                 <p className="text-success">Accepted</p>
+//                 <button onClick={() => handleShowPaymentForm(item.id)}>Enter Your Card Info</button>
+                
+                
+//               </>
+//             )}
+//           </div>
+//         );
+//       })} */}                {/* Add a button to show payment form */}
+
+//       {Appointments_r.map((item) => (
+//         <div key={item.id}>
+//           <p>Doctor Name: {item.doctor_name}</p> 
+//           <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+//           <p className="text-danger">Rejected</p>
+//         </div>
+//       ))}
+//       <h1>History Of Appointment</h1>
+//         {Appointments_d.map((item) => (
+//         <div key={item.id}>
+//           <p>Doctor Name: {item.doctor_name}</p> 
+//           <p>Resone Of Rejected :{item.Reasone_reject}</p> 
+//           <p className="text-danger">Rejected</p>
+//         </div>
+//       ))}
+//     </div>
+//   </div>
+// )}

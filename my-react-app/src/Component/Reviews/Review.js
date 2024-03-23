@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Review.css"; // Import the CSS file for styling
-
+import { useSelector } from 'react-redux';
 const Reviews = ({id}) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(1); // Display only one review per page
+  const reviewData = useSelector(state => state.review);
 
   useEffect(() => {
     // Fetch reviews from the API
@@ -17,7 +18,7 @@ const Reviews = ({id}) => {
       .catch(error => {
         console.error('Error fetching reviews:', error);
       });
-  }, []);
+  }, [reviewData]);
 
   // Get current review
   const currentReview = reviews.find((_, index) => index === currentPage - 1);

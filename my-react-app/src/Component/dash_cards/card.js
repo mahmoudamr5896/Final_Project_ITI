@@ -34,7 +34,24 @@ const yourData = useSelector(state => state.data.data);
         console.error('Error fetching doctor info:', error);
       });
   }, [yourData]);
+// profit 
+const [profit, setProfit] = useState(0);
+useEffect(() => {
+  const fetchPayments = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/payments/`);
+      const filteredDoctor = response.data.filter((doctor) => doctor.doctor_id == id);
+      // console.log(filteredDoctor)
+      // const payments = response.data;
+      const income = filteredDoctor.reduce((total, payment) => total + parseFloat(payment.amount), 0);
+      setProfit(income);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
+  fetchPayments();
+}, [yourData]);
 
   return (
     <div>
@@ -60,6 +77,7 @@ const yourData = useSelector(state => state.data.data);
             <FontAwesomeIcon icon={faDollarSign} />
           </div>
           <h2 style={{ color: "white" }}>Profit</h2>
+          <h3 style={{ color: "white" }}>{profit}</h3>
           <p style={{ color: "white" }}>Net profit</p>
         </div>
       </div>

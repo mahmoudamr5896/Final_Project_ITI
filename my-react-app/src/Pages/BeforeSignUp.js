@@ -3,6 +3,7 @@ import { Button, Container, Card } from 'react-bootstrap';
 import Regspatien from './RegPatient';
 import RegsNut from './RegNut';
 import './Css/Reg.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function BeforeSignUpFor() {
   const [currentPage, setCurrentPage] = useState('userTypeSelection');
@@ -14,6 +15,7 @@ function BeforeSignUpFor() {
   };
 
   return (
+
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
 
       <Container>
@@ -41,7 +43,9 @@ function BeforeSignUpFor() {
           userType === 'patient' ? <Regspatien /> : <RegsNut />
         )}
       </Container>
+      {/* <button onClick={() => window.location.href = 'http://127.0.0.1:8000/admin/login/?next=/admin/'}>Admin Panel</button> */}
     </div>
+
   );
 }
 
