@@ -108,11 +108,11 @@ function Regspatien() {
               history.push('/LogPat');
             })
             .catch(error => {
-              console.error('Error posting patient data:', error);
+              console.error('User name is already exist:', error);
             });
         })
         .catch(error => {
-          console.error('Error posting user:', error.response.data); // Log the response data for better understanding
+          console.error('User name is already exist:', error.response.data); // Log the response data for better understanding
         });
     }
   };
