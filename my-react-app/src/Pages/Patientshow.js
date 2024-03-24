@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
-import BMICalculator from '../Component/BMI'
+import UserMealplan from '../Component/UserMeaplan'
+import UserExerciseplan from '../Component/UserExerciseplan.js'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import PayPalCheckoutButton from '../Component/PayPal'
 import PaymentForm from './Payment';
@@ -34,7 +35,10 @@ const handleShowPaymentForm = (appointmentId) => {
     height: "",
     gender: "M",
     phone: "+20",
-    medicalHistory: ""
+    Diabetes_Mellitus: "",
+    Hypertension: "",
+    Chronic_Kidney_Disease: "",
+    Heart_Disease: "",
   });
 
   useEffect(() => {
@@ -50,7 +54,10 @@ const handleShowPaymentForm = (appointmentId) => {
           height: res.data.height.toString(),
           gender: res.data.gender,
           phone: res.data.phone,
-          medicalHistory: res.data.medical_history
+          Diabetes_Mellitus: res.data.Diabetes_Mellitus,
+          Hypertension: res.data.Hypertension,
+          Chronic_Kidney_Disease: res.data.Chronic_Kidney_Disease,
+          Heart_Disease: res.data.Heart_Disease,
         });
       })
       .catch((err) => console.log(err));
@@ -67,6 +74,7 @@ const [bmi, setBMI] = useState(null);
 const bmiValue = patientInfo.weight / (heightInMeters * heightInMeters);
 setBMI(bmiValue.toFixed(2));
     setShowInformation(true);
+    setExerciseplan(null);
     setShowAppointment(false);
     setShowEditProfile(false);
     setMealplan(null)
@@ -138,22 +146,38 @@ setBMI(bmiValue.toFixed(2));
     });
   };
 //__________________________________________________________________________________________________
+// meal plan
 const[Mealplan,setMealplan]=useState(null)
 const toggleMealplan =()=>{
 const data=(
   <div className="mt-5">
-<BMICalculator
-
->
-</BMICalculator>
+<UserMealplan userId={id}/>
   </div >
 )
 setMealplan(data)
+setExerciseplan(false)
 setShowInformation(false);
 setShowAppointment(false);
 setShowEditProfile(false);
 
 }
+//________________________________________________________________________________
+//exercise paln
+const[Exerciseplan,setExerciseplan]=useState(null)
+const toggleExerciseplan =()=>{
+const data=(
+  <div className="mt-5">
+<UserExerciseplan userId={id}/>
+  </div >
+)
+setMealplan(false);
+setExerciseplan(data);
+setShowInformation(false);
+setShowAppointment(false);
+setShowEditProfile(false);
+
+}
+
 //________________________________________________________________________________
 // Appointment Rejected 
 const[Appointments,setAppointments]=useState([])
@@ -225,7 +249,8 @@ const toggleAppointment = () => {
   setShowInformation(false);
   setShowAppointment(true);
   setShowEditProfile(false);
-  setMealplan(null)
+  setMealplan(null);
+  setExerciseplan(null);
 };
 
 //___________________Section of Appiontment______________________________________
@@ -367,7 +392,7 @@ const Rejected_=()=>{
       <div className="navbar-nav">
         <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
         <button className="nav-link mx-2" onClick={toggleMealplan}><h6 style={{ color: "green" }}>Meal Plan</h6></button>
-        <button className="nav-link mx-2" ><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
+        <button className="nav-link mx-2" onClick={toggleExerciseplan}><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
         <button className="nav-link mx-2" onClick={toggleAppointment}><h6 style={{ color: "green" }}>Appointment</h6></button>
         <DropdownButton
           id="dropdown-basic-button"
@@ -439,40 +464,48 @@ const Rejected_=()=>{
                 <div className="row mb-5">
                   <div className="col-lg-5 col-md-12 border border-success rounded-4 bg-success-subtle p-4">
                     <div> 
-                      <img src="dm.png" style={{ height: "5rem" }} alt="Icon" />    
+                      <img src="/dm.png" style={{ height: "5rem" }} alt="Icon" />    
                       <span className="fs-1">DM</span>
                     </div>
                     <h1 ></h1>
                     <hr/>
-                    <h3 className="text-danger">+ve</h3>
+                    <h3 className={patientInfo.Diabetes_Mellitus ? "text-danger" : "text-success"}>
+                    {patientInfo.Diabetes_Mellitus ? "+ve" : "-ve"}
+                    </h3>
                   </div>
                   <div className="col-1"></div>
                   <div className="col-lg-5 col-md-12 border border-success rounded-4 bg-success-subtle p-4">
                     <div> 
-                      <img src="htn.png" style={{ height: "5rem" }} alt="Icon" />    
+                      <img src="/htn.png" style={{ height: "5rem" }} alt="Icon" />    
                       <span className="fs-1">HTN</span>
                     </div>
                     <hr/>
-                    <h3 className="text-danger">+ve</h3>
+                    <h3 className={patientInfo.Hypertension ? "text-danger" : "text-success"}>
+                    {patientInfo.Hypertension ? "+ve" : "-ve"}
+                    </h3>
                   </div>
                 </div>
                 <div className="row mt-5">
                   <div className="col-lg-5 col-md-12 border border-success rounded-4 bg-success-subtle p-4">
                     <div> 
-                      <img src="cdk.png" style={{ height: "5rem" }} alt="Icon" />    
+                      <img src="/cdk.png" style={{ height: "5rem" }} alt="Icon" />    
                       <span className="fs-1">CKD</span>
                     </div>
                     <hr/>
-                    <h3 className="text-success">-ve</h3>
+                    <h3 className={patientInfo.Chronic_Kidney_Disease ? "text-danger" : "text-success"}>
+                    {patientInfo.Chronic_Kidney_Disease ? "+ve" : "-ve"}
+                    </h3>
                   </div>
                   <div className="col-1"></div>
                   <div className="col-lg-5 col-md-12 border border-success rounded-4 bg-success-subtle p-4">
                     <div> 
-                      <img src="ht.png" style={{ height: "5rem" }} alt="Icon" />    
+                      <img src="/ht.png" style={{ height: "5rem" }} alt="Icon" />    
                       <span className="fs-1">HT DIS</span>
                     </div>
                     <hr/>
-                    <h3 className="text-success">-ve</h3>
+                    <h3 className={patientInfo.Heart_Disease ? "text-danger" : "text-success"}>
+                    {patientInfo.Heart_Disease ? "+ve" : "-ve"}
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -481,6 +514,7 @@ const Rejected_=()=>{
         </div>
       )}
        {Mealplan}
+       {Exerciseplan}
       {/* Render Appointment Section */}
       {showAppointment && (
         <div className="container">
@@ -559,14 +593,37 @@ marginLeft:"36%"
           <label htmlFor="height" className="form-label me-3" style={{ width: "30%" }}>Height</label>
           <input type="number" className="form-control" id="height" value={formData.height} onChange={(e) => setFormData({ ...formData, height: e.target.value })} style={{ width: "70%" }} />
         </div>
-        <div className="mb-3 d-flex align-items-center">
-          <label htmlFor="medicalHistory" className="form-label" style={{ width: "30%" }}>Medical History</label>
-          <textarea className="form-control" id="medicalHistory" value={formData.medicalHistory} onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.value })} style={{ width: "70%" }}></textarea>
+      </div>
+      <div className="col-md-12">
+      <div className="row">
+        <div className="col-6 mb-3 d-flex align-items-center">
+          <label htmlFor="Diabetes_Mellitus" className="form-label me-3" style={{ width: "60%" }}>Diabetes Mellitus</label>
+          <input className="form-check-input" type="checkbox" id="Diabetes_Mellitus"  checked={formData.Diabetes_Mellitus} onChange={(e) => setFormData({ ...formData, Diabetes_Mellitus: e.target.checked })} />
         </div>
-      
-        <div className="mb-3 d-flex justify-content-center " > {/* Align button to the center */}
-          <button type="submit" className="btn btn-primary" style={{ width: "50%", marginRight:"90%", marginTop:"10%" }}>Save Changes</button>
+        <div className="col-6 mb-3 d-flex align-items-center">
+          <label htmlFor="Hypertension" className="form-label me-3" style={{ width: "60%" }}>Hypertension</label>
+          <input className="form-check-input" type="checkbox" id="Hypertension"  checked={formData.Hypertension} onChange={(e) => setFormData({ ...formData, Hypertension: e.target.checked })} />
         </div>
+      </div>
+      <div className="row">
+        <div className="col-6 mb-3 d-flex align-items-center">
+          <label htmlFor="Chronic_Kidney_Disease" className="form-label me-3" style={{ width: "60%" }}>Chronic Kidney Disease</label>
+          <input className="form-check-input" type="checkbox" id="Chronic_Kidney_Disease"  checked={formData.Chronic_Kidney_Disease} onChange={(e) => setFormData({ ...formData, Chronic_Kidney_Disease: e.target.checked })} />
+        </div>
+        <div className="col-6 mb-3 d-flex align-items-center">
+          <label htmlFor="Heart_Disease" className="form-label me-3" style={{ width: "60%" }}>Heart Disease</label>
+          <input className="form-check-input" type="checkbox" id="Heart_Disease"  checked={formData.Heart_Disease} onChange={(e) => setFormData({ ...formData, Heart_Disease: e.target.checked })} />
+        </div>
+      </div>
+      <div className="container">
+  <div className="row">
+    <div className="col-md-6 offset-md-3"> {/* Use offset-md-3 to center the column */}
+      <div className="mb-3 d-flex justify-content-center"> {/* Align button to the center */}
+        <button type="submit" className="btn btn-primary" style={{ width: "30%" }}>Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </form>

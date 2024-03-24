@@ -36,7 +36,9 @@ function HeroCarousel() {
     <span className="visually-hidden">Next</span>
   </button>
   </div>
+  
  <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/>  <br/><br/> 
+ 
 </section> 
   );
 }
