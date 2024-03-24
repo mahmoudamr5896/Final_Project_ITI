@@ -23,6 +23,9 @@ function UserMealplan({ userId }) {
     const bmi = weight / (heightInMeters * heightInMeters);
     setBMI(bmi);
 
+    if (!isNaN(bmi)) {
+      setBMI(bmi);
+
     let id = '';
     if (bmi < 18.5) {
       id = '1';
@@ -39,7 +42,10 @@ function UserMealplan({ userId }) {
       .then(response => response.json())
       .then(data => setMealPlan(data))
       .catch(error => console.error('Error fetching meal plan:', error));
-  };
+  } else {
+    setMealPlan({});
+  }
+};
 
   const fetchNutritionInstructions = (patientData) => {
     const diseaseStatusIds = [

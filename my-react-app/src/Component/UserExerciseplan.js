@@ -19,7 +19,7 @@ function UserExerciseplan({ userId }) {
     const heightInMeters = height / 100;
     const bmi = weight / (heightInMeters * heightInMeters);
     setBMI(bmi);
-
+    if (!isNaN(bmi)) {
     let id = '';
     if (bmi < 18.5) {
       id = '1';
@@ -31,7 +31,10 @@ function UserExerciseplan({ userId }) {
       id = '4';
     }
     fetchExercisePlan(id);
-  };
+  } else {
+    setExercisePlan(null);
+  }
+};
 
   const fetchExercisePlan = (id) => {
     fetch(`http://127.0.0.1:8000/exercise_plan/${id}/`)
