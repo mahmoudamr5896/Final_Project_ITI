@@ -15,10 +15,8 @@ function DoctorAppointmentsTable({ id }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState('');
-
 const dispatch = useDispatch()
 const yourData = useSelector(state => state.data.data);
-
 //_____________________________________________________________________________________
 const[Select_Appiont_a,setSelect_Appiont_a]=useState(null)
 const Select_Appiontment_accept=()=>{
@@ -67,7 +65,6 @@ useEffect(() => {
         });
     }
   }, [acceptedAppointments]);
-
 // Appointment status true 
   useEffect(() => {
     if (id) {
@@ -84,9 +81,7 @@ useEffect(() => {
         });
     }
   }, [acceptedAppointments]);
-
 //________________________________________________________________________________________________________________
-
   const handleApprove = (appointmentId) => {
       axios.patch(`http://127.0.0.1:8000/appointments/${appointmentId}/`, { status: true })
         .then(response => {
@@ -95,12 +90,8 @@ useEffect(() => {
         .catch(error => {
           console.error('Error approving consultation:', error);
         });
-    
-   
-  };
-
+    };
 //_______________________________________________________________________________________________________
-
   const handleReject = (appointmentId) => {
     setSelectedAppointmentId(appointmentId);
     setShowModal(true);
@@ -137,16 +128,7 @@ const handleModalSubmit = () => {
 
 //_____________________________________________________________________________
   const refreshAppointments = () => {
-    // Fetch updated appointments after approval or rejection
-    // axios.get(`https://retoolapi.dev/2jV2W1/Appointment?Doctor_Id=${id}`)
-    //   .then(response => {
-    //     setAppointments(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching appointments:', error);
-    //   });
-  };
-
+    };
   const indexOfLastAppointment = currentPage * appointmentsPerPage;
   const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
   const currentAppointments = appointments.slice(indexOfFirstAppointment, indexOfLastAppointment);
