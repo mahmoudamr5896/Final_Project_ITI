@@ -97,30 +97,41 @@ const toggleShowFullBio = () => {
 };
 //______________________________________________________________________________________________
 // handel Sections 
+const openGoogleMaps = () => {
+  const mapUrl = doctorInfo.location;
+  window.open(mapUrl, '_blank');
+};
 //_________________________________________________________________________________________________________
 const [locationData, setLocationData] = useState(null);
 const selectLocation = () => {
   const data = (
-    <div className="map_container mt-5" style={{ width: '100%' }}>
-      <h2 className="text-start text-success ">Location <hr></hr></h2>
-      <div className="map-responsive" style={{ width: '100%', height: '600px' }}>
-        <iframe
-          src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${doctorInfo.location}`}
-          width="100%"
-          height="300"
-          frameBorder="0"
-          style={{ border: '0;', width: '100%;', height: '100%' }}
-          allowFullScreen
-        ></iframe>
-      </div>
-    </div>
+<div className="map_container mt-5" style={{ width: '100%' }}>
+  <h2 className="text-start text-success ">Location <hr></hr></h2>
+  <div className="map-responsive" style={{ width: '100%', height: '600px' }}>
+    {/* <iframe
+      src="https://www.google.com/maps?q=29.0717696,31.1099392" 
+      width="100%"
+      height="300"
+      frameBorder="0"
+      style={{ border: '0', width: '100%', height: '100%' }}
+      allowFullScreen
+    ></iframe> */}
+    <img src='https://images.hindustantimes.com/tech/img/2022/05/29/960x540/Untitled_design_-_2022-05-29T154125.807_1653819139818_1653819154029.jpg' style={{width:'400px'}}></img>
+    <br></br>
+    <br></br>
+      <button onClick={openGoogleMaps} className="btn btn-success">Find Me</button>
+  </div>
+</div>
+
+
   );
   setLocationData(data);
   setExperienceData(null)
   setRatingData(null)
   setAboutData(null)
+  setSchedule(null)
   setIsEditProfileOpen(null);
-
+  setAppointment(null)
 }; 
 //___________________________________________________________________________________________
 const [ExperienceData, setExperienceData] = useState(null);
@@ -620,7 +631,7 @@ return (
                                         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                                                <div class="navbar-nav bg-white d-flex justify-content-center">
                                                 <button className="nav-link" onClick={Select_Overview}><h6 style={{color:"green"}}>Overview</h6></button>
-                                                {/* <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button> */}
+                                                 <button className="nav-link" onClick={selectLocation}><h6 style={{color:"green"}}>Location</h6></button> 
                                                 <button className="nav-link"  onClick={Select_Exprience}><h6 style={{color:"green"}}>Experience</h6></button>
                                                 <button className="nav-link" onClick={Select_Rating}><h6 style={{color:"green"}}>Ratings</h6></button>
                                                 <button className="nav-link" onClick={Select_About}><h6 style={{color:"green"}}>About Me</h6></button>

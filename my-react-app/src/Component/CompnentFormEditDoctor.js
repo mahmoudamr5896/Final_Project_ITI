@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory ,useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import LocationFetcher from '../Component/Location'
 function EditDoctorPage({ userId }) {
   const [userData, setUserData] = useState({
     id:'',
@@ -14,7 +15,58 @@ function EditDoctorPage({ userId }) {
     location: '',
     appointment_price:0
   });
+//____________________________________________________________________
+const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [mapUrl, setMapUrl] = useState('');
 
+  const fetchLocation = (e) => {
+    e.preventDefault();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
+          setLatitude(lat);
+          setLongitude(long);
+          updateMapUrl(lat, long);
+          openGoogleMaps();
+        },
+        error => {
+          console.error('Error fetching location:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  };
+
+  const updateMapUrl = (lat, long) => {
+    const url = `https://www.google.com/maps?q=${lat},${long}`;
+    setMapUrl(url);
+  };
+
+  const openGoogleMaps = () => {
+    if (mapUrl) {
+      // Open Google Maps in a new tab
+    //   window.open(mapUrl, '_blank');
+    } else {
+      console.error('Map URL is not available.');
+    }
+  };
+
+  const handleLatitudeChange = event => {
+    const newLat = event.target.value;
+    setLatitude(newLat);
+    updateMapUrl(newLat, longitude);
+  };
+
+  const handleLongitudeChange = event => {
+    const newLong = event.target.value;
+    setLongitude(newLong);
+    updateMapUrl(latitude, newLong);
+  };
+//_____________________________________________________________________
   // "id": 5,
   // "username": "alimo",
   // "name": "Ali Ali",
@@ -47,7 +99,8 @@ function EditDoctorPage({ userId }) {
     }));
   };
 const handleSubmit = (e) => { 
-    // e.preventDefault();
+
+    e.preventDefault();
 
     // Create FormData object
     const formData = new FormData();
@@ -59,7 +112,7 @@ const handleSubmit = (e) => {
     formData.append('experience', userData.experience);
     formData.append('gender', userData.gender);
     formData.append('phone', userData.phone);
-    formData.append('location', userData.location);
+    formData.append('location', mapUrl);
     formData.append('appointment_price', userData.appointment_price);
 
     // Check if there's a new image selected
@@ -104,6 +157,9 @@ const[Error,setError]=useState()
           <label htmlFor="image" className="form-label">Image:</label>
           <input type="file" id="image" name="image" className="form-control" onChange={handleChange} />
         </div>
+        <div className=" mt-5" >
+          <button className='btn btn-success'  onClick={fetchLocation}>Get Current Location</button>
+        </div>
       </div>
       <div className='col-lg-6 col-md-12'>
         <div className="mb-3">
@@ -123,12 +179,12 @@ const[Error,setError]=useState()
           <input type="text" id="phone" name="phone" className="form-control" value={userData.phone} onChange={handleChange} />
         </div>
         <div className="mb-3">
-          <label htmlFor="location" className="form-label">Location:</label>
-          <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
-        </div>
-        <div className="mb-3">
           <label htmlFor="location" className="form-label">appointment_price:</label>
           <input type="text" id="location" name="appointment_price" className="form-control" value={userData.appointment_price} onChange={handleChange} />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="location" className="form-label">Location:</label>
+          <input type="text" id="location" name="location" className="form-control" value={userData.location} onChange={handleChange} />
         </div>
       </div>
     </div>

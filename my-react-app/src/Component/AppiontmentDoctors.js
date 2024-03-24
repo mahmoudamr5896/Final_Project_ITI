@@ -23,21 +23,22 @@ function AppointmentForm({ doctorInfo, doc_id}) {
   const [isValidphone, setIsValidphone] = useState(true);
   const [isValidprps, setIsValidprps] = useState(true);
   const history = useHistory();
-
   useEffect(() => {
     const userDataString = sessionStorage.getItem('userData');
     const userData = JSON.parse(userDataString);
     const userId = userData.id;
-
+//___________________________________________________
+//__________________________________________________________________
     // Fetch patients
     axios.get('http://127.0.0.1:8000/patients/')
       .then(response => {
+
         setPatients(response.data);
       })
       .catch(error => {
         console.error('Error fetching patients:', error);
       });
-
+ 
     // Fetch doctors
     axios.get('http://127.0.0.1:8000/doctors/')
       .then(response => {
@@ -60,7 +61,6 @@ function AppointmentForm({ doctorInfo, doc_id}) {
         console.error('Error fetching doctors:', error);
       });
   }, []);
-
   const HandelChangeAppontmentDoctor = (e) => {
     setDataAppointment({ ...DataAppointment, doctor: e.target.value });
   };
@@ -101,15 +101,51 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       console.log('Form validation failed');
     }
   };
+  const [Doct,setDoct] = useState({});
+  const fetchData = () => {
+    axios.get(`http://127.0.0.1:8000/doctors/${doc_id}/`)
+      .then((res)=>{
+        setDoct(res.data);
+      }) 
+      .catch(error => {
+        console.error('Error fetching doctor:', error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   return (
 <div className="container-xxl py-5">
   <div className="container">
     <div className="row g-5">
-      <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s"></div>
+      <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+      <h1 className="mb-4">Price Of Appiontment</h1>
+       <h1 className="mb-4 border">{Doct.appointment_price}</h1>
+          <div className="bg-light rounded d-flex align-items-center p-5 mb-4">
+                            <div className="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{ width: '55px', height: '55px' }}>
+                                <i className="fa fa-phone-alt "></i>
+                            </div>
+                            <div className="ms-4">
+                                <p className="mb-2">Call Us Now</p>
+                                <h5 className="mb-0">{Doct.phone}</h5>
+                            </div>
+          </div>     
+          <div className="bg-light rounded d-flex align-items-center p-5">
+                            <div className="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style={{ width: '55px', height: '55px' }}>
+                                <i className="fa fa-envelope-open "></i>
+                            </div>
+                            <div className="ms-4">
+                                <p className="mb-2">Mail Us Now</p>
+                                <h5 className="mb-0">mr.health@iti.com</h5>
+                            </div>
+          </div>
+      </div>
       <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
         <div className="bg-light rounded h-100 d-flex align-items-center p-5">
-          <form onSubmit={Save_Appointment} >
+           <form onSubmit={Save_Appointment} >
             <div className="row g-3">
               <div className="col-12">
                 <select
@@ -163,6 +199,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
 }
 
 export default AppointmentForm;
+
 {/* <div className="container-xxl py-5">
 <div className="container">
   <div className="row g-5">
