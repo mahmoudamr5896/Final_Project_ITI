@@ -605,7 +605,7 @@ return (
                                     <h1 style={{Color:"white"}}> Dr. {doctorInfo.name}</h1>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                       <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
-                                        <h5>&nbsp; Nutritionist &bull; {'{'}doctorInfo.gender{'}'} &bull; Age {'{'}doctorInfo.age{'}'}</h5> 
+                                        <h5>&nbsp; Nutritionist &bull; {doctorInfo.gender} &bull; { doctorInfo.age }years old</h5> 
                                     </div> 
                                     <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
                                 </div>

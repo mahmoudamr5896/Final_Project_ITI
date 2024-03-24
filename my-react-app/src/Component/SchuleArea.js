@@ -86,13 +86,9 @@ function ScheduleSection() {
                                         <i className="icofont-ui-clock"></i>
                                     </div>
                                     <div className="single-content" style={{height:'180px'}}>
-                                        <span>Donec luctus</span>
-                                        <h4>Opening Hours</h4>
-                                        <ul className="time-sidual mb-0">
-                                            <li className="day">Monday - Friday <span>8.00-20.00</span></li>
-                                            <li className="day">Saturday <span>9.00-18.30</span></li>
-                                            <li className="day">Monday - Thursday <span>9.00-15.00</span></li>
-                                        </ul>
+                                        <span>Our Services </span>
+                                        <h4>List of Doctors</h4>
+                                        <p>Disp;ay list of available doctors</p>
                                         {/* <Link className="">LEARN MORE<i className="fa fa-long-arrow-right"></i></Link> */}
                                     </div>
                                 </div>
