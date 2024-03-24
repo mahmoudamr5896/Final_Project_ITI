@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Dropdown, DropdownButton, Modal, Button } from "react-bootstrap";
 import UserMealplan from '../Component/UserMeaplan'
+import UserExerciseplan from '../Component/UserExerciseplan.js'
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import PayPalCheckoutButton from '../Component/PayPal'
 import PaymentForm from './Payment';
@@ -73,6 +74,7 @@ const [bmi, setBMI] = useState(null);
 const bmiValue = patientInfo.weight / (heightInMeters * heightInMeters);
 setBMI(bmiValue.toFixed(2));
     setShowInformation(true);
+    setExerciseplan(null);
     setShowAppointment(false);
     setShowEditProfile(false);
     setMealplan(null)
@@ -144,6 +146,7 @@ setBMI(bmiValue.toFixed(2));
     });
   };
 //__________________________________________________________________________________________________
+// meal plan
 const[Mealplan,setMealplan]=useState(null)
 const toggleMealplan =()=>{
 const data=(
@@ -152,11 +155,29 @@ const data=(
   </div >
 )
 setMealplan(data)
+setExerciseplan(false)
 setShowInformation(false);
 setShowAppointment(false);
 setShowEditProfile(false);
 
 }
+//________________________________________________________________________________
+//exercise paln
+const[Exerciseplan,setExerciseplan]=useState(null)
+const toggleExerciseplan =()=>{
+const data=(
+  <div className="mt-5">
+<UserExerciseplan userId={id}/>
+  </div >
+)
+setMealplan(false);
+setExerciseplan(data);
+setShowInformation(false);
+setShowAppointment(false);
+setShowEditProfile(false);
+
+}
+
 //________________________________________________________________________________
 // Appointment Rejected 
 const[Appointments,setAppointments]=useState([])
@@ -228,7 +249,8 @@ const toggleAppointment = () => {
   setShowInformation(false);
   setShowAppointment(true);
   setShowEditProfile(false);
-  setMealplan(null)
+  setMealplan(null);
+  setExerciseplan(null);
 };
 
 //___________________Section of Appiontment______________________________________
@@ -370,7 +392,7 @@ const Rejected_=()=>{
       <div className="navbar-nav">
         <button className="nav-link mx-2" onClick={toggleInformation}><h6 style={{ color: "green" }}>Information</h6></button>
         <button className="nav-link mx-2" onClick={toggleMealplan}><h6 style={{ color: "green" }}>Meal Plan</h6></button>
-        <button className="nav-link mx-2" ><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
+        <button className="nav-link mx-2" onClick={toggleExerciseplan}><h6 style={{ color: "green" }}>Exercise Plan</h6></button>
         <button className="nav-link mx-2" onClick={toggleAppointment}><h6 style={{ color: "green" }}>Appointment</h6></button>
         <DropdownButton
           id="dropdown-basic-button"
@@ -492,6 +514,7 @@ const Rejected_=()=>{
         </div>
       )}
        {Mealplan}
+       {Exerciseplan}
       {/* Render Appointment Section */}
       {showAppointment && (
         <div className="container">
@@ -592,9 +615,15 @@ marginLeft:"36%"
           <input className="form-check-input" type="checkbox" id="Heart_Disease"  checked={formData.Heart_Disease} onChange={(e) => setFormData({ ...formData, Heart_Disease: e.target.checked })} />
         </div>
       </div>
-        <div className="mb-3 d-flex justify-content-center " > {/* Align button to the center */}
-          <button type="submit" className="btn btn-primary" style={{ width: "50%", marginRight:"90%", marginTop:"10%" }}>Save Changes</button>
-        </div>
+      <div className="container">
+  <div className="row">
+    <div className="col-md-6 offset-md-3"> {/* Use offset-md-3 to center the column */}
+      <div className="mb-3 d-flex justify-content-center"> {/* Align button to the center */}
+        <button type="submit" className="btn btn-primary" style={{ width: "30%" }}>Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </form>
