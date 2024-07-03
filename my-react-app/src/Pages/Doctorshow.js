@@ -32,29 +32,12 @@ function DoctorDetails() {
       phone: "",
       location: ""
   });
-      // Bio: '',
-      // Img: '',
-      // name: '',
-      // Email: '',
-      // Phone: '',
-      // Location: '',
-      // Payment_Appointment: '',
-      // Password:'',
 
   useEffect(() => {
       axios(`http://127.0.0.1:8000/doctors/${id}/`)
           .then((res) => setDoctorInfo(res.data))
           .catch((err) => console.log(err));
   }, [id]);
-
-        // "username": "mahmoudsaleh",
-        // "name": "mahmoudundefined",
-        // "age": 27,
-        // "image": null,
-        // "experience": 0,
-        // "gender": "M",
-        // "phone": "+20",
-        // "location": "None"
 
 const [newReview, setNewReview] = useState('');
   const [error, setError] = useState(null);
@@ -64,32 +47,7 @@ const [newReview, setNewReview] = useState('');
     setNewReview(inputReview);
   };
 
-  // const handleReview = async (event) => {
-  //   event.preventDefault();
-  //   const reviewData = {
-  //     Rate: '⭐️⭐️⭐️',
-  //     Review: newReview,
-  //     User_id: 1,
-  //     Doctor_id: null, // Assuming you don't have doctorInfo, set this to null
-  //     User_name: 'mahmoud',
-  //     Doctor_Name: 'Dr. Example', // Replace 'Dr. Example' with the actual name of the doctor
-  //   };
-  //   const apiKey = 'id';
-  //   console.log(reviewData);
-  //   try {
-  //     const response = await axios.post('https://retoolapi.dev/NJuvHL/Reviews', reviewData, {
-  //       headers: {
-  //         Authorization: `Bearer ${apiKey}`,
-  //       },
-  //     });
-  //     console.log('Review posted successfully:', response.data);
-  //     setNewReview('');
-  //     setError(null);
-  //   } catch (error) {
-  //     console.error('Error posting review:', error);
-  //     setError('Error posting review');
-  //   }
-  // };
+
 //_______________________________________________________________________________________________
 const[showFullBio,setShowFullBio]=useState(null)
 const toggleShowFullBio = () => {
@@ -186,51 +144,7 @@ const[RatingData,setRatingData]=useState(null)
 const Select_Rating = ()=>{
 
 let data = (
-//  <div className="container row d-flex mt-5" style={{width:'80%'}}>
-//      <div className="col-6">
-//       <h3>Dr. {doctorInfo.name} Reviews</h3>
-//       <>Likelihood to recommend Dr.{doctorInfo.name}</>
-//       <div>Based on {doctorInfo.Rating} ratings</div>
-//       <h2>{doctorInfo.Rating}</h2>
-//       <p>4.1 average based on 254 reviews.</p>
-//      <hr style={{border:"3px solid #f1f1f1"}}/>
-//      </div>
-//      {/* <div className="col-6 border">
-//       <p className="pt-3">Leave Review</p>
-//       <hr></hr>
-//       <>How likely are you to recommend 
-//       <br></br>Dr.{doctorInfo.name}</><br></br>
-//       <div className="mt-4" >
-//              <i className="fas fa-star" onClick={handleChange_rate} name='1' ></i>                  
-//              <i className="fas fa-star" name='2' onClick={handleChange_rate}></i>
-//              <i className="fas fa-star" name='3'  onClick={handleChange_rate}></i>
-//              <span className="fa fa-star " name='4' onClick={handleChange_rate}></span>
-//              <span className="fa fa-star" name='5' onClick={handleChange_rate}></span> <br></br>
-//       </div>
-//        <div className='m-3'>Select Rating</div>
-//      </div> */}
-//      <ReviewComponent 
-//      doctorInfo={doctorInfo}
-//      />
-//      <div className="mt-5">
-//        <h3>Reviews</h3>
-//        <hr></hr>
-//        <div className="container"> 
-//          <CommentSection 
-//             doctorId={id}
-//             >
-//          </CommentSection>
-//        <hr>
-//        </hr>
-//       </div>
-    
-//      </div>
-   
-//     <DoctorReview
-//      doctor={doctorInfo}
-//      User={userDatas}
-//      />
-//  </div>
+
 <div className="container row mt-5" style={{ width: '80%' }}>
   <div className="col-lg-6">
     <h3>Dr. {doctorInfo.name} Reviews</h3>
@@ -241,21 +155,7 @@ let data = (
     <hr style={{ border: "3px solid #f1f1f1" }} />
   </div>
   <div className="col-lg-6">
-    {/* Commented out for responsiveness */}
-    {/* <div className="col-6 border">
-      <p className="pt-3">Leave Review</p>
-      <hr></hr>
-      <>How likely are you to recommend 
-      <br></br>Dr.{doctorInfo.name}</><br></br>
-      <div className="mt-4" >
-             <i className="fas fa-star" onClick={handleChange_rate} name='1' ></i>                  
-             <i className="fas fa-star" name='2' onClick={handleChange_rate}></i>
-             <i className="fas fa-star" name='3'  onClick={handleChange_rate}></i>
-             <span className="fa fa-star " name='4' onClick={handleChange_rate}></span>
-             <span className="fa fa-star" name='5' onClick={handleChange_rate}></span> <br></br>
-      </div>
-       <div className='m-3'>Select Rating</div>
-     </div> */}
+   
     <ReviewComponent
       doctorInfo={doctorInfo}
     />
@@ -424,44 +324,6 @@ const Select_Appon = ()=>{
 
 
 //_______    Handell  Delete Account    _____________________________________________________________
-// const updatePatientInfo = () => {
-//   axios(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
-//     .then((res) => console.log(res.data))
-//     .catch((err) => console.log(err));
-// };
-// const [isEditProfileOpen, setIsEditProfileOpen] = useState(null);
-// const toggleEditProfile = () => {
-//   const data=(
-//     <div className='container m-5'>
-//       <EditUserPage userId={id}
-//       updatePatientInfo={updatePatientInfo} />
-//   </div>
-//   )
-//   setIsEditProfileOpen(data);
-//   setAppointment(null)
-//   setAboutData(null)
-//   setExperienceData(null)
-//   setLocationData(null)
-//   setRatingData(null)
-// };
-
-//_____________________________________________________________________________________________________
-// const handleShowModal = () => setShowModal(true);
-// const handleCloseModal = () => setShowModal(false);
-
-// const handleDeleteAccount = () => {
-//   axios
-//     .delete(`https://retoolapi.dev/zP9Zhd/patient/${id}`)
-//     .then((response) => {
-//       console.log("Account deleted successfully:", response.data);
-//       setDeleteConfirmed(true);
-//       handleCloseModal();
-//       window.location.href = "/confirmation-page"; 
-//     })
-//     .catch((error) => {
-//       console.error("Error deleting account:", error);
-//     });
-// };
 
 //________________________________________________________________________________________________
 
@@ -494,6 +356,7 @@ const handleDeleteAccount = () => {
       console.log('Delete user',res)
     })
       sessionStorage.removeItem('userData');
+      localStorage.removeItem('userData');
       history.push('/')
     })
     .catch(error => {
@@ -618,7 +481,7 @@ return (
                                       <img src="/stethoscope.jpg" width={"35px"} className="rounded-circle"/>
                                         <h5>&nbsp; Nutritionist &bull; {doctorInfo.gender} &bull; { doctorInfo.age }years old</h5> 
                                     </div> 
-                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in {doctorInfo.location}, NY and has over {'{'}doctorInfo.experiece{'}'} years of experience in nutrition field. Graduated from University of {'{'}doctorInfo.university{'}'} of Medicine in {'{'}doctorInfo.graddate{'}'}. </p>
+                                    <br/><p>Dr.{doctorInfo.name}, MD is a Nutrition specialist in Cairo, NY and has over {doctorInfo.experience} years of experience in nutrition field. Graduated from University of {'{'} bani Suef University{'}'} of Medicine in {'{'}2018{'}'}. </p>
                                 </div>
                             </div> 
                             <div className="row docgradient">
@@ -696,6 +559,52 @@ return (
   );
 }
 export default DoctorDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
@@ -823,7 +732,21 @@ export default DoctorDetails;
 
 
 
-
+ {/* Commented out for responsiveness */}
+    {/* <div className="col-6 border">
+      <p className="pt-3">Leave Review</p>
+      <hr></hr>
+      <>How likely are you to recommend 
+      <br></br>Dr.{doctorInfo.name}</><br></br>
+      <div className="mt-4" >
+             <i className="fas fa-star" onClick={handleChange_rate} name='1' ></i>                  
+             <i className="fas fa-star" name='2' onClick={handleChange_rate}></i>
+             <i className="fas fa-star" name='3'  onClick={handleChange_rate}></i>
+             <span className="fa fa-star " name='4' onClick={handleChange_rate}></span>
+             <span className="fa fa-star" name='5' onClick={handleChange_rate}></span> <br></br>
+      </div>
+       <div className='m-3'>Select Rating</div>
+     </div> */}
 
     {/* <div className="col-12 border mt-4"  >
    <h5 className="text-start pt-3">Leave a review</h5>

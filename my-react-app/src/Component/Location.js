@@ -54,25 +54,7 @@ console.log(mapUrl)
   return (
     <div>
       <button onClick={fetchLocation}>Get Current Location</button>
-      {/* {latitude !== null && longitude !== null && (
-        <div>
-          <p>Latitude: {latitude}</p>
-          <input
-            type="text"
-            placeholder="Latitude"
-            value={latitude}
-            onChange={handleLatitudeChange}
-          />
-          <p>Longitude: {longitude}</p>
-          <input
-            type="text"
-            placeholder="Longitude"
-            value={longitude}
-            onChange={handleLongitudeChange}
-          /> 
-           <button onClick={openGoogleMaps}>Find Us on Google Maps</button> 
-        </div>
-      )}*/}
+     
     </div>
   );
 };

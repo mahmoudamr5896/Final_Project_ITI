@@ -6,7 +6,8 @@ const Reviews = ({id}) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewsPerPage] = useState(1); // Display only one review per page
-  const reviewData = useSelector(state => state.review);
+  const reviewData = useSelector(state => state.review.reviews);
+  const yourData = useSelector(state => state.data.data);
 
   useEffect(() => {
     // Fetch reviews from the API
@@ -18,7 +19,7 @@ const Reviews = ({id}) => {
       .catch(error => {
         console.error('Error fetching reviews:', error);
       });
-  }, [reviewData]);
+  }, [yourData]);
 
   // Get current review
   const currentReview = reviews.find((_, index) => index === currentPage - 1);

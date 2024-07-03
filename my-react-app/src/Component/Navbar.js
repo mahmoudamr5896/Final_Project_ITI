@@ -65,7 +65,7 @@ const dispatch = useDispatch()
               <Nav.Link as={Link} to="/doctors">Doctors</Nav.Link>
               <Nav.Link as={Link} to="">Services</Nav.Link>
               <Nav.Link as={Link} to="/About-us">About Us</Nav.Link>
-              <Nav.Link as={Link} to="">Contact Us</Nav.Link>
+              {/* <Nav.Link as={Link} to="">Contact Us</Nav.Link> */}
               {userDatas && userDatas.role === 'Patient' && (
               <Nav.Link as={Link} to={`/user/${User_id}`}>profile</Nav.Link>
               )}

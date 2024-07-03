@@ -98,8 +98,9 @@ const [latitude, setLatitude] = useState(null);
       [name]: newValue
     }));
   };
-const handleSubmit = (e) => { 
-
+  const[successMessage,setSuccessMessage]=useState('')
+  const[errorMessage,setErrorMessage]=useState('')
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Create FormData object
@@ -121,15 +122,21 @@ const handleSubmit = (e) => {
     }
 
     // Make a PATCH request with FormData
-    axios.patch(`http://127.0.0.1:8000/doctors/${userData.id}/`, formData)
+    axios.put(`http://127.0.0.1:8000/doctors/${userData.id}/`, formData)
         .then(response => {
             console.log('User data updated successfully:', response.data);
-            // history.push(`profile/${userData.id}`);
+            setSuccessMessage('User data updated successfully');
+            setErrorMessage(''); // Clear any previous error message
         })
         .catch(error => {
             console.error('Error updating user data:', error);
+            setErrorMessage('Error updating user data');
+            setSuccessMessage(''); // Clear any previous success message
         });
 };
+
+
+
 
 const history = useHistory()
 const[Error,setError]=useState()
@@ -191,12 +198,67 @@ const[Error,setError]=useState()
     <button type="submit" className="btn btn-sm btn-primary mt-3" style={{ width: '150px' }}>Save Changes</button>
     <p className='text-danger'>{Error}</p>
   </form>
+  {successMessage && <p className="text-success">{successMessage}</p>}
+        {errorMessage && <p className="text-danger">{errorMessage}</p>}
 </div>
 
   );
 }
 
 export default EditDoctorPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  // <div className='container m-5'>
     //   {/* <h1>Edit Doctor Profile</h1> style={{width:'500px'}}*/}
     //   <form   onSubmit={handleSubmit}  >

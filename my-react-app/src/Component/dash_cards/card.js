@@ -56,7 +56,7 @@ useEffect(() => {
   return (
     <div>
       <div className="cards">
-        <div className="Dash_cards">
+        <div className="Dash_cards pt-3">
           <div className="icon">
             <FontAwesomeIcon icon={faUsers} />
           </div>
@@ -65,7 +65,7 @@ useEffect(() => {
           <p style={{ color: "white" }}>Number Of current Appointments </p>
         </div>
         <div className="Dash_cards">
-          <div className="icon">
+          <div className="icon pt-3">
             <FontAwesomeIcon icon={faStar} />
           </div>
           <h2 style={{ color: "white" }}>Ratings</h2>
@@ -73,7 +73,7 @@ useEffect(() => {
           <p style={{ color: "white" }}> Number Of All Ratings</p>
         </div>
         <div className="Dash_cards">
-          <div className="icon">
+          <div className="icon pt-3">
             <FontAwesomeIcon icon={faDollarSign} />
           </div>
           <h2 style={{ color: "white" }}>Profit</h2>

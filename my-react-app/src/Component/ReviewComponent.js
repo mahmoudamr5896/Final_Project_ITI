@@ -122,10 +122,10 @@ function ReviewSection({ doctorId }) {
                   {Array.from({ length: review.Rate }, (_, index) => (
                     <span key={index}>⭐️</span>
                   ))}
-                  <p className="font-weight-bold name"  style={{ textAlign: 'center', width:'100px' }}>{review.Review}</p>
+                  <h6 className="text-dark text-center"  style={{ textAlign: 'center'}}>{review.Review}</h6>
                 </span>
                 <div className="mt-2">
-                  <p className="comment-text" style={{width:'100px'}}>{review.comment}</p>
+                  {/* <h1 className="comment-text font-weight-bold name" style={{width:'200px'}}>{review.comment}</h1> */}
                   {userData && userData.role === 'Patient' && userData.id === review.User_id && (
                     <Dropdown alignRight>
                       <Dropdown.Toggle style={{

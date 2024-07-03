@@ -25,30 +25,45 @@ function DoctorScheduleForm({ doctorId }) {
   const getNext10Days = () => {
     const today = new Date();
     const next10Days = [];
-    for (let i = 1; i <= 10; i++) {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+    for (let i = 0; i < 7; i++) {
       const nextDay = new Date(today);
       nextDay.setDate(today.getDate() + i);
-      const formattedDate = nextDay.toISOString().slice(0, 10); // Format: YYYY-MM-DD
-      const dayName = nextDay.toLocaleDateString('en-US', { weekday: 'long' }); // Get day name
-      next10Days.push({ date: formattedDate, day: dayName });
+      const dayName = daysOfWeek[nextDay.getDay()]; // Get day name using the day index
+      next10Days.push({ day: dayName });
     }
     return next10Days;
   };
+  
 const User_id = userDatas.id
   const next10Days = getNext10Days();
+const[Error_w,setError_w]=useState('')
   const handleSubmit = (event) => {
     event.preventDefault();
 
+
     if (!startTime || !endTime) {
-      alert('Please select both start and end times.');
+      setError_w('Please select both start and end times.');
       return;
     }
+  
+    // Convert start and end times to Date objects for comparison
+    const startDate = new Date(`1970-01-01T${startTime}`);
+    const endDate = new Date(`1970-01-01T${endTime}`);
+  
+    // Check if start date is greater than or equal to end date
+    if (startDate >= endDate) {
+      setError_w('Start time must be earlier than end time.');
+      return;
+    }
+  
 
     const scheduleData = {
       day: selectedDay,
       start_time: startTime,
       end_time: endTime, 
-     doctor: userDatas.id
+      doctor: userDatas.id
 
     };
 
@@ -57,6 +72,7 @@ const User_id = userDatas.id
       axios.put(`http://127.0.0.1:8000/availabilities/${editingScheduleItemId}/`, scheduleData)
         .then(response => {
           console.log('Schedule item updated successfully:', response.data);
+          setError_w('')
           setEditingScheduleItemId(null); // Clear the editing schedule item ID
           // Fetch the updated doctor's schedule after updating
           axios.get(`http://127.0.0.1:8000/availabilities/?doctor=${doctorId}`)
@@ -95,7 +111,7 @@ const User_id = userDatas.id
     setEndTime('');
   };
   
-
+//__________________________________________________________________________
   const handleDelete = (id) => {
     axios.delete(`http://127.0.0.1:8000/availabilities/${id}/`)
       .then(response => {
@@ -113,7 +129,7 @@ const User_id = userDatas.id
         console.error('Error deleting schedule item:', error);
       });
   };
-
+//_____________________________________________________________
   const handleEdit = (id) => {
     // Find the schedule item to be edited based on its ID
     const scheduleItemToEdit = doctorSchedule.find(item => item.id === id);
@@ -133,7 +149,7 @@ const User_id = userDatas.id
    <div className="col-md-4">
      <div className="form-group">
        <label htmlFor="day">Day:</label>
-       <select
+       {/* <select
          id="day"
          value={selectedDay}
          onChange={(e) => setSelectedDay(e.target.value)}
@@ -148,7 +164,49 @@ const User_id = userDatas.id
          <option value="Friday">Friday</option>
          <option value="Saturday">Saturday</option>
          <option value="Sunday">Sunday</option>
-       </select>
+       </select> */}
+<select
+  id="day"
+  value={selectedDay}
+  onChange={(e) => setSelectedDay(e.target.value)}
+  className="form-control"
+  required
+>
+  <option value="">Select Day</option>
+  {next10Days.map(day => {
+    const isDaySelected = doctorSchedule.some(item => item.day === day.day);
+    if (!isDaySelected) {
+      return (
+        <option key={day.date} value={day.date}>
+          {day.day}
+        </option>
+      );
+    } else {
+      return null; 
+    }
+  })}
+</select>
+
+{/* <select
+  id="day"
+  value={selectedDay}
+  onChange={(e) => setSelectedDay(e.target.value)}
+  className="form-control"
+  required
+>
+  <option value="">Select Day</option>
+  {next10Days.map(day => (
+    // Disable the option if it already exists in the doctor's schedule
+    <option
+      key={day.date}
+      value={day.date}
+      disabled={doctorSchedule.some(item => item.day === day.day)}
+    >
+      {day.day}
+    </option>
+  ))}
+</select> */}
+
      </div>
    </div>
    <div className="col-md-4">
@@ -176,7 +234,8 @@ const User_id = userDatas.id
          required
        />
      </div>
-   </div>
+   </div>     <p className='text-center text-danger'>{Error_w}</p>
+
  </div>
  <button type="submit" className="btn btn-primary" style={{ width: '100px' }}>Save</button>
 </form>
@@ -239,6 +298,65 @@ const User_id = userDatas.id
 }
 
 export default DoctorScheduleForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // <div className="doctor-schedule-form">
     //   {userDatas && userDatas.role === 'Doctor' && (

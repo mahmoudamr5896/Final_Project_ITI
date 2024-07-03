@@ -81,26 +81,39 @@ function AppointmentForm({ doctorInfo, doc_id}) {
       DataAppointment.problems.trim() !== ''
     );
   };
-
-  const Save_Appointment = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      console.log('DataAppointment', DataAppointment);
-      axios.post('http://127.0.0.1:8000/appointments/', DataAppointment)
-        .then(response => {
-          console.log('Appointment posted successfully:', response.data);
-          // history.push(`/profile/${doctorInfo.id}`);
-          DataAppointment.problems('')
-          DataAppointment.date_time('')
-          
-        })
-        .catch(error => {
-          console.error('Error posting Appointment:', error);
+const[Error,setError]=useState('')
+const[Success,setSuccess]=useState('')
+const Save_Appointment = (event) => {
+  event.preventDefault();
+  if (validateForm()) {
+    console.log('DataAppointment', DataAppointment);
+    axios.post('http://127.0.0.1:8000/appointments/', DataAppointment)
+      .then(response => {
+        console.log('Appointment posted successfully:', response.data);
+        setSuccess('Appointment posted successfully');
+        setError(''); // Clear error message
+        // Clear form fields after successful submission
+        setDataAppointment({
+          ...DataAppointment,
+          date_time: '',
+          problems: ''
         });
-    } else {
-      console.log('Form validation failed');
-    }
-  };
+      })
+      .catch(error => {
+        console.error('Error posting Appointment:', error);
+        setError('Error Send Appointment');
+        setSuccess(''); // Clear success message
+      });
+  } else {
+    console.log('Form validation failed');
+    setError('Form validation failed');
+    setSuccess(''); // Clear success message
+  }
+};
+
+
+
+
   const [Doct,setDoct] = useState({});
   const fetchData = () => {
     axios.get(`http://127.0.0.1:8000/doctors/${doc_id}/`)
@@ -179,6 +192,8 @@ function AppointmentForm({ doctorInfo, doc_id}) {
                 )}
               </div>
               <div className="col-12">
+                <p className='text-success'>{Success}</p>
+                <p className='text-danger'>{Error}</p>
                 <button
                   type="submit"
                   className="btn btn-success w-100 py-3"
@@ -186,6 +201,7 @@ function AppointmentForm({ doctorInfo, doc_id}) {
                 >
                   Book Appointment
                 </button>
+  
               </div>
             </div>
           </form>
@@ -199,6 +215,33 @@ function AppointmentForm({ doctorInfo, doc_id}) {
 }
 
 export default AppointmentForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {/* <div className="container-xxl py-5">
 <div className="container">

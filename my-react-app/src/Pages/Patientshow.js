@@ -62,9 +62,6 @@ const handleShowPaymentForm = (appointmentId) => {
       })
       .catch((err) => console.log(err));
   
-    axios(`https://retoolapi.dev/2jV2W1/Appointment?User_id=${id}`)
-      .then((res) => setAppointmentInfo(res.data[0]))
-      .catch((err) => console.log(err));
   }, [id]);
 //_________________________________________________________________
 const [bmi, setBMI] = useState(null);
@@ -650,6 +647,66 @@ marginLeft:"36%"
 }
 
 export default PatientDetails;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
